@@ -1,0 +1,24 @@
+1) IEEE 754 y Casos Especiales: En el formato de coma flotante IEEE 754, la combinación de los bits de exponente y mantisa permite representar valores no numéricos o límites. Indique exactamente qué patrón de bits en el exponente y en la mantisa se requiere para representar: a) ± Infinito (±∞) b) Not a Number (NaN) c) ± Cero
+
+2) Decodificación de Hamming: Su computadora recibe el siguiente dato de 12 bits expresado en notación hexadecimal, codificado mediante el algoritmo de Hamming (con paridad par): 7B0. Sabiendo que el mensaje ha sufrido un error durante la transmisión: a) Demuestre matemáticamente qué bit es el erróneo calculando el síndrome. b) Corrija el error y extraiga la tira de bits de datos original. c) Determine a qué carácter de la tabla ASCII corresponde el dato extraído.
+
+3) Mapeo Asociativo por Conjuntos (N Vías): Considere una memoria Caché Asociativa de 2 Vías (Vía 0 y Vía 1) cuya dirección física de 8 bits se divide en el formato: Etiqueta (3 bits) | Línea (3 bits) | Byte (2 bits). Observe el estado actual de la Línea 6 de la caché
+
+    Vía 0 - Línea 6: Etiqueta 100 | Datos (Byte 3 a 0): 05, 5C, A6, 56
+    Vía 1 - Línea 6: Etiqueta 110 | Datos (Byte 3 a 0): F8, C2, 27, 70
+
+Se solicita acceder a la dirección de memoria física D9 (expresada en hexadecimal). Determine: a) Los valores binarios de la Etiqueta, la Línea y el Byte. b) ¿Se produce un Acierto (Hit) o un Fallo (Miss)? En caso de acierto, indique cuál es el dato hexadecimal almacenado.
+
+3.1) Políticas de Caché: Defina qué es el Caching y mencione al menos tres algoritmos o políticas de sustitución/reemplazo que puede ejecutar el controlador cuando necesita actualizar la caché y ésta se encuentra llena
+
+4) Biestables (Flip-Flops): Explique la diferencia fundamental entre un circuito combinacional y un circuito secuencial. Partiendo de un Flip-Flop J-K, detalle qué conexiones físicas y lógicas se deben realizar en sus entradas para convertirlo matemáticamente en un Flip-Flop tipo T. Indique cuál es la función de este biestable.
+
+5) Programación en Assembly 8085: Escriba un programa en lenguaje ensamblador 8085 que realice la siguiente tarea estructurada
+:
+
+    En la dirección de memoria 3000h se indica el largo (cantidad de elementos) de una lista.
+    Dicha lista de datos inicia a partir de la dirección 3001h.
+    En la dirección C500h hay guardado un "dato de control" de 8 bits.
+    Se debe recorrer la lista y para todos aquellos elementos que sean menores al dato guardado en C500h se debe guardar 67h en una direccion equivalente empezando desde la 5001, por ejemplo:
+    	Si el dato en 3005h es < al de C500h entonces se guarda 67h en la direccion 5005h.
+    Al finalizar, se debe guardar justo al final de la lista la cantidad exacta de elementos que fueron convertidos a cero. 
