@@ -1,0 +1,121 @@
+Azul;28-junio-2026;17:00;Algo nublado;15 km;13.1;No se calcula; 41;Sur  5;1000.3 / 
+ Bahía Blanca;28-junio-2026;17:00;Algo nublado;15 km;12.4;No se calcula; 53;Oeste  16;1006.9 / 
+ Benito Juárez;27-junio-2026;21:00;Algo nublado;15 km;5.2;No se calcula; 90;Calma;994 / 
+ Bolívar;28-junio-2026;17:00;Despejado;15 km;14.4;No se calcula; 38;Sudoeste  7;1007.8 / 
+ Campo de Mayo;28-junio-2026;17:00;Despejado;10 km;13.3;No se calcula; 62;Sur  9;1015.2 / 
+ Coronel Suarez;28-junio-2026;15:00;Parcialmente nublado;15 km;13.2;No se calcula; 51;Oeste  22;990.1 / 
+ Dolores;28-junio-2026;17:00;Despejado;10 km;12.2;No se calcula; 68;Sudoeste  7;1016.2 / 
+ El Palomar;28-junio-2026;17:00;Despejado;10 km;13.8;No se calcula; 55;Sudoeste  14;1016.5 / 
+ Ezeiza;28-junio-2026;17:00;Algo nublado;10 km;13.4;No se calcula; 58;Sur  9;1015.6 / 
+ Junín;28-junio-2026;17:00;Despejado;15 km;13.8;No se calcula; 49;Sudoeste  11;1009.7 / 
+ La Plata;28-junio-2026;17:00;Despejado;10 km;12.6;No se calcula; 67;Sur  13;1015.6 / 
+ Las Flores;28-junio-2026;15:00;Despejado;15 km;13;No se calcula; 60;Sudeste  11;1014.1 / 
+ Mar del Plata;28-junio-2026;17:00;Algo nublado;10 km;12.4;No se calcula; 57;Oeste  13;1014.4 / 
+ Mariano Moreno;28-junio-2026;17:00;Despejado;10 km;13.6;No se calcula; 58;Sur  14;1014.1 / 
+ Merlo;28-junio-2026;17:00;Despejado;10 km;15;No se calcula; 58;Sur  9;1016.5 / 
+ Morón;28-junio-2026;17:00;Despejado;10 km;14;No se calcula; 61;Sur  18;1014.6 / 
+ Nueve de Julio;28-junio-2026;15:00;Despejado;15 km;14.5;No se calcula; 56;Sudoeste  11;1010.4 / 
+ Olavarría;28-junio-2026;15:00;Despejado;15 km;13.3;No se calcula; 50;Sudoeste  11;998.6 / 
+ Pehuajó;28-junio-2026;17:00;Algo nublado;15 km;14.8;No se calcula; 52;Norte  9;1008.6 / 
+ Pigué;27-junio-2026;21:00;Algo nublado;20 km;4;1.6; 83;Sur  9;983.4 / 
+ Punta Indio B.A.;28-junio-2026;17:00;Despejado;10 km;11.8;No se calcula; 88;Sudoeste  14;1014.8 / 
+ San Fernando;28-junio-2026;17:00;Despejado;10 km;13.8;No se calcula; 57;Sudoeste  14;1017 / 
+ Tandil;28-junio-2026;17:00;Algo nublado;20 km;12.4;No se calcula; 46;Sudoeste  9;996.6 / 
+ Trenque Lauquen;28-junio-2026;15:00;Algo nublado;15 km;15.1;No se calcula; 49;Norte  5;1008.5 / 
+ Tres Arroyos;28-junio-2026;15:00;Algo nublado;15 km;12.4;No se calcula; 59;Oeste  14;1004 / 
+ Villa Gesell;28-junio-2026;17:00;Algo nublado;10 km;11.1;No se calcula; 80;Sur  3;1016 / 
+ Aeroparque Buenos Aires;28-junio-2026;17:00;Despejado;10 km;14.3;No se calcula; 54;Sur  9;1017 / 
+ Buenos Aires;28-junio-2026;17:00;Despejado;10 km;14;No se calcula; 59;Sur  9;1014.8 / 
+ Catamarca;28-junio-2026;17:00;Algo nublado;20 km;19.4;No se calcula; 37;Noreste  7;964.1 / 
+ Tinogasta;28-junio-2026;15:00;Parcialmente nublado;20 km;16.6;No se calcula; 41;Sur  9;880.6 / 
+ Pcia. Roque Saenz Peña;28-junio-2026;17:00;Despejado;20 km;20.8;No se calcula; 46;Sur  18;1006.6 / 
+ Resistencia;28-junio-2026;17:00;Algo nublado;15 km;20.9;No se calcula; 42;Sur  16;1011.2 / 
+ Comodoro Rivadavia;28-junio-2026;17:00;Parcialmente nublado con lluvia en la hora anterior;30 km;10.6;No se calcula; 67;Sur  16;1006 / 
+ Esquel;28-junio-2026;17:00;Algo nublado;30 km;6.7;3.2; 55;Sudoeste  20;924.4 / 
+ Paso De Indios;28-junio-2026;15:00;Parcialmente nublado;45 km;9;4.8; 52;Sudoeste  37;957 / 
+ Puerto Madryn;28-junio-2026;17:00;Parcialmente nublado;30 km;9.6;7.0; 54;Oeste  18;997 / 
+ Trelew;28-junio-2026;17:00;Parcialmente nublado;30 km;10.6;No se calcula; 51;Oeste  18;1008.4 / 
+ Córdoba;28-junio-2026;17:00;Despejado;15 km;15.7;No se calcula; 36;Sur  9;961.8 / 
+ Córdoba Observatorio;28-junio-2026;17:00;Despejado;10 km;16.3;No se calcula; 35;Este  9;970 / 
+ Esc. Aviación Militar;28-junio-2026;17:00;Despejado;10 km;15.4;No se calcula; 34;Este  7;962 / 
+ Laboulaye;28-junio-2026;17:00;Despejado;15 km;13.7;No se calcula; 48;Sudoeste  9;1004.2 / 
+ Marcos Juárez;28-junio-2026;17:00;Despejado;20 km;13.5;No se calcula; 51;Sur  20;1006.8 / 
+ Pilar Obs.;28-junio-2026;17:00;Despejado;10 km;15;No se calcula; 31;Sur  14;980.2 / 
+ Río Cuarto;28-junio-2026;17:00;Despejado;15 km;13;No se calcula; 49;Sur  14;969.7 / 
+ Villa Dolores;28-junio-2026;17:00;Despejado;30 km;16.1;No se calcula; 80;Sur  13;952.8 / 
+ Villa María Del Río Seco;28-junio-2026;15:00;Algo nublado;10 km;19.6;No se calcula; 43;Sur  9;980.5 / 
+ Corrientes;28-junio-2026;17:00;Parcialmente nublado;10 km;19.2;No se calcula; 53;Sudoeste  20;1009.8 / 
+ Ituzaingó;28-junio-2026;15:00;Cubierto con llovizna en la hora anterior;15 km;16.6;No se calcula; 95;Sudeste  11;1007.4 / 
+ Mercedes;28-junio-2026;15:00;Parcialmente nublado;15 km;19.8;No se calcula; 40;Sur  24;1004.5 / 
+ Monte Caseros;28-junio-2026;17:00;Algo nublado;20 km;17.4;No se calcula; 46;Sudoeste  18;1011 / 
+ Paso De Los Libres;28-junio-2026;17:00;Algo nublado;10 km;17.9;No se calcula; 45;Sudoeste  11;1009 / 
+ Concordia;28-junio-2026;17:00;Algo nublado;15 km;16.4;No se calcula; 53;Sudoeste  16;1013.1 / 
+ Gualeguaychú;28-junio-2026;17:00;Despejado;15 km;14.1;No se calcula; 70;Sur  11;1014.9 / 
+ Paraná;28-junio-2026;17:00;Algo nublado;15 km;14.5;No se calcula; 53;Sur  24;1010 / 
+ Formosa;28-junio-2026;17:00;Nublado con lluvia;9 km;18.3;No se calcula; 86;Sur  13;1009.7 / 
+ Las Lomitas;28-junio-2026;15:00;Cubierto con llovizna;5 km;17.2;No se calcula; 93;Sur  14;1001.8 / 
+ Mount Pleasant Airport (Islas Malvinas);28-junio-2026;17:00;Cubierto;Sin información;5.2;0.1; 90;Noroeste  33;989.5 / 
+ La Quiaca;28-junio-2026;17:00;Algo nublado;30 km;14.1;No se calcula; 30;Este  9;671 / 
+ Jujuy;28-junio-2026;17:00;Parcialmente nublado;15 km;18.8;No se calcula; 41;Sur  9;915.4 / 
+ Jujuy Universidad Nacional;28-junio-2026;15:00;Cubierto;15 km;14.8;No se calcula; 66;Este  3;874 / 
+ General Pico;28-junio-2026;17:00;Algo nublado;20 km;14.1;No se calcula; 46;Noroeste  9;1001.6 / 
+ Victorica;27-junio-2026;21:00;Parcialmente nublado;40 km;10.3;No se calcula; 58;Este  9;981.2 / 
+ Santa Rosa;28-junio-2026;17:00;Algo nublado;30 km;13.6;No se calcula; 43;Oeste  13;995.4 / 
+ Chamical;28-junio-2026;17:00;Despejado;20 km;17.7;No se calcula; 27;Sudeste  9;965.3 / 
+ Chepes;28-junio-2026;15:00;Despejado;15 km;14.8;No se calcula; 35;Calma;945.6 / 
+ Chilecito;26-junio-2026;21:00;Despejado con polvo en suspensión;15 km;12.4;No se calcula; 56;Sur  5;911.3 / 
+ La Rioja;28-junio-2026;17:00;Despejado;20 km;18.8;No se calcula; 29;Noreste  3;967.8 / 
+ Malargue;28-junio-2026;17:00;Parcialmente nublado;20 km;8.4;6.9; 25;Noreste  9;858.4 / 
+ Mendoza;28-junio-2026;17:00;Despejado;15 km;13.2;No se calcula; 31;Norte  11;937.2 / 
+ Mendoza Observatorio;28-junio-2026;17:00;Despejado;15 km;11.6;No se calcula; 46;Noreste  7;923 / 
+ San Martín (Mza);28-junio-2026;17:00;Despejado;15 km;13.6;No se calcula; 28;Norte  11;942.2 / 
+ San Rafael;28-junio-2026;17:00;Despejado;20 km;15.1;No se calcula; 21;Norte  18;931.1 / 
+ Uspallata;28-junio-2026;15:00;Despejado;15 km;9.6;No se calcula; 39;Calma;810.8 / 
+ Bernardo De Irigoyen;28-junio-2026;15:00;Nublado con tormenta en la hora anterior;2.5 km;16;No se calcula; 100;Sur  14;923.7 / 
+ Iguazú;28-junio-2026;17:00;Nublado con tormenta;3.0 km;16.5;No se calcula; 100;Sur  18;983.4 / 
+ Oberá;27-junio-2026;21:00;Cubierto con lluvia;10 km;13.8;No se calcula; 97;Sur  3;980.8 / 
+ Posadas;28-junio-2026;17:00;Nublado con lluvia;8 km;15.9;No se calcula; 96;Este  5;1001.8 / 
+ Chapelco;28-junio-2026;17:00;Algo nublado;15 km;7;3.0; 53;Oeste  25;928.8 / 
+ Neuquén;28-junio-2026;17:00;Parcialmente nublado;15 km;11;No se calcula; 37;Sudoeste  25;986.4 / 
+ Bariloche;28-junio-2026;17:00;Parcialmente nublado;10 km;6.4;1.8; 58;Oeste  31;922 / 
+ Cipolletti;27-junio-2026;21:00;Algo nublado;25 km;7;5.6; 71;Sudoeste  7;991.6 / 
+ El Bolsón;28-junio-2026;15:00;Parcialmente nublado;30 km;10.3;No se calcula; 57;Calma;982.5 / 
+ Maquinchao;28-junio-2026;17:00;Parcialmente nublado;40 km;6.4;---;---;Calma;915.2 / 
+ Río Colorado;28-junio-2026;15:00;Algo nublado;15 km;13.4;No se calcula; 46;Oeste  24;1007.4 / 
+ San Antonio Oeste;28-junio-2026;15:00;Parcialmente nublado;30 km;11.3;No se calcula; 36;Oeste  24;1015 / 
+ Viedma;28-junio-2026;17:00;Parcialmente nublado;30 km;11.1;No se calcula; 57;Noroeste  13;1014 / 
+ Metán;28-junio-2026;15:00;Parcialmente nublado con bruma;13 km;17.8;No se calcula; 55;Sur  9;922.3 / 
+ Orán;28-junio-2026;17:00;Nublado;10 km;20.8;No se calcula; 61;Oeste  14;976.1 / 
+ Rivadavia;28-junio-2026;15:00;Cubierto;20 km;17.4;No se calcula; 50;Sur  3;990 / 
+ Salta;28-junio-2026;17:00;Parcialmente nublado;15 km;16.6;No se calcula; 45;Noreste  9;881.8 / 
+ Tartagal;28-junio-2026;15:00;Nublado;10 km;20.6;No se calcula; 49;Sur  24;966.7 / 
+ Jachal;28-junio-2026;15:00;Despejado con polvo en suspensión;10 km;10.6;No se calcula; 42;Sur  14;887.7 / 
+ San Juan;28-junio-2026;17:00;Despejado;15 km;14;No se calcula; 36;Este  3;949.6 / 
+ San Luis;28-junio-2026;17:00;Algo nublado;20 km;13.2;No se calcula; 30;Direcciones Variables  3;936.8 / 
+ Santa Rosa del Conlara;28-junio-2026;17:00;Despejado;20 km;14.2;No se calcula; 31;Este  9;946.9 / 
+ Villa Reynolds;28-junio-2026;17:00;Despejado;15 km;13.6;No se calcula; 31;Sudoeste  9;963 / 
+ El Calafate;28-junio-2026;17:00;Algo nublado;30 km;6.2;1.4; 42;Oeste  33;987.4 / 
+ Gobernador Gregores;28-junio-2026;15:00;Despejado;45 km;7.8;3.2; 25;Oeste  37;967.4 / 
+ Perito Moreno;28-junio-2026;17:00;Algo nublado;50 km;6.8;1.9; 53;Oeste  37;963.4 / 
+ Puerto Deseado;28-junio-2026;15:00;Parcialmente nublado con lluvia en la hora anterior;30 km;6.9;2.3; 75;Sur  33;997.8 / 
+ Río Gallegos;28-junio-2026;17:00;Despejado;30 km;4.5;-0.6; 62;Oeste  29;1005.2 / 
+ San Julián;28-junio-2026;15:00;Algo nublado;30 km;8;3.3; 48;Sudoeste  40;1001.3 / 
+ Santa Cruz;27-junio-2026;21:00;Algo nublado;30 km;2.3;-3.2; 79;Norte  27;999.3 / 
+ Ceres;28-junio-2026;17:00;Algo nublado;15 km;16.7;No se calcula; 50;Sur  14;1009.4 / 
+ Rafaela;28-junio-2026;15:00;Despejado;10 km;16.9;No se calcula; 44;Sur  24;1009.7 / 
+ Reconquista;28-junio-2026;17:00;Algo nublado;15 km;18.4;No se calcula; 51;Sur  24;1012.2 / 
+ Rosario;28-junio-2026;17:00;Despejado;15 km;14.7;No se calcula; 53;Sur  18;1016 / 
+ Santa Fe;28-junio-2026;17:00;Despejado;12 km;15.4;No se calcula; 52;Sur  25;1017.4 / 
+ Sunchales;28-junio-2026;17:00;Despejado;15 km;15.4;No se calcula; 47;Sur  14;1008.8 / 
+ Venado Tuerto;28-junio-2026;17:00;Despejado;10 km;14;No se calcula; 56;Sur  24;1006 / 
+ Termas de Rio Hondo;28-junio-2026;17:00;Despejado;12 km;20.6;No se calcula; 40;Oeste  9;985.7 / 
+ Santiago del Estero;28-junio-2026;17:00;Despejado;10 km;22;No se calcula; 41;Sudeste  5;995 / 
+ Río Grande B.A.;28-junio-2026;17:00;Despejado;30 km;2.6;-3.4; 72;Oeste  33;997.4 / 
+ Ushuaia;28-junio-2026;17:00;Parcialmente nublado;30 km;3.8;-0.2; 48;Oeste  18;990.5 / 
+ Tucumán;28-junio-2026;17:00;Despejado con humo;9 km;19.4;No se calcula; 43;Sur  11;967 / 
+ Base Belgrano II;28-junio-2026;15:00;Nublado con nevada;5 km;-17.7;-23.2; 73;Noroeste  7;937 / 
+ Base Esperanza;28-junio-2026;15:00;Algo nublado con ventisca baja;6 km;0.1;-9.4; 82;Oeste  74;956.1 / 
+ Base Carlini;28-junio-2026;15:00;Cubierto con neblina;5 km;1;-7.9; 97;Noroeste  70;964.8 / 
+ Base Marambio;28-junio-2026;17:00;Algo nublado con ventisca baja;8 km;-2;-13.1; 87;Noroeste  90;928.4 / 
+ Base Orcadas;28-junio-2026;15:00;Cubierto con llovizna;6 km;0.7;-7.7; 96;Norte  59;989 / 
+ Base San Martín;28-junio-2026;15:00;Cubierto con neblina;5 km;-3;-6.0; 86;Este  7;950.5 / 

@@ -1,0 +1,24 @@
+- Que es la probabilidad.
+- Formas de obtener la probabilidad.
+- Definiciones de conjuntos.
+	- Tipos de eventos.
+- Axomas y formula.
+- Probabilidad condicional.
+- Tipos de sucesos.
+- Análisis combinatorio.
+
+### CLASE
+**PROBABILIDADES 
+- va de 0-1 y en porcentajes, se trabaja en decimales.
+- TIPOS:**
+	- **CLASICA**: Laplace, equidad entre eventos.
+	- **FRECUENCIAL**: Experimentar la probabilidad, cuando se repite el experimento tendiendo a infinito, va a tenender el resultado a la clasica.
+	- **SUBJETIVISTA**: Suposicion de un individuo de la probabilidad en base a su experiencia.
+- Diagramas de venn
+- Leyes.
+- probabilidad condicionales: casos favorables (union), casos totales (B)
+- Teorema de bayes
+	- En casos de multiples grupos: Incluis todos los casos para determinar que probabilidad tiene ese evento de haber sucedido tomando las probabilidades individuales de cada uno. 
+- Propiedad 6
+
+
