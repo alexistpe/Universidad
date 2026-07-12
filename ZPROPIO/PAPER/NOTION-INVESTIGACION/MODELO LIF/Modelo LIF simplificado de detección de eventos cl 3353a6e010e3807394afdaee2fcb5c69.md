@@ -1440,6 +1440,7 @@ Se quiere desarrollar un modelo predictor de eventos de lluvia basado en el mode
 **Se plantean los siguientes requisitos:**
 
 - Origen de los datos.
+- Presicion de los datos / metodos de recoleccion.
 - Ubicaciones a predecir por el modelo.
 - Rango de prediccion.
 - Epoca del año.
@@ -1455,16 +1456,20 @@ Se quiere desarrollar un modelo predictor de eventos de lluvia basado en el mode
 | --- | --- | --- |
 | Geografia | Ubicacion fija. | Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella, Cordoba, Argentina. |
 | Rango | Horizonte a muy corto plazo. | 2h a 5Min. |
-| Estaciones | Determinada (Analisis) | Se entrenara en cada estacion en particular y luego se entrenara en base a todas las estaciones, se comparara cada modelo para determinar que estacion tiene mayor tasa de acierto y si el entrenamiento en base a estaciones particulares es superior al entrenamiento en general con todas las estaciones. |
-| Proveedor | Externo | Se utilizara un proveedor que permita acceder a los datos de forma directa y eficaz para el entrenamiento. No seran datos extraidos de forma individual, sino que se utilizaran datos provistos por la institucion dueña de la infrestructura. https://open-meteo.com/ |
+| Estaciones del año | Determinada (Analisis) | Se entrenara en cada estacion en particular y luego se entrenara en base a todas las estaciones, se comparara cada modelo para determinar que estacion tiene mayor tasa de acierto y si el entrenamiento en base a estaciones particulares es superior al entrenamiento en general con todas las estaciones. |
+| Proveedor | Externo | Se utilizara un proveedor que permita acceder a los datos de forma directa y eficaz para el entrenamiento. No seran datos extraidos de forma particular, sino que se utilizaran datos provistos por la institucion dueña de la infrestructura. https://open-meteo.com/ |
 | Evento | Evento de Lluvia | Se buscara predecir unicamente eventos de lluvia que provoquen precipitaciones. |
 | Implementaciontecnica | Accesible y simple | Se eligira un lenguaje y IDE que permita extraer los datos de forma sencilla y eficaz, entrenar el modelo LIF a desarrollar y brindar correctamente los resultados extraidos del modelo. 
 Se buscara algo eficaz y sencillo de trabajar que sea util para la investigacion debido al interes centrado en la comparativa y no en la implementacion eficiente u optimizacion del programa final. |
 | Modelo comparativo | Umbrales fijos | Se utilizara un modelo tradicional basado en umbrales fijos especificado en metodologia para comparar la presicion del modelo LIF simplificado. |
-| Datos | 6 datos principales | Se extraeran 6 datos fundamentales de los sensores brindados por el proveedor, que permitan entrenar el modelo, estos son: Temperatura, presion, humedad, precipitacion, viento (velocidad|direccion).
+| Variables | 6 datos principales | Se extraeran 6 datos fundamentales de los sensores brindados por el proveedor, que permitan entrenar el modelo, estos son: Temperatura, presion, humedad, precipitacion, viento (velocidad|direccion).
 Se utilizara la precipitacion como confirmacion de que ocurrio la lluvia, con el objetivo de utilizarlo como feedback en el entrenamiento del modelo (Metrica de exito). |
 | Modelo a desarrollar | Basico y determinista | El modelo matematico LIF a utilizar representara una red minima de apenas 6 neuronas que representaran individualmente cada sensor especificado (Temperatura, presion, humedad, viento (velocidad|direccion), evento de lluvia (Neurona de alerta)). Se utilizara la ecuacion diferencial ordinaria que representa al comportamiento de una neurona, y se ajustaran los valores de cada una de las 6 neuronas individualmente en el “entrenamiento”.
 Se ajustaran los valores con el entrenamiento que permita maximizar la presicion y simplicidad de ejecucion. |
+| Presicion de los datos | Alta para el entrenamiento. | Debido a las limitantes de acceso confiable a datos historicos disponibles en sensores especificos de bajo costo se decidio:
+  • Utilizar datos de estaciones que forman parte del SMN para la recoleccion de datos gracias a su facil acceso, obtenidos con dispositivos profecionales que cumplen los estandares de la MMO.
+  • Posteriormente se añadira ruido a estos datos precisos para simular los datos de un sensor de bajo costo.
+  • Se entrenaran 2 instancias del modelo LIF para comprobar su adaptacion a las diferentes precisiones en los datos disponibles.  |
 
 #### Que NO se va a hacer
 
@@ -1473,9 +1478,9 @@ Se detallan las caracteristicas y areas que NO va a abordar esta investigacion:
 - NO se entrenara un mismo modelo para multiples ubicaciones diferentes.
 - NO se desarrollara para rangos de predicion de mas de dos horas. Aunque pueda lograr una prediccion de ese rango.
 - NO se predeciran tormentas. Solo se predeciran eventos de lluvia especificados en la metodologia.
-- NO se utilizaran datos mas complejos a los especificados, como imagenes satelitales. Solo se utilizaran 5 sensores terrestres determinados como:  Temperatura, presion, humedad, precipitacion, viento (velocidad|direccion).
+- NO se utilizaran datos mas complejos a los especificados, como imagenes satelitales. Solo se utilizaran 5 sensores terrestres determinados como:  Temperatura del aire, presion atmosferica, humedad relativa, precipitacion, viento (velocidad|direccion).
 - NO incorporara un sistema de alerta temprana que se comunique con organismos, autoridades, ciudadanos o cualquier infrestructura de alerta compleja . Solo se alertara de forma simbolica en el software desarrollado.
-- NO se utilizaran sensores personales para el entrenamiento, analisis u desarrollo. Se utilizaran datos de un proveedor externo.
+- NO se utilizaran sensores personales para los datos utilizados en el entrenamiento, analisis u desarrollo. Se utilizaran datos de un proveedor externo debido a las limitaiones tecnicas. Se especifica el modo de analisis en la metodologia.
 - NO se implementara en hardware embebido real. Solo se simulara por software.
 - NO se desarrollara un modelo probabilistico. Se utilizara el modelo matematico LIF deterministico que representara una red neuronal de tercera generacion simplificada.
 - NO se centrara optimizar la latencia de los dispositivos u otro atributo tecnico relacionado. Se centrara en desarrollar un modelo teorico predictivo util.
@@ -1629,16 +1634,57 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     | **Presión Atmosférica** | Fuerza por unidad de área ejercida por el peso de la columna de aire. | hPa / mb | Su caída es un indicador de mal tiempo y tormentas. Es la base de la dinámica atmosférica. |
     | **Viento (Vel/Dir)** | Movimiento horizontal del aire. Dirección: de dónde viene. Velocidad: rapidez del desplazamiento. | m/s, km/h, kn / ° | Transporta humedad y sistemas frontales. Clave en tormentas severas. |
     | **Precipitación** | Producto líquido o sólido de la condensación del vapor de agua que cae de las nubes. | mm | Variable objetivo. Es el resultado del proceso que tu modelo busca predecir. |
-- ¿De que forma se miden los datos?
+- **¿De que forma se miden los datos? Metodos**
     
-    Determinar el formato de medicion de estos datos necesarios, para que no haya ambiguedades en la forma de medirlos.
+    Determinar el formato de medicion de estos datos necesarios y el metodo teorico necesario:
     
-- ¿De donde se obtienen los datos?
+    **Temperatura del Aire:** 
     
-    determinar pagina donde se obtienen, y resaltar porque no utilizar otras paginas mas rigurosas como la de OMM, o capaz el SMN, o algo asi, y justificar hasta la muerte el uso de open meteo y no la utilizacion de otra fuente o de datos propios.
+    - **Método de medición estándar (OMM):** La OMM establece que la temperatura del aire debe medirse con un termómetro (de mercurio, resistencia o termistor) ubicado dentro de un abrigo meteorológico (garita) que lo proteja de la radiación solar directa y de la  precipitación, permitiendo al mismo tiempo la circulación del aire.
+    - El sensor debe estar a una altura estándar de 1.25 a 2 metros sobre el suelo. La medición se realiza en grados Celsius (°C), que es la unidad que se utilizara.
+    - **Método propuesto (bajo costo):** Se utilizara un sensor digital DHT22 (o similar como el AM2302). Este sensor integra un **termistor NTC** (Coeficiente de Temperatura Negativo) para medir la temperatura. Un termistor NTC es una resistencia cuya valor disminuye al aumentar la temperatura. El DHT22 convierte internamente esta resistencia a una señal digital 
+    que el microcontrolador (Arduino, ESP32, etc.) puede leer fácilmente.
     
-    Justificar que los datos recolectados efectivamente cumplan los metodos explicados en la seccion anterior.
+    **Humedad Relativa:**
     
+    - **Método de medición estándar (OMM):** La OMM especifica que la humedad relativa (HR) se mide con un **higrómetro**, que puede ser de varios tipos: de cabello, de condensación (punto de rocío), o eléctricos (capacitivos o de resistencia).
+    - El método más común en estaciones automáticas es el **sensor capacitivo**, que mide los cambios en la capacitancia de un polímero o material dieléctrico al absorber o liberar vapor de agua. La unidad de medida es el porcentaje (%).
+    - **Método propuesto (bajo costo):** Se utilizara el mismo **sensor DHT22**, que incorpora un **sensor de humedad capacitivo**. Este sensor consiste en un condensador con un dieléctrico que absorbe humedad. Al cambiar la humedad, la constante dieléctrica del material cambia, lo que modifica la capacitancia del sensor. Este cambio se convierte en una señal digital que se transmite al microcontrolador.
+    
+    **Presion Atmosférica:**
+    
+    - **Método de medición estándar (OMM):** La presión atmosférica se mide con un barómetro. El estándar actual son los barómetros electrónicos (basados en sensores piezoresistivos o capacitivos).
+    - Estos sensores contienen un diafragma de silicio que se deforma con la presión, generando un cambio en su resistencia eléctrica (efecto piezoresistivo) o en su capacitancia. La unidad de medida es el hectopascal (hPa), que es equivalente al milibar (mb) y que se utilizara en el proyecto.
+    - **Método propuesto (bajo costo):** Se utilizara un sensor BMP180 o BMP280. Estos son sensores de presión barométrica MEMS (Micro-Electro-Mechanical Systems) que utilizan un diafragma piezoresistivo para medir la presión . El cambio en la resistencia del diafragma se convierte en un valor digital que se comunica al microcontrolador a través de protocolos I2C o SPI.
+    
+    **Viento (Velocidad y Dirección):**
+    
+    - **Método de medición estándar (OMM):** La OMM especifica que la velocidad del viento se mide con un anemómetro, y la dirección con una veleta.
+    - El anemómetro de cazoletas (tres o cuatro cazoletas que giran con el viento) y la veleta son los instrumentos más comunes.
+        - La velocidad se mide en m/s, km/h o nudos; Se utilizara km/h.
+        - La dirección se mide en grados (°), donde 0° es el Norte, 90° el Este, etc. La altura estándar de medición es de 10 metros sobre el suelo.
+    - **Método propuesto (bajo costo):** Se utilizara un anemómetro de cazoletas y una veleta, que suelen venir en kits como el SparkFun Weather Meter Kit. El anemómetro utiliza un interruptor de lengüeta (reed switch) que se cierra cada vez que las cazoletas completan una revolución, generando un pulso. La velocidad del viento es directamente proporcional a la frecuencia de estos pulsos. La veleta está acoplada a un potenciómetro que varía su resistencia según la orientación de la veleta. Esta resistencia se mide como un voltaje analógico, que se traduce en un ángulo de dirección.
+    
+    **Precipitación:**
+    
+    - **Método de medición estándar (OMM):** La OMM especifica que la precipitación se mide con un pluviómetro. El tipo más común en estaciones automáticas es el pluviómetro de cubeta basculante (tipping bucket).
+    - Este instrumento consiste en un embudo que dirige el agua de lluvia a un pequeño balde o cucharón dividido en dos compartimentos. Cuando el balde se llena con una cantidad fija de agua (por ejemplo, 0.2 mm), se inclina y se vacía, generando un pulso eléctrico (a través de un interruptor de lengüeta) que es contado por el microcontrolador. La precipitación se mide en milímetros (mm), que es la unidad que se utilizara.
+    - **Método propuesto (bajo costo):** Se utilizara el mismo pluviómetro de cubeta basculante que viene en kits como el de SparkFun. Este pluviómetro tiene una resolución típica de 0.2 mm por pulso. Cada vez que la cubeta se inclina, el interruptor de lengüeta se cierra y el microcontrolador registra un "pulso" de lluvia. El total de precipitación se calcula multiplicando el número de pulsos por la resolución del pluviómetro.
+- **¿De donde se obtienen los datos?**
+    
+    **Obtencion:** La recoleccion de datos para el entrenamiento del modelo sera proporcionada por un ente externo, no datos propios.
+    
+    **Justificacion y abordaje:** Debido a los limitantes en los datos historicos necesarios para un entrenamiento eficaz, se utilizaran los datos extraidos de las estaciones del servicio meteorologico nacional. 
+    
+    - Estas estaciones estan compuestas de dispositivos que recolectan los datos de cada variable de forma mucho mas precisa y confiable que un equipo de bajo costo.
+    - El objetivo de esta fuente es entrenar el modelo LIF de con datos historicos proporcionados por una cierta estacion de la red del SMN. Y posteriormente entrenar otra instancia del modelo pero con los datos indicidos a ruido y variaciones propias de los dispositivos de bajo costo para probar la flexibilidad del modelo independientemente de la calidad de los dispositivos.
+    - Se determinara el porcentaje de presicion que diferencia a ambos tipos de mediciones (profecional y bajo costo).
+    - La recoleccion y posterior entrenamiento con datos propios en sensores de bajo costo se delega a una proxima apleacion de la investigacion actual (trabajo futuro).
+    
+    **Estacion elegida:** Se eligio a la estacion “Aeropuerto Regional Villa María (Aeropuerto Regional Presidente Néstor Kirchner)” debido a la cercania local y la recoleccion de datos necesarias para el analisis.
+    
+    - Otra opcion es la utilizacion de la estacion “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella” que forma parte de las estaciones del servicio meteorologico nacional cumpliendo estandares de la Organización Meteorológica Mundial (OMM).
+    - Sin embargo el Aeropuerto Regional Villa María permite una mayor factibilidad para la futura adaptacion de los datos.
 - ¿Que ubicacion se utilizaran para el analisis?
 - ¿Que frecuencia de muestreo se utilizara?
 
@@ -1780,3 +1826,21 @@ La deteccion temprana de lluvia local sigue siendo un desafio actual en zonas co
     **contribución:**
     
     Se busca validar la viabilidad del sistema propuesto como herramienta para la deteccion de lluvia en entornos locales a bajo costo.
+    
+
+## 5) Inquietudes/Problemas a resolver.
+
+1. Multiples analisis diferentes para la justificacion.
+    1. El paper consiste en una premisa clara de comparar un modelo LIF con un modelo de umbrales fijos.
+    2. A medida que se avanzo en la especificacion del modelo, surgieron diferentes ambiguedades que se decidio limitar para centrar el caracter comparativo del paper junto al desarrollo del modelo, y no derivar en multiples comparaciones varias.
+    3. Luego se propuso para abordar estas ambiguedades la comparativa de multiples variables, lo que lleva a una extension del paper y un posible trabajo demaciado abarcativo por “miedo” de no ser lo suficientemente riguroso o detallado.
+    4. Las “comparaciones extras” que surgieron en esta especificacion fueron:
+        1. **Estacionalidades:** Al tener alta variabilidad para la prediccion de lluvia en diferentes epocas del año, se decidio realizar 5 instancias del modelo diferente, las cuales seran entrenadas cada una en una estacion del año diferente y la quinta sera entrenada con los datos de todos los años en general (sin excluir estaciones).
+        2. **Presicion de los sensores:** Al no tener la disponibilidad de datos historicos para entrenar el modelo con datos de sensores de bajo costo, y existiendo la imposibilidad logistica y de tiempo de viajar a una estacion con los dispositivos pertinentes para adaptar los datos historicos de la estacion meteorologia a las variaciones pertinentes de los dispositivos de bajo costo.
+            1. Se utilizaran los datos de la estacion de alta precision local, como la de villa maria en el Presidente Néstor Kirchner Regional Airport, sin embargo se piensa añadir ruido a las mediciones precisas para entrenar 2 instancias del modelo y comparar su presicion:
+                1. La intancia que se entrena con los datos precisos y la intancia que se entrenara con los datos alterados. Luego se comparara su presicion para determinar el la medida porcentual de aciertos de cada modelo bajo el mismo periodo de tiempo.
+2. Datos inconsisos:
+    1. Se plantea la obtencion de datos de la estacion “Aeropuerto Regional Villa María”, sin embargo los datos se extran no de su pagina web oficial sino de un proveedor externo que permite un como uso de la API, el cual es openmeteo.
+        1. ¿Esa API realmente muestra los datos oroginales? ¿Que tan seguro y fiable es? ¿Existen alternativas?
+        2. ¿La estacion elegida es realmente la ideal, no existen otras estaciones con mayor sustento para la investigacion? ¿Es realmente fiable los datos recolectados de esta esatcion? ¿Se conoce sus dispositivos?
+        3.  Si es fiable a nivel de datos, presicion y dispositivos para esta investigacion, ¿Es justificacion suficiente la eleccion de esta estacion para una proxima ampleacion del paper con datos historicos de la estacion adaptados a dispositivos de bajo costo?

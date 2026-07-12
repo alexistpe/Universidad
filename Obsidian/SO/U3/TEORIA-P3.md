@@ -223,7 +223,7 @@ Entre mas baja una capa, mas "tonta" es, pero mas rapida.
 
 - El **orden jerarquico** parte de: Proceso de usuario <-> E/S logica <-> E/S dispositivo <-> Planificacion y control <-> Hardware
 
-#### Importancia de los buffers de E/S:
+#### Importancia de los buffers de E/S: DMA tonto
 En una situacion donde no existieran los bufffers de E/S, un proceso que este funcionando en la ram, puede emitir una lectura de E/S, y al delectar esa lectura al modulo DMA (que solo realiza su funcion de mover bytes), si la memoria RAM esta saturada y ve que el proceso se bloqueo por alguna razon (espera de E/S), lo elimina de la ram transladandolo a la memoria swap, remplazando el lugar en la RAM del primer proceso por otro proceso externo. El problema es que cuando el modulo DMA termine de leer los bytes del dispositivo, los guardara en la misma posicion de memoria que le indicaron (donde esta el nuevo proceso), pisandolo y corrompiendolo.
 - En resumen:
 - Proceso pide lectura de bytes.

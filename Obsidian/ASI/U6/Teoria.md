@@ -354,5 +354,42 @@ Se detallan los siguientes items:
 - Jerarquia de estados: Los procesos mas complejos utilizan estados organizados en jerarquias para poder representar comportamientos mas complejos.
 	- Los estados compuestos contienen subestados que a su vez pueden tener transiciones o eventos propios.
 
-#### Definiciones tecnicas de los estados:
+#### Definiciones graficas de los estados:
+**Initial y Final: Estados iniciales y finales.**
+- Inicial: Es un punto negro.
+- Final: Es un circulo con un punto negro en el centro.
+- Ambos se pueden nombrar.
+- ![[Pasted image 20260710151655.png]]
 
+**Transiciones:**
+- Se dibujan como lineas con flechas.
+- Pueden tener diferentes nombres:
+	- Trigger: Referencia la causa de la transicion.
+	- Guard: Una condicion, debe ser verdadera para que la transicion ocurra.
+	- Effect: Es una accion que se llama por la transicion ocurrida.
+	- ![[Pasted image 20260710152010.png]]
+**Acciones:**
+- Es una operacion atomica realizada independiente de cualquier evento.
+- Continuara hasta finalizar sin importar el evento que ocurra.
+- Puede ser:
+	- Una llamada a una operacion.
+	- Creacion o destruccion de un objeto.
+	- Envio de una señal a un objeto.
+**Actividades:**
+- Una actividad es una situacion donde un objeto recorre diferentes estados y acciones.
+- Puede ser interrumpida por eventos.
+**Estado:**
+- Se representa por un rectangulo con bordes redondeados.
+- Este es vertical y se divide en 3 secciones:
+	- Nombre.
+	- Valor de los atributos en ese estado.
+	- Acciones a realizar en ese estado.
+	- Respectivamente.
+- En la practica solo utilizamos el "nombre", quedando un rectangulo horizontal.
+- ![[Pasted image 20260710152953.png]]
+
+#### Ejemplo:
+![[Pasted image 20260710153014.png|747]]
+![[Pasted image 20260710153046.png|461]]
+#### Conclusiones:
+La maquinas de estado permiten diagramar diversas situaciones de forma estructurada y clara. Permitiendo una documentacion y planificacion mas precisa para ciertas situaciones que puedan ocurrir en el caso a analizar.
