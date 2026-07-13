@@ -1,6 +1,6 @@
 # Modelo LIF simplificado de detección de eventos climáticos
 
-Debilidad: Tenés que ser muy preciso en llamarlo "modelo LIF simplificado inspirado en neurociencia computacional" y no "red neuronal de picos" ni "SNN”
+Debilidad: Se debe llamar "modelo LIF simplificado inspirado en neurociencia computacional" y no "red neuronal de picos" ni "SNN”
 
 > Uso de redes LIF (Integración y Disparo con Fugas) para procesar datos solo cuando son necesarios, ahorrandose computo innesesario a comparacion de las redes ANN para deteccion de cambios.
 > 
@@ -1559,7 +1559,7 @@ Aqui se expandira los pasos a realizar y la dinamica que tendra esta investigaci
 
 - La capacidad del modelo LIF simplificado para predecir eventos de lluvia en entornos locales en base a la recoleccion de datos con diversos sensores.
 
-### Metodologia inicial (provisoria):
+### Metodologia inicial (antigua):
 
 - **Recolectar los datos necesarios.**
     - Identificar las variables que el modelo LIF utilizara para la prediccion.
@@ -1589,7 +1589,7 @@ Aqui se expandira los pasos a realizar y la dinamica que tendra esta investigaci
 
 ---
 
-### Metodología (diseño experimental)
+### Metodología Preguntas Fundamentales.
 
 Se define el paso a paso de como se desarrollara y evaluara el proyecto:
 
@@ -1685,10 +1685,57 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
     - Otra opcion es la utilizacion de la estacion “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella” que forma parte de las estaciones del servicio meteorologico nacional cumpliendo estandares de la Organización Meteorológica Mundial (OMM).
     - Sin embargo el Aeropuerto Regional Villa María permite una mayor factibilidad para la futura adaptacion de los datos.
-- ¿Que ubicacion se utilizaran para el analisis?
-- ¿Que frecuencia de muestreo se utilizara?
+- ¿Quien provee los datos?
+    
+    Inicialmente se planeo la utilizacion de “Open meteo”, sin embargo, se esta viendo de utilizar alternativas mas rigurosas.
+    
+    - Meteostat
+    - API que tome los datos directamente de la SMN, o similar.
+    - La red del INTA.
+    
+    Lo mas fundamental es una herramienta que permita recuperar los datos historico en masa, de forma ordenada y confiable para su utilizacion.
+    
+    Los datos se extraeran de forma cruda, sin interpolaciones si no es completamente necesario. Esto debido a representar fielmente la obtencion de datos en un entorno local.
+    
+    EL SCRIPT PARA DETERMINAR EL USO DE LA API LO ESTA HACIENDO EN EL CHAT DE OPENCODE.
+    
+- **¿Que ubicacion se utilizara para el analisis?**
+    
+    **Ubicacion:** La ubicacion utilizada sera **local**, en el **Aeropuerto Regional Presidente Néstor Kirchner** **Villa maria, Cordoba, Argentina.**
+    
+    **Justificacion:** Se eligio esta ubicacion debido a ser mi localidad, tener la infrestructura, datos historicos para entrenar el modelo, y utilizar esta investigacion para una futura extension con datos extraidos directamente de dispositivos de bajo costo, y comparar de forma veridica las diferencias con la estacion meteorologica de alta precision.
+    
+- **¿Que frecuencia de muestreo se utilizara?**
+    
+    **Frecuencia:** Los datos seran extraidos en rangos de una hora.
+    
+    **Justificacion:** Es la frecuencia minima que la estacion provee de forma abierta, y esta comprobado que resulta suficiente para una prediccion confiable con el sistema adecuado.
+    
+    **Rango de fechas:** Se analizara la estacion meteorologica a recolectar los datos, y se verificara durante que rango de fechas se utilizaron los mismos dispositivos de medicion.
+    
 
 #### Preprosesamiento de los datos:
+
+Verificar y agregar/modificar preguntas.
+
+- ¿Como se utilizan los datos para el entrenamiento?
+    
+    Describir si los datos se normalizan, se adaptan, o se utilizan en crudo.
+    
+- ¿Como se maneja la falta de datos?
+    
+    Que sucede si un dia la estacion no transmitio los datos.
+    
+- ¿Se utiliza algun metodo estadistico?
+    
+    Se utilizara algun metodo para identificar una especie de “distribucion normal”, donde se identifiquen los datos lejos del promedio?
+    
+- ¿Como se utilizaran los datos de eventos exepcionales (lejos del promedio)?
+    
+    ¿Hay que aplicar alguna modificacion, restriccion o algo similar a los datos que son muy poco usuales?
+    
+    ¿Pueden estos datos perjudicar la precision?
+    
 
 #### Modelo LIF:
 
@@ -1707,6 +1754,306 @@ Define paso a paso cómo ejecutarás tu experimento:
 | **5. Protocolo de evaluación** | ¿Cómo medirás éxito? ¿Qué métricas? (precisión, recall, F1, tasa de falsos positivos) |
 
 **Tu tarea:** Escribe un borrador de los 5 pasos anteriores, con el nivel de detalle que te permita empezar a programar.
+
+### Metodologia Paso a Paso:
+
+- GUIA METODOLOGIA DEEPSEEK:
+    
+    # Metodología de Preprocesamiento de Datos para el Modelo LIF de Predicción de Lluvia
+    
+    El preprocesamiento es la etapa más crítica de tu investigación, ya que determina la calidad de los datos que alimentarán tu modelo LIF. Una metodología deficiente en esta fase puede invalidar todo el trabajo posterior, incluso si el modelo es excelente. Por eso, es fundamental abordarla con el máximo rigor.
+    
+    A continuación, te presento una guía completa y detallada, estructurada en dos partes:
+    
+    1. **Preguntas Fundamentales:** Las preguntas que debes responder para cada sub-paso, que te guiarán en la toma de decisiones metodológicas.
+    2. **Metodología Paso a Paso:** Un procedimiento concreto, reproducible y justificado, adaptado a tu contexto de sensores de bajo costo y datos de estaciones profesionales.
+    
+    ---
+    
+    ## Parte 1: Preguntas Fundamentales para el Preprocesamiento
+    
+    Estas preguntas son el esqueleto de tu metodología. Responderlas te obligará a definir cada aspecto con claridad y a justificar tus elecciones.
+    
+    ### 1. Adquisición y Calidad de los Datos (Datos Faltantes y Outliers)
+    
+    | # | Pregunta | ¿Qué implica? |
+    | --- | --- | --- |
+    | 1.1 | **¿Cuál es el porcentaje de datos faltantes en mi dataset y cuál es su patrón?** | Determinar si los faltantes son aleatorios o sistemáticos (ej. fallas del sensor en horas de lluvia intensa). |
+    | 1.2 | **¿Qué umbral de tolerancia a datos faltantes voy a aplicar y por qué?** | Decidir si elimino la hora/día si falta más del X% de los datos. El SMN usa 20% para datos cada 10 minutos. |
+    | 1.3 | **¿Qué método usaré para imputar o interpolar los datos faltantes?** | ¿Interpolación lineal, interpolación por vecinos, o simplemente eliminar la observación? |
+    | 1.4 | **¿Cómo identificaré y trataré los outliers (valores anómalos)?** | ¿Por desviación estándar (ej. > 3σ), por rango intercuartil (IQR), o por un criterio físico (ej. temperatura > 60°C)? |
+    | 1.5 | **¿Qué hago con los outliers?: ¿los elimino, los corrijo o los trato como eventos especiales?** | Para tu proyecto, un outlier podría ser una señal de tormenta, no un error. Esto es clave. |
+    
+    ### 2. Frecuencia Temporal y Resolución
+    
+    | # | Pregunta | ¿Qué implica? |
+    | --- | --- | --- |
+    | 2.1 | **¿Cuál es la frecuencia de muestreo original de los datos (ej. 10 min, 1 hora)?** | Definir la resolución temporal base del dataset. |
+    | 2.2 | **¿A qué frecuencia debo remuestrear (upsampling o downsampling) los datos para mi modelo LIF?** | Decidir si usaré los datos tal cual (ej. 10 min) o los agruparé (ej. 15 min). |
+    | 2.3 | **¿Cuál es el horizonte de predicción (lead time) que busco?** | ¿Quiero predecir la lluvia en 30 minutos? ¿1 hora? Esto define la etiqueta de entrenamiento. |
+    | 2.4 | **¿Qué ventana temporal de entrada (lookback window) usaré?** | ¿Cuántos pasos de tiempo atrás usaré para predecir el futuro? (ej. 60 minutos de historia para predecir los próximos 30). |
+    | 2.5 | **¿Cómo manejaré la estacionalidad diaria y mensual?** | ¿Agrupo por hora del día? ¿Por estación del año? |
+    
+    ### 3. Simulación del Comportamiento de Sensores de Bajo Costo
+    
+    | # | Pregunta | ¿Qué implica? |
+    | --- | --- | --- |
+    | 3.1 | **¿Qué características de los sensores de bajo costo necesito simular?** | Ruido, sesgo sistemático, deriva, menor resolución. |
+    | 3.2 | **¿Cuáles son los errores documentados de los sensores que usaré (ej. DHT22, BMP280)?** | Investigar en hojas de datos y en la literatura (ej. el estudio del KNMI). |
+    | 3.3 | **¿Cómo modelaré el ruido: ruido gaussiano, ruido de cuantificación, o ambos?** | Definir la distribución y la magnitud del ruido. |
+    | 3.4 | **¿Qué sesgos sistemáticos debo introducir?** | Ej. el DHT22 tiende a sobreestimar la humedad en ambientes secos y subestimar en ambientes muy húmedos. |
+    | 3.5 | **¿Cómo afectará la menor resolución (ej. temperatura con 0.5°C vs 0.1°C) a los datos?** | Redondear los valores o cuantificarlos. |
+    | 3.6 | **¿Cómo validaré que la simulación es realista?** | ¿Compararé con datos reales de bajo costo si llegara a tenerlos? |
+    
+    ### 4. Normalización y Escalado
+    
+    | # | Pregunta | ¿Qué implica? |
+    | --- | --- | --- |
+    | 4.1 | **¿Qué método de normalización usaré?** | Min-Max (escalar entre 0 y 1), Z-score (media 0, desviación 1), o robusto (basado en cuartiles). |
+    | 4.2 | **¿Normalizaré todas las variables con el mismo método?** | ¿O cada variable requiere un tratamiento diferente? |
+    | 4.3 | **¿Los parámetros de normalización (media, desviación) los calcularé sobre todo el dataset o por estación del año?** | Esto afecta la generalización del modelo. |
+    | 4.4 | **¿La normalización se hará antes o después de la simulación de bajo costo?** | El orden es importante. |
+    
+    ### 5. Codificación para el Modelo LIF (Variables a Spikes)
+    
+    | # | Pregunta | ¿Qué implica? |
+    | --- | --- | --- |
+    | 5.1 | **¿Qué método de codificación usaré para convertir las variables continuas a spikes?** | Codificación por tasa (frecuencia de spikes), codificación por tiempo (latencia), o por umbral (delta modulation). |
+    | 5.2 | **¿Qué tasa de spikes máxima (máx. frecuencia) utilizaré?** | Define la resolución temporal del código de spikes. |
+    | 5.3 | **¿Normalizaré las variables antes de la codificación para que los rangos sean comparables?** | Sí, es fundamental. |
+    | 5.4 | **¿Cómo manejaré las variables con diferentes rangos y unidades?** | Asegurar que todas contribuyan equitativamente a la membrana de la neurona LIF. |
+    
+    ### 6. Creación de la Variable Objetivo (Etiqueta)
+    
+    | # | Pregunta | ¿Qué implica? |
+    | --- | --- | --- |
+    | 6.1 | **¿Cómo definiré el evento de "lluvia" que quiero predecir?** | ¿Precipitación > 0.2 mm en 10 min? ¿> 1 mm en 1 hora? Definir el umbral. |
+    | 6.2 | **¿Con qué horizonte temporal definiré el evento?** | ¿Predecir si lloverá en los próximos 30 minutos? ¿1 hora? |
+    | 6.3 | **¿Crearé una etiqueta binaria (llueve/no llueve) o continua (intensidad esperada)?** | Para una alerta temprana, lo más útil es la etiqueta binaria. |
+    | 6.4 | **¿Cómo manejaré los eventos de lluvia de baja intensidad (trazas)?** | ¿Los consideraré como lluvia o los ignoraré? Definir un umbral mínimo. |
+    
+    ### 7. Separación de Datos para Entrenamiento y Prueba
+    
+    | # | Pregunta | ¿Qué implica? |
+    | --- | --- | --- |
+    | 7.1 | **¿Qué proporción de datos usaré para entrenamiento, validación y prueba?** | Ej. 70% entrenamiento, 15% validación, 15% prueba. |
+    | 7.2 | **¿Mantendré el orden temporal o haré una división aleatoria?** | Para series temporales, **nunca** se usa división aleatoria. Se respeta el orden cronológico. |
+    | 7.3 | **¿Dejaré un "período de calentamiento" (warm-up) antes de la prueba?** | Para que el modelo LIF pueda estabilizar su estado de membrana. |
+    | 7.4 | **¿Cómo aseguraré que los eventos de lluvia estén representados en todas las particiones?** | Usar validación cruzada con bloques temporales o asegurar una distribución balanceada. |
+    
+    ---
+    
+    ## Parte 2: Metodología de Preprocesamiento Paso a Paso
+    
+    A continuación, te presento el procedimiento concreto que deberías seguir. Lo he estructurado en pasos lógicos y justificados, basados en la literatura científica y en los estándares de la OMM.
+    
+    ### Metodología de Preprocesamiento para el Modelo LIF de Predicción de Lluvia con Sensores de Bajo Costo
+    
+    #### 1. **Adquisición de Datos**
+    
+    1.1. **Seleccionar la fuente de datos:** Se obtendrán datos históricos de la estación meteorológica de la UNVM (Villa María) o de la estación SACO (Córdoba) a través de sus respectivos portales públicos. Se priorizará la estación de Villa María por su cercanía geográfica.
+    
+    1.2. **Definir el período de estudio:** Se seleccionará un período de al menos **5 años** de datos, que es el mínimo recomendado por la OMM para análisis estacionales y para asegurar una muestra representativa de eventos de lluvia.
+    
+    1.3. **Identificar las variables a utilizar:** Se extraerán las siguientes variables, con su frecuencia original (idealmente cada 10-15 minutos):
+    - Temperatura del aire (°C)
+    - Humedad relativa (%)
+    - Presión atmosférica (hPa)
+    - Velocidad del viento (km/h)
+    - Dirección del viento (°)
+    - Precipitación acumulada (mm)
+    
+    #### 2. **Control de Calidad y Datos Faltantes**
+    
+    2.1. **Cálculo de datos faltantes:** Para cada variable, se calculará el porcentaje de datos faltantes por hora y por día.
+    
+    2.2. **Aplicación de umbral de tolerancia:** Siguiendo el criterio del SMN (Nota Técnica 2024-167), se eliminarán las horas que tengan **≥20% de datos faltantes** (es decir, si la estación mide cada 10 minutos, se elimina la hora si faltan 2 o más de los 6 valores). Para los días, se eliminarán si tienen **≥20% de horas faltantes**.
+    
+    2.3. **Imputación de datos faltantes:** Para los períodos con menos del 20% de faltantes, se aplicará una **interpolación lineal** entre los valores válidos anteriores y posteriores. Esta elección se basa en que las variables meteorológicas tienden a tener una variación suave en escalas de minutos (OMM, 2018).
+    
+    2.4. **Detección de outliers:** Se identificarán outliers utilizando el **método del rango intercuartil (IQR)** , donde un valor se considera outlier si está fuera del rango `[Q1 - 1.5*IQR, Q3 + 1.5*IQR]`. Este método es robusto y no asume normalidad (Hastie et al., 2009).
+    
+    2.5. **Tratamiento de outliers:** Un outlier podría ser una señal de tormenta (ej. una caída brusca de presión), por lo que **no se eliminarán automáticamente**. Se etiquetarán y se analizará su contexto temporal; si corresponden a un cambio climático real, se mantendrán.
+    
+    #### 3. **Simulación de Sensores de Bajo Costo**
+    
+    Dado que el proyecto se enmarca en un sistema de bajo costo, los datos originales (de sensores profesionales) serán transformados para simular el comportamiento de sensores económicos, siguiendo la metodología propuesta por el **estudio del KNMI (2024)** y validada por investigaciones de la Universidad de Reading (2022).
+    
+    3.1. **Inyección de ruido:** A cada variable se le añadirá un ruido gaussiano con media cero y desviación estándar igual al error típico del sensor simulado:
+    
+    - **Temperatura:** σ = 0.5°C (basado en especificaciones del DHT22)
+    - **Humedad:** σ = 3% (basado en especificaciones del DHT22 para HR media)
+    - **Presión:** σ = 1 hPa (basado en especificaciones del BMP280)
+    - **Viento:** σ = 0.5 m/s (basado en especificaciones de anemómetros de bajo costo)
+    
+    3.2. **Introducción de sesgos sistemáticos:** Siguiendo los hallazgos del KNMI (2024) y de la literatura sobre sensores de bajo costo (ej. DHT22), se aplicarán los siguientes sesgos:
+    
+    - **Humedad:** Se añadirá un sesgo positivo de +2% para valores de HR < 30%, y un sesgo negativo de -3% para valores de HR > 90%.
+    - **Velocidad del viento:** Se aplicará un factor de subestimación del 10% para vientos inferiores a 2 m/s (debido al desgaste mecánico del anemómetro de cazoletas).
+    
+    3.3. **Reducción de resolución:** Los valores se redondearán a la resolución típica de los sensores de bajo costo:
+    
+    - **Temperatura:** 0.5°C
+    - **Humedad:** 1%
+    - **Presión:** 1 hPa
+    - **Viento:** 0.5 m/s
+    - **Precipitación:** 0.2 mm (resolución del pluviómetro de cubeta basculante)
+    
+    3.4. **Validación de la simulación:** Se comparará la distribución de los datos simulados con las hojas de datos de los sensores reales y con estudios previos de caracterización de sensores de bajo costo (ej. el estudio de la Universidad de Reading, 2022).
+    
+    #### 4. **Selección de Ventanas Temporales (Lookback y Lead Time)**
+    
+    4.1. **Definición del horizonte de predicción (lead time):** El modelo LIF predecirá si lloverá en los próximos **30 minutos**, basado en la literatura que indica que este es un horizonte de nowcasting útil para sistemas de alerta temprana local.
+    
+    4.2. **Definición de la ventana de entrada (lookback window):** Se utilizará una ventana de **60 minutos (6 pasos de 10 minutos)** como entrada, basado en los hallazgos del **paper de Ischia (2025)** que identificó retardos óptimos de 0, -10 y -20 minutos. La ventana de 60 minutos captura la evolución de las variables que anteceden a la lluvia.
+    
+    4.3. **Creación de secuencias temporales:** Para cada instante `t`, se creará un vector de entrada `X_t` que contiene los valores de las cinco variables en los tiempos `t-60`, `t-50`, `t-40`, ..., `t` (6 pasos de 10 minutos). La etiqueta `y_t` será 1 si la precipitación en el intervalo `[t, t+30]` supera el umbral definido, y 0 en caso contrario.
+    
+    #### 5. **Creación de la Variable Objetivo (Etiqueta)**
+    
+    5.1. **Definición del umbral de lluvia:** Se definirá un evento de lluvia como aquel en el que la precipitación acumulada en **10 minutos** supera los **0.2 mm** (que es la resolución mínima del pluviómetro de bajo costo y el umbral de detección mínimo recomendado por la OMM). Este umbral permite detectar incluso lluvias ligeras o trazas.
+    
+    5.2. **Etiquetado:** Para cada instante `t`, se calculará la precipitación acumulada en los próximos 30 minutos a partir de los datos originales de precipitación (no simulados). Si esta cantidad supera el umbral de 0.2 mm, se etiqueta `y_t = 1` (lluvia), de lo contrario `y_t = 0`.
+    
+    #### 6. **Normalización y Escalado**
+    
+    6.1. **Método:** Se aplicará una **normalización Z-score** (media 0, desviación estándar 1) a cada variable por separado, utilizando los parámetros calculados sobre el conjunto de entrenamiento. Esta técnica es estándar en el preprocesamiento para redes neuronales y es especialmente adecuada para el modelo LIF, ya que los spikes se codifican a partir de estos valores normalizados.
+    
+    6.2. **Cálculo por estación del año:** Dado que los patrones climáticos varían estacionalmente, se calcularán medias y desviaciones estándar **separadas para cada estación** (verano, otoño, invierno, primavera). Esto permite que la normalización capture las diferencias estacionales y mejore la detección de anomalías dentro de cada estación.
+    
+    #### 7. **Codificación de Variables a Spikes para el Modelo LIF**
+    
+    7.1. **Método de codificación:** Se utilizará una **codificación por tasa de spikes (rate coding)** . Para cada paso de tiempo, el valor normalizado de cada variable se convertirá en una frecuencia de spikes (número de spikes por unidad de tiempo) proporcional al valor de la variable. Este es el método más común para datos de series temporales en SNN (Diehl & Cook, 2015).
+    
+    7.2. **Tasa máxima de disparo:** Se establecerá una tasa máxima de 200 spikes por segundo para el valor máximo de la variable normalizada (es decir, para valores de Z-score = +3). Esto asegura que las neuronas tengan una resolución temporal suficiente para capturar los cambios rápidos de presión y viento.
+    
+    7.3. **Implementación:** Se implementará un codificador en Python que, para cada valor normalizado `x_norm`, genere un tren de spikes de Poisson con una frecuencia `f = (x_norm - min)/(max - min) * f_max`. El codificador se ejecutará para cada paso de tiempo de la ventana de entrada.
+    
+    #### 8. **Separación de Datos en Entrenamiento, Validación y Prueba**
+    
+    8.1. **División temporal:** Se utilizará una división temporal, **manteniendo el orden cronológico**, para evitar el *data leakage* (que información del futuro contamine el entrenamiento).
+    
+    8.2. **Proporciones:** Se asignará el **70% de los datos** a entrenamiento, **15%** a validación (para ajuste de hiperparámetros) y **15%** a prueba (para evaluación final). Los datos de prueba serán los más recientes, para evaluar el modelo en condiciones futuras.
+    
+    8.3. **Período de calentamiento (warm-up):** Para el modelo LIF, se descartarán los primeros 10 pasos de cada secuencia de validación y prueba para permitir que la membrana de la neurona se estabilice. Esto sigue la práctica común en SNN (Diehl & Cook, 2015).
+    
+    #### 9. **Documentación de la Metodología**
+    
+    9.1. **Registro de todos los pasos:** Se documentará cada paso del preprocesamiento, incluyendo los parámetros utilizados, las decisiones tomadas y las justificaciones, en un cuaderno de Jupyter o en un script de Python bien comentado.
+    
+    9.2. **Reproducibilidad:** El código completo del preprocesamiento se subirá a un repositorio público (ej. GitHub) junto con el código del modelo, para garantizar la reproducibilidad de los resultados, tal como exigen las buenas prácticas de la investigación científica.
+    
+    ---
+    
+    ### 📊 Esquema Resumen de la Metodología
+    
+    ```
+    DATOS CRUDOS (Estación UNVM o SACO - frecuencia 10 min)
+        │
+        ├─ 1. CONTROL DE CALIDAD
+        │   └─ Eliminar horas con >20% faltantes
+        │   └─ Interpolar linealmente faltantes <20%
+        │   └─ Detectar outliers con IQR
+        │
+        ├─ 2. SIMULACIÓN DE BAJO COSTO
+        │   ├─ Inyectar ruido gaussiano
+        │   ├─ Aplicar sesgos sistemáticos (humedad, viento)
+        │   └─ Reducir resolución
+        │
+        ├─ 3. CREACIÓN DE ETIQUETAS
+        │   └─ Definir umbral de lluvia (0.2 mm/10 min)
+        │   └─ Etiquetar para horizonte de 30 min
+        │
+        ├─ 4. NORMALIZACIÓN Z-SCORE
+        │   └─ Por variable y por estación del año
+        │
+        ├─ 5. CODIFICACIÓN A SPIKES
+        │   └─ Rate coding (Poisson) con f_max = 200 Hz
+        │
+        ├─ 6. CREACIÓN DE SECUENCIAS
+        │   └─ Lookback de 60 min (6 pasos de 10 min)
+        │   └─ Lead time de 30 min
+        │
+        └─ 7. DIVISIÓN TEMPORAL
+            └─ 70% entrenamiento (con estacionalidad)
+            └─ 15% validación
+            └─ 15% prueba
+    ```
+    
+    ---
+    
+    ### Conclusión
+    
+    Esta metodología de preprocesamiento aborda de manera completa y rigurosa cada uno de los aspectos críticos para tu investigación. Al implementarla, aseguras que tu modelo LIF:
+    
+    1. **Entrena con datos de calidad**, habiendo tratado correctamente los faltantes y outliers.
+    2. **Es representativo de un sistema de bajo costo**, gracias a la simulación realista de los sensores.
+    3. **Aprende patrones temporales relevantes**, gracias a la selección de ventanas basada en la literatura científica.
+    4. **Es reproducible y justificable**, gracias a la documentación y al uso de estándares reconocidos.
+    
+    Esta base te permitirá enfocarte en el desarrollo y la evaluación del modelo LIF, sabiendo que tus datos han sido procesados con el máximo rigor científico y alineados con los objetivos de tu proyecto para el CNEISI.
+    
+- Limitaciones de la adquisicion de datos:
+    1. ¿El script recopila datos de múltiples estaciones o solo datos crudos de una estación?
+    Descarga una estación por ejecución. Los datos son crudos (el valor directo de la observación), con estas salvedades:
+    | Fuente | ¿Dato crudo de estación real? |
+    |--------|-------------------------------|
+    | SMN WIS2 | ✅ Sí — observación SYNOP directa del aeropuerto |
+    | INA Alerta5 | ✅ Sí — medición de estación meteorológica |
+    | INTA SIGA | ✅ Sí — sensor de estación agropecuaria |
+    | Open-Meteo | ❌ No — es grilla interpolada (modelo reanálisis ERA5 + datos satelitales) |
+    Para corroborar: comparar con el API directamente. Por ejemplo, el script SMN consulta [http://w2b.smn.gob.ar/oapi/collections/urn:wmo:md:ar-smn:slt0ci/items?wigos_station_identifier=0-20000-0-87576](http://w2b.smn.gob.ar/oapi/collections/urn:wmo:md:ar-smn:slt0ci/items?wigos_station_identifier=0-20000-0-87576). Puede pegar esa URL en un navegador y ver el GeoJSON idéntico.
+    2. Método para descargar las 5 variables fundamentales
+    Para cada fuente, el comando específico:
+    SMN WIS2 (Ezeiza, SYNOP crudo):
+    python descargar_datos_unificado.py descarga --fuente smn --estacion "EZEIZA AERO" --inicio 2026-02-25 --fin 2026-07-12
+    Variables: air_temperature, dewpoint_temperature, wind_speed, wind_direction, pressure_reduced_to_mean_sea_level, horizontal_visibility, cloud_cover_total
+    Open-Meteo (coordenadas, 5 vars completas):
+    python descargar_datos_unificado.py descarga --fuente openmeteo --lat -34.56 --lon -58.42 --inicio 1940-01-01 --fin 2026-07-12 --frecuencia 60
+    Variables: temperature_2m, relative_humidity_2m, pressure_msl, wind_speed_10m, wind_direction_10m, precipitation
+    INTA (solo temp + humedad + precip, sin viento ni presión):
+    
+    # Tiempo real (10 min, solo hoy):
+    
+    python descargar_datos_unificado.py descarga --fuente inta --estacion "Anguil" --frecuencia 10
+    
+    # Diario histórico:
+    
+    python descargar_datos_unificado.py descarga --fuente inta --estacion "Anguil" --frecuencia 1440
+    3. Frecuencias disponibles por fuente
+    
+    | Fuente | < 60 min | Histórico < 60 min | Histórico >= 60 min |
+    | --- | --- | --- | --- |
+    | Open-Meteo | ✅ 15 min (interpolado) | ✅ 1940-presente | ✅ |
+    | SMN WIS2 | ❌ 1-6 h | ❌ solo desde feb 2026 | ✅ solo feb-jul 2026 |
+    | INA Alerta5 | ❌ horaria | ❌ solo ~3 años | ✅ horaria (~3 años) |
+    | INTA SIGA | ✅ 10 min | ❌ solo hoy | ✅ diaria (1999-presente, 226 estaciones) |
+    | Ninguna fuente argentina de datos CRUDOS de estación real ofrece < 60 min histórico. Solo Open-Meteo lo hace, pero es interpolado. |  |  |  |
+    1. Fuente más abierta y verificable → SMN WIS2
+    Gana claramente porque:
+    - Estándar abierto: OGC API - Features (estándar internacional geoespacial)
+    - WIS2 de WMO: Implementación del marco de la Organización Meteorológica Mundial
+    - WIGOS IDs: Cada estación tiene un identificador WMO (0-20000-0-87576) que se puede buscar en OSCAR ([https://oscar.wmo.int](https://oscar.wmo.int/)) para ver:
+        - Instrumentos exactos instalados
+        - Altura del barómetro, tipo de anemómetro, etc.
+        - Prácticas de observación
+        - Historia de la estación
+    - GeoJSON estándar: Los datos se pueden validar con cualquier visor GeoJSON
+    - MQTT público: Transmisión en vivo vía mqtt://everyone:everyone@w2b.smn.gob.ar:1883
+    Ejemplo: Ezeiza en OSCAR → [https://oscar.wmo.int/surface/#/search/station/stationReportDetails/0-20000-0-87576](https://oscar.wmo.int/surface/#/search/station/stationReportDetails/0-20000-0-87576)
+    1. Fuente + estación que cumpla: cruda, 10+ años, <60 min, todas las variables, verificable
+    No existe en Argentina. Este es el hallazgo clave de la investigación:
+    | Requisito | ¿Quién lo cumple? |
+    |-----------|------------------|
+    | Dato crudo de estación real | SMN, INTA, INA |
+    | 10+ años de historia | INTA (diario), SMN WIS2 (NO, solo 5 meses) |
+    | < 60 minutos de frecuencia histórico | Ninguno (INTA 10 min solo hoy, SMN 1-6h solo 5 meses, INA horaria solo 3 años) |
+    | 5 variables fundamentales | SMN (sí), INTA (NO tiene viento ni presión) |
+    | Verificable por estándar abierto | SMN WIS2 |
+    La mejor aproximación es dual:
+    2. Open-Meteo a 15 min para el período largo + frecuencia sub-horaria (aceptando que es interpolado)
+    3. SMN WIS2 para datos crudos reales, verificables, aunque solo desde feb 2026 y 1-6 h de frecuencia
+    Si se necesita estrictamente dato crudo + histórico largo + sub-horario, habría que buscar datos de estaciones meteorológicas privadas (Red Meteorológica RMET, Davis WeatherLink, etc.) o gestionar el acceso a la API interna del SMN (no pública vía WIS2).
 
 ---
 
@@ -1828,9 +2175,11 @@ La deteccion temprana de lluvia local sigue siendo un desafio actual en zonas co
     Se busca validar la viabilidad del sistema propuesto como herramienta para la deteccion de lluvia en entornos locales a bajo costo.
     
 
-## 5) Inquietudes/Problemas a resolver.
+## 5) Inquietudes/Problemas.
 
-1. Multiples analisis diferentes para la justificacion.
+**Estos problemas se deben resolver ANTES de programar el modelo.**
+
+1. **Multiples analisis diferentes para la justificacion.**
     1. El paper consiste en una premisa clara de comparar un modelo LIF con un modelo de umbrales fijos.
     2. A medida que se avanzo en la especificacion del modelo, surgieron diferentes ambiguedades que se decidio limitar para centrar el caracter comparativo del paper junto al desarrollo del modelo, y no derivar en multiples comparaciones varias.
     3. Luego se propuso para abordar estas ambiguedades la comparativa de multiples variables, lo que lleva a una extension del paper y un posible trabajo demaciado abarcativo por “miedo” de no ser lo suficientemente riguroso o detallado.
@@ -1839,8 +2188,13 @@ La deteccion temprana de lluvia local sigue siendo un desafio actual en zonas co
         2. **Presicion de los sensores:** Al no tener la disponibilidad de datos historicos para entrenar el modelo con datos de sensores de bajo costo, y existiendo la imposibilidad logistica y de tiempo de viajar a una estacion con los dispositivos pertinentes para adaptar los datos historicos de la estacion meteorologia a las variaciones pertinentes de los dispositivos de bajo costo.
             1. Se utilizaran los datos de la estacion de alta precision local, como la de villa maria en el Presidente Néstor Kirchner Regional Airport, sin embargo se piensa añadir ruido a las mediciones precisas para entrenar 2 instancias del modelo y comparar su presicion:
                 1. La intancia que se entrena con los datos precisos y la intancia que se entrenara con los datos alterados. Luego se comparara su presicion para determinar el la medida porcentual de aciertos de cada modelo bajo el mismo periodo de tiempo.
-2. Datos inconsisos:
+2. **Datos inconsisos:**
     1. Se plantea la obtencion de datos de la estacion “Aeropuerto Regional Villa María”, sin embargo los datos se extran no de su pagina web oficial sino de un proveedor externo que permite un como uso de la API, el cual es openmeteo.
         1. ¿Esa API realmente muestra los datos oroginales? ¿Que tan seguro y fiable es? ¿Existen alternativas?
         2. ¿La estacion elegida es realmente la ideal, no existen otras estaciones con mayor sustento para la investigacion? ¿Es realmente fiable los datos recolectados de esta esatcion? ¿Se conoce sus dispositivos?
-        3.  Si es fiable a nivel de datos, presicion y dispositivos para esta investigacion, ¿Es justificacion suficiente la eleccion de esta estacion para una proxima ampleacion del paper con datos historicos de la estacion adaptados a dispositivos de bajo costo?
+        3.  Si es fiable a nivel de datos, presicion y dispositivos para esta investigacion, ¿Es justificacion suficiente la eleccion de esta estacion para una proxima ampleacion del paper con datos historicos de la estacion adaptados a dispositivos de bajo costo?. ¿Que beneficios a nivel investigativo me dá elegir esa estación? 
+        4.  Verificar si a lo largo del periodo seleccionado cambiaron su dispositivos de medición. Tomar un periodo donde esos dispositivos no hayan cambiado.
+3. **Estudio de teoria y referencias:**
+    1. Se deben confirmar 2 cuestiones fundamentales:
+        1. ¿Me debo saber la teoria de pies a cabeza sobre como funcionan las neuronas LIF, o el concepto general me basta para explicar el modelo? Eso cambia si debo estudiar los papers completos o solo los conceptos fundamentales de este.
+        2. ¿Hay demaciadas referencias? Actualmente exiten multiples citas a trabajos, papers y documentos tecnicos que aportan veracidad a los temas tratados, pero ¿son necesarias tantas referencias distintas? ¿Se puede acortar el numero de referencias o se necesita todo para mayor rigurosidad? Algunas referencias dan la impresion de ser redundantes o aportar conceptos/justificaciones minimas.
