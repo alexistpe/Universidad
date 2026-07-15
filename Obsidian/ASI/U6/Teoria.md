@@ -192,12 +192,42 @@ Esto incluye lo que el sistema administrara y utilizara.
 - Otras entidades/organizaciones.
 
 #### **TIPS PRACTICOS para el diagrama de clases:**
-Para poder crear un buen diagrama de clases, se detallan los conceptos fundamentales del diseño:
-- **Multiplicidad:** Se refiere a cuantas instanacias se relacionan con cuantas instancias entre 2 objetos.
-	- La multiplicidad puede ir en ambos extremos, sin embargo debe estar especificada obligatoriamente en el extremo de la navegabilidad.
-	- Se debe evitar que sea de MUCHOS a MUCHOS, en ese caso se debe crear una clase extension que permita dividir una clase mas grande y evitar la multiplicidad * .. *
+##### Buenas practicas: Son utilidades que permiten un diagrama mas limpio.
+- La **multiplicidad** puede ir en ambos extremos, sin embargo debe estar especificada obligatoriamente en el extremo de la navegabilidad.
+- Las reglas de negocio se convierten comunmente en meteodos y atributos.
+- **Simplificacion:** Una clase con multiplicidad 1..1 se puede simplificar.
+- **Clase transaccional:** Clase que mas objetos tendra.
+- NO hace falta especificar "+" o "-" en los atributos o metodos de una clase, sin embargo:
+	- += abierto.
+	- -= Cerrado.
+- Los diagrama de clases evolucionan a una base de datos en la implementacion.
+- **Las clases se escriben en singular.**
+- No se deben colocar espacios en los atributos o metodos.
+##### Generalidades: Son cuestiones obligatorias que aplican para cualquier clase.
 - **Diferencia agregacion y generalizacion:** La agregacion se denomina "Tiene un", mientras que la generalizacion se denomina "Es un".
-- `**Cuadro de aclaracion:** Se debe aclarar al momento de especificar los metodos que se generaliza para todas las clases.` <- REVISAR CUANDO Y PORQUE SE APLICABA ESTO.
+- **Metodos de seteo:** Son metodos que permiten tomar y mostrar todos los atributos.
+	- Se deben especificar en la clase que menos atributos tenga y se debe indicar en un texto aparte "Los metodos de seteo de esta clase aplican para todas las demas."
+- **Metodos de construccion:** Todas las clases deben tener los metodos "crear()" y "mostrar()" como minimo.
+- **Utilizar atributos de otra clase:**
+	- **Metodos de conocimiento:** Cuando se quieren utilizar los atributos de una clase relacionada se utiliza el metodo: conocerClase() -> conocerHerramienta().
+	- **Obtener atributos:** Para obtener los atributos de una clase externa, se especifica en los atributos atributo:Clase -> herramienta:Herramienta.
+- **Clase principal:** La clase principal se relaciona con las demas clases principales, es la "raiz" o "padre principal", y normalmente se identifica como una transaccion.
+##### Correcciones: Son situaciones fundamentales que afectan directamente la aprobacion.
+- **Multiplicidad:** Se debe evitar que sea de MUCHOS a MUCHOS, en ese caso se debe crear una clase extension que permita dividir una clase mas grande y evitar la multiplicidad * .. *
+	- NO SE DEBEN REPETIR LOS DATOS.
+- Si una clase se instancia una sola vez, no es una clase.
+- NO SE PONE int, string, etc... No importa el hardware que tenga.
+- **Transaccion:** Debe tener un ID, fecha, hora como minimo.
+	- Siempre hay una clase "transaccion".
+- El cliente no siempre es una clase candidata, debido a que no se guarda ni especifica. No es una clase en la practica.
+	- Depende si la organizacion guarda a todos los clientes que interactuen independientemente de su resultado (si compra o no compra).
+- No deben haber variables duplicadas.
+##### Tips para los diagramas.
+**Relaciones:**
+- **Asociacion:** Si no le debe nada a la otra clase, puede existir sin necesidad de la otra clase, solo se aclara un flujo entre ambos.
+- **Agregacion:** Una de las clases necesita obligatoriamente integrar a la otra clase, es esencialmente necesario aclarar la relacion especial entre ambas clases. Cuando se pierde el sentido de tener a las clases extras.
+- 
+
 #### Relaciones del diagrama de clases:
 Las clases pueden asignarle un nombre a la relacion que tengan, como tambien un nombre de rol (aclaracion de que hace cada persona/rol involucrado en esta relacion).
 **Asociacion:**

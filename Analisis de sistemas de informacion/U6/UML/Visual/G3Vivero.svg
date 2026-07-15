@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="634px" preserveAspectRatio="none" style="width:506px;height:634px;" version="1.1" viewBox="0 0 506 634" width="506px" zoomAndPan="magnify"><defs><filter height="300%" id="fn4vm7h8poycd" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[fe4478d9c9a369b28097141e000aa656]
+class Venta--><rect codeLine="1" fill="#FEFECE" filter="url(#fn4vm7h8poycd)" height="153.5992" id="Venta" style="stroke:#A80036;stroke-width:1.5;" width="123" x="202" y="7"/><ellipse cx="243.55" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M238.55,24.1563 C238.55,26.6563 240.6906,28.4688 243.6125,28.4688 C244.8469,28.4688 246.0188,28.1719 246.7688,27.6563 C247.3781,27.2344 247.7063,26.8125 247.7063,26.4063 C247.7063,25.9375 247.2844,25.5313 246.7844,25.5313 C246.55,25.5313 246.3313,25.6094 246.1281,25.8125 C245.6906,26.25 245.6906,26.25 245.5188,26.3438 C245.0656,26.5781 244.425,26.7188 243.6594,26.7188 C241.6594,26.7188 240.3781,25.7031 240.3781,24.125 L240.3781,23.0781 C240.3781,21.375 241.5969,20.1719 243.3,20.1719 C243.8781,20.1719 244.4563,20.3125 244.925,20.5625 C245.3938,20.8281 245.5656,21.0156 245.6281,21.375 C245.7531,22.0469 246.0031,22.2969 246.5344,22.2969 C246.8156,22.2969 247.0969,22.1563 247.2844,21.9375 C247.4094,21.7656 247.4563,21.5938 247.4563,21.1563 L247.4563,19.7969 C247.4563,19.375 247.4406,19.2344 247.3156,19.0625 C247.1438,18.8125 246.8625,18.6563 246.5344,18.6563 C246.2219,18.6563 246.0188,18.7656 245.8,19.0313 C244.6281,18.5313 244.1906,18.4219 243.2375,18.4219 C240.5656,18.4219 238.55,20.4375 238.55,23.0625 L238.55,24.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="32" x="263.45" y="26.948">Venta</text><line style="stroke:#A80036;stroke-width:1.5;" x1="203" x2="324" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="27" x="208" y="53.2189">fecha</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22" x="208" y="66.4188">hora</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="104" x="208" y="79.6187">detalles: DetalleVenta</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="208" y="92.8186">total</text><line style="stroke:#A80036;stroke-width:1.5;" x1="203" x2="324" y1="99.7996" y2="99.7996"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="208" y="114.0185">Crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="208" y="127.2184">Mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="111" x="208" y="140.4183">ConocerDetalleVenta()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="72" x="208" y="153.6182">CalcularTotal()</text><path d="M6,63.2 L6,104.4 A0,0 0 0 0 6,104.4 L167,104.4 A0,0 0 0 0 167,104.4 L167,87.8 L201.56,83.8 L167,79.8 L167,73.2 L157,63.2 L6,63.2 A0,0 0 0 0 6,63.2 " fill="#FBFB77" filter="url(#fn4vm7h8poycd)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M157,63.2 L157,73.2 L167,73.2 L157,63.2 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="136" x="12" y="80.277">Clase mas instanciada:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="85" x="12" y="95.877">Clase principal</text><!--MD5=[9e7633472b04ff885cbed4eb8a06cbbc]
+class DetalleVenta--><rect codeLine="18" fill="#FEFECE" filter="url(#fn4vm7h8poycd)" height="140.3993" id="DetalleVenta" style="stroke:#A80036;stroke-width:1.5;" width="103" x="384" y="13.8"/><ellipse cx="399" cy="29.8" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M394,30.9562 C394,33.4562 396.1406,35.2687 399.0625,35.2687 C400.2969,35.2687 401.4688,34.9719 402.2188,34.4562 C402.8281,34.0344 403.1563,33.6125 403.1563,33.2062 C403.1563,32.7375 402.7344,32.3312 402.2344,32.3312 C402,32.3312 401.7813,32.4094 401.5781,32.6125 C401.1406,33.05 401.1406,33.05 400.9688,33.1437 C400.5156,33.3781 399.875,33.5187 399.1094,33.5187 C397.1094,33.5187 395.8281,32.5031 395.8281,30.925 L395.8281,29.8781 C395.8281,28.175 397.0469,26.9719 398.75,26.9719 C399.3281,26.9719 399.9063,27.1125 400.375,27.3625 C400.8438,27.6281 401.0156,27.8156 401.0781,28.175 C401.2031,28.8469 401.4531,29.0969 401.9844,29.0969 C402.2656,29.0969 402.5469,28.9562 402.7344,28.7375 C402.8594,28.5656 402.9063,28.3937 402.9063,27.9562 L402.9063,26.5969 C402.9063,26.175 402.8906,26.0344 402.7656,25.8625 C402.5938,25.6125 402.3125,25.4562 401.9844,25.4562 C401.6719,25.4562 401.4688,25.5656 401.25,25.8312 C400.0781,25.3312 399.6406,25.2219 398.6875,25.2219 C396.0156,25.2219 394,27.2375 394,29.8625 L394,30.9562 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="71" x="413" y="33.748">DetalleVenta</text><line style="stroke:#A80036;stroke-width:1.5;" x1="385" x2="486" y1="45.8" y2="45.8"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="65" x="390" y="60.0189">planta: Planta</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="41" x="390" y="73.2188">cantidad</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="38" x="390" y="86.4187">subtotal</text><line style="stroke:#A80036;stroke-width:1.5;" x1="385" x2="486" y1="93.3997" y2="93.3997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="390" y="107.6186">Crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="390" y="120.8185">Mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="80" x="390" y="134.0184">ConocerPlanta()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="87" x="390" y="147.2183">CalcularSubtotal()</text><!--MD5=[d2474268c91e55a03a3bf66e529fdd78]
+class Planta--><rect codeLine="29" fill="#FEFECE" filter="url(#fn4vm7h8poycd)" height="166.7991" id="Planta" style="stroke:#A80036;stroke-width:1.5;" width="113" x="379" y="253.8"/><ellipse cx="414.7" cy="269.8" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M409.7,270.9562 C409.7,273.4562 411.8406,275.2687 414.7625,275.2687 C415.9969,275.2687 417.1688,274.9719 417.9188,274.4562 C418.5281,274.0344 418.8563,273.6125 418.8563,273.2062 C418.8563,272.7375 418.4344,272.3312 417.9344,272.3312 C417.7,272.3312 417.4813,272.4094 417.2781,272.6125 C416.8406,273.05 416.8406,273.05 416.6688,273.1437 C416.2156,273.3781 415.575,273.5187 414.8094,273.5187 C412.8094,273.5187 411.5281,272.5031 411.5281,270.925 L411.5281,269.8781 C411.5281,268.175 412.7469,266.9719 414.45,266.9719 C415.0281,266.9719 415.6063,267.1125 416.075,267.3625 C416.5438,267.6281 416.7156,267.8156 416.7781,268.175 C416.9031,268.8469 417.1531,269.0969 417.6844,269.0969 C417.9656,269.0969 418.2469,268.9562 418.4344,268.7375 C418.5594,268.5656 418.6063,268.3937 418.6063,267.9562 L418.6063,266.5969 C418.6063,266.175 418.5906,266.0344 418.4656,265.8625 C418.2938,265.6125 418.0125,265.4562 417.6844,265.4562 C417.3719,265.4562 417.1688,265.5656 416.95,265.8312 C415.7781,265.3312 415.3406,265.2219 414.3875,265.2219 C411.7156,265.2219 409.7,267.2375 409.7,269.8625 L409.7,270.9562 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="35" x="433.3" y="273.748">Planta</text><line style="stroke:#A80036;stroke-width:1.5;" x1="380" x2="491" y1="285.8" y2="285.8"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="385" y="300.0189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="385" y="313.2188">descripcion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="385" y="326.4187">id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="41" x="385" y="339.6186">cantidad</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="30" x="385" y="352.8185">precio</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="74" x="385" y="366.0184">tipo: TipoPlanta</text><line style="stroke:#A80036;stroke-width:1.5;" x1="380" x2="491" y1="372.9994" y2="372.9994"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="385" y="387.2183">Crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="385" y="400.4182">Mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="101" x="385" y="413.6181">ConocerTipoPlanta()</text><path d="M98.5,300.6 L98.5,373.0001 A0,0 0 0 0 98.5,373.0001 L320.5,373.0001 A0,0 0 0 0 320.5,373.0001 L320.5,340.8 L379.07,336.8 L320.5,332.8 L320.5,310.6 L310.5,300.6 L98.5,300.6 A0,0 0 0 0 98.5,300.6 " fill="#FBFB77" filter="url(#fn4vm7h8poycd)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M310.5,300.6 L310.5,310.6 L320.5,310.6 L310.5,300.6 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="155" x="104.5" y="317.677">Hay diferentes plantas que</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="159" x="104.5" y="333.277">pueden coincidir en un tipo,</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="201" x="104.5" y="348.877">sin embargo siguen siendo "razas"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="57" x="104.5" y="364.4771">diferentes</text><!--MD5=[e14f3d3007864b61ec5f2311bd1bbcfd]
+class TipoPlanta--><rect codeLine="48" fill="#FEFECE" filter="url(#fn4vm7h8poycd)" height="100.7996" id="TipoPlanta" style="stroke:#A80036;stroke-width:1.5;" width="91" x="390" y="519.8"/><ellipse cx="405" cy="535.8" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M400,536.9563 C400,539.4563 402.1406,541.2688 405.0625,541.2688 C406.2969,541.2688 407.4688,540.9719 408.2188,540.4563 C408.8281,540.0344 409.1563,539.6125 409.1563,539.2063 C409.1563,538.7375 408.7344,538.3313 408.2344,538.3313 C408,538.3313 407.7813,538.4094 407.5781,538.6125 C407.1406,539.05 407.1406,539.05 406.9688,539.1438 C406.5156,539.3781 405.875,539.5188 405.1094,539.5188 C403.1094,539.5188 401.8281,538.5031 401.8281,536.925 L401.8281,535.8781 C401.8281,534.175 403.0469,532.9719 404.75,532.9719 C405.3281,532.9719 405.9063,533.1125 406.375,533.3625 C406.8438,533.6281 407.0156,533.8156 407.0781,534.175 C407.2031,534.8469 407.4531,535.0969 407.9844,535.0969 C408.2656,535.0969 408.5469,534.9563 408.7344,534.7375 C408.8594,534.5656 408.9063,534.3938 408.9063,533.9563 L408.9063,532.5969 C408.9063,532.175 408.8906,532.0344 408.7656,531.8625 C408.5938,531.6125 408.3125,531.4563 407.9844,531.4563 C407.6719,531.4563 407.4688,531.5656 407.25,531.8313 C406.0781,531.3313 405.6406,531.2219 404.6875,531.2219 C402.0156,531.2219 400,533.2375 400,535.8625 L400,536.9563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="59" x="419" y="539.748">TipoPlanta</text><line style="stroke:#A80036;stroke-width:1.5;" x1="391" x2="480" y1="551.8" y2="551.8"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="396" y="566.0189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="29" x="396" y="579.2188">idTipo</text><line style="stroke:#A80036;stroke-width:1.5;" x1="391" x2="480" y1="586.1998" y2="586.1998"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="396" y="600.4187">Crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="396" y="613.6186">Mostrar()</text><!--MD5=[359082d8be2205277eda113ba5c530d0]
+link Venta to DetalleVenta--><path codeLine="57" d="M338.91,83.8 C338.91,83.8 361.06,83.8 372.71,83.8 " fill="none" id="Venta-DetalleVenta" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="382.59,83.8,373.59,79.8,377.59,83.8,373.59,87.8,382.59,83.8" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="377.59" x2="369.59" y1="83.8" y2="83.8"/><polygon fill="#A80036" points="326.91,83.8,332.91,87.8,338.91,83.8,332.91,79.8,326.91,83.8" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="355.8607" y="79.8827">1..*</text><!--MD5=[02d67ff18abdd83065e9ea53ac49432a]
+link DetalleVenta to Planta--><path codeLine="58" d="M435.5,153.72 C435.5,182.84 435.5,217.09 435.5,247.99 " fill="none" id="DetalleVenta-to-Planta" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="435.5,252.61,439.5,243.61,435.5,247.61,431.5,243.61,435.5,252.61" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="428.1555" y="242.3101">1</text><!--MD5=[6dcb906ab4c750f539ccf6daec9f58ef]
+link Planta to TipoPlanta--><path codeLine="59" d="M435.5,419.57 C435.5,450.82 435.5,485.68 435.5,513.85 " fill="none" id="Planta-to-TipoPlanta" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="435.5,518.61,439.5,509.61,435.5,513.61,431.5,509.61,435.5,518.61" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="427.9641" y="508.426">1</text><!--MD5=[50b65c385f9de2f44e6ac8a10b3b364d]
+@startuml
+class Venta{
+    fecha
+    hora
+    detalles: DetalleVenta
+    total
+    
+    Crear()
+    Mostrar()
+    ConocerDetalleVenta()
+    CalcularTotal()
+}
+note left
+    Clase mas instanciada: 
+    Clase principal
+end note
+
+'La venta y la planta tienen una relacion *..*, se agrega un detalle para especificar'
+class DetalleVenta{
+    planta: Planta
+    cantidad
+    subtotal
+
+    Crear()
+    Mostrar()
+    ConocerPlanta()
+    CalcularSubtotal()
+}
+
+class Planta{
+    nombre
+    descripcion
+    id
+    cantidad
+    precio
+    tipo: TipoPlanta
+
+    Crear()
+    Mostrar()
+    ConocerTipoPlanta()
+}
+
+note left
+    Hay diferentes plantas que
+    pueden coincidir en un tipo,
+    sin embargo siguen siendo "razas"
+    diferentes
+end note
+class TipoPlanta{
+    nombre
+    idTipo
+
+    Crear()
+    Mostrar()
+
+}
+
+Venta *-> "1..*" DetalleVenta
+DetalleVenta - -> "1" Planta
+Planta - -> "1" TipoPlanta
+@enduml
+
+@startuml
+class Venta{
+    fecha
+    hora
+    detalles: DetalleVenta
+    total
+    
+    Crear()
+    Mostrar()
+    ConocerDetalleVenta()
+    CalcularTotal()
+}
+note left
+    Clase mas instanciada: 
+    Clase principal
+end note
+
+class DetalleVenta{
+    planta: Planta
+    cantidad
+    subtotal
+
+    Crear()
+    Mostrar()
+    ConocerPlanta()
+    CalcularSubtotal()
+}
+
+class Planta{
+    nombre
+    descripcion
+    id
+    cantidad
+    precio
+    tipo: TipoPlanta
+
+    Crear()
+    Mostrar()
+    ConocerTipoPlanta()
+}
+
+note left
+    Hay diferentes plantas que
+    pueden coincidir en un tipo,
+    sin embargo siguen siendo "razas"
+    diferentes
+end note
+class TipoPlanta{
+    nombre
+    idTipo
+
+    Crear()
+    Mostrar()
+
+}
+
+Venta *-> "1..*" DetalleVenta
+DetalleVenta - -> "1" Planta
+Planta - -> "1" TipoPlanta
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 07:25:05 ART 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: es
+Country: AR
+--></g></svg>

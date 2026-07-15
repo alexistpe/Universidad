@@ -305,7 +305,7 @@ Salto brutal en la computacion: Se paso de tener una supermaquina hiper costosa 
 - Este salto fue posible debido a avances clave en la tegnologia, la colaboracion de componentes y materiales clave.
 - Hoy en dia la idea de una "super computadora" (hiper mainframe) quedo obsoleta, debido a que comprando multiples equipos pequeños conectados entre si, se obtiene una potencia mayor o similar. Por una fraccion del costo.
 
-#### Formacion del sistema distribuido
+#### Formacion del sistema distribuido 2 Formas
 Para la formacion de un sistema distribuido se deben poder comunicar multiples equipos entre si:
 - Muchas maquinas con diferentes componentes al mismo tiempo y de forma coordinada.
 
@@ -314,7 +314,7 @@ Para eso, se plantearon 2 inventos clave:
 	- Ethernet, WI-FI.
 - **Redes de area amplea (WAN):** Estas tegnologias compartes distancias inmensas (ciudades, paises o el planeta). Tienen mayor latencia y menor velocidad debido a que para lograr estas grandes distancias, necesitan el enrutamiento, osea conectarse a multiples nodos hasta llegar al destino.
 
-#### Ventajas y desventajas de los sistemas distribuidos:
+#### Ventajas y desventajas de los sistemas distribuidos: 4 y 3
 Los sistemas distribuidos permiten a un grupo de equipos con hardware independiente, convertirlo en un unico gran equipo.
 - **Nivel hardware:** Cada computadora procesa segun su logica interna, sus propios buces, memoria, procesador. No comparte memoria con ninguna otra maquina.
 - **Nivel de software:** El software se encarga de organizar a estas computadoras de una forma elegante para poder distribuir una tarea entre todos estos equipos, dispersando las tareas para maximizar el poder de computo conjunto y convirtiendolo en un sistema potente. El programa, o instruccion no sabe que equipo lo esta procesando, para el es un unico gran equipo.
@@ -331,7 +331,7 @@ Los sistemas distribuidos permiten a un grupo de equipos con hardware independie
 - **Dependencia de la red:** La potencia de la red de comunicacion es el nuevo bus de datos. Si ocurre alguna falla con esta red de comunicacion, el sistema distribuido se fragmenta. La velocidad depende de las conexion entre dispositivos.
 - **Acceso a la informacion:** Al estar todos los equipos interconectados, las vulnerabilidades escalan exponencialmente, debido a que se debe tener en cuenta las vulnerabilidades de cada equipo, y el filtrado de datos personales, se debe lidiar con encriptacion, autenticacion, y denegaciones que permitan una comunicacion de equipos segura, siendo resiliente a ataques de nodos maliciosos.
 
-#### Aftracciones: Transparencia.
+#### Aftracciones: Transparencia. 5
 - **Localizacion:** El usuario accede a el de forma comun a la informacion, independientemente del nodo en el que este, y el sistema operativo le oculta cual es la direccion real de IP del equipo donde provino ese inodo. El usuario solo sabe que el sistema lo tiene, no sabe donde exactamente lo almacena, osea en que equipo.
 - **Migracion:** Los recursos se puede transladar entre equipos a voluntad sin mutar su nombre. Si un equipo esta saturado, el SO puede agarrar una parte o el proceso entero y pasarlo "en caliente" a otro dispositivo, la aplicacion seguira llamandolo e interactuando de forma comun, pero por atras ese proceso cambio de equipo. El nombre del proceso no cambia, solo se traslada.
 - **Replica:** Se clonan archivos criticos para aumentar la velocidad y seguridad. Al un nodo necesitar este archivo, buscara al nodo mas cercano que lo tenga. Comunmente hablando de servidores. Esto permite tanto rapidez como resiliencia para mantener los datos. El usuario no puede determinar que equipo le envio el archivo, ni tampoco sabe cuantas copias hay, el solo ve el unico archivo.
