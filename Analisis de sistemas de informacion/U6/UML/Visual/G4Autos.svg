@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="687px" preserveAspectRatio="none" style="width:647px;height:687px;" version="1.1" viewBox="0 0 647 687" width="647px" zoomAndPan="magnify"><defs><filter height="300%" id="f7o0qfszzdht5" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[52a92f188a7c3f122e51b2059c6305e7]
+class Automovil--><rect codeLine="2" fill="#FEFECE" filter="url(#f7o0qfszzdht5)" height="127.1994" id="Automovil" style="stroke:#A80036;stroke-width:1.5;" width="86" x="370" y="533"/><ellipse cx="385" cy="549" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M380,550.1563 C380,552.6563 382.1406,554.4688 385.0625,554.4688 C386.2969,554.4688 387.4688,554.1719 388.2188,553.6563 C388.8281,553.2344 389.1563,552.8125 389.1563,552.4063 C389.1563,551.9375 388.7344,551.5313 388.2344,551.5313 C388,551.5313 387.7813,551.6094 387.5781,551.8125 C387.1406,552.25 387.1406,552.25 386.9688,552.3438 C386.5156,552.5781 385.875,552.7188 385.1094,552.7188 C383.1094,552.7188 381.8281,551.7031 381.8281,550.125 L381.8281,549.0781 C381.8281,547.375 383.0469,546.1719 384.75,546.1719 C385.3281,546.1719 385.9063,546.3125 386.375,546.5625 C386.8438,546.8281 387.0156,547.0156 387.0781,547.375 C387.2031,548.0469 387.4531,548.2969 387.9844,548.2969 C388.2656,548.2969 388.5469,548.1563 388.7344,547.9375 C388.8594,547.7656 388.9063,547.5938 388.9063,547.1563 L388.9063,545.7969 C388.9063,545.375 388.8906,545.2344 388.7656,545.0625 C388.5938,544.8125 388.3125,544.6563 387.9844,544.6563 C387.6719,544.6563 387.4688,544.7656 387.25,545.0313 C386.0781,544.5313 385.6406,544.4219 384.6875,544.4219 C382.0156,544.4219 380,546.4375 380,549.0625 L380,550.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="54" x="399" y="552.948">Automovil</text><line style="stroke:#A80036;stroke-width:1.5;" x1="371" x2="455" y1="565" y2="565"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="31" x="376" y="579.2189">marca</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="35" x="376" y="592.4188">modelo</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="18" x="376" y="605.6187">año</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="30" x="376" y="618.8186">precio</text><line style="stroke:#A80036;stroke-width:1.5;" x1="371" x2="455" y1="625.7996" y2="625.7996"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="376" y="640.0185">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="376" y="653.2184">mostrar()</text><!--MD5=[9816df62abfd7668c6a7b246400ab9e8]
+class Seguro--><rect codeLine="12" fill="#FEFECE" filter="url(#f7o0qfszzdht5)" height="153.5992" id="Seguro" style="stroke:#A80036;stroke-width:1.5;" width="94" x="539" y="520"/><ellipse cx="563.9" cy="536" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M558.9,537.1563 C558.9,539.6563 561.0406,541.4688 563.9625,541.4688 C565.1969,541.4688 566.3688,541.1719 567.1188,540.6563 C567.7281,540.2344 568.0563,539.8125 568.0563,539.4063 C568.0563,538.9375 567.6344,538.5313 567.1344,538.5313 C566.9,538.5313 566.6813,538.6094 566.4781,538.8125 C566.0406,539.25 566.0406,539.25 565.8688,539.3438 C565.4156,539.5781 564.775,539.7188 564.0094,539.7188 C562.0094,539.7188 560.7281,538.7031 560.7281,537.125 L560.7281,536.0781 C560.7281,534.375 561.9469,533.1719 563.65,533.1719 C564.2281,533.1719 564.8063,533.3125 565.275,533.5625 C565.7438,533.8281 565.9156,534.0156 565.9781,534.375 C566.1031,535.0469 566.3531,535.2969 566.8844,535.2969 C567.1656,535.2969 567.4469,535.1563 567.6344,534.9375 C567.7594,534.7656 567.8063,534.5938 567.8063,534.1563 L567.8063,532.7969 C567.8063,532.375 567.7906,532.2344 567.6656,532.0625 C567.4938,531.8125 567.2125,531.6563 566.8844,531.6563 C566.5719,531.6563 566.3688,531.7656 566.15,532.0313 C564.9781,531.5313 564.5406,531.4219 563.5875,531.4219 C560.9156,531.4219 558.9,533.4375 558.9,536.0625 L558.9,537.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="40" x="580.1" y="539.948">Seguro</text><line style="stroke:#A80036;stroke-width:1.5;" x1="540" x2="632" y1="552" y2="552"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="39" x="545" y="566.2189">Nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="26" x="545" y="579.4188">CUIT</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="545" y="592.6187">tipoPoliza</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="545" y="605.8186">nivelCobertura</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="45" x="545" y="619.0185">nroPoliza</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="82" x="545" y="632.2184">fechaAdquisicion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="540" x2="632" y1="639.1994" y2="639.1994"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="545" y="653.4183">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="545" y="666.6182">mostrar()</text><!--MD5=[d7ffbc75a324750adb125e16da80b4d6]
+class UnidadAutomovil--><rect codeLine="25" fill="#FEFECE" filter="url(#f7o0qfszzdht5)" height="153.5992" id="UnidadAutomovil" style="stroke:#A80036;stroke-width:1.5;" width="126" x="437" y="267"/><ellipse cx="452" cy="283" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M447,284.1563 C447,286.6563 449.1406,288.4688 452.0625,288.4688 C453.2969,288.4688 454.4688,288.1719 455.2188,287.6563 C455.8281,287.2344 456.1563,286.8125 456.1563,286.4063 C456.1563,285.9375 455.7344,285.5313 455.2344,285.5313 C455,285.5313 454.7813,285.6094 454.5781,285.8125 C454.1406,286.25 454.1406,286.25 453.9688,286.3438 C453.5156,286.5781 452.875,286.7188 452.1094,286.7188 C450.1094,286.7188 448.8281,285.7031 448.8281,284.125 L448.8281,283.0781 C448.8281,281.375 450.0469,280.1719 451.75,280.1719 C452.3281,280.1719 452.9063,280.3125 453.375,280.5625 C453.8438,280.8281 454.0156,281.0156 454.0781,281.375 C454.2031,282.0469 454.4531,282.2969 454.9844,282.2969 C455.2656,282.2969 455.5469,282.1563 455.7344,281.9375 C455.8594,281.7656 455.9063,281.5938 455.9063,281.1563 L455.9063,279.7969 C455.9063,279.375 455.8906,279.2344 455.7656,279.0625 C455.5938,278.8125 455.3125,278.6563 454.9844,278.6563 C454.6719,278.6563 454.4688,278.7656 454.25,279.0313 C453.0781,278.5313 452.6406,278.4219 451.6875,278.4219 C449.0156,278.4219 447,280.4375 447,283.0625 L447,284.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="94" x="466" y="286.948">UnidadAutomovil</text><line style="stroke:#A80036;stroke-width:1.5;" x1="438" x2="562" y1="299" y2="299"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="443" y="313.2189">tipo: Automovil</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="443" y="326.4188">patente</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="50" x="443" y="339.6187">nroChasis</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="75" x="443" y="352.8186">seguro: Seguro</text><line style="stroke:#A80036;stroke-width:1.5;" x1="438" x2="562" y1="359.7996" y2="359.7996"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="443" y="374.0185">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="443" y="387.2184">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="83" x="443" y="400.4183">conocerSeguro()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="95" x="443" y="413.6182">conocerAutomovil()</text><!--MD5=[20a748d5ee336a9a91751b0a3d4f0beb]
+class Cliente--><rect codeLine="39" fill="#FEFECE" filter="url(#f7o0qfszzdht5)" height="100.7996" id="Cliente" style="stroke:#A80036;stroke-width:1.5;" width="71" x="143.5" y="293.5"/><ellipse cx="158.5" cy="309.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M153.5,310.6563 C153.5,313.1563 155.6406,314.9688 158.5625,314.9688 C159.7969,314.9688 160.9688,314.6719 161.7188,314.1563 C162.3281,313.7344 162.6563,313.3125 162.6563,312.9063 C162.6563,312.4375 162.2344,312.0313 161.7344,312.0313 C161.5,312.0313 161.2813,312.1094 161.0781,312.3125 C160.6406,312.75 160.6406,312.75 160.4688,312.8438 C160.0156,313.0781 159.375,313.2188 158.6094,313.2188 C156.6094,313.2188 155.3281,312.2031 155.3281,310.625 L155.3281,309.5781 C155.3281,307.875 156.5469,306.6719 158.25,306.6719 C158.8281,306.6719 159.4063,306.8125 159.875,307.0625 C160.3438,307.3281 160.5156,307.5156 160.5781,307.875 C160.7031,308.5469 160.9531,308.7969 161.4844,308.7969 C161.7656,308.7969 162.0469,308.6563 162.2344,308.4375 C162.3594,308.2656 162.4063,308.0938 162.4063,307.6563 L162.4063,306.2969 C162.4063,305.875 162.3906,305.7344 162.2656,305.5625 C162.0938,305.3125 161.8125,305.1563 161.4844,305.1563 C161.1719,305.1563 160.9688,305.2656 160.75,305.5313 C159.5781,305.0313 159.1406,304.9219 158.1875,304.9219 C155.5156,304.9219 153.5,306.9375 153.5,309.5625 L153.5,310.6563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="39" x="172.5" y="313.448">Cliente</text><line style="stroke:#A80036;stroke-width:1.5;" x1="144.5" x2="213.5" y1="325.5" y2="325.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="25" x="149.5" y="339.7189">email</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="38" x="149.5" y="352.9188">telefono</text><line style="stroke:#A80036;stroke-width:1.5;" x1="144.5" x2="213.5" y1="359.8998" y2="359.8998"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="149.5" y="374.1187">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="149.5" y="387.3186">mostrar()</text><!--MD5=[8f63dadf5c643e74a34e53c8f0a15d23]
+class Persona--><rect codeLine="47" fill="#FEFECE" filter="url(#f7o0qfszzdht5)" height="113.9995" id="Persona" style="stroke:#A80036;stroke-width:1.5;" width="78" x="7" y="286.5"/><ellipse cx="22" cy="302.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M17,303.6563 C17,306.1563 19.1406,307.9688 22.0625,307.9688 C23.2969,307.9688 24.4688,307.6719 25.2188,307.1563 C25.8281,306.7344 26.1563,306.3125 26.1563,305.9063 C26.1563,305.4375 25.7344,305.0313 25.2344,305.0313 C25,305.0313 24.7813,305.1094 24.5781,305.3125 C24.1406,305.75 24.1406,305.75 23.9688,305.8438 C23.5156,306.0781 22.875,306.2188 22.1094,306.2188 C20.1094,306.2188 18.8281,305.2031 18.8281,303.625 L18.8281,302.5781 C18.8281,300.875 20.0469,299.6719 21.75,299.6719 C22.3281,299.6719 22.9063,299.8125 23.375,300.0625 C23.8438,300.3281 24.0156,300.5156 24.0781,300.875 C24.2031,301.5469 24.4531,301.7969 24.9844,301.7969 C25.2656,301.7969 25.5469,301.6563 25.7344,301.4375 C25.8594,301.2656 25.9063,301.0938 25.9063,300.6563 L25.9063,299.2969 C25.9063,298.875 25.8906,298.7344 25.7656,298.5625 C25.5938,298.3125 25.3125,298.1563 24.9844,298.1563 C24.6719,298.1563 24.4688,298.2656 24.25,298.5313 C23.0781,298.0313 22.6406,297.9219 21.6875,297.9219 C19.0156,297.9219 17,299.9375 17,302.5625 L17,303.6563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="46" x="36" y="306.448">Persona</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="84" y1="318.5" y2="318.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="13" y="332.7189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="13" y="345.9188">apellido</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="14" x="13" y="359.1187">dni</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="84" y1="366.0997" y2="366.0997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="13" y="380.3186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="13" y="393.5185">mostrar()</text><!--MD5=[2d8468f9431f45cd394f888dcfc871e7]
+class Organizacion--><rect codeLine="56" fill="#FEFECE" filter="url(#f7o0qfszzdht5)" height="113.9995" id="Organizacion" style="stroke:#A80036;stroke-width:1.5;" width="105" x="273.5" y="286.5"/><ellipse cx="288.5" cy="302.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M283.5,303.6563 C283.5,306.1563 285.6406,307.9688 288.5625,307.9688 C289.7969,307.9688 290.9688,307.6719 291.7188,307.1563 C292.3281,306.7344 292.6563,306.3125 292.6563,305.9063 C292.6563,305.4375 292.2344,305.0313 291.7344,305.0313 C291.5,305.0313 291.2813,305.1094 291.0781,305.3125 C290.6406,305.75 290.6406,305.75 290.4688,305.8438 C290.0156,306.0781 289.375,306.2188 288.6094,306.2188 C286.6094,306.2188 285.3281,305.2031 285.3281,303.625 L285.3281,302.5781 C285.3281,300.875 286.5469,299.6719 288.25,299.6719 C288.8281,299.6719 289.4063,299.8125 289.875,300.0625 C290.3438,300.3281 290.5156,300.5156 290.5781,300.875 C290.7031,301.5469 290.9531,301.7969 291.4844,301.7969 C291.7656,301.7969 292.0469,301.6563 292.2344,301.4375 C292.3594,301.2656 292.4063,301.0938 292.4063,300.6563 L292.4063,299.2969 C292.4063,298.875 292.3906,298.7344 292.2656,298.5625 C292.0938,298.3125 291.8125,298.1563 291.4844,298.1563 C291.1719,298.1563 290.9688,298.2656 290.75,298.5313 C289.5781,298.0313 289.1406,297.9219 288.1875,297.9219 C285.5156,297.9219 283.5,299.9375 283.5,302.5625 L283.5,303.6563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="73" x="302.5" y="306.448">Organizacion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="274.5" x2="377.5" y1="318.5" y2="318.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="279.5" y="332.7189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="17" x="279.5" y="345.9188">cuit</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="57" x="279.5" y="359.1187">razonSocial</text><line style="stroke:#A80036;stroke-width:1.5;" x1="274.5" x2="377.5" y1="366.0997" y2="366.0997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="279.5" y="380.3186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="279.5" y="393.5185">mostrar()</text><!--MD5=[82e55fbadcf81394abef0491cb8b4a79]
+class Alquiler--><rect codeLine="66" fill="#FEFECE" filter="url(#f7o0qfszzdht5)" height="179.999" id="Alquiler" style="stroke:#A80036;stroke-width:1.5;" width="128" x="174" y="7"/><ellipse cx="213.3" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M208.3,24.1563 C208.3,26.6563 210.4406,28.4688 213.3625,28.4688 C214.5969,28.4688 215.7688,28.1719 216.5188,27.6563 C217.1281,27.2344 217.4563,26.8125 217.4563,26.4063 C217.4563,25.9375 217.0344,25.5313 216.5344,25.5313 C216.3,25.5313 216.0813,25.6094 215.8781,25.8125 C215.4406,26.25 215.4406,26.25 215.2688,26.3438 C214.8156,26.5781 214.175,26.7188 213.4094,26.7188 C211.4094,26.7188 210.1281,25.7031 210.1281,24.125 L210.1281,23.0781 C210.1281,21.375 211.3469,20.1719 213.05,20.1719 C213.6281,20.1719 214.2063,20.3125 214.675,20.5625 C215.1438,20.8281 215.3156,21.0156 215.3781,21.375 C215.5031,22.0469 215.7531,22.2969 216.2844,22.2969 C216.5656,22.2969 216.8469,22.1563 217.0344,21.9375 C217.1594,21.7656 217.2063,21.5938 217.2063,21.1563 L217.2063,19.7969 C217.2063,19.375 217.1906,19.2344 217.0656,19.0625 C216.8938,18.8125 216.6125,18.6563 216.2844,18.6563 C215.9719,18.6563 215.7688,18.7656 215.55,19.0313 C214.3781,18.5313 213.9406,18.4219 212.9875,18.4219 C210.3156,18.4219 208.3,20.4375 208.3,23.0625 L208.3,24.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="42" x="232.7" y="26.948">Alquiler</text><line style="stroke:#A80036;stroke-width:1.5;" x1="175" x2="301" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="180" y="53.2189">id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="180" y="66.4188">cliente: Cliente</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="27" x="180" y="79.6187">fecha</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22" x="180" y="92.8186">hora</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="111" x="180" y="106.0185">detalles: DetalleAlquiler</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="67" x="180" y="119.2184">formaDePago</text><line style="stroke:#A80036;stroke-width:1.5;" x1="175" x2="301" y1="126.1994" y2="126.1994"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="180" y="140.4183">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="180" y="153.6182">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="116" x="180" y="166.8181">conocerDetalleAlquiler()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="180" y="180.018">conocerCliente()</text><!--MD5=[fef2046f92bb98a8bfeef3af01a0a67c]
+class DetalleAlquiler--><rect codeLine="80" fill="#FEFECE" filter="url(#f7o0qfszzdht5)" height="127.1994" id="DetalleAlquiler" style="stroke:#A80036;stroke-width:1.5;" width="157" x="391.5" y="33.5"/><ellipse cx="426.3" cy="49.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M421.3,50.6563 C421.3,53.1563 423.4406,54.9688 426.3625,54.9688 C427.5969,54.9688 428.7688,54.6719 429.5188,54.1563 C430.1281,53.7344 430.4563,53.3125 430.4563,52.9063 C430.4563,52.4375 430.0344,52.0313 429.5344,52.0313 C429.3,52.0313 429.0813,52.1094 428.8781,52.3125 C428.4406,52.75 428.4406,52.75 428.2688,52.8438 C427.8156,53.0781 427.175,53.2188 426.4094,53.2188 C424.4094,53.2188 423.1281,52.2031 423.1281,50.625 L423.1281,49.5781 C423.1281,47.875 424.3469,46.6719 426.05,46.6719 C426.6281,46.6719 427.2063,46.8125 427.675,47.0625 C428.1438,47.3281 428.3156,47.5156 428.3781,47.875 C428.5031,48.5469 428.7531,48.7969 429.2844,48.7969 C429.5656,48.7969 429.8469,48.6563 430.0344,48.4375 C430.1594,48.2656 430.2063,48.0938 430.2063,47.6563 L430.2063,46.2969 C430.2063,45.875 430.1906,45.7344 430.0656,45.5625 C429.8938,45.3125 429.6125,45.1563 429.2844,45.1563 C428.9719,45.1563 428.7688,45.2656 428.55,45.5313 C427.3781,45.0313 426.9406,44.9219 425.9875,44.9219 C423.3156,44.9219 421.3,46.9375 421.3,49.5625 L421.3,50.6563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="81" x="444.7" y="53.448">DetalleAlquiler</text><line style="stroke:#A80036;stroke-width:1.5;" x1="392.5" x2="547.5" y1="65.5" y2="65.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="145" x="397.5" y="79.7189">automoviles: UnidadAutomovil</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="41" x="397.5" y="92.9188">cantidad</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="397.5" y="106.1187">dias</text><line style="stroke:#A80036;stroke-width:1.5;" x1="392.5" x2="547.5" y1="113.0997" y2="113.0997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="397.5" y="127.3186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="397.5" y="140.5185">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="129" x="397.5" y="153.7184">conocerUnidadAutomovil()</text><!--MD5=[c3bec81ddcd27eb45c62536239176700]
+link Persona to Cliente--><path codeLine="90" d="M85.24,343.5 C99.93,343.5 116.84,343.5 132.16,343.5 " fill="none" id="Persona-to-Cliente" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="122,336.5,142,343.5,122,350.5,122,336.5" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[5a84ae0d254a80da7c443aca35ebf156]
+link Organizacion to Cliente--><path codeLine="91" d="M273.01,343.5 C257.47,343.5 240.57,343.5 225.49,343.5 " fill="none" id="Organizacion-to-Cliente" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="235.88,350.5,215.88,343.5,235.88,336.5,235.88,350.5" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[f2ea1bdb321a163601a8b6644f1cd66d]
+link Alquiler to Cliente--><path codeLine="92" d="M216.45,187.31 C208.37,220.8 199.42,257.86 192.3,287.37 " fill="none" id="Alquiler-to-Cliente" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="191.17,292.07,197.1686,284.2587,192.3423,287.2094,189.3916,282.383,191.17,292.07" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="185.0825" y="281.8032">1</text><!--MD5=[61c3094c7a9991d93311555ea8cbcddb]
+link Alquiler to DetalleAlquiler--><path codeLine="93" d="M315.97,97 C315.97,97 358.42,97 380.45,97 " fill="none" id="Alquiler-DetalleAlquiler" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="390.32,97,381.32,93,385.32,97,381.32,101,390.32,97" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="385.32" x2="377.32" y1="97" y2="97"/><polygon fill="#A80036" points="303.97,97,309.97,101,315.97,97,309.97,93,303.97,97" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="363.4263" y="93.3813">1..*</text><!--MD5=[65aa01f9a143debbbc8aaa0098b73492]
+link DetalleAlquiler to UnidadAutomovil--><path codeLine="94" d="M477.65,160.33 C481.41,190.96 485.98,228.27 490.01,261.12 " fill="none" id="DetalleAlquiler-to-UnidadAutomovil" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="490.58,265.7,493.4428,256.2764,489.9651,260.738,485.5036,257.2602,490.58,265.7" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="482.4462" y="255.6352">1</text><!--MD5=[a55988350312a82fdb95a0b18b3f44aa]
+link UnidadAutomovil to Automovil--><path codeLine="95" d="M473.9,419.81 C462.07,453.93 448.19,493.98 436.67,527.21 " fill="none" id="UnidadAutomovil-to-Automovil" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="435.04,531.91,441.7789,524.7276,436.6854,527.1885,434.2245,522.095,435.04,531.91" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="429.8627" y="521.3894">1</text><!--MD5=[0d72c4463d37f376d4c38a1d2bb682a6]
+link UnidadAutomovil to Seguro--><path codeLine="96" d="M525.8,419.81 C536.01,449.59 547.76,483.89 558.16,514.23 " fill="none" id="UnidadAutomovil-to-Seguro" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="559.72,518.81,560.5978,509.0003,558.1046,514.0781,553.0268,511.585,559.72,518.81" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="550.2005" y="508.6793">1</text><!--MD5=[9b030af81d334dc1c72c80e22d9941d2]
+@startuml
+'Tipo de objeto "automovil", tiene la informacion generica'
+class Automovil{
+    marca
+    modelo
+    año
+    precio
+
+    crear()
+    mostrar()
+}
+
+class Seguro{
+    Nombre
+    CUIT
+    tipoPoliza
+    nivelCobertura
+    nroPoliza
+    fechaAdquisicion
+
+    crear()
+    mostrar()
+}
+
+'Automovil especifico, este representa a cada unidad individual.'
+class UnidadAutomovil{
+    tipo: Automovil
+    patente
+    nroChasis
+    seguro: Seguro
+
+    crear()
+    mostrar()
+    conocerSeguro()
+    conocerAutomovil()
+}
+
+'"se le toman los datos personales y/o los de la organización solicitante"'
+'Utilizamos el concepto de herencia'
+class Cliente{
+    email
+    telefono
+
+    crear()
+    mostrar()
+}
+
+class Persona{
+    nombre
+    apellido
+    dni
+
+    crear()
+    mostrar()
+}
+
+class Organizacion{
+    nombre
+    cuit
+    razonSocial
+
+    crear()
+    mostrar()
+}
+
+'Clase principal: Clase transaccion'
+class Alquiler{
+    id
+    cliente: Cliente
+    fecha
+    hora
+    detalles: DetalleAlquiler
+    formaDePago
+
+    crear()
+    mostrar()
+    conocerDetalleAlquiler()
+    conocerCliente()
+}
+
+class DetalleAlquiler{
+    automoviles: UnidadAutomovil
+    cantidad
+    dias
+
+    crear()
+    mostrar()
+    conocerUnidadAutomovil()
+}
+
+Persona -|> Cliente
+Organizacion -|> Cliente
+Alquiler - -> "1" Cliente
+Alquiler *-> "1..*" DetalleAlquiler
+DetalleAlquiler - -> "1" UnidadAutomovil
+UnidadAutomovil - -> "1" Automovil
+UnidadAutomovil - -> "1" Seguro
+
+@enduml
+
+@startuml
+class Automovil{
+    marca
+    modelo
+    año
+    precio
+
+    crear()
+    mostrar()
+}
+
+class Seguro{
+    Nombre
+    CUIT
+    tipoPoliza
+    nivelCobertura
+    nroPoliza
+    fechaAdquisicion
+
+    crear()
+    mostrar()
+}
+
+class UnidadAutomovil{
+    tipo: Automovil
+    patente
+    nroChasis
+    seguro: Seguro
+
+    crear()
+    mostrar()
+    conocerSeguro()
+    conocerAutomovil()
+}
+
+class Cliente{
+    email
+    telefono
+
+    crear()
+    mostrar()
+}
+
+class Persona{
+    nombre
+    apellido
+    dni
+
+    crear()
+    mostrar()
+}
+
+class Organizacion{
+    nombre
+    cuit
+    razonSocial
+
+    crear()
+    mostrar()
+}
+
+class Alquiler{
+    id
+    cliente: Cliente
+    fecha
+    hora
+    detalles: DetalleAlquiler
+    formaDePago
+
+    crear()
+    mostrar()
+    conocerDetalleAlquiler()
+    conocerCliente()
+}
+
+class DetalleAlquiler{
+    automoviles: UnidadAutomovil
+    cantidad
+    dias
+
+    crear()
+    mostrar()
+    conocerUnidadAutomovil()
+}
+
+Persona -|> Cliente
+Organizacion -|> Cliente
+Alquiler - -> "1" Cliente
+Alquiler *-> "1..*" DetalleAlquiler
+DetalleAlquiler - -> "1" UnidadAutomovil
+UnidadAutomovil - -> "1" Automovil
+UnidadAutomovil - -> "1" Seguro
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 07:25:05 ART 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: es
+Country: AR
+--></g></svg>

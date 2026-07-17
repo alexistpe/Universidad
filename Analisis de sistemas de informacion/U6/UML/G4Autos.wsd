@@ -1,0 +1,104 @@
+/' Agencia de alquiler de autos.
+Se alquilan autos de todo tipo
+El cliente elije los autos luego que se tomen los datos
+'/
+
+@startuml
+'Tipo de objeto "automovil", tiene la informacion generica'
+class Automovil{
+    marca
+    modelo
+    año
+    precio
+
+    crear()
+    mostrar()
+}
+
+class Seguro{
+    Nombre
+    CUIT
+    tipoPoliza
+    nivelCobertura
+    nroPoliza
+    fechaAdquisicion
+
+    crear()
+    mostrar()
+}
+
+'Automovil especifico, este representa a cada unidad individual.'
+class UnidadAutomovil{
+    tipo: Automovil
+    patente
+    nroChasis
+    seguro: Seguro
+
+    crear()
+    mostrar()
+    conocerSeguro()
+    conocerAutomovil()
+}
+
+'"se le toman los datos personales y/o los de la organización solicitante"'
+'Utilizamos el concepto de herencia'
+class Cliente{
+    email
+    telefono
+
+    crear()
+    mostrar()
+}
+
+class Persona{
+    nombre
+    apellido
+    dni
+
+    crear()
+    mostrar()
+}
+
+class Organizacion{
+    nombre
+    cuit
+    razonSocial
+
+    crear()
+    mostrar()
+}
+
+'Clase principal: Clase transaccion'
+class Alquiler{
+    id
+    cliente: Cliente
+    fecha
+    hora
+    detalles: DetalleAlquiler
+    formaDePago
+
+    crear()
+    mostrar()
+    conocerDetalleAlquiler()
+    conocerCliente()
+}
+
+class DetalleAlquiler{
+    automoviles: UnidadAutomovil
+    cantidad
+    dias
+
+    crear()
+    mostrar()
+    conocerUnidadAutomovil()
+}
+
+Persona -|> Cliente
+Organizacion -|> Cliente
+Alquiler --> "1" Cliente
+Alquiler *-> "1..*" DetalleAlquiler
+DetalleAlquiler --> "1" UnidadAutomovil
+UnidadAutomovil --> "1" Automovil
+UnidadAutomovil --> "1" Seguro
+
+@enduml

@@ -305,7 +305,7 @@ Salto brutal en la computacion: Se paso de tener una supermaquina hiper costosa 
 - Este salto fue posible debido a avances clave en la tegnologia, la colaboracion de componentes y materiales clave.
 - Hoy en dia la idea de una "super computadora" (hiper mainframe) quedo obsoleta, debido a que comprando multiples equipos pequeños conectados entre si, se obtiene una potencia mayor o similar. Por una fraccion del costo.
 
-#### Formacion del sistema distribuido 2 Formas
+#### Formacion/organizacion del sistema distribuido 2 Formas
 Para la formacion de un sistema distribuido se deben poder comunicar multiples equipos entre si:
 - Muchas maquinas con diferentes componentes al mismo tiempo y de forma coordinada.
 
@@ -338,7 +338,7 @@ Los sistemas distribuidos permiten a un grupo de equipos con hardware independie
 - **Concurrencia:** Se permite compartir y modificar archivos en simultaneo entre 2 o mas equipos, el SO se encarga de gestionar los bloqueos y la consistencia de los cambios, aunque los equipos esten lejanos entre si. Dando la sensacion de que cada individuo tiene exclusividad en el archivo.
 - **Paralelismo:** Las actividades pueden dividirse en multiples subactividades. Cuando un proceso se debe ejecutar, este se puede dividir en multiples subprocesos que se ejecutaran individualmente en cada equipo de la red, esto permite un procesamiento en simultaneo, y genera un nivel de velocidad y eficiencia brutal, sin que el usuario sepa que esta pasando internamente. EL resultado es un procesamiento fluido y veloz.
 
-#### Aspectos de diseño:
+#### Aspectos de diseño: 3
 - **Flexibilidad:** Se define como que tan facil es agregar, modificar o quitar servicios del sistema.
 	- A medida que el cluster avanza y crece, esto se vuelve mas complejo.
 	- Se plantean 2 estructuras para abordar esta situacion:
@@ -359,7 +359,7 @@ Los sistemas distribuidos permiten a un grupo de equipos con hardware independie
 	- Se habla del concepto de granularidad: Elegir el punto medio ideal.
 		- Grano fino: Dividir el proceso en subprocesos independientes lo mas pequeños posibles, esto permite un paralelismo absoluto, pero a costa de sufrir la latencia de la comunicacion (latencia).
 		- Grano grueso: Lo contrario, dividis el proceso en partes robustas y pesadas, llevando a que cada equipo procese una gran tarea y se envien un mensaje de confirmacion al finalizar. Esto permite minimizar la latencia pero descarta la ventaja del paralelismo.
-#### Comunicacion entre dispositivos:
+#### Comunicacion entre dispositivos: 4 y 3
 La comunicacion entre los diferentes dispositivos debe seguir reglas rigidas para coordinarse de forma correcta. Para ello se plantean los pasos que se deben realizar para la comunicacion y los pilares del protocolo efectivo.
 
 **Pasos obligatorios (Capas):** Pasos que deben realizar las computadoras independientes para poder comunicarse efectivamente.
@@ -380,7 +380,7 @@ El middleware se ve como una "API" de alto nivel en el sistema.
 Es un conjunto de procesos y mecanismos internos propios de los sistemas distribuidos, que en conjunto colaboran para permitir un procesamiento eficiente y efectivo.
 ![[Pasted image 20260630141254.png]]
 
-#### Pasos de mensajes:
+#### Pasos de mensajes: 2 y 2
 **Concepto:** El procesador emisor ejecuta el modulo de paso de mensaje, el cual empaqueta la informacion en una estructura basica (idProceso|mensaje), y lo envia por la red de transporte hasta el proceso receptor del mensaje. Donde este lo recibe y sube a la aplicacion.
 Esto sucede debido a que si un procesos e esta ejecutando en 2 equipos diferentes, va a necesitar comunicacion entre ambas partes, ahí nacen los protocolos de mensajes y el sincronismo.
 
@@ -426,7 +426,7 @@ Sin embargo la principal diferencia es la facilidad que se le brinda al programa
 ## Seguridad:
 Consiste en como se protege el hardware y los sistemas de todo tipo de ataques y vulnerabilidades.
 
-#### Tipos de vulnerabilidades:
+#### Tipos de vulnerabilidades: 2
 **Fisica:**
 - Consiste en las vulnerabilidades fisicas.
 - Existen prevenciones de todo tipo:
@@ -441,7 +441,7 @@ Consiste en como se protege el hardware y los sistemas de todo tipo de ataques y
 	- **Control orientado a datos:** Consiste en asignar controles a los datos especificos.
 	- Criptografia: Consiste en un metodo de cifrado que permita ocultar los datos bajo algoritmos de encriptacion.
 
-#### Requisitos basicos:
+#### Requisitos basicos: 
 Consiste en 4 conceptos fundamentales:
 - **Confencialidad:** Consiste en que la informacion no sea expuesta a personas que no deben ver los datos. Normalmente se utiliza criptografia.
 - **Integridad:** Los datos solo puedan ser modificados por los usuarios autoridad.

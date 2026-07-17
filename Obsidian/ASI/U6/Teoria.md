@@ -3,14 +3,6 @@ Aqui se desarrolla la teoria de la sexta unidad de ASI. Todo lo relacionado a:
 - Diagrama de clases.
 - Diagrama de casos de uso.
 Se expandiran los temas uno a uno secuencialmente.
-
-### FALTA
-Falta por extender:
-- Modelización: Importancia –Modelos.
-- Máquinas de Estados. 
-- Requerimientos ágiles: Historias de Usuarios y Criterios de Aceptación.
-- Patrones de diagrama de clases.
-
 ---
 ### Paradigma orientado a objetos
 Parte de la necesidad de revolucionar la industria del software, buscando mejorar los aspectos de la construccion de sistemas:
@@ -194,6 +186,7 @@ Esto incluye lo que el sistema administrara y utilizara.
 #### **TIPS PRACTICOS para el diagrama de clases:**
 ##### Buenas practicas: Son utilidades que permiten un diagrama mas limpio.
 - La **multiplicidad** puede ir en ambos extremos, sin embargo debe estar especificada obligatoriamente en el extremo de la navegabilidad.
+	- La multiplicidad se refiere a la "**cantidad**" de elementos que se relacionan, "1" elemento, "2" elemento o " * " muchos elementos, sin embargo se suele indicar un minimo: "1..*"
 - Las reglas de negocio se convierten comunmente en meteodos y atributos.
 - **Simplificacion:** Una clase con multiplicidad 1..1 se puede simplificar.
 - **Clase transaccional:** Clase que mas objetos tendra.
@@ -212,17 +205,42 @@ Esto incluye lo que el sistema administrara y utilizara.
 	- **Metodos de conocimiento:** Cuando se quieren utilizar los atributos de una clase relacionada se utiliza el metodo: conocerClase() -> conocerHerramienta().
 	- **Obtener atributos:** Para obtener los atributos de una clase externa, se especifica en los atributos atributo:Clase -> herramienta:Herramienta.
 - **Clase principal:** La clase principal se relaciona con las demas clases principales, es la "raiz" o "padre principal", y normalmente se identifica como una transaccion.
+- **"Asociado a":** Significa una clase independiente. Sobretodo si requiere un nivel de analisis mayor (mas de un atributo simple).
+- Los atributos y metodos van en minuscula.
+- **Relacion objeto y objetoEspecifico:** Sucede cuando se tiene a un "tipo" u objeto generico y se quiere especificar objetos individuales de cada tipo. El especifico necesita saber los datos genericos.
+	- Auto(modelo, marca) - UnidadAuto(patente)
+	- **El ítem específico (la unidad física) es el que conoce a su ítem genérico de catálogo** para poder consultar su precio o características comunes.
 ##### Correcciones: Son situaciones fundamentales que afectan directamente la aprobacion.
-- **Multiplicidad:** Se debe evitar que sea de MUCHOS a MUCHOS, en ese caso se debe crear una clase extension que permita dividir una clase mas grande y evitar la multiplicidad * .. *
+- **Multiplicidad:** 
+	- Se debe evitar que sea de MUCHOS a MUCHOS, en ese caso se debe crear una clase extension que permita dividir una clase mas grande y evitar la multiplicidad * .. *
 	- NO SE DEBEN REPETIR LOS DATOS.
+		- Si el precio se obtiene calculando, no se debe agregar un nuevo precio extra. Identificar que necesita un precio y que es una simple categoria.
+	- El rango siempre va de menor a mayor (ej. `0..*`) nunca al reves (* .. 1 = MAL)
 - Si una clase se instancia una sola vez, no es una clase.
 - NO SE PONE int, string, etc... No importa el hardware que tenga.
 - **Transaccion:** Debe tener un ID, fecha, hora como minimo.
 	- Siempre hay una clase "transaccion".
-- El cliente no siempre es una clase candidata, debido a que no se guarda ni especifica. No es una clase en la practica.
+- El cliente no siempre es una clase candidata, debido a que no se guarda ni especifica.
 	- Depende si la organizacion guarda a todos los clientes que interactuen independientemente de su resultado (si compra o no compra).
+	- Depende si se repiten los datos del cliente o no, si se repiten en 2 clases diferentes o mas, entonces hay que crear una clase "Cliente" independiente.
 - No deben haber variables duplicadas.
+- Aplicar generalizacion (herencia) cuando se deba especificar el tipo de cliente (persona vs organizacion).
+- Diferenciar entre "Tipos" o "unidades generales" y el objeto especifico.
+	- Debes evitar que se repitan los datos en los "tipos" de objetos utilizando una clse de "objeto especifico" que los represente individualmente.
+	- objeto - objetoEspecifico.
+	- Auto(marca, modelo, precio) - UnidadAuto(patente)
+- **Relaciones:**
+	- Las relaciones son "quien conoce a", eso significa que una clase necesita los datos de otra clase para realizar su tarea, de esa forma se asgina la navegabilidad.
+	- Si la clase DEL SISTEMA no pide explicitamente esa relacion, entonces la navegabilidad esta mal. Ej: Cliente no pide alquiler (Su intencion no es parte del sistema), al revez, el alquiler (que es parte del sistema) pide saber quien es el cliente.
+	- Se ve siempre de la mirada del sistema.
+	- La transaccion posterior debe conocer a la transaccion base. **Transaccion -> Encuesta**
+	- **las transacciones conocen a sus participantes**
+	- Un comprobante/transaccion NO PUEDE destruir a un historial medico/configuracion. Si hay un fallo de facturacion, todo la configuracion anterior obtenida del cliente se borra (no aplica para detalles de elementos).
+	- La navegabilidad van en sentido del "nacimiento" de los elementos.
+- **LA HERENCIA NO LLEVA MULTIPLICIDAD.**
+	- Ademas, no se especifican los atributos padre: Padre. Se heredan todos directamente.
 ##### Tips para los diagramas.
+Consideras las situaciones para UNA UNICA INSTANCIA, una unica transaccion, no para todas las posibles que puedan ocurrir. Se mira una ejecucion posible del flujo.
 **Relaciones:**
 - **Asociacion:** Si no le debe nada a la otra clase, puede existir sin necesidad de la otra clase, solo se aclara un flujo entre ambos.
 - **Agregacion:** Una de las clases necesita obligatoriamente integrar a la otra clase, es esencialmente necesario aclarar la relacion especial entre ambas clases. Cuando se pierde el sentido de tener a las clases extras.

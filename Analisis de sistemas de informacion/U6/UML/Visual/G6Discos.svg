@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="714px" preserveAspectRatio="none" style="width:456px;height:714px;" version="1.1" viewBox="0 0 456 714" width="456px" zoomAndPan="magnify"><defs><filter height="300%" id="ff011au8tij4z" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[eaad237ec6364547a9d912eae34febcb]
+class Sello--><rect codeLine="1" fill="#FEFECE" filter="url(#ff011au8tij4z)" height="127.1994" id="Sello" style="stroke:#A80036;stroke-width:1.5;" width="60" x="58.5" y="573"/><ellipse cx="73.5" cy="589" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M68.5,590.1563 C68.5,592.6563 70.6406,594.4688 73.5625,594.4688 C74.7969,594.4688 75.9688,594.1719 76.7188,593.6563 C77.3281,593.2344 77.6563,592.8125 77.6563,592.4063 C77.6563,591.9375 77.2344,591.5313 76.7344,591.5313 C76.5,591.5313 76.2813,591.6094 76.0781,591.8125 C75.6406,592.25 75.6406,592.25 75.4688,592.3438 C75.0156,592.5781 74.375,592.7188 73.6094,592.7188 C71.6094,592.7188 70.3281,591.7031 70.3281,590.125 L70.3281,589.0781 C70.3281,587.375 71.5469,586.1719 73.25,586.1719 C73.8281,586.1719 74.4063,586.3125 74.875,586.5625 C75.3438,586.8281 75.5156,587.0156 75.5781,587.375 C75.7031,588.0469 75.9531,588.2969 76.4844,588.2969 C76.7656,588.2969 77.0469,588.1563 77.2344,587.9375 C77.3594,587.7656 77.4063,587.5938 77.4063,587.1563 L77.4063,585.7969 C77.4063,585.375 77.3906,585.2344 77.2656,585.0625 C77.0938,584.8125 76.8125,584.6563 76.4844,584.6563 C76.1719,584.6563 75.9688,584.7656 75.75,585.0313 C74.5781,584.5313 74.1406,584.4219 73.1875,584.4219 C70.5156,584.4219 68.5,586.4375 68.5,589.0625 L68.5,590.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="28" x="87.5" y="592.948">Sello</text><line style="stroke:#A80036;stroke-width:1.5;" x1="59.5" x2="117.5" y1="605" y2="605"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="64.5" y="619.2189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="41" x="64.5" y="632.4188">domicilio</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="38" x="64.5" y="645.6187">telefono</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="25" x="64.5" y="658.8186">email</text><line style="stroke:#A80036;stroke-width:1.5;" x1="59.5" x2="117.5" y1="665.7996" y2="665.7996"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="64.5" y="680.0185">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="64.5" y="693.2184">mostrar()</text><!--MD5=[05046b8509eb48b967062e4ffb458a24]
+class Genero--><rect codeLine="11" fill="#FEFECE" filter="url(#ff011au8tij4z)" height="100.7996" id="Genero" style="stroke:#A80036;stroke-width:1.5;" width="73" x="202" y="586.5"/><ellipse cx="217" cy="602.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M212,603.6563 C212,606.1563 214.1406,607.9688 217.0625,607.9688 C218.2969,607.9688 219.4688,607.6719 220.2188,607.1563 C220.8281,606.7344 221.1563,606.3125 221.1563,605.9063 C221.1563,605.4375 220.7344,605.0313 220.2344,605.0313 C220,605.0313 219.7813,605.1094 219.5781,605.3125 C219.1406,605.75 219.1406,605.75 218.9688,605.8438 C218.5156,606.0781 217.875,606.2188 217.1094,606.2188 C215.1094,606.2188 213.8281,605.2031 213.8281,603.625 L213.8281,602.5781 C213.8281,600.875 215.0469,599.6719 216.75,599.6719 C217.3281,599.6719 217.9063,599.8125 218.375,600.0625 C218.8438,600.3281 219.0156,600.5156 219.0781,600.875 C219.2031,601.5469 219.4531,601.7969 219.9844,601.7969 C220.2656,601.7969 220.5469,601.6563 220.7344,601.4375 C220.8594,601.2656 220.9063,601.0938 220.9063,600.6563 L220.9063,599.2969 C220.9063,598.875 220.8906,598.7344 220.7656,598.5625 C220.5938,598.3125 220.3125,598.1563 219.9844,598.1563 C219.6719,598.1563 219.4688,598.2656 219.25,598.5313 C218.0781,598.0313 217.6406,597.9219 216.6875,597.9219 C214.0156,597.9219 212,599.9375 212,602.5625 L212,603.6563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="41" x="231" y="606.448">Genero</text><line style="stroke:#A80036;stroke-width:1.5;" x1="203" x2="274" y1="618.5" y2="618.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="208" y="632.7189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="208" y="645.9188">descripcion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="203" x2="274" y1="652.8998" y2="652.8998"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="208" y="667.1187">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="208" y="680.3186">mostrar()</text><!--MD5=[20b2fc0b686c6365030d891b8488a5cf]
+class Disco--><rect codeLine="20" fill="#FEFECE" filter="url(#ff011au8tij4z)" height="206.3988" id="Disco" style="stroke:#A80036;stroke-width:1.5;" width="111" x="183" y="267"/><ellipse cx="219.6" cy="283" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M214.6,284.1563 C214.6,286.6563 216.7406,288.4688 219.6625,288.4688 C220.8969,288.4688 222.0688,288.1719 222.8188,287.6563 C223.4281,287.2344 223.7563,286.8125 223.7563,286.4063 C223.7563,285.9375 223.3344,285.5313 222.8344,285.5313 C222.6,285.5313 222.3813,285.6094 222.1781,285.8125 C221.7406,286.25 221.7406,286.25 221.5688,286.3438 C221.1156,286.5781 220.475,286.7188 219.7094,286.7188 C217.7094,286.7188 216.4281,285.7031 216.4281,284.125 L216.4281,283.0781 C216.4281,281.375 217.6469,280.1719 219.35,280.1719 C219.9281,280.1719 220.5063,280.3125 220.975,280.5625 C221.4438,280.8281 221.6156,281.0156 221.6781,281.375 C221.8031,282.0469 222.0531,282.2969 222.5844,282.2969 C222.8656,282.2969 223.1469,282.1563 223.3344,281.9375 C223.4594,281.7656 223.5063,281.5938 223.5063,281.1563 L223.5063,279.7969 C223.5063,279.375 223.4906,279.2344 223.3656,279.0625 C223.1938,278.8125 222.9125,278.6563 222.5844,278.6563 C222.2719,278.6563 222.0688,278.7656 221.85,279.0313 C220.6781,278.5313 220.2406,278.4219 219.2875,278.4219 C216.6156,278.4219 214.6,280.4375 214.6,283.0625 L214.6,284.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="31" x="238.4" y="286.948">Disco</text><line style="stroke:#A80036;stroke-width:1.5;" x1="184" x2="293" y1="299" y2="299"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="189" y="313.2189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="41" x="189" y="326.4188">cantidad</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="53" x="189" y="339.6187">añoEdicion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="30" x="189" y="352.8186">precio</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="51" x="189" y="366.0185">sello: Sello</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="77" x="189" y="379.2184">genero: Genero</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="99" x="189" y="392.4183">interprete: Interprete</text><line style="stroke:#A80036;stroke-width:1.5;" x1="184" x2="293" y1="399.3993" y2="399.3993"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="189" y="413.6182">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="189" y="426.8181">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="189" y="440.018">conocerSello()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="85" x="189" y="453.2179">conocerGenero()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="95" x="189" y="466.4178">conocerInterprete()</text><!--MD5=[fe4478d9c9a369b28097141e000aa656]
+class Venta--><rect codeLine="36" fill="#FEFECE" filter="url(#ff011au8tij4z)" height="179.999" id="Venta" style="stroke:#A80036;stroke-width:1.5;" width="121" x="7" y="7"/><ellipse cx="47.65" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M42.65,24.1563 C42.65,26.6563 44.7906,28.4688 47.7125,28.4688 C48.9469,28.4688 50.1188,28.1719 50.8688,27.6563 C51.4781,27.2344 51.8063,26.8125 51.8063,26.4063 C51.8063,25.9375 51.3844,25.5313 50.8844,25.5313 C50.65,25.5313 50.4313,25.6094 50.2281,25.8125 C49.7906,26.25 49.7906,26.25 49.6188,26.3438 C49.1656,26.5781 48.525,26.7188 47.7594,26.7188 C45.7594,26.7188 44.4781,25.7031 44.4781,24.125 L44.4781,23.0781 C44.4781,21.375 45.6969,20.1719 47.4,20.1719 C47.9781,20.1719 48.5563,20.3125 49.025,20.5625 C49.4938,20.8281 49.6656,21.0156 49.7281,21.375 C49.8531,22.0469 50.1031,22.2969 50.6344,22.2969 C50.9156,22.2969 51.1969,22.1563 51.3844,21.9375 C51.5094,21.7656 51.5563,21.5938 51.5563,21.1563 L51.5563,19.7969 C51.5563,19.375 51.5406,19.2344 51.4156,19.0625 C51.2438,18.8125 50.9625,18.6563 50.6344,18.6563 C50.3219,18.6563 50.1188,18.7656 49.9,19.0313 C48.7281,18.5313 48.2906,18.4219 47.3375,18.4219 C44.6656,18.4219 42.65,20.4375 42.65,23.0625 L42.65,24.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="32" x="67.35" y="26.948">Venta</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="127" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="44" x="13" y="53.2189">nroVenta</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="104" x="13" y="66.4188">detalles: DetalleVenta</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="13" y="79.6187">nombreCliente</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="27" x="13" y="92.8186">fecha</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="13" y="106.0185">total</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="51" x="13" y="119.2184">descuento</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="127" y1="126.1994" y2="126.1994"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="13" y="140.4183">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="13" y="153.6182">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="109" x="13" y="166.8181">conocerDetalleVenta()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="13" y="180.018">calcularTotal()</text><!--MD5=[9e7633472b04ff885cbed4eb8a06cbbc]
+class DetalleVenta--><rect codeLine="50" fill="#FEFECE" filter="url(#ff011au8tij4z)" height="127.1994" id="DetalleVenta" style="stroke:#A80036;stroke-width:1.5;" width="103" x="187" y="33.5"/><ellipse cx="202" cy="49.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M197,50.6563 C197,53.1563 199.1406,54.9688 202.0625,54.9688 C203.2969,54.9688 204.4688,54.6719 205.2188,54.1563 C205.8281,53.7344 206.1563,53.3125 206.1563,52.9063 C206.1563,52.4375 205.7344,52.0313 205.2344,52.0313 C205,52.0313 204.7813,52.1094 204.5781,52.3125 C204.1406,52.75 204.1406,52.75 203.9688,52.8438 C203.5156,53.0781 202.875,53.2188 202.1094,53.2188 C200.1094,53.2188 198.8281,52.2031 198.8281,50.625 L198.8281,49.5781 C198.8281,47.875 200.0469,46.6719 201.75,46.6719 C202.3281,46.6719 202.9063,46.8125 203.375,47.0625 C203.8438,47.3281 204.0156,47.5156 204.0781,47.875 C204.2031,48.5469 204.4531,48.7969 204.9844,48.7969 C205.2656,48.7969 205.5469,48.6563 205.7344,48.4375 C205.8594,48.2656 205.9063,48.0938 205.9063,47.6563 L205.9063,46.2969 C205.9063,45.875 205.8906,45.7344 205.7656,45.5625 C205.5938,45.3125 205.3125,45.1563 204.9844,45.1563 C204.6719,45.1563 204.4688,45.2656 204.25,45.5313 C203.0781,45.0313 202.6406,44.9219 201.6875,44.9219 C199.0156,44.9219 197,46.9375 197,49.5625 L197,50.6563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="71" x="216" y="53.448">DetalleVenta</text><line style="stroke:#A80036;stroke-width:1.5;" x1="188" x2="289" y1="65.5" y2="65.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="60" x="193" y="79.7189">disco: Disco</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="67" x="193" y="92.9188">precioUnitario</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="41" x="193" y="106.1187">cantidad</text><line style="stroke:#A80036;stroke-width:1.5;" x1="188" x2="289" y1="113.0997" y2="113.0997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="193" y="127.3186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="193" y="140.5185">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="76" x="193" y="153.7184">conocerDisco()</text><!--MD5=[0c7da1d6a2c0710c611aaac8a99a2c3f]
+class Interprete--><rect codeLine="60" fill="#FEFECE" filter="url(#ff011au8tij4z)" height="113.9995" id="Interprete" style="stroke:#A80036;stroke-width:1.5;" width="84" x="358.5" y="580"/><ellipse cx="373.5" cy="596" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M368.5,597.1563 C368.5,599.6563 370.6406,601.4688 373.5625,601.4688 C374.7969,601.4688 375.9688,601.1719 376.7188,600.6563 C377.3281,600.2344 377.6563,599.8125 377.6563,599.4063 C377.6563,598.9375 377.2344,598.5313 376.7344,598.5313 C376.5,598.5313 376.2813,598.6094 376.0781,598.8125 C375.6406,599.25 375.6406,599.25 375.4688,599.3438 C375.0156,599.5781 374.375,599.7188 373.6094,599.7188 C371.6094,599.7188 370.3281,598.7031 370.3281,597.125 L370.3281,596.0781 C370.3281,594.375 371.5469,593.1719 373.25,593.1719 C373.8281,593.1719 374.4063,593.3125 374.875,593.5625 C375.3438,593.8281 375.5156,594.0156 375.5781,594.375 C375.7031,595.0469 375.9531,595.2969 376.4844,595.2969 C376.7656,595.2969 377.0469,595.1563 377.2344,594.9375 C377.3594,594.7656 377.4063,594.5938 377.4063,594.1563 L377.4063,592.7969 C377.4063,592.375 377.3906,592.2344 377.2656,592.0625 C377.0938,591.8125 376.8125,591.6563 376.4844,591.6563 C376.1719,591.6563 375.9688,591.7656 375.75,592.0313 C374.5781,591.5313 374.1406,591.4219 373.1875,591.4219 C370.5156,591.4219 368.5,593.4375 368.5,596.0625 L368.5,597.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="52" x="387.5" y="599.948">Interprete</text><line style="stroke:#A80036;stroke-width:1.5;" x1="359.5" x2="441.5" y1="612" y2="612"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="364.5" y="626.2189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="364.5" y="639.4188">apellido</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="60" x="364.5" y="652.6187">nacionalidad</text><line style="stroke:#A80036;stroke-width:1.5;" x1="359.5" x2="441.5" y1="659.5997" y2="659.5997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="364.5" y="673.8186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="364.5" y="687.0185">mostrar()</text><!--MD5=[359082d8be2205277eda113ba5c530d0]
+link Venta to DetalleVenta--><path codeLine="69" d="M141.6,97 C141.6,97 163.91,97 175.64,97 " fill="none" id="Venta-DetalleVenta" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="185.61,97,176.61,93,180.61,97,176.61,101,185.61,97" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="180.61" x2="172.61" y1="97" y2="97"/><polygon fill="#A80036" points="129.6,97,135.6,101,141.6,97,135.6,93,129.6,97" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="158.8721" y="93.0961">1..*</text><!--MD5=[a2073de51585dc7cf20455349bea617b]
+link DetalleVenta to Disco--><path codeLine="70" d="M238.5,160.17 C238.5,189.96 238.5,226.52 238.5,260.67 " fill="none" id="DetalleVenta-to-Disco" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="238.5,265.51,242.5,256.51,238.5,260.51,234.5,256.51,238.5,265.51" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="231.232" y="255.6461">1</text><!--MD5=[1be5405570558d871e016fb6c08f5da7]
+link Disco to Genero--><path codeLine="71" d="M238.5,472.88 C238.5,509.43 238.5,549.25 238.5,580.34 " fill="none" id="Disco-to-Genero" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="238.5,585.32,242.5,576.32,238.5,580.32,234.5,576.32,238.5,585.32" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="230.9641" y="575.1376">1</text><!--MD5=[dbed6053be4054a8a82898a87eba8f26]
+link Disco to Sello--><path codeLine="72" d="M183.07,468.74 C162.4,505.19 139.6,545.39 121.57,577.2 " fill="none" id="Disco-to-Sello" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="119.23,581.31,127.1433,575.4466,121.6922,576.9583,120.1805,571.5071,119.23,581.31" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="119.2585" y="561.7384">1</text><!--MD5=[fc7c95b6a4f93d6a1717382cc8eafdc2]
+link Disco to Interprete--><path codeLine="73" d="M293.8,461.29 C316.77,498.79 342.81,541.31 363.42,574.96 " fill="none" id="Disco-to-Interprete" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="365.89,578.99,364.6127,569.2243,363.2839,574.7229,357.7853,573.3941,365.89,578.99" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="340.5178" y="568.3683">1..*</text><!--MD5=[a15f4d96b8a25388313247c675e8f82d]
+@startuml Discos
+class Sello{
+    nombre
+    domicilio
+    telefono
+    email
+
+    crear()
+    mostrar()
+}
+
+class Genero{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+'cantidad en el stock'
+class Disco{
+    nombre
+    cantidad
+    añoEdicion
+    precio
+    sello: Sello
+    genero: Genero
+    interprete: Interprete
+
+    crear()
+    mostrar()
+    conocerSello()
+    conocerGenero()
+    conocerInterprete()
+}
+
+class Venta{
+    nroVenta
+    detalles: DetalleVenta
+    nombreCliente
+    fecha
+    total
+    descuento
+
+    crear()
+    mostrar()
+    conocerDetalleVenta()
+    calcularTotal()
+}
+'El precio unitario permite congelar el precio al momento de la venta'
+class DetalleVenta{
+    disco: Disco
+    precioUnitario
+    cantidad
+
+    crear()
+    mostrar()
+    conocerDisco()
+}
+
+class Interprete{
+    nombre
+    apellido
+    nacionalidad
+
+    crear()
+    mostrar()
+}
+
+Venta *-> "1..*" DetalleVenta
+DetalleVenta - -> "1" Disco
+Disco - -> "1" Genero
+Disco - -> "1" Sello
+Disco - -> "1..*" Interprete
+@enduml
+
+@startuml Discos
+class Sello{
+    nombre
+    domicilio
+    telefono
+    email
+
+    crear()
+    mostrar()
+}
+
+class Genero{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class Disco{
+    nombre
+    cantidad
+    añoEdicion
+    precio
+    sello: Sello
+    genero: Genero
+    interprete: Interprete
+
+    crear()
+    mostrar()
+    conocerSello()
+    conocerGenero()
+    conocerInterprete()
+}
+
+class Venta{
+    nroVenta
+    detalles: DetalleVenta
+    nombreCliente
+    fecha
+    total
+    descuento
+
+    crear()
+    mostrar()
+    conocerDetalleVenta()
+    calcularTotal()
+}
+class DetalleVenta{
+    disco: Disco
+    precioUnitario
+    cantidad
+
+    crear()
+    mostrar()
+    conocerDisco()
+}
+
+class Interprete{
+    nombre
+    apellido
+    nacionalidad
+
+    crear()
+    mostrar()
+}
+
+Venta *-> "1..*" DetalleVenta
+DetalleVenta - -> "1" Disco
+Disco - -> "1" Genero
+Disco - -> "1" Sello
+Disco - -> "1..*" Interprete
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 07:25:05 ART 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: es
+Country: AR
+--></g></svg>

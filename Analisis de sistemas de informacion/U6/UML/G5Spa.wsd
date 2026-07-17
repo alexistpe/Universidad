@@ -1,0 +1,124 @@
+'Identificar clases candidatas'
+/'
+turno (transaccion)
+comprobante (transaccion real)
+terapia
+tipoTerapia
+Tratamiento
+PagoTerapia: Debido a que se pide explicitamente que se page la terapia antes de obtenr el turno.
+Conformidad (pasa a ser una nueva transaccion).
+
+- Se debe abonar la terapia antes de recibir un turno.
+    . El turno necesita informacion de la terapia.
+'/
+@startuml
+class Cliente{
+    nombre
+    apellido
+    edad
+    dni
+    telefono
+
+    crear()
+    mostrar()
+}
+
+class Turno{
+    fechaTurno
+    horaTurno
+    ticket: Comprobante
+
+    crear()
+    mostrar()
+    conocerComprobante()
+}
+
+class Comprobante{
+    fecha
+    hora
+    terapia: Terapia
+    cliente: Cliente
+
+    crear()
+    mostrar()
+    conocerTerapia()
+    conocerCliente()
+}
+
+class Terapia{
+    tipo: TipoTerapia
+    tratamiento: Tratamiento
+    elementosCosmeticos: ElementosCosmeticos
+    total
+
+    crear()
+    mostrar()
+    calcularTotal()
+    ConocerTipoTerapia()
+    ConocerTratamiento()
+    ConocerElementosCosmeticos()
+}
+
+class Tratamiento{
+    idT
+    nombre
+    descripcion
+    precio
+
+    crear()
+    mostrar()
+}
+
+'Solo una categoria, no lleva precio'.
+class TipoTerapia{
+    idTt
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class detalleCosmeticos{
+    cosmetico: ElementosCosmeticos
+    cantidad
+    total
+
+    crear()
+    mostrar()
+    calcularTotal()
+}
+
+class ElementosCosmeticos{
+    idE
+    nombre
+    descripcion
+    precio
+
+    crear()
+    mostrar()
+}
+
+class Conformidad{
+    turno: Turno
+    nroEncuesta
+    fecha
+    hora
+    resultado
+    descripcion
+
+    crear()
+    mostrar()
+    conocerTurno()
+}
+
+Turno --> "1" Comprobante
+Comprobante --> "1" Terapia
+Terapia *-> "1..*" detalleCosmeticos
+detalleCosmeticos --> "1" ElementosCosmeticos
+Terapia --> "1..*" Tratamiento
+Terapia --> "1" TipoTerapia
+Conformidad --> "1" Turno
+Comprobante --> "1" Cliente
+
+@enduml

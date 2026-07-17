@@ -1636,7 +1636,9 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     | **Precipitación** | Producto líquido o sólido de la condensación del vapor de agua que cae de las nubes. | mm | Variable objetivo. Es el resultado del proceso que tu modelo busca predecir. |
 - **¿De que forma se miden los datos? Metodos**
     
-    Determinar el formato de medicion de estos datos necesarios y el metodo teorico necesario:
+    Los datos se utilizaran convertidos a las variables correspondientes. No se utilizaran datos crudos (Ej: Resistencia eléctrica) para el analisis y utilizacion de los datos. Esto permite utilizar variables proporcionadas por estaciones confiables y universales de forma practica para la investigacion.
+    
+    - No se miden datos crudos extraidos de los sensores, se miden variables metorologicas traducidas por estos.
     
     **Temperatura del Aire:** 
     
@@ -1670,7 +1672,7 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     - **Método de medición estándar (OMM):** La OMM especifica que la precipitación se mide con un pluviómetro. El tipo más común en estaciones automáticas es el pluviómetro de cubeta basculante (tipping bucket).
     - Este instrumento consiste en un embudo que dirige el agua de lluvia a un pequeño balde o cucharón dividido en dos compartimentos. Cuando el balde se llena con una cantidad fija de agua (por ejemplo, 0.2 mm), se inclina y se vacía, generando un pulso eléctrico (a través de un interruptor de lengüeta) que es contado por el microcontrolador. La precipitación se mide en milímetros (mm), que es la unidad que se utilizara.
     - **Método propuesto (bajo costo):** Se utilizara el mismo pluviómetro de cubeta basculante que viene en kits como el de SparkFun. Este pluviómetro tiene una resolución típica de 0.2 mm por pulso. Cada vez que la cubeta se inclina, el interruptor de lengüeta se cierra y el microcontrolador registra un "pulso" de lluvia. El total de precipitación se calcula multiplicando el número de pulsos por la resolución del pluviómetro.
-- **¿De donde se obtienen los datos?**
+- **¿De donde se obtienen los datos? (Ubicacion y sistema)**
     
     **Obtencion:** La recoleccion de datos para el entrenamiento del modelo sera proporcionada por un ente externo, no datos propios.
     
@@ -1681,30 +1683,68 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     - Se determinara el porcentaje de presicion que diferencia a ambos tipos de mediciones (profecional y bajo costo).
     - La recoleccion y posterior entrenamiento con datos propios en sensores de bajo costo se delega a una proxima apleacion de la investigacion actual (trabajo futuro).
     
-    **Estacion elegida:** Se eligio a la estacion “Aeropuerto Regional Villa María (Aeropuerto Regional Presidente Néstor Kirchner)” debido a la cercania local y la recoleccion de datos necesarias para el analisis.
+    **Estacion elegida:** 
     
-    - Otra opcion es la utilizacion de la estacion “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella” que forma parte de las estaciones del servicio meteorologico nacional cumpliendo estandares de la Organización Meteorológica Mundial (OMM).
-    - Sin embargo el Aeropuerto Regional Villa María permite una mayor factibilidad para la futura adaptacion de los datos.
-- ¿Quien provee los datos?
+    - Se elegira una estacion que contanga un “WMO ID”, esto certifica que la estacion cumple con los estandares impuestos por la Organización Meteorológica Mundial
+    - Se eligio a la estacion “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella” debido a la cercania local, la validacion por parte del SMN y la OMM (MWO) con su WMO ID propio: 87344
+        
+        Aclaraciones sobre los datos extraidos de esta estacion:
+        
+        - La estacion “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella” y “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella: Ezeiza Aero” al ser miembros validados por el SMN, cumplen los estandares de la OMM para las mediciones con su precision correspondiente, sin embargo los dispositivos utilizados pueden variar de modelo especifico entre estaciones, normalmente estos dispositivos fueron proporcionados por:
+            - **Lufft**
+            - Vaisala
+            - Campbell
+            - OTT
+            
+            | Marca | ¿Hay evidencia pública? | Fuente |
+            | --- | --- | --- |
+            | **Lufft** | **Sí** | Documentación técnica del repositorio oficial del SMN |
+            | **Vaisala** | Sí | Documentación de sistemas aeronáuticos (AWOS/MET) y licitaciones del Estado |
+            | **Campbell Scientific** | Sí | Licitaciones y proyectos meteorológicos nacionales/provinciales |
+            | **OTT** | Sí | Proyectos hidrometeorológicos argentinos y licitaciones |
+            - El SMN utiliza diferentes fabricantes según la estación y la época. La única marca que se puede verificar directamente en documentación técnica oficial del SMN es LUFFT. Para Vaisala, Campbell y OTT existen evidencias de uso en sistemas meteorológicos argentinos o aeronáuticos, pero no una confirmación pública de que formen parte de la red general del SMN.
+            - En los aeropuertos analizados puede coexistir 2 tipos de intrumentalizaciones diferentes.
+                - Instrumentación del **SMN** (climatología y observaciones).
+                - Instrumentación **AWOS** administrada en el entorno aeronáutico (EANA u otros organismos, según la configuración operacional).
+        - Los datos extraidos de esta fuente, pudieron ser corregidos por el SMN debido a su normativa, provocando pequeñas discrepancias a los datos reales de sus sensores. Sin embargo esta correccion permite un analisis mas preciso de los datos (Documento creacion del SMN Artículo 3, inciso a)
+    - Otras opciones:
+        - **Ezeiza Aero**
+        - “**Aeropuerto Regional Villa María** (Aeropuerto Regional Presidente Néstor Kirchner)” que permite facilidad logistica para probar este mismo modelo con datos extraidos de sensores a bajo costo en un futuro.
     
-    Inicialmente se planeo la utilizacion de “Open meteo”, sin embargo, se esta viendo de utilizar alternativas mas rigurosas.
+    **Fuentes:**
     
-    - Meteostat
-    - API que tome los datos directamente de la SMN, o similar.
-    - La red del INTA.
+    - https://www.argentina.gob.ar/normativa/nacional/decreto-1432-2007-133371/texto
+    - https://repositorio.smn.gob.ar/bitstream/handle/20.500.12160/448/Nota_Tecnica_SMN_2017-16.pdf?sequence=1&isAllowed=y
+    - https://repositorio.smn.gob.ar/bitstream/handle/20.500.12160/469/Nota_Tecnica_SMN_2017-22.pdf?sequence=1&isAllowed=y
+    - https://www.eana.com.ar/novedades-del-sector/eana-inauguro-el-primer-sistema-meteorologico-de-nivel-internacional-en-el
+- **¿Quien provee los datos?**
     
-    Lo mas fundamental es una herramienta que permita recuperar los datos historico en masa, de forma ordenada y confiable para su utilizacion.
+    Al no extraer los datos manualmente, utilizaremos un proveedor que nos brinde los datos por un medio confiable y simple de utilizar.
     
-    Los datos se extraeran de forma cruda, sin interpolaciones si no es completamente necesario. Esto debido a representar fielmente la obtencion de datos en un entorno local.
+    **Condiciones para la extraccion:**
     
-    EL SCRIPT PARA DETERMINAR EL USO DE LA API LO ESTA HACIENDO EN EL CHAT DE OPENCODE.
+    Los datos deben simular datos extraidos directamente de dispositivos fisicos, por lo que requieren una serie de condiciones:
     
-- **¿Que ubicacion se utilizara para el analisis?**
+    - **Datos crudos:** NO deben llevar ningun tipo de manipulacion mediante modelos matematicos.
+    - **Frecuentes:** Deben cumplir con una frecuencia minima de 60 minutos entre cada dato obtenido.
+    - **Verificacion:** Los datos extraidos del proveedor deben poder verificar su veracidad con los datos reales provistos por la estacion.
+    - **Facilidadad:** Los datos deben poder extraerse y formatearse de una forma sencilla para el posterior entrenamiento.
+    - **Datos historicos:** El proveedor debe poder ofrecer datos historicos con una antiguedad como minimo de 8 años usando los mismos dispositivos de deteccion para un correcto entrenamiento del modelo.
     
-    **Ubicacion:** La ubicacion utilizada sera **local**, en el **Aeropuerto Regional Presidente Néstor Kirchner** **Villa maria, Cordoba, Argentina.**
+    Se podran utilizar mas de una fuente para la comprobacion y correcta extraccion de los datos.
     
-    **Justificacion:** Se eligio esta ubicacion debido a ser mi localidad, tener la infrestructura, datos historicos para entrenar el modelo, y utilizar esta investigacion para una futura extension con datos extraidos directamente de dispositivos de bajo costo, y comparar de forma veridica las diferencias con la estacion meteorologica de alta precision.
+    - **Series de tiempo (argentina.gob.ar): M**edio oficial para la extraccion de datos.
+    - **Meteostat:** Plataforma open source diseñada para la extraccion y formateo de datos entregados por las estaciones o las instituciones meteorologicas. Incluye una recopilacion extensa de los datos publicados por el SMN a lo largo de los años. https://dev.meteostat.net/quality.html
+        - La API de Meteostat proporciona metadatos de cada estación que incluyen su ID de WMO cuando está disponible.
+        - La documentación oficial de Meteostat indica que todas las estaciones listadas en el directorio de Meteostat se adhieren a los estándares internacionales de la WMO cuando esos estándares aplican
+        - La mayor parte de los datos de Meteostat proviene de servicios meteorológicos oficiales y puede considerarse fiable para un uso general. Es posible que existan pequeñas inconsistencias, aunque por lo general no afectan a las aplicaciones habituales. Para trabajos científicos de alta precisión, se recomienda realizar comprobaciones de calidad y validaciones adicionales sobre las observaciones en bruto.
+        - Debido a esta razon, se utilizaran otras fuentes para respaldar los datos obtenidos por meteostat.
+    - **Visual Crossing:** Plataforma privada que recopila y entrega de forma formateada los datos de instituciones meteorologicas oficiales aprobadas por la OMM/MWO.
     
+    **Dificultades y resolucion:** 
+    
+    - Para la extraccion de datos de las fuentes y estaciones oficiales se impone una gran dificultad. Los canales de comunicacion de estos datos provienen del sistema meteorologico nacional, los cuales no proveen los datos de forma directa para su extraccion historica en masa, sino que se proveen datos de forma resumida o simplemente visual y actual, sin un historial detallado y simple de recuperar.
+    - Debido a esto, se utilizaran diferentes fuentes que recopilen los datos historicos provistos por el smn y junto a los datos generales y actuales provistos por el smn se podran corroborar y validar.
 - **¿Que frecuencia de muestreo se utilizara?**
     
     **Frecuencia:** Los datos seran extraidos en rangos de una hora.
@@ -1994,6 +2034,42 @@ Define paso a paso cómo ejecutarás tu experimento:
     Esta base te permitirá enfocarte en el desarrollo y la evaluación del modelo LIF, sabiendo que tus datos han sido procesados con el máximo rigor científico y alineados con los objetivos de tu proyecto para el CNEISI.
     
 - Limitaciones de la adquisicion de datos:
+    - Analisis open-meteo:
+        
+        ### 🔍 Open-Meteo: Análisis de su Procesamiento y Limitaciones
+        
+        Open-Meteo es técnicamente impresionante, pero su naturaleza como agregador de datos implica procesos que debes conocer.
+        
+        - **Datos y Cobertura**: Agrega modelos de más de 15 servicios meteorológicos nacionales
+        
+        , usando
+        
+        **reanálisis**
+        
+        como ERA5, que combinan observaciones con modelos matemáticos
+        
+        . Ofrece datos desde 1940 con resolución horaria
+        
+        , pero la resolución de 15 minutos
+        
+        **no proviene de observaciones directas**
+        
+        ; son datos interpolados a partir de modelos horarios en la mayoría de las regiones
+        
+        - .
+        - **Métodos de Interpolación**: Open-Meteo no aplica una única técnica. Cada variable (temperatura, radiación solar, precipitación) usa métodos diferentes
+        
+        . Por ejemplo, la precipitación se divide en función del intervalo de interpolación. Para la radiación solar, usan un algoritmo basado en el índice de claridad
+        
+        - . **Esto significa que los datos de precipitación en frecuencia de 15 minutos
+        son, en parte, una construcción matemática, no una medición directa.**
+        - **Selección de Estación por Coordenadas**: Open-Meteo utiliza el modelo numérico de mayor resolución para tus coordenadas, no una estación física específica
+        
+        . Por defecto, selecciona la celda de la cuadrícula, pero puede elegir otra si el ajuste de elevación es mejor
+        
+        - . **Esto implica que tus datos no provienen de una estación concreta como SACO o la UNVM, sino de un modelo que combina múltiples fuentes de datos para
+        esa ubicación.**
+        - **Validación**: Aunque usa datos de estaciones, son datos **reanalizados** y no pueden ser validados contra los sensores crudos de una estación específica, ya que no existen como tal en su salida.
     1. ¿El script recopila datos de múltiples estaciones o solo datos crudos de una estación?
     Descarga una estación por ejecución. Los datos son crudos (el valor directo de la observación), con estas salvedades:
     | Fuente | ¿Dato crudo de estación real? |
@@ -2194,6 +2270,12 @@ La deteccion temprana de lluvia local sigue siendo un desafio actual en zonas co
         2. ¿La estacion elegida es realmente la ideal, no existen otras estaciones con mayor sustento para la investigacion? ¿Es realmente fiable los datos recolectados de esta esatcion? ¿Se conoce sus dispositivos?
         3.  Si es fiable a nivel de datos, presicion y dispositivos para esta investigacion, ¿Es justificacion suficiente la eleccion de esta estacion para una proxima ampleacion del paper con datos historicos de la estacion adaptados a dispositivos de bajo costo?. ¿Que beneficios a nivel investigativo me dá elegir esa estación? 
         4.  Verificar si a lo largo del periodo seleccionado cambiaron su dispositivos de medición. Tomar un periodo donde esos dispositivos no hayan cambiado.
+    
+    **RESOLUCION:** Se utilizara la plataforma meteostat junto a analisis del SMN para la estacion particular de SECO en cordoba o Ezeiza en Buenos Aires.
+    
+    - Esto se debe a que se necesitan datos precisos y confiables, que permitan ser verificados y comprobados por informacion extraida de entes oficiales como el SMN y la MWO.
+    - Debido a esto se decidio utilizar de referencia a estaciones que cumplan los estandares del SMN y el MWO, recibiendo un WMO ID particular. Esto verifica tanto su autenticidad, transparencia y metodos/dispositivos utilizados.
+        - Junto a ello se debe poder extraer sus datos de manera practica y fiable, por lo que se utilizara meteostat para la extraccion de datos, y la plataforma del SMN para la verificacion y validacion de estos, junto a ello se puede implementar el uso de la plataforma “Visual Crossing” para respaldar las observaciones de las diferentes variables. De esa forma nos aseguramos de obtener mediciones lo mas fiables posibles a la realidad.
 3. **Estudio de teoria y referencias:**
     1. Se deben confirmar 2 cuestiones fundamentales:
         1. ¿Me debo saber la teoria de pies a cabeza sobre como funcionan las neuronas LIF, o el concepto general me basta para explicar el modelo? Eso cambia si debo estudiar los papers completos o solo los conceptos fundamentales de este.
