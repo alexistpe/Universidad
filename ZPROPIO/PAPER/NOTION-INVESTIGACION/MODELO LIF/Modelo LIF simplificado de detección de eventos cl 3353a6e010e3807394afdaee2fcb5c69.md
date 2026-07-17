@@ -1102,7 +1102,7 @@ Para su aplicacion utilizaremos la tegnologia bioinspirada llamada LIF. Esta teg
     **¿Por cuál de estas secciones quieres empezar a trabajar concretamente?** Podemos redactar juntos el título, refinar la pregunta, o definir la metodología paso a paso.
     
 
-Se habla de un trabajo o investigacion.
+Se habla de un trabajo y investigacion.
 
 Para plantear la base debemos responder 3 preguntas fundamentales, que van a ir dando forma al trabajo a realizar:
 
@@ -1449,6 +1449,7 @@ Se quiere desarrollar un modelo predictor de eventos de lluvia basado en el mode
 - Modelo comparativo.
 - Datos a utilizar.
 - Modelo a desarrollar.
+- Ciclo dia y noche.
 
 **Puntos principales:**
 
@@ -1470,6 +1471,7 @@ Se ajustaran los valores con el entrenamiento que permita maximizar la presicion
   • Utilizar datos de estaciones que forman parte del SMN para la recoleccion de datos gracias a su facil acceso, obtenidos con dispositivos profecionales que cumplen los estandares de la MMO.
   • Posteriormente se añadira ruido a estos datos precisos para simular los datos de un sensor de bajo costo.
   • Se entrenaran 2 instancias del modelo LIF para comprobar su adaptacion a las diferentes precisiones en los datos disponibles.  |
+| Ciclo dia y noche | Se analizara las 24h | Las variables de lluvia pueden variar entre las horas diurnas y nocturans, sin embargo el modelo sera entrenado con ambas. ¿Añadir parametro de hora al modelo? |
 
 #### Que NO se va a hacer
 
@@ -1479,6 +1481,7 @@ Se detallan las caracteristicas y areas que NO va a abordar esta investigacion:
 - NO se desarrollara para rangos de predicion de mas de dos horas. Aunque pueda lograr una prediccion de ese rango.
 - NO se predeciran tormentas. Solo se predeciran eventos de lluvia especificados en la metodologia.
 - NO se utilizaran datos mas complejos a los especificados, como imagenes satelitales. Solo se utilizaran 5 sensores terrestres determinados como:  Temperatura del aire, presion atmosferica, humedad relativa, precipitacion, viento (velocidad|direccion).
+- NO se entrenara un modelo nocturno y otro diurno, solo e entrenara un unico modelo capaz de identificar este evento de lluvia tanto de dia como de noche.
 - NO incorporara un sistema de alerta temprana que se comunique con organismos, autoridades, ciudadanos o cualquier infrestructura de alerta compleja . Solo se alertara de forma simbolica en el software desarrollado.
 - NO se utilizaran sensores personales para los datos utilizados en el entrenamiento, analisis u desarrollo. Se utilizaran datos de un proveedor externo debido a las limitaiones tecnicas. Se especifica el modo de analisis en la metodologia.
 - NO se implementara en hardware embebido real. Solo se simulara por software.
@@ -1729,11 +1732,11 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     - **Frecuentes:** Deben cumplir con una frecuencia minima de 60 minutos entre cada dato obtenido.
     - **Verificacion:** Los datos extraidos del proveedor deben poder verificar su veracidad con los datos reales provistos por la estacion.
     - **Facilidadad:** Los datos deben poder extraerse y formatearse de una forma sencilla para el posterior entrenamiento.
-    - **Datos historicos:** El proveedor debe poder ofrecer datos historicos con una antiguedad como minimo de 8 años usando los mismos dispositivos de deteccion para un correcto entrenamiento del modelo.
+    - **Datos historicos:** El proveedor debe poder ofrecer datos historicos con una antiguedad como minimo de 5 años usando los mismos dispositivos de deteccion para un correcto entrenamiento del modelo. Cantidad minima recomendada para una precision adecuada del modelo y debido a los cambios que surgieron los dispositivos en la estaciones principales.
     
     Se podran utilizar mas de una fuente para la comprobacion y correcta extraccion de los datos.
     
-    - **Series de tiempo (argentina.gob.ar): M**edio oficial para la extraccion de datos.
+    - **Series de tiempo (argentina.gob.ar):** Medio oficial para la extraccion de datos.
     - **Meteostat:** Plataforma open source diseñada para la extraccion y formateo de datos entregados por las estaciones o las instituciones meteorologicas. Incluye una recopilacion extensa de los datos publicados por el SMN a lo largo de los años. https://dev.meteostat.net/quality.html
         - La API de Meteostat proporciona metadatos de cada estación que incluyen su ID de WMO cuando está disponible.
         - La documentación oficial de Meteostat indica que todas las estaciones listadas en el directorio de Meteostat se adhieren a los estándares internacionales de la WMO cuando esos estándares aplican
@@ -1745,39 +1748,70 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
     - Para la extraccion de datos de las fuentes y estaciones oficiales se impone una gran dificultad. Los canales de comunicacion de estos datos provienen del sistema meteorologico nacional, los cuales no proveen los datos de forma directa para su extraccion historica en masa, sino que se proveen datos de forma resumida o simplemente visual y actual, sin un historial detallado y simple de recuperar.
     - Debido a esto, se utilizaran diferentes fuentes que recopilen los datos historicos provistos por el smn y junto a los datos generales y actuales provistos por el smn se podran corroborar y validar.
+    
+    **Fuentes:**
+    
+    - https://www.sciencedirect.com/science/article/pii/S0022169426001435?fr=RR-2&ref=pdf_download&rr=a16a87397c43acb8
+    - https://ams.confex.com/ams/WAFNWPMS/webprogram/Paper425648.html
 - **¿Que frecuencia de muestreo se utilizara?**
     
     **Frecuencia:** Los datos seran extraidos en rangos de una hora.
     
-    **Justificacion:** Es la frecuencia minima que la estacion provee de forma abierta, y esta comprobado que resulta suficiente para una prediccion confiable con el sistema adecuado.
+    **Justificacion:** Es la frecuencia minima que la estacion provee de forma abierta, y esta comprobado que resulta suficiente para una prediccion confiable con el sistema adecuado. No se agruparan los datos en tiempos mas extensos.
     
     **Rango de fechas:** Se analizara la estacion meteorologica a recolectar los datos, y se verificara durante que rango de fechas se utilizaron los mismos dispositivos de medicion.
     
 
-#### Preprosesamiento de los datos:
+#### Utilizacion y procesamiento de los datos:
 
-Verificar y agregar/modificar preguntas.
-
-- ¿Como se utilizan los datos para el entrenamiento?
+- **¿Cuál es el porcentaje de datos faltantes en mi dataset y cuál es su patrón?**
     
-    Describir si los datos se normalizan, se adaptan, o se utilizan en crudo.
+    Descargar tabla de datos del dataset.
     
-- ¿Como se maneja la falta de datos?
+    Analizar cuales datos faltan o si meteostat lo suplanta por una aproximacion.
     
-    Que sucede si un dia la estacion no transmitio los datos.
+    Redactar porcentaje de estos datosñ
     
-- ¿Se utiliza algun metodo estadistico?
+- **¿Qué umbral de tolerancia a datos faltantes voy a aplicar y por qué?**
     
-    Se utilizara algun metodo para identificar una especie de “distribucion normal”, donde se identifiquen los datos lejos del promedio?
+    Definir a que se refiere con umbral a datos faltantes.
     
-- ¿Como se utilizaran los datos de eventos exepcionales (lejos del promedio)?
+    Definir respuesta.
     
-    ¿Hay que aplicar alguna modificacion, restriccion o algo similar a los datos que son muy poco usuales?
+- **¿Qué método usaré para imputar o interpolar los datos faltantes?**
     
-    ¿Pueden estos datos perjudicar la precision?
+    Ignoro los datos faltantes o los “interpreto”?, utilizo otra fuente para esos datos especificos?
+    
+- **¿Cómo identificaré y trataré los outliers (valores anómalos)?**
+    
+    Definir outliners
+    
+    ¿Son negativos realmente?
+    
+    Definir si estos valores benefician al funcionamiento del modelo o lo perjudican.
+    
+- **¿Qué hago con los outliers?: ¿los elimino, los corrijo o los trato como eventos especiales?**
+    
+    Decidir que se realiza con estos datos.
+    
+    Si se deben identificar aparte o solo son parte de la prediccion del modelo y listo.
+    
+- **¿Qué ventana temporal de entrada (lookback window) usaré?**
+    
+    Definir que es una ventana temporal de entrada.
+    
+    Identificar estudios que demuestren una ventana optima.
+    
+    Elegir “ventana” de tiempo que el modelo utilizara para predecir las lluvias. (Va dew la mano con la memoria del modelo LIF, cuanto recuerda).
+    
+    ¿Se realizara una unica ventana predefinida o se probara independientemente con diferentes ventanas hasta obtener la optima?
+    
+    ¿El tiempo de entrenamiento lo permite?
     
 
 #### Modelo LIF:
+
+¿Cuanto tiempo llevara el entrenamiento de cada modelo?
 
 #### Definicion baseline:
 
