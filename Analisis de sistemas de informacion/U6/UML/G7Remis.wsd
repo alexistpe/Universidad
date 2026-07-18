@@ -1,0 +1,144 @@
+/' Analisis enunciado caso remis:
+Empresa de remises, ofrece el servicio de transporte a diferentes clientes. No pasajeros comunes.
+Se destacan las clases principales:
+
+- Turno
+    mañana, tarde, noche
+
+- Ticket
+    Fecha, hora, importe, nro. de coche, etc...
+
+- Chofer
+    datos del empleado.
+
+- Vehiculo
+    datos del Vehiculo.
+
+- Cliente
+    Datos personales del cliente.
+
+Relaciones:
+- Chofer se relaciona con un unico vehiculo. 
+    - Y un unico vehiculo con un unico turno
+- El ticket se relaciona con los demas clases.
+
+Correcciones:
+-Turnos es una transaccion.
+-Los clientes son en realidad empleados de una empresa.
+-Los choferes y clientes se deben organizar en generalizacion con "persona"
+-Se debe tener una funcion para emitir un ticket.
+-El chofer tiene fechas de actividad, osea mientras estuvo contratado.
+-Multiples clases relevantes deben llevar ID para identificarlas.
+- Especificar metodos de seteo.
+'/
+
+@startuml
+class Chofer{   
+    carnet
+    fechaAlta
+    fechaBaja
+
+    crear()
+    mostrar()
+    tomar_fechaAlta
+    mostrar_fechaAlta
+    tomar_fechaBaja
+    mostrar_fechaBaja
+    tomar_carnet
+    mostrar_carnet
+}
+
+class Vehiculo{
+    id
+    patente
+    chofer: Chofer
+    turno: Turno
+    fechaFabricacion
+    modelo
+
+    crear()
+    mostrar()
+    conocerTurno()
+    conocerChofer()
+}
+
+class Turno{
+    nombre
+    horaInicio
+    horaFin
+
+    crear()
+    mostrar()
+}
+
+'Se utiliza idVehiculo para dejar registrado de forma permanente el coche que se utilizo, independientemente de lo que le suceda al coche luego.'
+class Ticket{
+    vehiculo: Vehiculo
+    cliente: Cliente
+    fecha
+    hora
+    idTicket
+    idVehiculo
+    idCliente
+    origen
+    destino
+    kmRecorridos
+    importe
+
+    crear()
+    mostrar()
+    calcularKm()
+    calcularImporte()
+    emitirTicket()
+    conocerVehiculo()
+    conocerCliente()
+}
+
+class Cliente{
+    empresa: Empresa
+    idCliente
+
+    crear()
+    mostrar()
+    conocerEmpresa()
+}
+
+class Empresa{
+    nombre
+    cuit
+    razonSocial
+    fechaAlta
+
+    crear()
+    mostrar()
+}
+
+class Persona{
+    nombre
+    apellido
+    dni
+    email
+    telefono
+    edad
+
+    crear()
+    mostrar()
+}
+
+'Relaciones:'
+Ticket --> "1" Cliente
+Ticket --> "1" Vehiculo
+Vehiculo --> "1" Chofer
+Chofer -|> Persona
+Cliente -|> Persona
+Cliente --> "1" Empresa
+Vehiculo --> "1" Turno
+
+'Notas:'
+note left of Chofer 
+    Los metodos 
+    de seteo de esta 
+    clase aplican para 
+    todas las demas.
+end note
+@enduml
