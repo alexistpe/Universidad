@@ -180,7 +180,7 @@ Se describe la evolucion que tuvieron los dispositivos de E/S y la organizacion 
 - Manejadores de interrupciones.
 - Hardware.
 
-#### Software independiete para E/S:
+#### Software independiete para E/S: 4 puntos
 Es un software encargado de unificar la comunicacion entre los dispositivos para una mayor eficiencia.
 Funciones clave:
 - Interfaz uniforme para los drivers: Todos los drivers traduzcan la instruccion generica (read, write and open) a su intruccion especifica.
@@ -190,7 +190,7 @@ Funciones clave:
 Esto lo permite la interfaz de controlador estandar, sin ello, el sistema debe comprender a cada dispositivo individualmente con sus caracteristicas, lo que lo haria muy propenso a errores.
 
 ## Tercera parte: Gestion de E/S y administracion de disco.
-#### Objetivos de diseño.
+#### Objetivos de diseño. 2
 Se plantean 2 caracteristicas fundamentales para el diseño del subsistema de E/S:
 - **Eficiencia:** Al administrar los dispositivos de hardware mas lentos del sistema, la eficiencia es un punto fundamental en la filosofia del diseño, impactando directamente en 3 puntos.
 	- **Arrastrar a la CPU:** Un sistema E/S mal optimizado, puede contendar a la CPU a esperar multiples entradas sin procesar ni un dato util.
@@ -252,6 +252,7 @@ Gracias a esta tecnica, la consistencia del sistema queda segura.
 #### Algoritmos de planificacion de disco:
 Estos algoritmos se basan en 3 variables fundamentales, que determinan cuanto se tarda en buscar informacion en unidades externas.
 Esto se basa en discos rigidos (con plantillos).
+La planificación decide en qué **orden** visitará el brazo las pistas del disco.
 - Tiempo de busqueda (seek time):  El tiempo necesario para mover el brazo al lugar indicado del disco.
 	- Exige mucho tiempo debido al acto de tener que moverlo fisicamente.
 	- Es la variable mas critica del proceso debido a esta desventaja fisica.
@@ -262,8 +263,15 @@ Esto se basa en discos rigidos (con plantillos).
 **Existen 4 algoritmos principales:** Estos algoritmos son utilizados para decidir que dato se lee primero en el disco.
 - **FIFO:** El mas justo, sigue el orden estricto en el que llegaron las solicitudes. (Facil de implementar)
 - **SSTF:** Busca la operacion que este mas cerca del cabezal, permite reducir el movimiento, pero aumentar los problemas de inanicion de procesos que nunca se atienden. (Rapidas lecturas)
-- **SCAN:** El brazo del disco se desplaza de un lado al otro, recolectando todos los datos importantes que encuentre. Cambia la direccion solo al llegar al limite. Limpia el disco de forma ordenada. (Evita inanicion)
-- **C-SCAN:** Atiende solicitudes de una sola direccion, una vez que llega al final, ejecuta un viaje rapido sin leer nada, permite uniformidad en los tiempos de espera, pero es el mas lento. (Justo, tarda lo mismo para todos)
+- **SCAN:** El brazo del disco se desplaza de un lado al otro, recolectando todos los datos importantes que encuentre. Cambia la direccion solo al llegar al limite. Limpia el disco de forma ordenada. (Evita inanicion). Esta programado para si o si, tarde o temprano atender todas las lineas disponibles. Avanza, atiende si hay, repite. (Viaje de vuelta rentable).
+- **C-SCAN:** Atiende solicitudes de una sola direccion, una vez que llega al final, ejecuta un viaje rapido sin leer nada, permite uniformidad en los tiempos de espera, pero es el mas lento. (Justo, tarda lo mismo para todos) Todos tienen la misma probabilidad de espera. (Viaje de vuelta inutil pero justo).
+	- Al reocrrer igual que SCAN, pero volver inmediatamente, permite q si llega una solicitud para la linea que acaba de pasar, al terminar, vuelva al inicio y la pueda leer en un ciclo normal. Sin que otras solicitudes en lineas altas puedan robarse ese tiempo.
+		- Ej: Hay 100 lineas
+		- el cabezal llega a la 41
+		- justo aparece una solicitud en la 40
+		- Si fuera SCAN esa solicitud sera atendida en un tiempo mucho mayor a una solicitud en la linea 50, 60, 70, etc...
+		- El C scan al llegar a la linea 100, regresa rapidamente para atender a la linea 40 en un tiempo promedio.
+		- Comienza en el extremo, o en el centro. Se dirige al limite atendiendo todas las solicitudes entre medio, y al llegar al limite vuelve al inicio.
 #### RAID:
 Es un metodo donde se combinan multiples discos en uno solo en busca de aumentar la velocidad.
 El RAID parte de 3 puntos fundamentales.
@@ -277,12 +285,12 @@ El RAID parte de 3 puntos fundamentales.
 	- De esa forma, realizando operaciones matematicas se puede determinar el contenido del disco roto sin necesidad de duplicar datos.
 
 **Niveles de RAID:**
-- 0: Distribucion de datos: los bloques que representan a los datos se reparten en todos los discos secuencialmente. Es muy eficiente en lectura pero inseguro relacionado a las fallas en los discos.
-- 1: Espejo, Consiste en duplicar bit por bit los datos de un disco en el otro, permitiendo lecturas rapidas al leer de ambos, y seguridad ante la falla de uno de los discos, el problema es el desperdicio criminal de espacio.
+- 0: Distribucion de datos: los bloques que representan a los datos se reparten en todos los discos secuencialmente. Es muy eficiente en lectura pero inseguro relacionado a las fallas en los discos. Striping: MINIMO 2 DISCOS
+- 1: Espejo, Consiste en duplicar bit por bit los datos de un disco en el otro, permitiendo lecturas rapidas al leer de ambos, y seguridad ante la falla de uno de los discos, el problema es el desperdicio criminal de espacio: MINIMO 2 DISCOS
 - A partir de aqui son diferentes combinaciones de estas dos.
-- 5: Paridad mediante compuertas XOR, donde se distribuye la paridad a lo largo de una serie de discos, gastando el total de un solo disco de almacenamiento repartido en todos los discos, util para servidores.
-- 6: Una actualizacion del RAID 5, donde en vez de utilizar una ecuacion de paridad, se utilizan dos funciones de paridad diferentes. Estas se distribuyen a lo largo de los discos, permiten resiliencia abosluta al poder romperse la mitad de los discos y recuperar la informacion, sin embargo requiere como minimo 4 discos.
-- 10: Combinas el RAID 1 con el RAID 0, agrupas discos de a pares, y luego a esos pares los distribuis a lo largo de todos los discos. Termina siendo super seguro y eficiente en termino de velocidad, pero costoso en terminos de almacenamiento redundante.
+- 5: Paridad mediante compuertas XOR, donde se distribuye la paridad a lo largo de una serie de discos, gastando el total de un solo disco de almacenamiento repartido en todos los discos, util para servidores: MINIMO 3 DISCOS
+- 6: Una actualizacion del RAID 5, donde en vez de utilizar una ecuacion de paridad, se utilizan dos funciones de paridad diferentes. Estas se distribuyen a lo largo de los discos, permiten resiliencia abosluta al poder romperse la mitad de los discos y recuperar la informacion, sin embargo requiere como minimo 4 discos: MINIMO 4 DISCOS
+- 10: Combinas el RAID 1 con el RAID 0, agrupas discos de a pares, y luego a esos pares los distribuis a lo largo de todos los discos. Termina siendo super seguro y eficiente en termino de velocidad, pero costoso en terminos de almacenamiento redundante: MINIMO 4 DISCOS (Siempre cantidad PAR).
 
 #### Cache de disco:
 Por mas algoritmos que utilices, el disco sigue ocupando milisegundos de lectura por su situacion fisica.
@@ -386,6 +394,7 @@ Esto sucede debido a que si un procesos e esta ejecutando en 2 equipos diferente
 
 Aqui entran 2 protocolos miticos de la transmision de datos: TCP y UDP.
 **TCP: Fiable** Consiste en un protocolo de verificacion, la parte receptora y emisora estan pendientes de que se transmitio el dato correctamente, si la parte receptora recibio el dato corrupto (codigo de redundancia), entonces pide a la receptora que se lo envie nuevamente. Es la mas "segura", ya que permite que los datos sean enviados correctamente.
+
 **UDP: No fiable** Consiste en el desentendimiento de los dispositivos, el emisor envia la informacion y se desentiende del receptor, y el receptor recibe la informacion y la interpreta como puede. Esta mecanica, a pesar de parecer poco confiable, resulta simple y efectiva cuando el tiempo de transmision es critico, y no se puede andar perdiendo tiempo entre verificaciones.
  
 **Sincronismo del emisor:**
@@ -441,7 +450,7 @@ Consiste en como se protege el hardware y los sistemas de todo tipo de ataques y
 	- **Control orientado a datos:** Consiste en asignar controles a los datos especificos.
 	- Criptografia: Consiste en un metodo de cifrado que permita ocultar los datos bajo algoritmos de encriptacion.
 
-#### Requisitos basicos: 
+#### Requisitos basicos: 4
 Consiste en 4 conceptos fundamentales:
 - **Confencialidad:** Consiste en que la informacion no sea expuesta a personas que no deben ver los datos. Normalmente se utiliza criptografia.
 - **Integridad:** Los datos solo puedan ser modificados por los usuarios autoridad.
@@ -449,14 +458,14 @@ Consiste en 4 conceptos fundamentales:
 - **Autenticacion:** Garantizar que un usuario/proceso/entidad es quien dice ser, verificarlo de forma infalible.
 	- El atacante se le llama enmascaramiento.
 
-#### Tipos de peligro:
+#### Tipos de peligro: 4
 - **Interrupcion:** Se corta la disponibilidad, el flujo de datos deja de entregarse. El objetivo es realizar una denegacion de servicio, osea en sintesis interrumpir la entrega de datos de forma adecuada.
-- **Intercepcion:** Consiste en obtener informacion sin provocar ningun daño en los sistemas, solo observar y recolectar informacion.
-- **Modificar:** Un ataque activo, consiste en interceptar los datos, modificarlos y regresarlos para que llegen al destino en estado modificado.
-- **Fabricacion:** Consiste en que un usuario no autorizado se hace pasar por un usuario legitimo de la red, provocando que se trasmita informacion nueva (fabricada) provocando problemas en el sistema al trasmitir informacion problematica para el sistema.
+- **Intercepcion:** Consiste en obtener informacion sin provocar ningun daño en los sistemas, solo observar y recolectar informacion. Vulnera la confidencialidad.
+- **Modificacion:** Un ataque activo, consiste en interceptar los datos, modificarlos y regresarlos para que llegen al destino en estado modificado. Vulnera a la integridad.
+- **Fabricacion:** Consiste en que un usuario no autorizado se hace pasar por un usuario legitimo de la red, provocando que se trasmita informacion nueva (fabricada) provocando problemas en el sistema al trasmitir informacion problematica para el sistema. Vulnera a la autenticidad.
 	- Se conoce como enmascaramiento.
 
-#### Seguridad relacionada a los componentes clave de un sistema.
+#### Seguridad relacionada a los componentes clave de un sistema. 4 componentes.
 
 | Componentes  | Disponibilidad                                                            | Privacidad                                                                                                                   | Integridad/Autenticacion                                                                                                                          |
 | ------------ | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -464,13 +473,13 @@ Consiste en 4 conceptos fundamentales:
 | Software     | Borrar las aplicaciones, quitar el acceso a los usuarios.                 | Consiste en robar datos sensibles de las aplicaciones o organizacion.                                                        | Modificar el programa para provocar su fallo mediante un datos/metodos externos. Se busca cambiar el comportamiento del software.                 |
 | Datos        | Borrar archivos o denegar los permisos de otros usuarios a esos archivos. | Lectura no autorizada, eso provoca un espionaje de datos sensibles.                                                          | Modificar o crear nuevos archivos criticos para el sistema. Afectan directamente a los usuarios propietarios.                                     |
 | Comunicacion | Consiste en que la transmision de los datos este interrumpida o corrupta. | Se observan como se trasmiten los datos, permitiendo idenitificar ciertas vulnerabilidades o identificando conexiones clave. | Modificacion, borrado, en sintesis alteracion del mensaje para el destino, permitiendo crear mensajes falsos o duplicarlos para fines malisiosos. |
-#### Tipos de ataques:
+#### Tipos de ataques: 2
 - **Pasivos:** Consiste en la lectura de la informacion para x fin, corresponde a la parte mas basica de un ataque pero no por eso deja de ser critica.
 	- Analizar trafico, leer documentos.
 - **Activos:** Consiste en alterar el material directamente, provocando fallos o modificaciones provocadas a proposito con fines malisiosos.
 	- Reenvio, modificaciones denegaciones de servicio, enmascaramiento, etc...
 
-#### Proteccion:
+#### Proteccion del SO: 4 recursos, 2 niveles de proteccion.
 Es el mecanismo que utiliza el sistema operativo para ser resistente a amenazas externas.
 **Multiprogramacion:** Aqui los procesos se ejecutan unos milisegundos en la CPU, eso lleva a que cualquier programa malisioso pueda utilizar ese beneficio para perjudicar el equipo de alguna forma.
 - Por esa razon para que este metodo se pueda utilizar correctamente, se implementan reglas estrictas para que un proceso malisioso o mal programa no pueda modificar datos de otro proceso, pueda ocupar tiempo de procesamiento por demas provocando inanicion, leer datos sensibles en el dispositivo ni tampoco borrar otro proceso, etc...
@@ -488,7 +497,7 @@ El sistema operativo maneja un nivel de granularidad entre los permisos asignado
 - Plantea la diferencia de modo usuario y modo kernel. Utiliza la logica de nivel maximo de privilegio al SO, y un nivel basico con multiples funciones sensibles deshabilitadas para los modo usuario.
 **Nivel usuario/proceso:** Se identifica mediante kernel cual es el propietario de la orden, se puede dar permiso de lectura y prohibicion de escritura al mismo archivo, etc... Son protecciones internas a nivel del usuario.
 
-#### Proteccion a memoria:
+#### Proteccion a memoria: 2 orientaciones.
 Consiste en el concepto explicado de la multiprogramacion, se exponen diferentes metodos para la proteccion de la memoria de otros procesos.
 - Se exige que solo se pueda acceder a la memoria de otro proceso si esta explicitamente compartida.
 - Se fija en los permisos rwx, si se quiere ejecutar alguna funcion que no es compatible con los permisos asignados, se deniega la instruccion.
@@ -514,7 +523,7 @@ Este enfoque determina que recursos puede manipular y de que forma el usuario qu
 	- Consiste en un verificador externo KDC, que hace de intermediario para verificar que ese dispositivo que esta queriendo acceder a la informacion, realmente es quien dice ser.
 	- El usuario en cuestion pide una verificacion (ticket de acceso) a esta entidad separada llamada KDC, esta le devuelve un ticket comprobando que su credencial es real, y se lo envia al dispositivo de destino para verificar realmente quien dice ser. Todo se maneja por encriptacion.
 
-#### Intrusos y tecnicas de intrusion:
+#### Intrusos y tecnicas de intrusion: 3 intrusos y 2 tecnicas.
 Se expande los tipos de intrusos junto a sus tecnicas para la instrusion.
 **Intrusos:**
 - **Enmascarados:**
@@ -529,7 +538,7 @@ Se expande los tipos de intrusos junto a sus tecnicas para la instrusion.
 	- Domina el modo administrador para encubrir su rastro en el sistema, puede ser un agente interno o externo al sistema.
 
 **Tecnicas y relacion:**
-- Ingenieria social: Manipulacion psicologia o de cualquier tipo al usuario autorizado para obtener sus credenciales.
+- **Ingenieria social:** Manipulacion psicologia o de cualquier tipo al usuario autorizado para obtener sus credenciales.
 	- Es utilizada principalmente por el enmascarado.
 
 - **Eliminacion de registros/bitacora:** Los intrusos pueden aprovecharse de los privilegios que obtuvieron para borrar su rastro y permitir pasar desapercibidos.
@@ -541,7 +550,7 @@ Se expande los tipos de intrusos junto a sus tecnicas para la instrusion.
 	- Esto frenta principalmente a los transgresores y enmascarados.
 
 
-#### Malware (Software Malicioso) y antivirus
+#### Malware (Software Malicioso) y antivirus: 6 Tipos.
 Son procesos y aplicaciones que buscan explotar las vulnerabilidades del kernel.
 Se clasifican segun 2 variables criticas:
 - Si necesita un programa huesped para sobrevivir.

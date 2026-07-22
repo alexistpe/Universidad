@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="913px" preserveAspectRatio="none" style="width:475px;height:913px;" version="1.1" viewBox="0 0 475 913" width="475px" zoomAndPan="magnify"><defs><filter height="300%" id="f18ns7c4uso3cg" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[f0268dd29ee89052933f031546cb1cab]
+class Menu--><rect codeLine="2" fill="#FEFECE" filter="url(#f18ns7c4uso3cg)" height="166.7991" id="Menu" style="stroke:#A80036;stroke-width:1.5;" width="104" x="214.5" y="519.8"/><ellipse cx="247.95" cy="535.8" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M242.95,536.9563 C242.95,539.4563 245.0906,541.2688 248.0125,541.2688 C249.2469,541.2688 250.4188,540.9719 251.1688,540.4563 C251.7781,540.0344 252.1063,539.6125 252.1063,539.2063 C252.1063,538.7375 251.6844,538.3313 251.1844,538.3313 C250.95,538.3313 250.7313,538.4094 250.5281,538.6125 C250.0906,539.05 250.0906,539.05 249.9188,539.1438 C249.4656,539.3781 248.825,539.5188 248.0594,539.5188 C246.0594,539.5188 244.7781,538.5031 244.7781,536.925 L244.7781,535.8781 C244.7781,534.175 245.9969,532.9719 247.7,532.9719 C248.2781,532.9719 248.8563,533.1125 249.325,533.3625 C249.7938,533.6281 249.9656,533.8156 250.0281,534.175 C250.1531,534.8469 250.4031,535.0969 250.9344,535.0969 C251.2156,535.0969 251.4969,534.9563 251.6844,534.7375 C251.8094,534.5656 251.8563,534.3938 251.8563,533.9563 L251.8563,532.5969 C251.8563,532.175 251.8406,532.0344 251.7156,531.8625 C251.5438,531.6125 251.2625,531.4563 250.9344,531.4563 C250.6219,531.4563 250.4188,531.5656 250.2,531.8313 C249.0281,531.3313 248.5906,531.2219 247.6375,531.2219 C244.9656,531.2219 242.95,533.2375 242.95,535.8625 L242.95,536.9563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="31" x="266.05" y="539.748">Menu</text><line style="stroke:#A80036;stroke-width:1.5;" x1="215.5" x2="317.5" y1="551.8" y2="551.8"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="43" x="220.5" y="566.0189">nroMenu</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="90" x="220.5" y="579.2188">principal: Producto</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="80" x="220.5" y="592.4187">papas: Producto</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="220.5" y="605.6186">bebida: Bebida</text><line style="stroke:#A80036;stroke-width:1.5;" x1="215.5" x2="317.5" y1="612.5996" y2="612.5996"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="220.5" y="626.8185">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="220.5" y="640.0184">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="220.5" y="653.2183">conocerBebida()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="220.5" y="666.4182">conocerProducto()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="220.5" y="679.6181">calcularTotal()</text><!--MD5=[9884e166d189446fe4825863c8acf943]
+class Producto--><rect codeLine="15" fill="#FEFECE" filter="url(#f18ns7c4uso3cg)" height="113.9995" id="Producto" style="stroke:#A80036;stroke-width:1.5;" width="81" x="226" y="785.8"/><ellipse cx="241" cy="801.8" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M236,802.9563 C236,805.4563 238.1406,807.2688 241.0625,807.2688 C242.2969,807.2688 243.4688,806.9719 244.2188,806.4563 C244.8281,806.0344 245.1563,805.6125 245.1563,805.2063 C245.1563,804.7375 244.7344,804.3313 244.2344,804.3313 C244,804.3313 243.7813,804.4094 243.5781,804.6125 C243.1406,805.05 243.1406,805.05 242.9688,805.1438 C242.5156,805.3781 241.875,805.5188 241.1094,805.5188 C239.1094,805.5188 237.8281,804.5031 237.8281,802.925 L237.8281,801.8781 C237.8281,800.175 239.0469,798.9719 240.75,798.9719 C241.3281,798.9719 241.9063,799.1125 242.375,799.3625 C242.8438,799.6281 243.0156,799.8156 243.0781,800.175 C243.2031,800.8469 243.4531,801.0969 243.9844,801.0969 C244.2656,801.0969 244.5469,800.9563 244.7344,800.7375 C244.8594,800.5656 244.9063,800.3938 244.9063,799.9563 L244.9063,798.5969 C244.9063,798.175 244.8906,798.0344 244.7656,797.8625 C244.5938,797.6125 244.3125,797.4563 243.9844,797.4563 C243.6719,797.4563 243.4688,797.5656 243.25,797.8313 C242.0781,797.3313 241.6406,797.2219 240.6875,797.2219 C238.0156,797.2219 236,799.2375 236,801.8625 L236,802.9563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="49" x="255" y="805.748">Producto</text><line style="stroke:#A80036;stroke-width:1.5;" x1="227" x2="306" y1="817.8" y2="817.8"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="232" y="832.0189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="232" y="845.2188">descripcion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="30" x="232" y="858.4187">precio</text><line style="stroke:#A80036;stroke-width:1.5;" x1="227" x2="306" y1="865.3997" y2="865.3997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="232" y="879.6186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="232" y="892.8185">mostrar()</text><!--MD5=[033c40fe9f6705bb01208a8259264755]
+class Bebida--><rect codeLine="24" fill="#FEFECE" filter="url(#f18ns7c4uso3cg)" height="113.9995" id="Bebida" style="stroke:#A80036;stroke-width:1.5;" width="71" x="390" y="785.8"/><ellipse cx="405" cy="801.8" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M400,802.9563 C400,805.4563 402.1406,807.2688 405.0625,807.2688 C406.2969,807.2688 407.4688,806.9719 408.2188,806.4563 C408.8281,806.0344 409.1563,805.6125 409.1563,805.2063 C409.1563,804.7375 408.7344,804.3313 408.2344,804.3313 C408,804.3313 407.7813,804.4094 407.5781,804.6125 C407.1406,805.05 407.1406,805.05 406.9688,805.1438 C406.5156,805.3781 405.875,805.5188 405.1094,805.5188 C403.1094,805.5188 401.8281,804.5031 401.8281,802.925 L401.8281,801.8781 C401.8281,800.175 403.0469,798.9719 404.75,798.9719 C405.3281,798.9719 405.9063,799.1125 406.375,799.3625 C406.8438,799.6281 407.0156,799.8156 407.0781,800.175 C407.2031,800.8469 407.4531,801.0969 407.9844,801.0969 C408.2656,801.0969 408.5469,800.9563 408.7344,800.7375 C408.8594,800.5656 408.9063,800.3938 408.9063,799.9563 L408.9063,798.5969 C408.9063,798.175 408.8906,798.0344 408.7656,797.8625 C408.5938,797.6125 408.3125,797.4563 407.9844,797.4563 C407.6719,797.4563 407.4688,797.5656 407.25,797.8313 C406.0781,797.3313 405.6406,797.2219 404.6875,797.2219 C402.0156,797.2219 400,799.2375 400,801.8625 L400,802.9563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="39" x="419" y="805.748">Bebida</text><line style="stroke:#A80036;stroke-width:1.5;" x1="391" x2="460" y1="817.8" y2="817.8"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="396" y="832.0189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="396" y="845.2188">descripcion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="30" x="396" y="858.4187">precio</text><line style="stroke:#A80036;stroke-width:1.5;" x1="391" x2="460" y1="865.3997" y2="865.3997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="396" y="879.6186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="396" y="892.8185">mostrar()</text><!--MD5=[fe4478d9c9a369b28097141e000aa656]
+class Venta--><rect codeLine="34" fill="#FEFECE" filter="url(#f18ns7c4uso3cg)" height="166.7991" id="Venta" style="stroke:#A80036;stroke-width:1.5;" width="112" x="11.5" y="7"/><ellipse cx="48.1" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M43.1,24.1563 C43.1,26.6563 45.2406,28.4688 48.1625,28.4688 C49.3969,28.4688 50.5688,28.1719 51.3188,27.6563 C51.9281,27.2344 52.2563,26.8125 52.2563,26.4063 C52.2563,25.9375 51.8344,25.5313 51.3344,25.5313 C51.1,25.5313 50.8813,25.6094 50.6781,25.8125 C50.2406,26.25 50.2406,26.25 50.0688,26.3438 C49.6156,26.5781 48.975,26.7188 48.2094,26.7188 C46.2094,26.7188 44.9281,25.7031 44.9281,24.125 L44.9281,23.0781 C44.9281,21.375 46.1469,20.1719 47.85,20.1719 C48.4281,20.1719 49.0063,20.3125 49.475,20.5625 C49.9438,20.8281 50.1156,21.0156 50.1781,21.375 C50.3031,22.0469 50.5531,22.2969 51.0844,22.2969 C51.3656,22.2969 51.6469,22.1563 51.8344,21.9375 C51.9594,21.7656 52.0063,21.5938 52.0063,21.1563 L52.0063,19.7969 C52.0063,19.375 51.9906,19.2344 51.8656,19.0625 C51.6938,18.8125 51.4125,18.6563 51.0844,18.6563 C50.7719,18.6563 50.5688,18.7656 50.35,19.0313 C49.1781,18.5313 48.7406,18.4219 47.7875,18.4219 C45.1156,18.4219 43.1,20.4375 43.1,23.0625 L43.1,24.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="32" x="66.9" y="26.948">Venta</text><line style="stroke:#A80036;stroke-width:1.5;" x1="12.5" x2="122.5" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="27" x="17.5" y="53.2189">fecha</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22" x="17.5" y="66.4188">hora</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="17.5" y="79.6187">pedido: Pedido</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="20" x="17.5" y="92.8186">total</text><line style="stroke:#A80036;stroke-width:1.5;" x1="12.5" x2="122.5" y1="99.7996" y2="99.7996"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="17.5" y="114.0185">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="17.5" y="127.2184">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="17.5" y="140.4183">conocerPedido()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="17.5" y="153.6182">calcularTotal()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="100" x="17.5" y="166.8181">emitirComprobante()</text><!--MD5=[a26d7a8585b446db7fc8ab4626d8ca8a]
+class Pedido--><rect codeLine="48" fill="#FEFECE" filter="url(#f18ns7c4uso3cg)" height="166.7991" id="Pedido" style="stroke:#A80036;stroke-width:1.5;" width="121" x="7" y="253.8"/><ellipse cx="44.5" cy="269.8" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M39.5,270.9562 C39.5,273.4562 41.6406,275.2687 44.5625,275.2687 C45.7969,275.2687 46.9688,274.9719 47.7188,274.4562 C48.3281,274.0344 48.6563,273.6125 48.6563,273.2062 C48.6563,272.7375 48.2344,272.3312 47.7344,272.3312 C47.5,272.3312 47.2813,272.4094 47.0781,272.6125 C46.6406,273.05 46.6406,273.05 46.4688,273.1437 C46.0156,273.3781 45.375,273.5187 44.6094,273.5187 C42.6094,273.5187 41.3281,272.5031 41.3281,270.925 L41.3281,269.8781 C41.3281,268.175 42.5469,266.9719 44.25,266.9719 C44.8281,266.9719 45.4063,267.1125 45.875,267.3625 C46.3438,267.6281 46.5156,267.8156 46.5781,268.175 C46.7031,268.8469 46.9531,269.0969 47.4844,269.0969 C47.7656,269.0969 48.0469,268.9562 48.2344,268.7375 C48.3594,268.5656 48.4063,268.3937 48.4063,267.9562 L48.4063,266.5969 C48.4063,266.175 48.3906,266.0344 48.2656,265.8625 C48.0938,265.6125 47.8125,265.4562 47.4844,265.4562 C47.1719,265.4562 46.9688,265.5656 46.75,265.8312 C45.5781,265.3312 45.1406,265.2219 44.1875,265.2219 C41.5156,265.2219 39.5,267.2375 39.5,269.8625 L39.5,270.9562 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="39" x="63.5" y="273.748">Pedido</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="127" y1="285.8" y2="285.8"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="13" y="300.0189">id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="27" x="13" y="313.2188">fecha</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22" x="13" y="326.4187">hora</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="33" x="13" y="339.6186">estado</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="109" x="13" y="352.8185">detalles: DetallePedido</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="127" y1="359.7995" y2="359.7995"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="13" y="374.0184">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="13" y="387.2183">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="64" x="13" y="400.4182">emitirTicket()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="89" x="13" y="413.6181">actualizarEstado()</text><!--MD5=[c5b398fa0ebcb37d5f6ff1d0d8a5eaf4]
+class DetallePedido--><rect codeLine="61" fill="#FEFECE" filter="url(#f18ns7c4uso3cg)" height="113.9995" id="DetallePedido" style="stroke:#A80036;stroke-width:1.5;" width="110" x="211.5" y="280.3"/><ellipse cx="226.5" cy="296.3" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M221.5,297.4562 C221.5,299.9562 223.6406,301.7687 226.5625,301.7687 C227.7969,301.7687 228.9688,301.4719 229.7188,300.9562 C230.3281,300.5344 230.6563,300.1125 230.6563,299.7062 C230.6563,299.2375 230.2344,298.8312 229.7344,298.8312 C229.5,298.8312 229.2813,298.9094 229.0781,299.1125 C228.6406,299.55 228.6406,299.55 228.4688,299.6437 C228.0156,299.8781 227.375,300.0187 226.6094,300.0187 C224.6094,300.0187 223.3281,299.0031 223.3281,297.425 L223.3281,296.3781 C223.3281,294.675 224.5469,293.4719 226.25,293.4719 C226.8281,293.4719 227.4063,293.6125 227.875,293.8625 C228.3438,294.1281 228.5156,294.3156 228.5781,294.675 C228.7031,295.3469 228.9531,295.5969 229.4844,295.5969 C229.7656,295.5969 230.0469,295.4562 230.2344,295.2375 C230.3594,295.0656 230.4063,294.8937 230.4063,294.4562 L230.4063,293.0969 C230.4063,292.675 230.3906,292.5344 230.2656,292.3625 C230.0938,292.1125 229.8125,291.9562 229.4844,291.9562 C229.1719,291.9562 228.9688,292.0656 228.75,292.3312 C227.5781,291.8312 227.1406,291.7219 226.1875,291.7219 C223.5156,291.7219 221.5,293.7375 221.5,296.3625 L221.5,297.4562 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="78" x="240.5" y="300.248">DetallePedido</text><line style="stroke:#A80036;stroke-width:1.5;" x1="212.5" x2="320.5" y1="312.3" y2="312.3"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="60" x="217.5" y="326.5189">menu: Menu</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="41" x="217.5" y="339.7188">cantidad</text><line style="stroke:#A80036;stroke-width:1.5;" x1="212.5" x2="320.5" y1="346.6998" y2="346.6998"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="217.5" y="360.9187">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="217.5" y="374.1186">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="85" x="217.5" y="387.3185">calcularSubtotal()</text><!--MD5=[93f135ae7e4d86929f4388d8f7c5d8f9]
+link Venta to Pedido--><path codeLine="71" d="M67.5,174.14 C67.5,197.79 67.5,223.64 67.5,247.6 " fill="none" id="Venta-to-Pedido" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="67.5,252.46,71.5,243.46,67.5,247.46,63.5,243.46,67.5,252.46" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="60.1555" y="242.1454">1</text><!--MD5=[a97cae3bb7eae45397557ec701c9223b]
+link Pedido to DetallePedido--><path codeLine="72" d="M141.39,336.8 C141.39,336.8 180.8,336.8 200.36,336.8 " fill="none" id="Pedido-DetallePedido" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="210.1,336.8,201.1,332.8,205.1,336.8,201.1,340.8,210.1,336.8" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="205.1" x2="197.1" y1="336.8" y2="336.8"/><polygon fill="#A80036" points="129.39,336.8,135.39,340.8,141.39,336.8,135.39,332.8,129.39,336.8" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="183.3073" y="332.8905">1..*</text><!--MD5=[4563225ad69de3bf432a8b53668a0146]
+link DetallePedido to Menu--><path codeLine="73" d="M266.5,393.14 C266.5,428.02 266.5,473.82 266.5,513.62 " fill="none" id="DetallePedido-to-Menu" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="266.5,518.44,270.5,509.44,266.5,513.44,262.5,509.44,266.5,518.44" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="259.1664" y="508.417">1</text><!--MD5=[8d0b9ceefc813f52412e37953b10cb45]
+link Menu to Bebida--><path codeLine="74" d="M318.34,681.24 C340.53,714.38 366,752.43 386.54,783.11 " fill="none" id="Menu-to-Bebida" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="389.21,787.1,387.5228,777.3967,386.4266,782.9463,380.877,781.8501,389.21,787.1" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="376.1238" y="774.4574">1</text><!--MD5=[7374df4654395bddd13e4a27596f7efa]
+link Menu to Producto--><path codeLine="75" d="M253.96,685.53 C252.96,716.35 253.24,750.85 254.82,779.54 " fill="none" id="Menu-to-Producto" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="255.11,784.44,258.5622,775.216,254.8097,779.449,250.5767,775.6965,255.11,784.44" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="246.2113" y="774.4203">1</text><!--MD5=[7374df4654395bddd13e4a27596f7efa]
+link Menu to Producto--><path codeLine="76" d="M279.04,685.53 C280.04,716.35 279.76,750.85 278.18,779.54 " fill="none" id="Menu-to-Producto-1" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="277.89,784.44,282.4233,775.6965,278.1903,779.449,274.4378,775.216,277.89,784.44" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="271.8481" y="774.4203">1</text><!--MD5=[fdc54dd7621239ca8f099151ea6937f9]
+@startuml 
+
+class Menu{
+    nroMenu
+    principal: Producto
+    papas: Producto
+    bebida: Bebida
+
+    crear()
+    mostrar()
+    conocerBebida()
+    conocerProducto()
+    calcularTotal()
+}
+
+class Producto{
+    nombre
+    descripcion
+    precio
+
+    crear()
+    mostrar()
+}
+
+class Bebida{
+    nombre
+    descripcion
+    precio
+
+    crear()
+    mostrar()
+}
+
+'Esta clase representa la "transaccion" o "cobro" principal.
+class Venta{
+    fecha
+    hora
+    pedido: Pedido
+    total
+
+    crear()
+    mostrar()
+    conocerPedido()
+    calcularTotal()
+    emitirComprobante()
+}
+
+'Esta clase representa el "estado" del pedido en cuestion.
+class Pedido{
+    id
+    fecha
+    hora
+    estado
+    detalles: DetallePedido
+
+    crear()
+    mostrar()
+    emitirTicket()
+    actualizarEstado()
+}
+
+class DetallePedido{
+    menu: Menu
+    cantidad
+
+    crear()
+    mostrar()
+    calcularSubtotal()
+}
+
+'Relaciones:'
+Venta - -> "1" Pedido
+Pedido *-> "1..*" DetallePedido
+DetallePedido - -> "1" Menu
+Menu - -> "1" Bebida
+Menu - -> "1" Producto
+Menu - -> "1" Producto
+
+@enduml
+
+@startuml 
+
+class Menu{
+    nroMenu
+    principal: Producto
+    papas: Producto
+    bebida: Bebida
+
+    crear()
+    mostrar()
+    conocerBebida()
+    conocerProducto()
+    calcularTotal()
+}
+
+class Producto{
+    nombre
+    descripcion
+    precio
+
+    crear()
+    mostrar()
+}
+
+class Bebida{
+    nombre
+    descripcion
+    precio
+
+    crear()
+    mostrar()
+}
+
+class Venta{
+    fecha
+    hora
+    pedido: Pedido
+    total
+
+    crear()
+    mostrar()
+    conocerPedido()
+    calcularTotal()
+    emitirComprobante()
+}
+
+class Pedido{
+    id
+    fecha
+    hora
+    estado
+    detalles: DetallePedido
+
+    crear()
+    mostrar()
+    emitirTicket()
+    actualizarEstado()
+}
+
+class DetallePedido{
+    menu: Menu
+    cantidad
+
+    crear()
+    mostrar()
+    calcularSubtotal()
+}
+
+Venta - -> "1" Pedido
+Pedido *-> "1..*" DetallePedido
+DetallePedido - -> "1" Menu
+Menu - -> "1" Bebida
+Menu - -> "1" Producto
+Menu - -> "1" Producto
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 07:25:05 ART 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: es
+Country: AR
+--></g></svg>

@@ -220,6 +220,9 @@ Esto incluye lo que el sistema administrara y utilizara.
 - NO SE PONE int, string, etc... No importa el hardware que tenga.
 - **Transaccion:** Debe tener un ID, fecha, hora como minimo.
 	- Siempre hay una clase "transaccion".
+	- La clase "detalle" debe contener un subtotal si es utilizada para calcular cantidades de diferentes productos.
+	- **Los métodos de cálculo** (`calcularTotal`, `calcularSubtotal`) son más apropiados que atributos almacenados, porque los precios pueden cambiar y el total se deriva de los componentes.
+- Clases personas: si el enunciado las menciona y el sistema necesita registrarlas.
 - El cliente no siempre es una clase candidata, debido a que no se guarda ni especifica.
 	- Depende si la organizacion guarda a todos los clientes que interactuen independientemente de su resultado (si compra o no compra).
 	- Depende si se repiten los datos del cliente o no, si se repiten en 2 clases diferentes o mas, entonces hay que crear una clase "Cliente" independiente.

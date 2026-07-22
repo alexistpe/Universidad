@@ -1592,7 +1592,11 @@ Aqui se expandira los pasos a realizar y la dinamica que tendra esta investigaci
 
 ---
 
-### Metodología Preguntas Fundamentales.
+## Metodología Preguntas Fundamentales.
+
+### Aclaracion: No gastes tanto tiempo en justificar y aclarar formatos particulares. Centrate en avanzar en la estructura del modelo.
+
+- Aclara los puntos fundamentales que te permitan estructurar el modelo. No gastes tiempo en aclarar estandares, fuentes o cuestiones externas. **CENTRATE EN EL DESARROLLO Y LA ESTRUCTURA.** PUNTO.
 
 Se define el paso a paso de como se desarrollara y evaluara el proyecto:
 
@@ -1736,7 +1740,7 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
     Se podran utilizar mas de una fuente para la comprobacion y correcta extraccion de los datos.
     
-    - **Series de tiempo (argentina.gob.ar):** Medio oficial para la extraccion de datos.
+    - **Series de tiempo (argentina.gob.ar):** Medio oficial para la extraccion de datos, frecuencia diaria.
     - **Meteostat:** Plataforma open source diseñada para la extraccion y formateo de datos entregados por las estaciones o las instituciones meteorologicas. Incluye una recopilacion extensa de los datos publicados por el SMN a lo largo de los años. https://dev.meteostat.net/quality.html
         - La API de Meteostat proporciona metadatos de cada estación que incluyen su ID de WMO cuando está disponible.
         - La documentación oficial de Meteostat indica que todas las estaciones listadas en el directorio de Meteostat se adhieren a los estándares internacionales de la WMO cuando esos estándares aplican
@@ -1764,6 +1768,54 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
 
 #### Utilizacion y procesamiento de los datos:
 
+- **¿Que cambios o transformacions sufren los datos originales?**
+    
+    El proveedor “Meteostat” extrae los datos desde una fuente global que estandariza los datos extraidos de cada institucion.
+    
+    **La ruta de estandarizacion es:**
+    
+    - SMN → WMO GTS → NOAA ISD → ISD Lite → Meteostat
+    - Donde se describe cada parte como:
+        - **Medición en la Estación (ej. SACO, SAEZ):** Los sensores de la estación toman las mediciones de temperatura, presión, viento, etc.
+        - **Transmisión al SMN:** Estos datos se envían al Servicio Meteorológico Nacional (SMN) de Argentina.
+        - **Inserción en el Sistema Global (WMO GTS):** El SMN (como miembro de la Organización Meteorológica Mundial) envía estos datos al **Sistema Mundial de Telecomunicaciones (GTS)** de la OMM. Esta es la red global que permite a todos los países compartir información meteorológica en tiempo real.
+        - **Captura por NOAA:** La **Administración Nacional Oceánica y Atmosférica de EE.UU. (NOAA)**, a través del **Centro Nacional de Información Ambiental (NCEI)**, recibe y archiva estos datos del GTS.
+        - **Almacenamiento en el ISD:** La NOAA integra estos datos en su gran base de datos global: el **Integrated Surface Database (ISD)**. Este es el archivo principal que contiene observaciones horarias y subhorarias de más de 35,000 estaciones en todo el mundo.
+        - **Creación del ISD-Lite:** Para hacer los datos más fáciles de usar, la NOAA crea un subconjunto llamado **ISD-Lite**. Este contiene solo 8 variables comunes (temperatura, punto de rocío, presión, viento, etc.) en un formato más simple.
+        - **Agregación por Meteostat:** Meteostat toma el ISD-Lite (y otras fuentes) y lo procesa para ofrecerlo a través de su API y librería Python.
+    - Cada país (Como por ejemplo Argentina con el SMN) usa sus propios formatos y protocolos. El WMO GTS es el estándar global de transmisión. El ISD de la NOAA es el estándar global de archivo. Meteostat es el agregador que te permite acceder a todo esto con una sola línea de código, evitándote tener que buscar con cada fuente por separado.
+    - No se extraen los datos directamente desde el Sistema Global (WMO GTS) debido a que esta restringido a miembros de esa organizacion. Ni tampoco se extraen desde el ISD de NOAA debido a que requiere una extraccion y adaptacion compleja de los datos.
+    - Utilizamos meteostat para obtener una fuente confiable y sencilla en la extraccion de datos historicos sin añadir complejidad en la extraccion de datos.
+    - La confiabilidad de los datos es la misma, lo que cambia es la dificultad para acceder a ellos y procesarlos de manera consistente.
+    
+    **Actualizacion de ISD:**
+    
+    - El 24 de agosto de 2025 ****NOAA dejo de ofrecer datos actualizados por el servicio de “**ISD-Lite**”, migrando a su nuevo sistema mas complejo “GHCNh”.
+    - Esto provoco que el principal proveedor de meteostat cambiara. **Se debe confirmar si la estructura de meteostat fue modificada al nuevo proveedor o como se recolectaron los datos actuales.**
+    - Todos los datos anteriores a esa fecha son datos confiables recolectados por las estaciones, estandarizados y distribuidos por la WMO y NOAA.
+    
+    Debido a esta ruta de estandarizacion, los datos pueden sufrir transformaciones o adaptaciones, desde la estandarizacion ISD-Lite su transformacion es:
+    
+    | Variable en ISD‑Lite | Formato en ISD‑Lite | Meteostat | Variable final en el script |
+    | --- | --- | --- | --- |
+    | Temperatura del aire | °C × 10 (ej. `234` = 23.4 °C) | Dividir por 10 para llevar a unidades reales | Temperatura (°C) |
+    | Punto de rocío | °C × 10 | Se usa como insumo para calcular la humedad relativa | (No se entrega) |
+    | Presión a nivel del mar | hPa | Sin cambio | Presión (hPa) |
+    | Dirección del viento | Grados (°) | Sin cambio | Dirección del viento (°) |
+    | Velocidad del viento | m/s × 10 (ej. `45` = 4.5 m/s) | Dividir por 10 → m/s, luego convertir a km/h (× 3.6) | Velocidad del viento (km/h) |
+    | Precipitación | mm | Sin cambio | Precipitación (mm) |
+    
+    **Puntos clave de la transformacion:**
+    
+    **La Humedad Relativa NO es una medición directa:** El ISD-Lite no incluye la humedad relativa. Meteostat la **calcula** a partir de la temperatura y el punto de rocío utilizando la **fórmula de August-Roche-Magnus**.
+    
+    **Fuentes:**
+    
+    - https://library.wmo.int/records/item/35795-technical-regulations-volume-ii-meteorological-service-for-international-air-navigation https://community.wmo.int/site/knowledge-hub/programmes-and-initiatives/wmo-information-system-wis/about-manual-gts https://community.wmo.int/site/knowledge-hub/programmes-and-initiatives/global-observing-system-gos/wmo-no-544-manual-global-observing-system
+    - https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00532/html  https://www.nesdis.noaa.gov/news/service-location-change-integrated-surface-data-global-hourly https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly https://www.ncei.noaa.gov/news/next-generation-climate-dataset-built-seamless-integration
+    - https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database
+    - https://www.ncei.noaa.gov/ http://ncei.noaa.gov/pub/data/noaa/isd-lite/isd-lite-format.pdf
+    - https://dev.meteostat.net/providers
 - **¿Cuál es el porcentaje de datos faltantes en mi dataset y cuál es su patrón?**
     
     Descargar tabla de datos del dataset.

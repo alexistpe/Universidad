@@ -1,0 +1,111 @@
+/' Comidas Rapidas
+Se detalla la logica y las clases candidatas posibles de este caso de estudio
+
+- Menu
+    Producto
+    Bebida
+
+- Ticket (transaccion)
+    Nro
+    MenusElegidos
+    cantidad
+    monto
+    + Se emite este ticket junto a una copia.
+
+Relaciones:
+Ticket: Se puede elegir mas de un tipo de menu y en diferentes cantidades.
+Menu: Incluye diferentes tipos de productos y bebidas combinados entre si.
+
+Correcciones:
+El enunciado es rigido con la composicion del menu.
+    “Cada menú se conforma de una hamburguesa, lomito o ensalada; una porción de papas y una bebida.”
+    Esto provoca que los menus tengan 3 atributos donde uno es fijo.
+    Se relaciona de forma individual cada uno con la clase producto y bebida.
+La venta contiene una preventa.
+    Se realiza un ticket de pedido al cobrarle al cliente. Este ticket tiene los datos necesarios
+    para preparar el pedido para un nro de ticket especifico. La venta no termina ahí nomas.
+    Se separa "ticket/pedido" de "venta".
+El menu no tiene identificador. No se puede elegir ni buscar.
+Se debe añadir una funcion "modificarEstado()" en pedido para poder actualizarlo.
+La clase "detalle" debe contener un subtotal si es utilizada para calcular cantidades de diferentes productos.
+'/
+
+@startuml 
+
+class Menu{
+    nroMenu
+    principal: Producto
+    papas: Producto
+    bebida: Bebida
+
+    crear()
+    mostrar()
+    conocerBebida()
+    conocerProducto()
+    calcularTotal()
+}
+
+class Producto{
+    nombre
+    descripcion
+    precio
+
+    crear()
+    mostrar()
+}
+
+class Bebida{
+    nombre
+    descripcion
+    precio
+
+    crear()
+    mostrar()
+}
+
+'Esta clase representa la "transaccion" o "cobro" principal.
+class Venta{
+    fecha
+    hora
+    pedido: Pedido
+    total
+
+    crear()
+    mostrar()
+    conocerPedido()
+    calcularTotal()
+    emitirComprobante()
+}
+
+'Esta clase representa el "estado" del pedido en cuestion.
+class Pedido{
+    id
+    fecha
+    hora
+    estado
+    detalles: DetallePedido
+
+    crear()
+    mostrar()
+    emitirTicket()
+    actualizarEstado()
+}
+
+class DetallePedido{
+    menu: Menu
+    cantidad
+
+    crear()
+    mostrar()
+    calcularSubtotal()
+}
+
+'Relaciones:'
+Venta --> "1" Pedido
+Pedido *-> "1..*" DetallePedido
+DetallePedido --> "1" Menu
+Menu --> "1" Bebida
+Menu --> "1" Producto
+Menu --> "1" Producto
+
+@enduml
