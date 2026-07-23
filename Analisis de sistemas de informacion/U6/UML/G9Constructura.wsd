@@ -1,0 +1,104 @@
+/' Constructura
+Se trata de un caso de estudio donde una empresa mantiene multiples proyectos con
+departamentos y empleados. Junto a los clientes que son las inmobiliarias.
+
+Clases candidatas:
+Proyecto (Transaccion)
+    Tiene un presupuesto, una fecha de inicio y una fecha de finalización. 
+    Junto a las relaciones de las demas clases.
+
+Departamentos
+    Contienen empleados.
+
+Empleado
+    Posee profesión, nombre, nro. de matrícula, función desempeñada en cada proyecto y
+    monto facturado por cada proyecto.
+    
+Inmobiliaria
+    Es el cliente fundamental.
+
+Relaciones:
+Un empleado está asignado a un único proyecto.
+Una imobiliaria esta asociada a un unico proyecto.
+Multiples departamentos participan en un solo proyecto.
+
+Funciones especificas:
+Al momento en que un empleado se retira de la empresa se le entrega un 
+    listado con todos los proyectos en los que participó. 
+'/
+
+@startuml
+class Proyecto{
+    nombre
+    id
+    presupuesto
+    fechaInicio
+    fechaFin
+    departamentos: Departamento
+    imobiliaria: Imobiliaria
+
+    crear()
+    mostrar()
+    conocerDepartamento()
+    conocerImobiliaria()
+}
+
+class Departamento{
+    nombre
+    descripcion
+    empleados: Empleado
+
+    crear()
+    mostrar()
+    conocerEmpleado()
+    cantidadEmpleados()
+}
+
+'Esta clase sirve para relacionar al empleado y al proyecto, quedando como un registro.
+class Historial{
+    proyecto: Proyecto
+    empleado: Empleado
+    fechaAsignacion
+    fechaFin
+    funcion
+    montoAsignado
+    
+    crear()
+    mostrar()
+    conocerProyecto()
+    conocerEmpleado()
+    emitirListadoProyectos()
+    calcularMontoEmpleados()
+}
+
+class Empleado{
+    profesion 
+    nombre
+    apellido
+    dni
+    matricula
+    historial: Historial
+
+    crear()
+    mostrar()
+    conocerHistorial()
+}
+
+class Imobiliaria{
+    nombre
+    cuit
+    razonSocial
+
+    crear()
+    mostrar()
+}
+
+'Relaciones:
+Proyecto --> "1" Imobiliaria
+Imobiliaria --> "1..*" Proyecto
+Proyecto --> "1..*" Departamento
+Departamento o-> "1..*" Empleado
+Historial --> "1" Empleado
+Empleado --> "1..*" Historial
+Historial --> "1" Proyecto
+@enduml

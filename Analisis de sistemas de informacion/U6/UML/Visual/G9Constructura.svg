@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="999px" preserveAspectRatio="none" style="width:343px;height:999px;" version="1.1" viewBox="0 0 343 999" width="343px" zoomAndPan="magnify"><defs><filter height="300%" id="fqzulgh9u7rg4" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[faada12487b37c3e3e7a1c6d4e583097]
+class Proyecto--><rect codeLine="1" fill="#FEFECE" filter="url(#fqzulgh9u7rg4)" height="193.1989" id="Proyecto" style="stroke:#A80036;stroke-width:1.5;" width="160" x="93.5" y="579"/><ellipse cx="145.25" cy="595" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M140.25,596.1563 C140.25,598.6563 142.3906,600.4688 145.3125,600.4688 C146.5469,600.4688 147.7188,600.1719 148.4688,599.6563 C149.0781,599.2344 149.4063,598.8125 149.4063,598.4063 C149.4063,597.9375 148.9844,597.5313 148.4844,597.5313 C148.25,597.5313 148.0313,597.6094 147.8281,597.8125 C147.3906,598.25 147.3906,598.25 147.2188,598.3438 C146.7656,598.5781 146.125,598.7188 145.3594,598.7188 C143.3594,598.7188 142.0781,597.7031 142.0781,596.125 L142.0781,595.0781 C142.0781,593.375 143.2969,592.1719 145,592.1719 C145.5781,592.1719 146.1563,592.3125 146.625,592.5625 C147.0938,592.8281 147.2656,593.0156 147.3281,593.375 C147.4531,594.0469 147.7031,594.2969 148.2344,594.2969 C148.5156,594.2969 148.7969,594.1563 148.9844,593.9375 C149.1094,593.7656 149.1563,593.5938 149.1563,593.1563 L149.1563,591.7969 C149.1563,591.375 149.1406,591.2344 149.0156,591.0625 C148.8438,590.8125 148.5625,590.6563 148.2344,590.6563 C147.9219,590.6563 147.7188,590.7656 147.5,591.0313 C146.3281,590.5313 145.8906,590.4219 144.9375,590.4219 C142.2656,590.4219 140.25,592.4375 140.25,595.0625 L140.25,596.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="48" x="165.75" y="598.948">Proyecto</text><line style="stroke:#A80036;stroke-width:1.5;" x1="94.5" x2="252.5" y1="611" y2="611"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="99.5" y="625.2189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="99.5" y="638.4188">id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="61" x="99.5" y="651.6187">presupuesto</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="52" x="99.5" y="664.8186">fechaInicio</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="42" x="99.5" y="678.0185">fechaFin</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="148" x="99.5" y="691.2184">departamentos: Departamento</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="101" x="99.5" y="704.4183">imobiliaria: Imobiliaria</text><line style="stroke:#A80036;stroke-width:1.5;" x1="94.5" x2="252.5" y1="711.3993" y2="711.3993"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="99.5" y="725.6182">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="99.5" y="738.8181">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="117" x="99.5" y="752.018">conocerDepartamento()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="96" x="99.5" y="765.2179">conocerImobiliaria()</text><!--MD5=[672b2ff73d0170c31623eed8ccfd2ea5]
+class Departamento--><rect codeLine="16" fill="#FEFECE" filter="url(#fqzulgh9u7rg4)" height="140.3993" id="Departamento" style="stroke:#A80036;stroke-width:1.5;" width="119" x="7" y="20"/><ellipse cx="26.05" cy="36" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M21.05,37.1563 C21.05,39.6563 23.1906,41.4688 26.1125,41.4688 C27.3469,41.4688 28.5188,41.1719 29.2688,40.6563 C29.8781,40.2344 30.2063,39.8125 30.2063,39.4063 C30.2063,38.9375 29.7844,38.5313 29.2844,38.5313 C29.05,38.5313 28.8313,38.6094 28.6281,38.8125 C28.1906,39.25 28.1906,39.25 28.0188,39.3438 C27.5656,39.5781 26.925,39.7188 26.1594,39.7188 C24.1594,39.7188 22.8781,38.7031 22.8781,37.125 L22.8781,36.0781 C22.8781,34.375 24.0969,33.1719 25.8,33.1719 C26.3781,33.1719 26.9563,33.3125 27.425,33.5625 C27.8938,33.8281 28.0656,34.0156 28.1281,34.375 C28.2531,35.0469 28.5031,35.2969 29.0344,35.2969 C29.3156,35.2969 29.5969,35.1563 29.7844,34.9375 C29.9094,34.7656 29.9563,34.5938 29.9563,34.1563 L29.9563,32.7969 C29.9563,32.375 29.9406,32.2344 29.8156,32.0625 C29.6438,31.8125 29.3625,31.6563 29.0344,31.6563 C28.7219,31.6563 28.5188,31.7656 28.3,32.0313 C27.1281,31.5313 26.6906,31.4219 25.7375,31.4219 C23.0656,31.4219 21.05,33.4375 21.05,36.0625 L21.05,37.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="78" x="40.95" y="39.948">Departamento</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="125" y1="52" y2="52"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="13" y="66.2189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="13" y="79.4188">descripcion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="107" x="13" y="92.6187">empleados: Empleado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="125" y1="99.5997" y2="99.5997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="13" y="113.8186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="13" y="127.0185">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="96" x="13" y="140.2184">conocerEmpleado()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="103" x="13" y="153.4183">cantidadEmpleados()</text><!--MD5=[bc6b966899177359f0a97192efb86585]
+class Historial--><rect codeLine="28" fill="#FEFECE" filter="url(#fqzulgh9u7rg4)" height="206.3988" id="Historial" style="stroke:#A80036;stroke-width:1.5;" width="142" x="187.5" y="273"/><ellipse cx="231.75" cy="289" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M226.75,290.1563 C226.75,292.6563 228.8906,294.4688 231.8125,294.4688 C233.0469,294.4688 234.2188,294.1719 234.9688,293.6563 C235.5781,293.2344 235.9063,292.8125 235.9063,292.4063 C235.9063,291.9375 235.4844,291.5313 234.9844,291.5313 C234.75,291.5313 234.5313,291.6094 234.3281,291.8125 C233.8906,292.25 233.8906,292.25 233.7188,292.3438 C233.2656,292.5781 232.625,292.7188 231.8594,292.7188 C229.8594,292.7188 228.5781,291.7031 228.5781,290.125 L228.5781,289.0781 C228.5781,287.375 229.7969,286.1719 231.5,286.1719 C232.0781,286.1719 232.6563,286.3125 233.125,286.5625 C233.5938,286.8281 233.7656,287.0156 233.8281,287.375 C233.9531,288.0469 234.2031,288.2969 234.7344,288.2969 C235.0156,288.2969 235.2969,288.1563 235.4844,287.9375 C235.6094,287.7656 235.6563,287.5938 235.6563,287.1563 L235.6563,285.7969 C235.6563,285.375 235.6406,285.2344 235.5156,285.0625 C235.3438,284.8125 235.0625,284.6563 234.7344,284.6563 C234.4219,284.6563 234.2188,284.7656 234,285.0313 C232.8281,284.5313 232.3906,284.4219 231.4375,284.4219 C228.7656,284.4219 226.75,286.4375 226.75,289.0625 L226.75,290.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="45" x="252.25" y="292.948">Historial</text><line style="stroke:#A80036;stroke-width:1.5;" x1="188.5" x2="328.5" y1="305" y2="305"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="93" x="193.5" y="319.2189">proyecto: Proyecto</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="101" x="193.5" y="332.4188">empleado: Empleado</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="80" x="193.5" y="345.6187">fechaAsignacion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="42" x="193.5" y="358.8186">fechaFin</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="35" x="193.5" y="372.0185">funcion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="75" x="193.5" y="385.2184">montoAsignado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="188.5" x2="328.5" y1="392.1994" y2="392.1994"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="193.5" y="406.4183">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="193.5" y="419.6182">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="193.5" y="432.8181">conocerProyecto()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="96" x="193.5" y="446.018">conocerEmpleado()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="119" x="193.5" y="459.2179">emitirListadoProyectos()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="130" x="193.5" y="472.4178">calcularMontoEmpleados()</text><!--MD5=[267282629f1778b9c75091f9d8fe6097]
+class Empleado--><rect codeLine="44" fill="#FEFECE" filter="url(#fqzulgh9u7rg4)" height="166.7991" id="Empleado" style="stroke:#A80036;stroke-width:1.5;" width="99" x="209" y="7"/><ellipse cx="228.95" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M223.95,24.1563 C223.95,26.6563 226.0906,28.4688 229.0125,28.4688 C230.2469,28.4688 231.4188,28.1719 232.1688,27.6563 C232.7781,27.2344 233.1063,26.8125 233.1063,26.4063 C233.1063,25.9375 232.6844,25.5313 232.1844,25.5313 C231.95,25.5313 231.7313,25.6094 231.5281,25.8125 C231.0906,26.25 231.0906,26.25 230.9188,26.3438 C230.4656,26.5781 229.825,26.7188 229.0594,26.7188 C227.0594,26.7188 225.7781,25.7031 225.7781,24.125 L225.7781,23.0781 C225.7781,21.375 226.9969,20.1719 228.7,20.1719 C229.2781,20.1719 229.8563,20.3125 230.325,20.5625 C230.7938,20.8281 230.9656,21.0156 231.0281,21.375 C231.1531,22.0469 231.4031,22.2969 231.9344,22.2969 C232.2156,22.2969 232.4969,22.1563 232.6844,21.9375 C232.8094,21.7656 232.8563,21.5938 232.8563,21.1563 L232.8563,19.7969 C232.8563,19.375 232.8406,19.2344 232.7156,19.0625 C232.5438,18.8125 232.2625,18.6563 231.9344,18.6563 C231.6219,18.6563 231.4188,18.7656 231.2,19.0313 C230.0281,18.5313 229.5906,18.4219 228.6375,18.4219 C225.9656,18.4219 223.95,20.4375 223.95,23.0625 L223.95,24.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="56" x="244.05" y="26.948">Empleado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="210" x2="307" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="45" x="215" y="53.2189">profesion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="215" y="66.4188">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="215" y="79.6187">apellido</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="14" x="215" y="92.8186">dni</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="44" x="215" y="106.0185">matricula</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="82" x="215" y="119.2184">historial: Historial</text><line style="stroke:#A80036;stroke-width:1.5;" x1="210" x2="307" y1="126.1994" y2="126.1994"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="215" y="140.4183">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="215" y="153.6182">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="87" x="215" y="166.8181">conocerHistorial()</text><!--MD5=[276a2a13abf6fd25a1d1db6b393029e0]
+class Imobiliaria--><rect codeLine="57" fill="#FEFECE" filter="url(#fqzulgh9u7rg4)" height="113.9995" id="Imobiliaria" style="stroke:#A80036;stroke-width:1.5;" width="89" x="129" y="872"/><ellipse cx="144" cy="888" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M139,889.1563 C139,891.6563 141.1406,893.4688 144.0625,893.4688 C145.2969,893.4688 146.4688,893.1719 147.2188,892.6563 C147.8281,892.2344 148.1563,891.8125 148.1563,891.4063 C148.1563,890.9375 147.7344,890.5313 147.2344,890.5313 C147,890.5313 146.7813,890.6094 146.5781,890.8125 C146.1406,891.25 146.1406,891.25 145.9688,891.3438 C145.5156,891.5781 144.875,891.7188 144.1094,891.7188 C142.1094,891.7188 140.8281,890.7031 140.8281,889.125 L140.8281,888.0781 C140.8281,886.375 142.0469,885.1719 143.75,885.1719 C144.3281,885.1719 144.9063,885.3125 145.375,885.5625 C145.8438,885.8281 146.0156,886.0156 146.0781,886.375 C146.2031,887.0469 146.4531,887.2969 146.9844,887.2969 C147.2656,887.2969 147.5469,887.1563 147.7344,886.9375 C147.8594,886.7656 147.9063,886.5938 147.9063,886.1563 L147.9063,884.7969 C147.9063,884.375 147.8906,884.2344 147.7656,884.0625 C147.5938,883.8125 147.3125,883.6563 146.9844,883.6563 C146.6719,883.6563 146.4688,883.7656 146.25,884.0313 C145.0781,883.5313 144.6406,883.4219 143.6875,883.4219 C141.0156,883.4219 139,885.4375 139,888.0625 L139,889.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="57" x="158" y="891.948">Imobiliaria</text><line style="stroke:#A80036;stroke-width:1.5;" x1="130" x2="217" y1="904" y2="904"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="135" y="918.2189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="17" x="135" y="931.4188">cuit</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="57" x="135" y="944.6187">razonSocial</text><line style="stroke:#A80036;stroke-width:1.5;" x1="130" x2="217" y1="951.5997" y2="951.5997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="135" y="965.8186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="135" y="979.0185">mostrar()</text><!--MD5=[c079cd6e418057d9c86d21e05e4f1a41]
+link Proyecto to Imobiliaria--><path codeLine="67" d="M160.72,771.75 C159.99,803.34 160.42,837.65 162.03,866 " fill="none" id="Proyecto-to-Imobiliaria" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="162.32,870.82,165.7722,861.596,162.0197,865.829,157.7867,862.0765,162.32,870.82" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="153.3583" y="860.4253">1</text><!--MD5=[ef3503f5dfedc13459474c39ee4ea514]
+link Imobiliaria to Proyecto--><path codeLine="68" d="M184.59,872.33 C186.38,844.69 186.99,810.34 186.41,778.16 " fill="none" id="Imobiliaria-to-Proyecto" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="186.31,773.26,182.4908,782.3382,186.41,778.259,190.4892,782.1782,186.31,773.26" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="167.0271" y="792.7325">1..*</text><!--MD5=[b31d20979e22b1bf3bc4c6a06d48bfe8]
+link Proyecto to Departamento--><path codeLine="69" d="M156.02,579.19 C134.85,463.74 99.63,271.66 80.28,166.14 " fill="none" id="Proyecto-to-Departamento" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="79.41,161.43,77.0967,171.0033,80.3107,166.3482,84.9659,169.5622,79.41,161.43" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="60.1465" y="180.8605">1..*</text><!--MD5=[fb69d449de8ed6771437216fe29c4c15]
+link Departamento to Empleado--><path codeLine="70" d="M139.31,90 C139.31,90 178.52,90 197.83,90 " fill="none" id="Departamento-Empleado" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="207.7,90,198.7,86,202.7,90,198.7,94,207.7,90" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="202.7" x2="194.7" y1="90" y2="90"/><polygon fill="#FFFFFF" points="127.31,90,133.31,94,139.31,90,133.31,86,127.31,90" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="180.8723" y="86.0083">1..*</text><!--MD5=[10a1db2a0ed097b8bd5bb2d6b2409b08]
+link Historial to Empleado--><path codeLine="71" d="M271.15,273.1 C271.9,242.34 271.76,208.84 270.74,179.06 " fill="none" id="Historial-to-Empleado" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="270.57,174.28,266.9068,183.4223,270.7556,179.2766,274.9013,183.1253,270.57,174.28" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="266.2226" y="193.7944">1</text><!--MD5=[e027faddffae024721755a63cf6ba596]
+link Empleado to Historial--><path codeLine="72" d="M246.49,172.76 C245.34,202.11 245.08,235.66 245.71,266.89 " fill="none" id="Empleado-to-Historial" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="245.82,271.59,249.6133,262.5009,245.7057,266.5913,241.6154,262.6838,245.82,271.59" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="224.0451" y="261.3875">1..*</text><!--MD5=[d5a4cdc8ad6be7a4d07cade3c01e9b44]
+link Historial to Proyecto--><path codeLine="73" d="M229.37,478.97 C220.67,509.4 211.14,542.74 202.46,573.14 " fill="none" id="Historial-to-Proyecto" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="201.15,577.72,207.4834,570.1776,202.533,572.9151,199.7955,567.9647,201.15,577.72" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="195.7693" y="567.3522">1</text><!--MD5=[2830cd5c79f808c26102604638da71e9]
+@startuml
+class Proyecto{
+    nombre
+    id
+    presupuesto
+    fechaInicio
+    fechaFin
+    departamentos: Departamento
+    imobiliaria: Imobiliaria
+
+    crear()
+    mostrar()
+    conocerDepartamento()
+    conocerImobiliaria()
+}
+
+class Departamento{
+    nombre
+    descripcion
+    empleados: Empleado
+
+    crear()
+    mostrar()
+    conocerEmpleado()
+    cantidadEmpleados()
+}
+
+'Esta clase sirve para relacionar al empleado y al proyecto, quedando como un registro.
+class Historial{
+    proyecto: Proyecto
+    empleado: Empleado
+    fechaAsignacion
+    fechaFin
+    funcion
+    montoAsignado
+    
+    crear()
+    mostrar()
+    conocerProyecto()
+    conocerEmpleado()
+    emitirListadoProyectos()
+    calcularMontoEmpleados()
+}
+
+class Empleado{
+    profesion 
+    nombre
+    apellido
+    dni
+    matricula
+    historial: Historial
+
+    crear()
+    mostrar()
+    conocerHistorial()
+}
+
+class Imobiliaria{
+    nombre
+    cuit
+    razonSocial
+
+    crear()
+    mostrar()
+}
+
+'Relaciones:
+Proyecto - -> "1" Imobiliaria
+Imobiliaria - -> "1..*" Proyecto
+Proyecto - -> "1..*" Departamento
+Departamento o-> "1..*" Empleado
+Historial - -> "1" Empleado
+Empleado - -> "1..*" Historial
+Historial - -> "1" Proyecto
+@enduml
+
+@startuml
+class Proyecto{
+    nombre
+    id
+    presupuesto
+    fechaInicio
+    fechaFin
+    departamentos: Departamento
+    imobiliaria: Imobiliaria
+
+    crear()
+    mostrar()
+    conocerDepartamento()
+    conocerImobiliaria()
+}
+
+class Departamento{
+    nombre
+    descripcion
+    empleados: Empleado
+
+    crear()
+    mostrar()
+    conocerEmpleado()
+    cantidadEmpleados()
+}
+
+class Historial{
+    proyecto: Proyecto
+    empleado: Empleado
+    fechaAsignacion
+    fechaFin
+    funcion
+    montoAsignado
+    
+    crear()
+    mostrar()
+    conocerProyecto()
+    conocerEmpleado()
+    emitirListadoProyectos()
+    calcularMontoEmpleados()
+}
+
+class Empleado{
+    profesion 
+    nombre
+    apellido
+    dni
+    matricula
+    historial: Historial
+
+    crear()
+    mostrar()
+    conocerHistorial()
+}
+
+class Imobiliaria{
+    nombre
+    cuit
+    razonSocial
+
+    crear()
+    mostrar()
+}
+
+Proyecto - -> "1" Imobiliaria
+Imobiliaria - -> "1..*" Proyecto
+Proyecto - -> "1..*" Departamento
+Departamento o-> "1..*" Empleado
+Historial - -> "1" Empleado
+Empleado - -> "1..*" Historial
+Historial - -> "1" Proyecto
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 07:25:05 ART 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: es
+Country: AR
+--></g></svg>

@@ -226,7 +226,10 @@ Esto incluye lo que el sistema administrara y utilizara.
 - El cliente no siempre es una clase candidata, debido a que no se guarda ni especifica.
 	- Depende si la organizacion guarda a todos los clientes que interactuen independientemente de su resultado (si compra o no compra).
 	- Depende si se repiten los datos del cliente o no, si se repiten en 2 clases diferentes o mas, entonces hay que crear una clase "Cliente" independiente.
-- No deben haber variables duplicadas.
+- Si se necesitan guardar datos de una clase, se debe crear una clase intermedia, no permitir que una clase mas importante modifique (pise) los datos de una clase particular.
+	- SI se quiere un registro del empleado, se hace una clase intermedia de los trabajos que realizo, no se permite que el "proyecto" modifique y pise los cambios.
+	- proyecto -> empleado y empleado -> historial -> proyecto
+- **Si una funcion lo puede calcular, el atributo se vuelve redundante.**
 - Aplicar generalizacion (herencia) cuando se deba especificar el tipo de cliente (persona vs organizacion).
 - Diferenciar entre "Tipos" o "unidades generales" y el objeto especifico.
 	- Debes evitar que se repitan los datos en los "tipos" de objetos utilizando una clse de "objeto especifico" que los represente individualmente.
