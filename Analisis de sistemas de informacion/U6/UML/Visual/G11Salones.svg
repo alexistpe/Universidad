@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="388px" preserveAspectRatio="none" style="width:1161px;height:388px;" version="1.1" viewBox="0 0 1161 388" width="1161px" zoomAndPan="magnify"><defs><filter height="300%" id="f1dvvf2x54vpem" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[3040b5170f178f65c28ea3699dede2f3]
+class Salon--><rect codeLine="1" fill="#FEFECE" filter="url(#f1dvvf2x54vpem)" height="140.3993" id="Salon" style="stroke:#A80036;stroke-width:1.5;" width="101" x="1046.5" y="161.76"/><ellipse cx="1078.15" cy="177.76" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1073.15,178.9163 C1073.15,181.4163 1075.2906,183.2288 1078.2125,183.2288 C1079.4469,183.2288 1080.6188,182.9319 1081.3688,182.4163 C1081.9781,181.9944 1082.3063,181.5725 1082.3063,181.1663 C1082.3063,180.6975 1081.8844,180.2913 1081.3844,180.2913 C1081.15,180.2913 1080.9313,180.3694 1080.7281,180.5725 C1080.2906,181.01 1080.2906,181.01 1080.1188,181.1038 C1079.6656,181.3381 1079.025,181.4788 1078.2594,181.4788 C1076.2594,181.4788 1074.9781,180.4631 1074.9781,178.885 L1074.9781,177.8381 C1074.9781,176.135 1076.1969,174.9319 1077.9,174.9319 C1078.4781,174.9319 1079.0563,175.0725 1079.525,175.3225 C1079.9938,175.5881 1080.1656,175.7756 1080.2281,176.135 C1080.3531,176.8069 1080.6031,177.0569 1081.1344,177.0569 C1081.4156,177.0569 1081.6969,176.9163 1081.8844,176.6975 C1082.0094,176.5256 1082.0563,176.3538 1082.0563,175.9163 L1082.0563,174.5569 C1082.0563,174.135 1082.0406,173.9944 1081.9156,173.8225 C1081.7438,173.5725 1081.4625,173.4163 1081.1344,173.4163 C1080.8219,173.4163 1080.6188,173.5256 1080.4,173.7913 C1079.2281,173.2913 1078.7906,173.1819 1077.8375,173.1819 C1075.1656,173.1819 1073.15,175.1975 1073.15,177.8225 L1073.15,178.9163 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="32" x="1095.85" y="181.708">Salon</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1047.5" x2="1146.5" y1="193.76" y2="193.76"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="1052.5" y="207.9789">id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="1052.5" y="221.1788">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="1052.5" y="234.3787">descripcion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="33" x="1052.5" y="247.5786">estado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1047.5" x2="1146.5" y1="254.5596" y2="254.5596"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="1052.5" y="268.7785">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="1052.5" y="281.9784">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="89" x="1052.5" y="295.1783">actualizarEstado()</text><!--MD5=[08a7bdd530bd48323abc2624db633d95]
+class Pago--><rect codeLine="12" fill="#FEFECE" filter="url(#f1dvvf2x54vpem)" height="153.5992" id="Pago" style="stroke:#A80036;stroke-width:1.5;" width="94" x="563" y="155.26"/><ellipse cx="592.85" cy="171.26" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M587.85,172.4163 C587.85,174.9163 589.9906,176.7288 592.9125,176.7288 C594.1469,176.7288 595.3188,176.4319 596.0688,175.9163 C596.6781,175.4944 597.0063,175.0725 597.0063,174.6663 C597.0063,174.1975 596.5844,173.7913 596.0844,173.7913 C595.85,173.7913 595.6313,173.8694 595.4281,174.0725 C594.9906,174.51 594.9906,174.51 594.8188,174.6038 C594.3656,174.8381 593.725,174.9788 592.9594,174.9788 C590.9594,174.9788 589.6781,173.9631 589.6781,172.385 L589.6781,171.3381 C589.6781,169.635 590.8969,168.4319 592.6,168.4319 C593.1781,168.4319 593.7563,168.5725 594.225,168.8225 C594.6938,169.0881 594.8656,169.2756 594.9281,169.635 C595.0531,170.3069 595.3031,170.5569 595.8344,170.5569 C596.1156,170.5569 596.3969,170.4163 596.5844,170.1975 C596.7094,170.0256 596.7563,169.8538 596.7563,169.4163 L596.7563,168.0569 C596.7563,167.635 596.7406,167.4944 596.6156,167.3225 C596.4438,167.0725 596.1625,166.9163 595.8344,166.9163 C595.5219,166.9163 595.3188,167.0256 595.1,167.2913 C593.9281,166.7913 593.4906,166.6819 592.5375,166.6819 C589.8656,166.6819 587.85,168.6975 587.85,171.3225 L587.85,172.4163 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="29" x="610.15" y="175.208">Pago</text><line style="stroke:#A80036;stroke-width:1.5;" x1="564" x2="656" y1="187.26" y2="187.26"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="82" x="569" y="201.4789">nroComprobante</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="52" x="569" y="214.6788">fechaPago</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="47" x="569" y="227.8787">horaPago</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="30" x="569" y="241.0786">monto</text><line style="stroke:#A80036;stroke-width:1.5;" x1="564" x2="656" y1="248.0596" y2="248.0596"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="569" y="262.2785">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="569" y="275.4784">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="73" x="569" y="288.6783">CalcularSeña()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="569" y="301.8782">calcularTotal()</text><!--MD5=[6ea9d6598d9760662639554c9857ab6b]
+class Reserva--><rect codeLine="24" fill="#FEFECE" filter="url(#f1dvvf2x54vpem)" height="285.5982" id="Reserva" style="stroke:#A80036;stroke-width:1.5;" width="111" x="215.5" y="89.26"/><ellipse cx="245.35" cy="105.26" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M240.35,106.4162 C240.35,108.9162 242.4906,110.7287 245.4125,110.7287 C246.6469,110.7287 247.8188,110.4319 248.5688,109.9162 C249.1781,109.4944 249.5063,109.0725 249.5063,108.6662 C249.5063,108.1975 249.0844,107.7912 248.5844,107.7912 C248.35,107.7912 248.1313,107.8694 247.9281,108.0725 C247.4906,108.51 247.4906,108.51 247.3188,108.6037 C246.8656,108.8381 246.225,108.9787 245.4594,108.9787 C243.4594,108.9787 242.1781,107.9631 242.1781,106.385 L242.1781,105.3381 C242.1781,103.635 243.3969,102.4319 245.1,102.4319 C245.6781,102.4319 246.2563,102.5725 246.725,102.8225 C247.1938,103.0881 247.3656,103.2756 247.4281,103.635 C247.5531,104.3069 247.8031,104.5569 248.3344,104.5569 C248.6156,104.5569 248.8969,104.4162 249.0844,104.1975 C249.2094,104.0256 249.2563,103.8537 249.2563,103.4162 L249.2563,102.0569 C249.2563,101.635 249.2406,101.4944 249.1156,101.3225 C248.9438,101.0725 248.6625,100.9162 248.3344,100.9162 C248.0219,100.9162 247.8188,101.0256 247.6,101.2912 C246.4281,100.7912 245.9906,100.6819 245.0375,100.6819 C242.3656,100.6819 240.35,102.6975 240.35,105.3225 L240.35,106.4162 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="46" x="262.65" y="109.208">Reserva</text><line style="stroke:#A80036;stroke-width:1.5;" x1="216.5" x2="325.5" y1="121.26" y2="121.26"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="27" x="221.5" y="135.4789">fecha</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22" x="221.5" y="148.6788">hora</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="61" x="221.5" y="161.8787">fechaEvento</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="21" x="221.5" y="175.0786">Tipo</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="59" x="221.5" y="188.2785">salon: Salon</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="67" x="221.5" y="201.4784">totalPersonas</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="25" x="221.5" y="214.6783">turno</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="99" x="221.5" y="227.8782">datosCliente: Cliente</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="55" x="221.5" y="241.0781">pago: Pago</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="73" x="221.5" y="254.278">estado: Estado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="216.5" x2="325.5" y1="261.259" y2="261.259"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="221.5" y="275.4779">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="221.5" y="288.6778">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="75" x="221.5" y="301.8777">conocerSalon()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="221.5" y="315.0776">conocerCliente()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="73" x="221.5" y="328.2775">conocerPago()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="82" x="221.5" y="341.4774">conocerEstado()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="74" x="221.5" y="354.6773">AsignarTurno()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="221.5" y="367.8773">CalcularDias()</text><!--MD5=[d8933eb2ae217ae3c21bf6e2973c277f]
+class Estado--><rect codeLine="46" fill="#FEFECE" filter="url(#f1dvvf2x54vpem)" height="100.7996" id="Estado" style="stroke:#A80036;stroke-width:1.5;" width="70" x="410" y="181.76"/><ellipse cx="425" cy="197.76" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M420,198.9163 C420,201.4163 422.1406,203.2288 425.0625,203.2288 C426.2969,203.2288 427.4688,202.9319 428.2188,202.4163 C428.8281,201.9944 429.1563,201.5725 429.1563,201.1663 C429.1563,200.6975 428.7344,200.2913 428.2344,200.2913 C428,200.2913 427.7813,200.3694 427.5781,200.5725 C427.1406,201.01 427.1406,201.01 426.9688,201.1038 C426.5156,201.3381 425.875,201.4788 425.1094,201.4788 C423.1094,201.4788 421.8281,200.4631 421.8281,198.885 L421.8281,197.8381 C421.8281,196.135 423.0469,194.9319 424.75,194.9319 C425.3281,194.9319 425.9063,195.0725 426.375,195.3225 C426.8438,195.5881 427.0156,195.7756 427.0781,196.135 C427.2031,196.8069 427.4531,197.0569 427.9844,197.0569 C428.2656,197.0569 428.5469,196.9163 428.7344,196.6975 C428.8594,196.5256 428.9063,196.3538 428.9063,195.9163 L428.9063,194.5569 C428.9063,194.135 428.8906,193.9944 428.7656,193.8225 C428.5938,193.5725 428.3125,193.4163 427.9844,193.4163 C427.6719,193.4163 427.4688,193.5256 427.25,193.7913 C426.0781,193.2913 425.6406,193.1819 424.6875,193.1819 C422.0156,193.1819 420,195.1975 420,197.8225 L420,198.9163 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="38" x="439" y="201.708">Estado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="411" x2="479" y1="213.76" y2="213.76"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="416" y="227.9789">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="416" y="241.1788">descripcion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="411" x2="479" y1="248.1598" y2="248.1598"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="416" y="262.3787">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="416" y="275.5786">mostrar()</text><!--MD5=[eb4e2a40f0d210208f14ea4a2d93f8ee]
+class Tipo--><rect codeLine="54" fill="#FEFECE" filter="url(#f1dvvf2x54vpem)" height="100.7996" id="Tipo" style="stroke:#A80036;stroke-width:1.5;" width="68" x="895" y="181.76"/><ellipse cx="915.4" cy="197.76" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M910.4,198.9163 C910.4,201.4163 912.5406,203.2288 915.4625,203.2288 C916.6969,203.2288 917.8688,202.9319 918.6188,202.4163 C919.2281,201.9944 919.5563,201.5725 919.5563,201.1663 C919.5563,200.6975 919.1344,200.2913 918.6344,200.2913 C918.4,200.2913 918.1813,200.3694 917.9781,200.5725 C917.5406,201.01 917.5406,201.01 917.3688,201.1038 C916.9156,201.3381 916.275,201.4788 915.5094,201.4788 C913.5094,201.4788 912.2281,200.4631 912.2281,198.885 L912.2281,197.8381 C912.2281,196.135 913.4469,194.9319 915.15,194.9319 C915.7281,194.9319 916.3063,195.0725 916.775,195.3225 C917.2438,195.5881 917.4156,195.7756 917.4781,196.135 C917.6031,196.8069 917.8531,197.0569 918.3844,197.0569 C918.6656,197.0569 918.9469,196.9163 919.1344,196.6975 C919.2594,196.5256 919.3063,196.3538 919.3063,195.9163 L919.3063,194.5569 C919.3063,194.135 919.2906,193.9944 919.1656,193.8225 C918.9938,193.5725 918.7125,193.4163 918.3844,193.4163 C918.0719,193.4163 917.8688,193.5256 917.65,193.7913 C916.4781,193.2913 916.0406,193.1819 915.0875,193.1819 C912.4156,193.1819 910.4,195.1975 910.4,197.8225 L910.4,198.9163 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="24" x="930.6" y="201.708">Tipo</text><line style="stroke:#A80036;stroke-width:1.5;" x1="896" x2="962" y1="213.76" y2="213.76"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="901" y="227.9789">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="901" y="241.1788">descripcion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="896" x2="962" y1="248.1598" y2="248.1598"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="901" y="262.3787">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="901" y="275.5786">mostrar()</text><!--MD5=[20a748d5ee336a9a91751b0a3d4f0beb]
+class Cliente--><rect codeLine="62" fill="#FEFECE" filter="url(#f1dvvf2x54vpem)" height="166.7991" id="Cliente" style="stroke:#A80036;stroke-width:1.5;" width="71" x="740.5" y="148.76"/><ellipse cx="755.5" cy="164.76" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M750.5,165.9163 C750.5,168.4163 752.6406,170.2288 755.5625,170.2288 C756.7969,170.2288 757.9688,169.9319 758.7188,169.4163 C759.3281,168.9944 759.6563,168.5725 759.6563,168.1663 C759.6563,167.6975 759.2344,167.2913 758.7344,167.2913 C758.5,167.2913 758.2813,167.3694 758.0781,167.5725 C757.6406,168.01 757.6406,168.01 757.4688,168.1038 C757.0156,168.3381 756.375,168.4788 755.6094,168.4788 C753.6094,168.4788 752.3281,167.4631 752.3281,165.885 L752.3281,164.8381 C752.3281,163.135 753.5469,161.9319 755.25,161.9319 C755.8281,161.9319 756.4063,162.0725 756.875,162.3225 C757.3438,162.5881 757.5156,162.7756 757.5781,163.135 C757.7031,163.8069 757.9531,164.0569 758.4844,164.0569 C758.7656,164.0569 759.0469,163.9163 759.2344,163.6975 C759.3594,163.5256 759.4063,163.3538 759.4063,162.9163 L759.4063,161.5569 C759.4063,161.135 759.3906,160.9944 759.2656,160.8225 C759.0938,160.5725 758.8125,160.4163 758.4844,160.4163 C758.1719,160.4163 757.9688,160.5256 757.75,160.7913 C756.5781,160.2913 756.1406,160.1819 755.1875,160.1819 C752.5156,160.1819 750.5,162.1975 750.5,164.8225 L750.5,165.9163 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="39" x="769.5" y="168.708">Cliente</text><line style="stroke:#A80036;stroke-width:1.5;" x1="741.5" x2="810.5" y1="180.76" y2="180.76"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="746.5" y="194.9789">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="746.5" y="208.1788">apellido</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="14" x="746.5" y="221.3787">dni</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="25" x="746.5" y="234.5786">email</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="38" x="746.5" y="247.7785">telefono</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="746.5" y="260.9784">genero</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="24" x="746.5" y="274.1783">edad</text><line style="stroke:#A80036;stroke-width:1.5;" x1="741.5" x2="810.5" y1="281.1593" y2="281.1593"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="746.5" y="295.3782">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="746.5" y="308.5781">mostrar()</text><!--MD5=[9fdbbc77a3392dc30616352d6e9bbdeb]
+class Cancelacion--><rect codeLine="75" fill="#FEFECE" filter="url(#f1dvvf2x54vpem)" height="140.3993" id="Cancelacion" style="stroke:#A80036;stroke-width:1.5;" width="150" x="7" y="161.56"/><ellipse cx="44.05" cy="177.56" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M39.05,178.7163 C39.05,181.2163 41.1906,183.0288 44.1125,183.0288 C45.3469,183.0288 46.5188,182.7319 47.2688,182.2163 C47.8781,181.7944 48.2063,181.3725 48.2063,180.9663 C48.2063,180.4975 47.7844,180.0913 47.2844,180.0913 C47.05,180.0913 46.8313,180.1694 46.6281,180.3725 C46.1906,180.81 46.1906,180.81 46.0188,180.9038 C45.5656,181.1381 44.925,181.2788 44.1594,181.2788 C42.1594,181.2788 40.8781,180.2631 40.8781,178.685 L40.8781,177.6381 C40.8781,175.935 42.0969,174.7319 43.8,174.7319 C44.3781,174.7319 44.9563,174.8725 45.425,175.1225 C45.8938,175.3881 46.0656,175.5756 46.1281,175.935 C46.2531,176.6069 46.5031,176.8569 47.0344,176.8569 C47.3156,176.8569 47.5969,176.7163 47.7844,176.4975 C47.9094,176.3256 47.9563,176.1538 47.9563,175.7163 L47.9563,174.3569 C47.9563,173.935 47.9406,173.7944 47.8156,173.6225 C47.6438,173.3725 47.3625,173.2163 47.0344,173.2163 C46.7219,173.2163 46.5188,173.3256 46.3,173.5913 C45.1281,173.0913 44.6906,172.9819 43.7375,172.9819 C41.0656,172.9819 39.05,174.9975 39.05,177.6225 L39.05,178.7163 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="69" x="62.95" y="181.508">Cancelacion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="156" y1="193.56" y2="193.56"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="128" x="13" y="207.7789">contratacion: Contratacion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="27" x="13" y="220.9788">fecha</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22" x="13" y="234.1787">hora</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="84" x="13" y="247.3786">montoDevolucion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="156" y1="254.3596" y2="254.3596"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="13" y="268.5785">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="13" y="281.7784">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="138" x="13" y="294.9783">CalcularMontoCancelacion()</text><!--MD5=[2ce713b393757242313bebbc7fdec972]
+link Reserva to Salon--><path codeLine="87" d="M326.39,97.8 C342.26,74.36 362.08,53.09 386.5,39.26 C444.61,6.36 929.59,6 987.5,39.26 C1030.97,64.23 1058.56,113.69 1075.17,156.22 " fill="none" id="Reserva-to-Salon" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1076.91,160.76,1077.4327,150.925,1075.1247,156.0896,1069.9601,153.7815,1076.91,160.76" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="1067.7848" y="150.3451">1</text><!--MD5=[209e1b07b2c8f97bab361b515e037b51]
+link Reserva to Tipo--><path codeLine="88" d="M326.39,97.8 C342.26,74.36 362.08,53.09 386.5,39.26 C429.91,14.68 792.24,14.41 835.5,39.26 C884.37,67.33 908.15,129.72 919.42,175.91 " fill="none" id="Reserva-to-Tipo" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="920.52,180.55,922.3254,170.868,919.3613,175.6861,914.5432,172.722,920.52,180.55" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="912.0776" y="170.3169">1</text><!--MD5=[ba72224db1d4c4ddef13248140da60a7]
+link Reserva to Cliente--><path codeLine="89" d="M326.39,97.8 C342.26,74.36 362.08,53.09 386.5,39.26 C443.55,6.96 624.65,6.61 681.5,39.26 C719.5,61.09 742.54,103.54 756.33,143.04 " fill="none" id="Reserva-to-Cliente" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="757.82,147.41,758.7333,137.6036,756.2217,142.6723,751.153,140.1608,757.82,147.41" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="749.2794" y="137.2894">1</text><!--MD5=[700cc2f61e6926d97cc4e29b780c16ec]
+link Reserva to Pago--><path codeLine="90" d="M326.39,97.8 C342.26,74.36 362.08,53.09 386.5,39.26 C432.14,13.42 459.02,13.14 504.5,39.26 C545.45,62.78 571.47,108.63 587.43,149.68 " fill="none" id="Reserva-to-Pago" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="589.17,154.28,589.729,144.447,587.4019,149.6031,582.2458,147.276,589.17,154.28" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="22" x="564.2877" y="143.6377">1..2</text><!--MD5=[3610ee9c7b837b70e0ca21666f6e0e03]
+link Reserva to Estado--><path codeLine="91" d="M326.42,231.76 C351.52,231.76 380.79,231.76 403.84,231.76 " fill="none" id="Reserva-to-Estado" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="408.66,231.76,399.66,227.76,403.66,231.76,399.66,235.76,408.66,231.76" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="394.7853" y="227.1746">1</text><!--MD5=[0fd955dca45451ecae26b9acab3590c2]
+link Cancelacion to Reserva--><path codeLine="92" d="M157.44,231.76 C174.62,231.76 192.69,231.76 209.2,231.76 " fill="none" id="Cancelacion-to-Reserva" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="214.18,231.76,205.18,227.76,209.18,231.76,205.18,235.76,214.18,231.76" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="200.4198" y="227.7824">1</text><!--MD5=[7ff8e9c195e8d480a94ec68b08f503bb]
+@startuml
+class Salon{
+    id
+    nombre
+    descripcion
+    estado
+
+    crear()
+    mostrar()
+    actualizarEstado()
+}
+
+class Pago{
+    nroComprobante
+    fechaPago
+    horaPago
+    monto
+    
+    crear()
+    mostrar()
+    CalcularSeña()
+    calcularTotal()
+}
+
+class Reserva{
+    fecha
+    hora
+    fechaEvento
+    Tipo
+    salon: Salon
+    totalPersonas
+    turno
+    datosCliente: Cliente
+    pago: Pago
+    estado: Estado
+
+    crear()
+    mostrar()
+    conocerSalon()
+    conocerCliente()
+    conocerPago()
+    conocerEstado()
+    AsignarTurno()
+    CalcularDias()
+}
+
+class Estado{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class Tipo{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class Cliente{
+    nombre
+    apellido
+    dni
+    email
+    telefono
+    genero
+    edad
+
+    crear()
+    mostrar()
+}
+
+class Cancelacion{
+    contratacion: Contratacion
+    fecha
+    hora
+    montoDevolucion
+
+    crear()
+    mostrar()
+    CalcularMontoCancelacion()
+}
+
+'Relaciones
+Reserva -> "1" Salon
+Reserva -> "1" Tipo
+Reserva -> "1" Cliente
+Reserva -> "1..2" Pago
+Reserva -> "1" Estado
+Cancelacion -> "1" Reserva
+
+
+@enduml
+
+@startuml
+class Salon{
+    id
+    nombre
+    descripcion
+    estado
+
+    crear()
+    mostrar()
+    actualizarEstado()
+}
+
+class Pago{
+    nroComprobante
+    fechaPago
+    horaPago
+    monto
+    
+    crear()
+    mostrar()
+    CalcularSeña()
+    calcularTotal()
+}
+
+class Reserva{
+    fecha
+    hora
+    fechaEvento
+    Tipo
+    salon: Salon
+    totalPersonas
+    turno
+    datosCliente: Cliente
+    pago: Pago
+    estado: Estado
+
+    crear()
+    mostrar()
+    conocerSalon()
+    conocerCliente()
+    conocerPago()
+    conocerEstado()
+    AsignarTurno()
+    CalcularDias()
+}
+
+class Estado{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class Tipo{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class Cliente{
+    nombre
+    apellido
+    dni
+    email
+    telefono
+    genero
+    edad
+
+    crear()
+    mostrar()
+}
+
+class Cancelacion{
+    contratacion: Contratacion
+    fecha
+    hora
+    montoDevolucion
+
+    crear()
+    mostrar()
+    CalcularMontoCancelacion()
+}
+
+Reserva -> "1" Salon
+Reserva -> "1" Tipo
+Reserva -> "1" Cliente
+Reserva -> "1..2" Pago
+Reserva -> "1" Estado
+Cancelacion -> "1" Reserva
+
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 07:25:05 ART 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: es
+Country: AR
+--></g></svg>

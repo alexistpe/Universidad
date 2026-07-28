@@ -1,0 +1,236 @@
+/' Complejo de salones
+Consiste en la disposicion de salones para su alquiler o reserva, pudiendo adquirirlo por cierto tiempo mediante multiples formas.
+Se identificaron 3 clases candidatas principales:
+Salon
+    id, nombre, capacidad, valor del alquiler y estado
+    Se instancia una unica vez por salon.
+Alquiler (Transaccion)
+    fechaPago, horaPago, total, reserva: Reserva
+    Se refiere al alquiler del salon correspondiente, es la transaccion final, que depende de si pago la seña o no.
+
+Reserva (subTransaccion)
+    fecha, hora, subTotal, fechaEvento, Tipo, salon: Salon, personas, turno, datosCliente
+    Utilizado para indicar si se realizo una reserva previa o no. Si no paga reserva se calcula subtotal = 0
+
+Tipo
+    nombre, descripcion
+    Se identifican los tipos de eventos existentes.
+
+cliente
+    nombre, apellido, dni, email, telefono, genero, edad
+    Datos del cliente que alquila.
+
+Cancelacion
+    contratacion: Contratacion, fecha, hora, montoDevolucion
+    Se instancia cuando la contratacion se cancela por cualquier motivo, y el salon debe quedar libre.
+    Se puede integrar directamente en contratar, sin embargo veo fundamental tener una clase anexa que pueda indicar y calcular explicitamente la cancelacion.
+
+Relaciones:
+    Reserva -> Salon
+    Reserva -> Tipo
+    Reserva -> Cliente
+    Alquiler -> Reserva
+    Cancelacion -> Reserva
+
+
+Metodos:
+    AsignarTurno()
+    CambiarDisponibilidad()
+    CalcularSubtotal()
+    CalcularTotal()
+    CalcularDias()
+    CalcularMontoCancelacion()
+
+Correcciones:
+No se divide en 2 clases diferentes: reserva y alquiler.
+Sino que mediante una unica clase "reserva" se convierte en alquiler mediante un estado.
+
+'/
+
+@startuml
+class Salon{
+    id
+    nombre
+    descripcion
+    estado
+
+    crear()
+    mostrar()
+    actualizarEstado()
+}
+
+class Pago{
+    nroComprobante
+    fechaPago
+    horaPago
+    monto
+    
+    crear()
+    mostrar()
+    CalcularSeña()
+    calcularTotal()
+}
+
+class Reserva{
+    fecha
+    hora
+    fechaEvento
+    Tipo
+    salon: Salon
+    totalPersonas
+    turno
+    datosCliente: Cliente
+    pago: Pago
+    estado: Estado
+
+    crear()
+    mostrar()
+    conocerSalon()
+    conocerCliente()
+    conocerPago()
+    conocerEstado()
+    AsignarTurno()
+    CalcularDias()
+}
+
+class Estado{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class Tipo{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class Cliente{
+    nombre
+    apellido
+    dni
+    email
+    telefono
+    genero
+    edad
+
+    crear()
+    mostrar()
+}
+
+class Cancelacion{
+    contratacion: Contratacion
+    fecha
+    hora
+    montoDevolucion
+
+    crear()
+    mostrar()
+    CalcularMontoCancelacion()
+}
+
+'Relaciones
+Reserva -> "1" Salon
+Reserva -> "1" Tipo
+Reserva -> "1" Cliente
+Reserva -> "1..2" Pago
+Reserva -> "1" Estado
+Cancelacion -> "1" Reserva
+
+
+@enduml
+
+/'UML sin corregir:
+@startuml
+class Salon{
+    id
+    nombre
+    descripcion
+    estado
+
+    crear()
+    mostrar()
+    actualizarEstado()
+}
+
+class Alquiler{
+    nroComprobante
+    fechaPago
+    horaPago
+    reserva: Reserva
+    total
+    
+    crear()
+    mostrar()
+    conocerReserva()
+    calcularTotal()
+}
+
+class Reserva{
+    fecha
+    hora
+    fechaEvento
+    Tipo
+    salon: Salon
+    totalPersonas
+    turno
+    datosCliente: Cliente
+    subTotal
+
+    crear()
+    mostrar()
+    conocerSalon()
+    conocerCliente()
+    AsignarTurno()
+    CalcularSubtotal()
+    CalcularDias()
+}
+
+class Tipo{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class Cliente{
+    nombre
+    apellido
+    dni
+    email
+    telefono
+    genero
+    edad
+
+    crear()
+    mostrar()
+}
+
+class Cancelacion{
+    contratacion: Contratacion
+    fecha
+    hora
+    montoDevolucion
+
+    crear()
+    mostrar()
+    CalcularMontoCancelacion()
+}
+
+'Relaciones
+Reserva -> Salon
+Reserva -> Tipo
+Reserva -> Cliente
+Alquiler -> Reserva
+Cancelacion -> Reserva
+
+@enduml
+/'
+
+
+

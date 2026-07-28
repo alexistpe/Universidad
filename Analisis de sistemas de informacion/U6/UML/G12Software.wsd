@@ -1,0 +1,209 @@
+/' Desarollo de software
+Es una empresa de software que especifica como funciona su area de soporte.
+Esta area se encarga de atender reclamos mediante diferentes roles bien diferenciados que interactuan de forma diferente con la solicitud.
+
+Las clases candidatas encontradas son:
+Incidente (Transaccion)
+    producto, estado (Abierto), la fecha de recepción del mismo, y el responsable de la recepción.
+    DetalleES: Usuario (del lado del cliente), tipo de incidente (error, modificación, nuevo desarrollo, etc.) descripción del incidente, fecha límite de resolución y prioridad (baja, media, alta)
+    DetalleLP: Fecha asignación, estado, posible solución, Analista/Desarrollador asignado
+    DetalleAD: Fecha de resolución, descripción del cambio realizado
+
+    TipoIncidente
+        nombre, descripcion
+
+Producto
+    Desarrollo realizado por la empresa.
+    id, nombre, cliente, descripcion, fechaInicio, fechaFin, documentacion
+
+Cliente
+    Solicita los siguientes datos: razón social (cliente) y producto
+    Datos personales del cliente
+
+- Decidimos no resumir todo en una unica clase "Empleados", debido a que cada clase empleado tienen sus relaciones unicas. 
+- Realizaremos una "Generalizacion" con una clase Empleado, pero para los atributos, metodos y relaciones seran independientes de cada clase rol.
+
+EncargadoSoporte
+    Recibe solicitudes de clientes y les brinda comunicados de sus solicitudes.
+    Crea instancias de incidentes.
+    Cierra instancias de incidentes (Completadas).
+
+LiderProducto
+    Verifica los incidentes abiertos.
+    Tiene asignados ciertos productos
+    Asigna los AD disponibles.
+    actualiza el incidente con los siguientes datos: fecha asignación, estado (Asignado), posible solución, Analista/Desarrollador asignado. 
+    En caso de que el cambio no sea factible, actualiza el incidente asignándole el estado “No Factible” e indicando las razones de esto
+
+AnalistaDesarrollador
+    Verifica los incidentes que tienen asignados continuamente.
+    Cuando va acomenzar la resolución de cada uno de ellos, le cambia inicialmente el estado a “En Desarrollo”.
+    Toma el producto del cliente, lo analiza y impone modificaciones.
+    Actualiza el incidente con los siguientes datos: estado (Finalizado), fecha de resolución, descripción del cambio realizado
+
+Relaciones
+    Empleado -|> EncargadoSoporte
+    Empleado -|> LiderProducto
+    Empleado -|> AnalistaDesarrollador
+    EncargadoSoporte -> Cliente
+    Cliente -> EncargadoSoporte
+    EncargadoSoporte -> Incidente
+    Incidente -> Cliente
+    Incidente -> Producto
+    Incidente -> TipoIncidente
+    Incidente -> detalleES
+    Incidente -> detalleLP
+    Incidente -> detalleAD
+    LiderProducto -> Incidente (Ya se relaciona con un producto el incidente)
+    LiderProducto -> AnalistaDesarrollador
+    AnalistaDesarrollador -> Incidente
+    AnalistaDesarrollador -> Producto
+
+Metodos
+    ActualizarEstado()
+    AsignarTipo()
+    CrearDetalle()
+    actualizarDisponibilidad()
+'/
+
+@startuml
+class Empleado{
+    nombre
+    apellido
+    dni
+    edad
+    email
+    telefono
+
+    crear()
+    mostrar()
+}
+
+class Cliente{
+    nombre
+    razonSocial
+    cuit
+    Producto: Producto
+
+    crear()
+    mostrar()
+    conocerProducto()
+}
+
+class Producto{
+    id
+    nombre
+    fechaInicio
+    fechaFin
+    documentacion
+
+    crear()
+    mostrar()
+}
+
+class EncargadoSoporte{
+    detalleIncidente: Incidente
+
+    crear()
+    mostrar()
+    conocerIncidente()
+    conocerDetalleES()
+    añadirDetalle()
+    añadirResponsable()
+    actualizarEstado()
+}
+
+class Incidente{
+    id
+    cliente: Cliente
+    producto
+    estado
+    fechaRecepción
+    responsableRecepcion
+
+    crear()
+    mostrar()
+    conocerEncargadoSoporte()
+    conocerCliente()
+    conocerProducto()
+}
+
+class DetalleES{
+    Usuario
+    tipo: TipoIncidente
+    descripcion
+    fechaLimite
+    prioridad
+
+    crear()
+    mostrar()
+    conocerTipoIncidente()
+}
+
+class TipoIncidente{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class DetalleLP{
+    fechaAsignacion
+    posibleSolucion 
+    ADasignado
+
+    crear()
+    mostrar()
+    conocerAnalistaDesarrollador()
+}
+
+class DetalleAD{
+    fechaResolucion
+    descripcionCambio
+
+    crear()
+    mostrar()
+}
+
+class LiderProducto{
+    detalleIncidente: Incidente
+    AD: AnalistaDesarrollador
+
+    crear()
+    mostrar()
+    conocerIncidente()
+    conocerAnalistaDesarrollador()
+    actualizarDisponibilidadAD()
+    conocerDetalleLP()
+    añadirDetalle()
+    actualizarEstado()
+}
+
+class AnalistaDesarrollador{
+    detalleIncidente: Incidente
+    disponibilidad
+
+    crear()
+    mostrar()
+    conocerIncidente()
+    conocerDetalleAD()
+    añadirDetalle()
+    actualizarEstado()
+}
+
+'Relaciones
+    Empleado -|> EncargadoSoporte
+    Empleado -|> LiderProducto
+    Empleado -|> AnalistaDesarrollador
+    EncargadoSoporte -> "1..*" Incidente
+    Incidente -> "1" Cliente
+    Incidente -> "1" Producto
+    Incidente -> "1" DetalleES
+    DetalleES -> "1" TipoIncidente
+    Incidente -> "1" DetalleLP
+    Incidente -> "1" DetalleAD
+    LiderProducto -> "0..*" Incidente
+    LiderProducto -> "1..*" AnalistaDesarrollador
+    AnalistaDesarrollador -> "1" Incidente
+@enduml

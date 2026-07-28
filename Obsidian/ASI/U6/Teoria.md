@@ -190,6 +190,8 @@ Esto incluye lo que el sistema administrara y utilizara.
 - Las reglas de negocio se convierten comunmente en meteodos y atributos.
 - **Simplificacion:** Una clase con multiplicidad 1..1 se puede simplificar.
 - **Clase transaccional:** Clase que mas objetos tendra.
+	- La transaccion comunmente conoce al cliente. 
+		- El patron (cliente -> transaccion) solo sirve si el cliente necesita calcular sus transacciones.
 - NO hace falta especificar "+" o "-" en los atributos o metodos de una clase, sin embargo:
 	- += abierto.
 	- -= Cerrado.
@@ -207,9 +209,11 @@ Esto incluye lo que el sistema administrara y utilizara.
 - **Clase principal:** La clase principal se relaciona con las demas clases principales, es la "raiz" o "padre principal", y normalmente se identifica como una transaccion.
 - **"Asociado a":** Significa una clase independiente. Sobretodo si requiere un nivel de analisis mayor (mas de un atributo simple).
 - Los atributos y metodos van en minuscula.
-- **Relacion objeto y objetoEspecifico:** Sucede cuando se tiene a un "tipo" u objeto generico y se quiere especificar objetos individuales de cada tipo. El especifico necesita saber los datos genericos.
-	- Auto(modelo, marca) - UnidadAuto(patente)
-	- **El ítem específico (la unidad física) es el que conoce a su ítem genérico de catálogo** para poder consultar su precio o características comunes.
+- **Relaciones
+	- **Objeto y objetoEspecifico:** Sucede cuando se tiene a un "tipo" u objeto generico y se quiere especificar objetos individuales de cada tipo. El especifico necesita saber los datos genericos.
+		- Auto(modelo, marca) - UnidadAuto(patente)
+		- **El ítem específico (la unidad física) es el que conoce a su ítem genérico de catálogo** para poder consultar su precio o características comunes.
+
 ##### Correcciones: Son situaciones fundamentales que afectan directamente la aprobacion.
 - **Multiplicidad:** 
 	- Se debe evitar que sea de MUCHOS a MUCHOS, en ese caso se debe crear una clase extension que permita dividir una clase mas grande y evitar la multiplicidad * .. *

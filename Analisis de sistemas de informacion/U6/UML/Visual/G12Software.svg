@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="304px" preserveAspectRatio="none" style="width:2116px;height:304px;" version="1.1" viewBox="0 0 2116 304" width="2116px" zoomAndPan="magnify"><defs><filter height="300%" id="fh54523lrjs97" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[267282629f1778b9c75091f9d8fe6097]
+class Empleado--><rect codeLine="1" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="153.5992" id="Empleado" style="stroke:#A80036;stroke-width:1.5;" width="88" x="7" y="116.89"/><ellipse cx="22" cy="132.89" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M17,134.0463 C17,136.5463 19.1406,138.3588 22.0625,138.3588 C23.2969,138.3588 24.4688,138.0619 25.2188,137.5463 C25.8281,137.1244 26.1563,136.7025 26.1563,136.2963 C26.1563,135.8275 25.7344,135.4213 25.2344,135.4213 C25,135.4213 24.7813,135.4994 24.5781,135.7025 C24.1406,136.14 24.1406,136.14 23.9688,136.2338 C23.5156,136.4681 22.875,136.6088 22.1094,136.6088 C20.1094,136.6088 18.8281,135.5931 18.8281,134.015 L18.8281,132.9681 C18.8281,131.265 20.0469,130.0619 21.75,130.0619 C22.3281,130.0619 22.9063,130.2025 23.375,130.4525 C23.8438,130.7181 24.0156,130.9056 24.0781,131.265 C24.2031,131.9369 24.4531,132.1869 24.9844,132.1869 C25.2656,132.1869 25.5469,132.0463 25.7344,131.8275 C25.8594,131.6556 25.9063,131.4838 25.9063,131.0463 L25.9063,129.6869 C25.9063,129.265 25.8906,129.1244 25.7656,128.9525 C25.5938,128.7025 25.3125,128.5463 24.9844,128.5463 C24.6719,128.5463 24.4688,128.6556 24.25,128.9213 C23.0781,128.4213 22.6406,128.3119 21.6875,128.3119 C19.0156,128.3119 17,130.3275 17,132.9525 L17,134.0463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="56" x="36" y="136.838">Empleado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="94" y1="148.89" y2="148.89"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="13" y="163.1089">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="13" y="176.3088">apellido</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="14" x="13" y="189.5087">dni</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="24" x="13" y="202.7086">edad</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="25" x="13" y="215.9085">email</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="38" x="13" y="229.1084">telefono</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="94" y1="236.0894" y2="236.0894"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="13" y="250.3083">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="13" y="263.5082">mostrar()</text><!--MD5=[20a748d5ee336a9a91751b0a3d4f0beb]
+class Cliente--><rect codeLine="13" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="140.3993" id="Cliente" style="stroke:#A80036;stroke-width:1.5;" width="106" x="1996" y="123.69"/><ellipse cx="2026.75" cy="139.69" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M2021.75,140.8463 C2021.75,143.3463 2023.8906,145.1588 2026.8125,145.1588 C2028.0469,145.1588 2029.2188,144.8619 2029.9688,144.3463 C2030.5781,143.9244 2030.9063,143.5025 2030.9063,143.0963 C2030.9063,142.6275 2030.4844,142.2213 2029.9844,142.2213 C2029.75,142.2213 2029.5313,142.2994 2029.3281,142.5025 C2028.8906,142.94 2028.8906,142.94 2028.7188,143.0338 C2028.2656,143.2681 2027.625,143.4088 2026.8594,143.4088 C2024.8594,143.4088 2023.5781,142.3931 2023.5781,140.815 L2023.5781,139.7681 C2023.5781,138.065 2024.7969,136.8619 2026.5,136.8619 C2027.0781,136.8619 2027.6563,137.0025 2028.125,137.2525 C2028.5938,137.5181 2028.7656,137.7056 2028.8281,138.065 C2028.9531,138.7369 2029.2031,138.9869 2029.7344,138.9869 C2030.0156,138.9869 2030.2969,138.8463 2030.4844,138.6275 C2030.6094,138.4556 2030.6563,138.2838 2030.6563,137.8463 L2030.6563,136.4869 C2030.6563,136.065 2030.6406,135.9244 2030.5156,135.7525 C2030.3438,135.5025 2030.0625,135.3463 2029.7344,135.3463 C2029.4219,135.3463 2029.2188,135.4556 2029,135.7213 C2027.8281,135.2213 2027.3906,135.1119 2026.4375,135.1119 C2023.7656,135.1119 2021.75,137.1275 2021.75,139.7525 L2021.75,140.8463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="39" x="2044.25" y="143.638">Cliente</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1997" x2="2101" y1="155.69" y2="155.69"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="2002" y="169.9089">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="57" x="2002" y="183.1088">razonSocial</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="17" x="2002" y="196.3087">cuit</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="94" x="2002" y="209.5086">Producto: Producto</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1997" x2="2101" y1="216.4896" y2="216.4896"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="2002" y="230.7085">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="2002" y="243.9084">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="2002" y="257.1083">conocerProducto()</text><!--MD5=[9884e166d189446fe4825863c8acf943]
+class Producto--><rect codeLine="24" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="140.3993" id="Producto" style="stroke:#A80036;stroke-width:1.5;" width="86" x="1827" y="123.69"/><ellipse cx="1844.25" cy="139.69" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1839.25,140.8463 C1839.25,143.3463 1841.3906,145.1588 1844.3125,145.1588 C1845.5469,145.1588 1846.7188,144.8619 1847.4688,144.3463 C1848.0781,143.9244 1848.4063,143.5025 1848.4063,143.0963 C1848.4063,142.6275 1847.9844,142.2213 1847.4844,142.2213 C1847.25,142.2213 1847.0313,142.2994 1846.8281,142.5025 C1846.3906,142.94 1846.3906,142.94 1846.2188,143.0338 C1845.7656,143.2681 1845.125,143.4088 1844.3594,143.4088 C1842.3594,143.4088 1841.0781,142.3931 1841.0781,140.815 L1841.0781,139.7681 C1841.0781,138.065 1842.2969,136.8619 1844,136.8619 C1844.5781,136.8619 1845.1563,137.0025 1845.625,137.2525 C1846.0938,137.5181 1846.2656,137.7056 1846.3281,138.065 C1846.4531,138.7369 1846.7031,138.9869 1847.2344,138.9869 C1847.5156,138.9869 1847.7969,138.8463 1847.9844,138.6275 C1848.1094,138.4556 1848.1563,138.2838 1848.1563,137.8463 L1848.1563,136.4869 C1848.1563,136.065 1848.1406,135.9244 1848.0156,135.7525 C1847.8438,135.5025 1847.5625,135.3463 1847.2344,135.3463 C1846.9219,135.3463 1846.7188,135.4556 1846.5,135.7213 C1845.3281,135.2213 1844.8906,135.1119 1843.9375,135.1119 C1841.2656,135.1119 1839.25,137.1275 1839.25,139.7525 L1839.25,140.8463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="49" x="1858.75" y="143.638">Producto</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1828" x2="1912" y1="155.69" y2="155.69"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="1833" y="169.9089">id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="1833" y="183.1088">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="52" x="1833" y="196.3087">fechaInicio</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="42" x="1833" y="209.5086">fechaFin</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="74" x="1833" y="222.7085">documentacion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1828" x2="1912" y1="229.6895" y2="229.6895"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="1833" y="243.9084">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="1833" y="257.1083">mostrar()</text><!--MD5=[17ce36d7919d1b6d1d50c165b852a28e]
+class EncargadoSoporte--><rect codeLine="35" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="153.5992" id="EncargadoSoporte" style="stroke:#A80036;stroke-width:1.5;" width="137" x="563.5" y="116.89"/><ellipse cx="579.4" cy="132.89" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M574.4,134.0463 C574.4,136.5463 576.5406,138.3588 579.4625,138.3588 C580.6969,138.3588 581.8688,138.0619 582.6188,137.5463 C583.2281,137.1244 583.5563,136.7025 583.5563,136.2963 C583.5563,135.8275 583.1344,135.4213 582.6344,135.4213 C582.4,135.4213 582.1813,135.4994 581.9781,135.7025 C581.5406,136.14 581.5406,136.14 581.3688,136.2338 C580.9156,136.4681 580.275,136.6088 579.5094,136.6088 C577.5094,136.6088 576.2281,135.5931 576.2281,134.015 L576.2281,132.9681 C576.2281,131.265 577.4469,130.0619 579.15,130.0619 C579.7281,130.0619 580.3063,130.2025 580.775,130.4525 C581.2438,130.7181 581.4156,130.9056 581.4781,131.265 C581.6031,131.9369 581.8531,132.1869 582.3844,132.1869 C582.6656,132.1869 582.9469,132.0463 583.1344,131.8275 C583.2594,131.6556 583.3063,131.4838 583.3063,131.0463 L583.3063,129.6869 C583.3063,129.265 583.2906,129.1244 583.1656,128.9525 C582.9938,128.7025 582.7125,128.5463 582.3844,128.5463 C582.0719,128.5463 581.8688,128.6556 581.65,128.9213 C580.4781,128.4213 580.0406,128.3119 579.0875,128.3119 C576.4156,128.3119 574.4,130.3275 574.4,132.9525 L574.4,134.0463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="103" x="593.6" y="136.838">EncargadoSoporte</text><line style="stroke:#A80036;stroke-width:1.5;" x1="564.5" x2="699.5" y1="148.89" y2="148.89"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="125" x="569.5" y="163.1089">detalleIncidente: Incidente</text><line style="stroke:#A80036;stroke-width:1.5;" x1="564.5" x2="699.5" y1="170.0899" y2="170.0899"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="569.5" y="184.3088">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="569.5" y="197.5087">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="569.5" y="210.7086">conocerIncidente()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="95" x="569.5" y="223.9085">conocerDetalleES()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="569.5" y="237.1084">añadirDetalle()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="102" x="569.5" y="250.3083">añadirResponsable()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="89" x="569.5" y="263.5082">actualizarEstado()</text><!--MD5=[3bd666c9cb1aff75454ab55e64570806]
+class Incidente--><rect codeLine="47" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="193.1989" id="Incidente" style="stroke:#A80036;stroke-width:1.5;" width="151" x="759.5" y="97.19"/><ellipse cx="805.75" cy="113.19" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M800.75,114.3463 C800.75,116.8463 802.8906,118.6588 805.8125,118.6588 C807.0469,118.6588 808.2188,118.3619 808.9688,117.8463 C809.5781,117.4244 809.9063,117.0025 809.9063,116.5963 C809.9063,116.1275 809.4844,115.7213 808.9844,115.7213 C808.75,115.7213 808.5313,115.7994 808.3281,116.0025 C807.8906,116.44 807.8906,116.44 807.7188,116.5338 C807.2656,116.7681 806.625,116.9088 805.8594,116.9088 C803.8594,116.9088 802.5781,115.8931 802.5781,114.315 L802.5781,113.2681 C802.5781,111.565 803.7969,110.3619 805.5,110.3619 C806.0781,110.3619 806.6563,110.5025 807.125,110.7525 C807.5938,111.0181 807.7656,111.2056 807.8281,111.565 C807.9531,112.2369 808.2031,112.4869 808.7344,112.4869 C809.0156,112.4869 809.2969,112.3463 809.4844,112.1275 C809.6094,111.9556 809.6563,111.7838 809.6563,111.3463 L809.6563,109.9869 C809.6563,109.565 809.6406,109.4244 809.5156,109.2525 C809.3438,109.0025 809.0625,108.8463 808.7344,108.8463 C808.4219,108.8463 808.2188,108.9556 808,109.2213 C806.8281,108.7213 806.3906,108.6119 805.4375,108.6119 C802.7656,108.6119 800.75,110.6275 800.75,113.2525 L800.75,114.3463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="50" x="826.25" y="117.138">Incidente</text><line style="stroke:#A80036;stroke-width:1.5;" x1="760.5" x2="909.5" y1="129.19" y2="129.19"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="765.5" y="143.4089">id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="70" x="765.5" y="156.6088">cliente: Cliente</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="43" x="765.5" y="169.8087">producto</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="33" x="765.5" y="183.0086">estado</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="79" x="765.5" y="196.2085">fechaRecepción</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="112" x="765.5" y="209.4084">responsableRecepcion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="760.5" x2="909.5" y1="216.3894" y2="216.3894"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="765.5" y="230.6083">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="765.5" y="243.8082">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="139" x="765.5" y="257.0081">conocerEncargadoSoporte()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="765.5" y="270.208">conocerCliente()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="765.5" y="283.4079">conocerProducto()</text><!--MD5=[b2035a826f8b4b8bed578b2bfbefa291]
+class DetalleES--><rect codeLine="62" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="153.5992" id="DetalleES" style="stroke:#A80036;stroke-width:1.5;" width="125" x="1429.5" y="117.19"/><ellipse cx="1461.6" cy="133.19" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1456.6,134.3463 C1456.6,136.8463 1458.7406,138.6588 1461.6625,138.6588 C1462.8969,138.6588 1464.0688,138.3619 1464.8188,137.8463 C1465.4281,137.4244 1465.7563,137.0025 1465.7563,136.5963 C1465.7563,136.1275 1465.3344,135.7213 1464.8344,135.7213 C1464.6,135.7213 1464.3813,135.7994 1464.1781,136.0025 C1463.7406,136.44 1463.7406,136.44 1463.5688,136.5338 C1463.1156,136.7681 1462.475,136.9088 1461.7094,136.9088 C1459.7094,136.9088 1458.4281,135.8931 1458.4281,134.315 L1458.4281,133.2681 C1458.4281,131.565 1459.6469,130.3619 1461.35,130.3619 C1461.9281,130.3619 1462.5063,130.5025 1462.975,130.7525 C1463.4438,131.0181 1463.6156,131.2056 1463.6781,131.565 C1463.8031,132.2369 1464.0531,132.4869 1464.5844,132.4869 C1464.8656,132.4869 1465.1469,132.3463 1465.3344,132.1275 C1465.4594,131.9556 1465.5063,131.7838 1465.5063,131.3463 L1465.5063,129.9869 C1465.5063,129.565 1465.4906,129.4244 1465.3656,129.2525 C1465.1938,129.0025 1464.9125,128.8463 1464.5844,128.8463 C1464.2719,128.8463 1464.0688,128.9556 1463.85,129.2213 C1462.6781,128.7213 1462.2406,128.6119 1461.2875,128.6119 C1458.6156,128.6119 1456.6,130.6275 1456.6,133.2525 L1456.6,134.3463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="55" x="1479.4" y="137.138">DetalleES</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1430.5" x2="1553.5" y1="149.19" y2="149.19"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="38" x="1435.5" y="163.4089">Usuario</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="88" x="1435.5" y="176.6088">tipo: TipoIncidente</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="1435.5" y="189.8087">descripcion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="55" x="1435.5" y="203.0086">fechaLimite</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="42" x="1435.5" y="216.2085">prioridad</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1430.5" x2="1553.5" y1="223.1895" y2="223.1895"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="1435.5" y="237.4084">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="1435.5" y="250.6083">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="113" x="1435.5" y="263.8082">conocerTipoIncidente()</text><!--MD5=[93cfb42d83f09869f694e4fc711ae735]
+class TipoIncidente--><rect codeLine="74" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="100.7996" id="TipoIncidente" style="stroke:#A80036;stroke-width:1.5;" width="106" x="1638" y="143.69"/><ellipse cx="1653" cy="159.69" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1648,160.8463 C1648,163.3463 1650.1406,165.1588 1653.0625,165.1588 C1654.2969,165.1588 1655.4688,164.8619 1656.2188,164.3463 C1656.8281,163.9244 1657.1563,163.5025 1657.1563,163.0963 C1657.1563,162.6275 1656.7344,162.2213 1656.2344,162.2213 C1656,162.2213 1655.7813,162.2994 1655.5781,162.5025 C1655.1406,162.94 1655.1406,162.94 1654.9688,163.0338 C1654.5156,163.2681 1653.875,163.4088 1653.1094,163.4088 C1651.1094,163.4088 1649.8281,162.3931 1649.8281,160.815 L1649.8281,159.7681 C1649.8281,158.065 1651.0469,156.8619 1652.75,156.8619 C1653.3281,156.8619 1653.9063,157.0025 1654.375,157.2525 C1654.8438,157.5181 1655.0156,157.7056 1655.0781,158.065 C1655.2031,158.7369 1655.4531,158.9869 1655.9844,158.9869 C1656.2656,158.9869 1656.5469,158.8463 1656.7344,158.6275 C1656.8594,158.4556 1656.9063,158.2838 1656.9063,157.8463 L1656.9063,156.4869 C1656.9063,156.065 1656.8906,155.9244 1656.7656,155.7525 C1656.5938,155.5025 1656.3125,155.3463 1655.9844,155.3463 C1655.6719,155.3463 1655.4688,155.4556 1655.25,155.7213 C1654.0781,155.2213 1653.6406,155.1119 1652.6875,155.1119 C1650.0156,155.1119 1648,157.1275 1648,159.7525 L1648,160.8463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="74" x="1667" y="163.638">TipoIncidente</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1639" x2="1743" y1="175.69" y2="175.69"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="1644" y="189.9089">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="1644" y="203.1088">descripcion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1639" x2="1743" y1="210.0898" y2="210.0898"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="1644" y="224.3087">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="1644" y="237.5086">mostrar()</text><!--MD5=[462435ca98243c7150c4dca5fc1ab943]
+class DetalleLP--><rect codeLine="82" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="127.1994" id="DetalleLP" style="stroke:#A80036;stroke-width:1.5;" width="164" x="1182" y="130.19"/><ellipse cx="1232.75" cy="146.19" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1227.75,147.3463 C1227.75,149.8463 1229.8906,151.6588 1232.8125,151.6588 C1234.0469,151.6588 1235.2188,151.3619 1235.9688,150.8463 C1236.5781,150.4244 1236.9063,150.0025 1236.9063,149.5963 C1236.9063,149.1275 1236.4844,148.7213 1235.9844,148.7213 C1235.75,148.7213 1235.5313,148.7994 1235.3281,149.0025 C1234.8906,149.44 1234.8906,149.44 1234.7188,149.5338 C1234.2656,149.7681 1233.625,149.9088 1232.8594,149.9088 C1230.8594,149.9088 1229.5781,148.8931 1229.5781,147.315 L1229.5781,146.2681 C1229.5781,144.565 1230.7969,143.3619 1232.5,143.3619 C1233.0781,143.3619 1233.6563,143.5025 1234.125,143.7525 C1234.5938,144.0181 1234.7656,144.2056 1234.8281,144.565 C1234.9531,145.2369 1235.2031,145.4869 1235.7344,145.4869 C1236.0156,145.4869 1236.2969,145.3463 1236.4844,145.1275 C1236.6094,144.9556 1236.6563,144.7838 1236.6563,144.3463 L1236.6563,142.9869 C1236.6563,142.565 1236.6406,142.4244 1236.5156,142.2525 C1236.3438,142.0025 1236.0625,141.8463 1235.7344,141.8463 C1235.4219,141.8463 1235.2188,141.9556 1235,142.2213 C1233.8281,141.7213 1233.3906,141.6119 1232.4375,141.6119 C1229.7656,141.6119 1227.75,143.6275 1227.75,146.2525 L1227.75,147.3463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="54" x="1253.25" y="150.138">DetalleLP</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1183" x2="1345" y1="162.19" y2="162.19"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="80" x="1188" y="176.4089">fechaAsignacion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="75" x="1188" y="189.6088">posibleSolucion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="59" x="1188" y="202.8087">ADasignado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="1183" x2="1345" y1="209.7897" y2="209.7897"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="1188" y="224.0086">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="1188" y="237.2085">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="152" x="1188" y="250.4084">conocerAnalistaDesarrollador()</text><!--MD5=[a511d28ada4216d86f82b25abfabffc4]
+class DetalleAD--><rect codeLine="92" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="100.7996" id="DetalleAD" style="stroke:#A80036;stroke-width:1.5;" width="105" x="993.5" y="143.69"/><ellipse cx="1016.15" cy="159.69" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M1011.15,160.8463 C1011.15,163.3463 1013.2906,165.1588 1016.2125,165.1588 C1017.4469,165.1588 1018.6188,164.8619 1019.3688,164.3463 C1019.9781,163.9244 1020.3063,163.5025 1020.3063,163.0963 C1020.3063,162.6275 1019.8844,162.2213 1019.3844,162.2213 C1019.15,162.2213 1018.9313,162.2994 1018.7281,162.5025 C1018.2906,162.94 1018.2906,162.94 1018.1188,163.0338 C1017.6656,163.2681 1017.025,163.4088 1016.2594,163.4088 C1014.2594,163.4088 1012.9781,162.3931 1012.9781,160.815 L1012.9781,159.7681 C1012.9781,158.065 1014.1969,156.8619 1015.9,156.8619 C1016.4781,156.8619 1017.0563,157.0025 1017.525,157.2525 C1017.9938,157.5181 1018.1656,157.7056 1018.2281,158.065 C1018.3531,158.7369 1018.6031,158.9869 1019.1344,158.9869 C1019.4156,158.9869 1019.6969,158.8463 1019.8844,158.6275 C1020.0094,158.4556 1020.0563,158.2838 1020.0563,157.8463 L1020.0563,156.4869 C1020.0563,156.065 1020.0406,155.9244 1019.9156,155.7525 C1019.7438,155.5025 1019.4625,155.3463 1019.1344,155.3463 C1018.8219,155.3463 1018.6188,155.4556 1018.4,155.7213 C1017.2281,155.2213 1016.7906,155.1119 1015.8375,155.1119 C1013.1656,155.1119 1011.15,157.1275 1011.15,159.7525 L1011.15,160.8463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="56" x="1031.85" y="163.638">DetalleAD</text><line style="stroke:#A80036;stroke-width:1.5;" x1="994.5" x2="1097.5" y1="175.69" y2="175.69"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="999.5" y="189.9089">fechaResolucion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="93" x="999.5" y="203.1088">descripcionCambio</text><line style="stroke:#A80036;stroke-width:1.5;" x1="994.5" x2="1097.5" y1="210.0898" y2="210.0898"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="999.5" y="224.3087">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="999.5" y="237.5086">mostrar()</text><!--MD5=[10e0feaaa04bb50fcbe2ce07c2e26a27]
+class LiderProducto--><rect codeLine="100" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="179.999" id="LiderProducto" style="stroke:#A80036;stroke-width:1.5;" width="164" x="130" y="103.69"/><ellipse cx="169.75" cy="119.69" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M164.75,120.8463 C164.75,123.3463 166.8906,125.1588 169.8125,125.1588 C171.0469,125.1588 172.2188,124.8619 172.9688,124.3463 C173.5781,123.9244 173.9063,123.5025 173.9063,123.0963 C173.9063,122.6275 173.4844,122.2213 172.9844,122.2213 C172.75,122.2213 172.5313,122.2994 172.3281,122.5025 C171.8906,122.94 171.8906,122.94 171.7188,123.0338 C171.2656,123.2681 170.625,123.4088 169.8594,123.4088 C167.8594,123.4088 166.5781,122.3931 166.5781,120.815 L166.5781,119.7681 C166.5781,118.065 167.7969,116.8619 169.5,116.8619 C170.0781,116.8619 170.6563,117.0025 171.125,117.2525 C171.5938,117.5181 171.7656,117.7056 171.8281,118.065 C171.9531,118.7369 172.2031,118.9869 172.7344,118.9869 C173.0156,118.9869 173.2969,118.8463 173.4844,118.6275 C173.6094,118.4556 173.6563,118.2838 173.6563,117.8463 L173.6563,116.4869 C173.6563,116.065 173.6406,115.9244 173.5156,115.7525 C173.3438,115.5025 173.0625,115.3463 172.7344,115.3463 C172.4219,115.3463 172.2188,115.4556 172,115.7213 C170.8281,115.2213 170.3906,115.1119 169.4375,115.1119 C166.7656,115.1119 164.75,117.1275 164.75,119.7525 L164.75,120.8463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="77" x="189.25" y="123.638">LiderProducto</text><line style="stroke:#A80036;stroke-width:1.5;" x1="131" x2="293" y1="135.69" y2="135.69"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="125" x="136" y="149.9089">detalleIncidente: Incidente</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="125" x="136" y="163.1088">AD: AnalistaDesarrollador</text><line style="stroke:#A80036;stroke-width:1.5;" x1="131" x2="293" y1="170.0898" y2="170.0898"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="136" y="184.3087">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="136" y="197.5086">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="136" y="210.7085">conocerIncidente()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="152" x="136" y="223.9084">conocerAnalistaDesarrollador()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="136" x="136" y="237.1083">actualizarDisponibilidadAD()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="94" x="136" y="250.3082">conocerDetalleLP()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="136" y="263.5081">añadirDetalle()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="89" x="136" y="276.708">actualizarEstado()</text><!--MD5=[71762ee06f9ac256b1beded901f61e05]
+class AnalistaDesarrollador--><rect codeLine="114" fill="#FEFECE" filter="url(#fh54523lrjs97)" height="153.5992" id="AnalistaDesarrollador" style="stroke:#A80036;stroke-width:1.5;" width="151" x="353.5" y="117.19"/><ellipse cx="368.5" cy="133.19" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M363.5,134.3463 C363.5,136.8463 365.6406,138.6588 368.5625,138.6588 C369.7969,138.6588 370.9688,138.3619 371.7188,137.8463 C372.3281,137.4244 372.6563,137.0025 372.6563,136.5963 C372.6563,136.1275 372.2344,135.7213 371.7344,135.7213 C371.5,135.7213 371.2813,135.7994 371.0781,136.0025 C370.6406,136.44 370.6406,136.44 370.4688,136.5338 C370.0156,136.7681 369.375,136.9088 368.6094,136.9088 C366.6094,136.9088 365.3281,135.8931 365.3281,134.315 L365.3281,133.2681 C365.3281,131.565 366.5469,130.3619 368.25,130.3619 C368.8281,130.3619 369.4063,130.5025 369.875,130.7525 C370.3438,131.0181 370.5156,131.2056 370.5781,131.565 C370.7031,132.2369 370.9531,132.4869 371.4844,132.4869 C371.7656,132.4869 372.0469,132.3463 372.2344,132.1275 C372.3594,131.9556 372.4063,131.7838 372.4063,131.3463 L372.4063,129.9869 C372.4063,129.565 372.3906,129.4244 372.2656,129.2525 C372.0938,129.0025 371.8125,128.8463 371.4844,128.8463 C371.1719,128.8463 370.9688,128.9556 370.75,129.2213 C369.5781,128.7213 369.1406,128.6119 368.1875,128.6119 C365.5156,128.6119 363.5,130.6275 363.5,133.2525 L363.5,134.3463 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="119" x="382.5" y="137.138">AnalistaDesarrollador</text><line style="stroke:#A80036;stroke-width:1.5;" x1="354.5" x2="503.5" y1="149.19" y2="149.19"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="125" x="359.5" y="163.4089">detalleIncidente: Incidente</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="64" x="359.5" y="176.6088">disponibilidad</text><line style="stroke:#A80036;stroke-width:1.5;" x1="354.5" x2="503.5" y1="183.5898" y2="183.5898"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="359.5" y="197.8087">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="359.5" y="211.0086">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="92" x="359.5" y="224.2085">conocerIncidente()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="96" x="359.5" y="237.4084">conocerDetalleAD()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="359.5" y="250.6083">añadirDetalle()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="89" x="359.5" y="263.8082">actualizarEstado()</text><!--MD5=[8fb5070bcca1b0c0b92f0990beabddd9]
+link Empleado to EncargadoSoporte--><path codeLine="127" d="M73.29,116.66 C85.3,89.64 103.23,62.28 129.5,47.19 C167.94,25.11 489.13,26.8 528.5,47.19 C551.18,58.94 569.96,78.2 585,98.95 " fill="none" id="Empleado-to-EncargadoSoporte" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="590.66,94.82,595.92,115.34,579,102.58,590.66,94.82" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[9c46e55a4b850dd65d3c069eafb28792]
+link Empleado to LiderProducto--><path codeLine="128" d="M95.34,193.69 C99.61,193.69 103.88,193.69 108.15,193.69 " fill="none" id="Empleado-to-LiderProducto" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="108,186.69,128,193.69,108,200.69,108,186.69" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[21d09e81e00e760b4b6f3c22e275acc5]
+link Empleado to AnalistaDesarrollador--><path codeLine="129" d="M73.29,116.66 C85.3,89.64 103.23,62.28 129.5,47.19 C193.09,10.67 227.36,17.69 294.5,47.19 C321.59,59.09 345.61,79.45 365.59,101.26 " fill="none" id="Empleado-to-AnalistaDesarrollador" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="370.67,96.43,378.42,116.15,360.06,105.56,370.67,96.43" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[cd150a8b365751eebbf3c5550d114b6b]
+link EncargadoSoporte to Incidente--><path codeLine="130" d="M700.77,193.69 C717.62,193.69 735.85,193.69 753.25,193.69 " fill="none" id="EncargadoSoporte-to-Incidente" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="758.11,193.69,749.11,189.69,753.11,193.69,749.11,197.69,758.11,193.69" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="731.4822" y="190.0713">1..*</text><!--MD5=[e4361f5d0eb05cec6627ad5f437aac90]
+link Incidente to Cliente--><path codeLine="131" d="M902.09,97.3 C921.31,77.01 944.05,58.37 969.5,47.19 C1018.73,25.55 1889.32,23.31 1937.5,47.19 C1968.37,62.49 1993.01,90.88 2011.2,118.62 " fill="none" id="Incidente-to-Cliente" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="2013.7,122.52,2012.2129,112.7841,2011.0027,118.3099,2005.4768,117.0997,2013.7,122.52" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="2003.1286" y="111.9292">1</text><!--MD5=[499d5b9eac94ecc91df47c3f6769fde5]
+link Incidente to Producto--><path codeLine="132" d="M902.09,97.3 C921.31,77.01 944.05,58.37 969.5,47.19 C1050.78,11.47 1689.86,6 1768.5,47.19 C1797.92,62.6 1820.52,90.84 1836.84,118.45 " fill="none" id="Incidente-to-Producto" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1839.26,122.65,1838.2365,112.8545,1836.7655,118.3167,1831.3033,116.8457,1839.26,122.65" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="1829.1489" y="112.1189">1</text><!--MD5=[d8f195a24ba861c6393c6e3b6113cd14]
+link Incidente to DetalleES--><path codeLine="133" d="M902.09,97.3 C921.31,77.01 944.05,58.37 969.5,47.19 C1051.08,11.34 1289.85,9.3 1370.5,47.19 C1400.36,61.22 1425.41,86.59 1444.86,112.32 " fill="none" id="Incidente-to-DetalleES" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1447.77,116.25,1445.6084,106.6413,1444.786,112.238,1439.1893,111.4157,1447.77,116.25" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="1436.8407" y="105.9134">1</text><!--MD5=[8e1fdc84f800252b39510ff5af310381]
+link DetalleES to TipoIncidente--><path codeLine="134" d="M1554.25,193.69 C1578.93,193.69 1607.26,193.69 1631.64,193.69 " fill="none" id="DetalleES-to-TipoIncidente" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1636.56,193.69,1627.56,189.69,1631.56,193.69,1627.56,197.69,1636.56,193.69" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="1623.1459" y="189.6983">1</text><!--MD5=[6156b43ef7c936e5c90056c9361befa6]
+link Incidente to DetalleLP--><path codeLine="135" d="M902.09,97.3 C921.31,77.01 944.05,58.37 969.5,47.19 C1031.75,19.83 1059.9,20.62 1122.5,47.19 C1160.66,63.39 1193.54,95.47 1217.98,125.49 " fill="none" id="Incidente-to-DetalleLP" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="1220.88,129.11,1218.3685,119.5868,1217.7513,125.2098,1212.1282,124.5927,1220.88,129.11" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="1209.264" y="118.7505">1</text><!--MD5=[e2c9ef5ea235d829e512ddfdcaf13b15]
+link Incidente to DetalleAD--><path codeLine="136" d="M910.27,193.69 C935.58,193.69 963.48,193.69 987.3,193.69 " fill="none" id="Incidente-to-DetalleAD" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="992.06,193.69,983.06,189.69,987.06,193.69,983.06,197.69,992.06,193.69" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="978.3668" y="189.6508">1</text><!--MD5=[2b628851fbc384f7fc7c380888084cba]
+link LiderProducto to Incidente--><path codeLine="137" d="M263.97,103.26 C281.66,80.79 303.63,59.6 329.5,47.19 C403.83,11.52 625.02,14.02 700.5,47.19 C724.16,57.59 745.48,74.42 763.8,93.05 " fill="none" id="LiderProducto-to-Incidente" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="766.86,96.21,763.4922,86.9549,763.3893,92.6108,757.7334,92.5079,766.86,96.21" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="741.526" y="85.7902">0..*</text><!--MD5=[6ce40a1bb3bfe176eff394d025c1dba2]
+link LiderProducto to AnalistaDesarrollador--><path codeLine="138" d="M294.28,193.69 C311.65,193.69 329.99,193.69 347.34,193.69 " fill="none" id="LiderProducto-to-AnalistaDesarrollador" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="352.17,193.69,343.17,189.69,347.17,193.69,343.17,197.69,352.17,193.69" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="325.5479" y="190.0522">1..*</text><!--MD5=[c8b53898fc6c78a4ab9aba1accd27649]
+link AnalistaDesarrollador to Incidente--><path codeLine="139" d="M478.59,117.29 C500.9,89.82 529.84,61.98 563.5,47.19 C619.24,22.69 644.76,22.69 700.5,47.19 C724.16,57.59 745.48,74.42 763.8,93.05 " fill="none" id="AnalistaDesarrollador-to-Incidente" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="766.86,96.21,763.4922,86.9549,763.3893,92.6108,757.7334,92.5079,766.86,96.21" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="744.5861" y="88.8676">1</text><!--MD5=[ed71991d27b9c0040182b6d87b078804]
+@startuml
+class Empleado{
+    nombre
+    apellido
+    dni
+    edad
+    email
+    telefono
+
+    crear()
+    mostrar()
+}
+
+class Cliente{
+    nombre
+    razonSocial
+    cuit
+    Producto: Producto
+
+    crear()
+    mostrar()
+    conocerProducto()
+}
+
+class Producto{
+    id
+    nombre
+    fechaInicio
+    fechaFin
+    documentacion
+
+    crear()
+    mostrar()
+}
+
+class EncargadoSoporte{
+    detalleIncidente: Incidente
+
+    crear()
+    mostrar()
+    conocerIncidente()
+    conocerDetalleES()
+    añadirDetalle()
+    añadirResponsable()
+    actualizarEstado()
+}
+
+class Incidente{
+    id
+    cliente: Cliente
+    producto
+    estado
+    fechaRecepción
+    responsableRecepcion
+
+    crear()
+    mostrar()
+    conocerEncargadoSoporte()
+    conocerCliente()
+    conocerProducto()
+}
+
+class DetalleES{
+    Usuario
+    tipo: TipoIncidente
+    descripcion
+    fechaLimite
+    prioridad
+
+    crear()
+    mostrar()
+    conocerTipoIncidente()
+}
+
+class TipoIncidente{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class DetalleLP{
+    fechaAsignacion
+    posibleSolucion 
+    ADasignado
+
+    crear()
+    mostrar()
+    conocerAnalistaDesarrollador()
+}
+
+class DetalleAD{
+    fechaResolucion
+    descripcionCambio
+
+    crear()
+    mostrar()
+}
+
+class LiderProducto{
+    detalleIncidente: Incidente
+    AD: AnalistaDesarrollador
+
+    crear()
+    mostrar()
+    conocerIncidente()
+    conocerAnalistaDesarrollador()
+    actualizarDisponibilidadAD()
+    conocerDetalleLP()
+    añadirDetalle()
+    actualizarEstado()
+}
+
+class AnalistaDesarrollador{
+    detalleIncidente: Incidente
+    disponibilidad
+
+    crear()
+    mostrar()
+    conocerIncidente()
+    conocerDetalleAD()
+    añadirDetalle()
+    actualizarEstado()
+}
+
+'Relaciones
+    Empleado -|> EncargadoSoporte
+    Empleado -|> LiderProducto
+    Empleado -|> AnalistaDesarrollador
+    EncargadoSoporte -> "1..*" Incidente
+    Incidente -> "1" Cliente
+    Incidente -> "1" Producto
+    Incidente -> "1" DetalleES
+    DetalleES -> "1" TipoIncidente
+    Incidente -> "1" DetalleLP
+    Incidente -> "1" DetalleAD
+    LiderProducto -> "0..*" Incidente
+    LiderProducto -> "1..*" AnalistaDesarrollador
+    AnalistaDesarrollador -> "1" Incidente
+@enduml
+
+@startuml
+class Empleado{
+    nombre
+    apellido
+    dni
+    edad
+    email
+    telefono
+
+    crear()
+    mostrar()
+}
+
+class Cliente{
+    nombre
+    razonSocial
+    cuit
+    Producto: Producto
+
+    crear()
+    mostrar()
+    conocerProducto()
+}
+
+class Producto{
+    id
+    nombre
+    fechaInicio
+    fechaFin
+    documentacion
+
+    crear()
+    mostrar()
+}
+
+class EncargadoSoporte{
+    detalleIncidente: Incidente
+
+    crear()
+    mostrar()
+    conocerIncidente()
+    conocerDetalleES()
+    añadirDetalle()
+    añadirResponsable()
+    actualizarEstado()
+}
+
+class Incidente{
+    id
+    cliente: Cliente
+    producto
+    estado
+    fechaRecepción
+    responsableRecepcion
+
+    crear()
+    mostrar()
+    conocerEncargadoSoporte()
+    conocerCliente()
+    conocerProducto()
+}
+
+class DetalleES{
+    Usuario
+    tipo: TipoIncidente
+    descripcion
+    fechaLimite
+    prioridad
+
+    crear()
+    mostrar()
+    conocerTipoIncidente()
+}
+
+class TipoIncidente{
+    nombre
+    descripcion
+
+    crear()
+    mostrar()
+}
+
+class DetalleLP{
+    fechaAsignacion
+    posibleSolucion 
+    ADasignado
+
+    crear()
+    mostrar()
+    conocerAnalistaDesarrollador()
+}
+
+class DetalleAD{
+    fechaResolucion
+    descripcionCambio
+
+    crear()
+    mostrar()
+}
+
+class LiderProducto{
+    detalleIncidente: Incidente
+    AD: AnalistaDesarrollador
+
+    crear()
+    mostrar()
+    conocerIncidente()
+    conocerAnalistaDesarrollador()
+    actualizarDisponibilidadAD()
+    conocerDetalleLP()
+    añadirDetalle()
+    actualizarEstado()
+}
+
+class AnalistaDesarrollador{
+    detalleIncidente: Incidente
+    disponibilidad
+
+    crear()
+    mostrar()
+    conocerIncidente()
+    conocerDetalleAD()
+    añadirDetalle()
+    actualizarEstado()
+}
+
+    Empleado -|> EncargadoSoporte
+    Empleado -|> LiderProducto
+    Empleado -|> AnalistaDesarrollador
+    EncargadoSoporte -> "1..*" Incidente
+    Incidente -> "1" Cliente
+    Incidente -> "1" Producto
+    Incidente -> "1" DetalleES
+    DetalleES -> "1" TipoIncidente
+    Incidente -> "1" DetalleLP
+    Incidente -> "1" DetalleAD
+    LiderProducto -> "0..*" Incidente
+    LiderProducto -> "1..*" AnalistaDesarrollador
+    AnalistaDesarrollador -> "1" Incidente
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 07:25:05 ART 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: es
+Country: AR
+--></g></svg>

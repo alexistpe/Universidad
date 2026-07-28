@@ -23,9 +23,9 @@ Se plantea la necesidad de detecciones de tormentas en zonas locales.
 
 Se propone una solucion utilizando un modelo matematico bioinspirado (LIF), aportando:
 
-- **Presicion:** Solo alerta cuando las condiciones realmente se confirmaron, evitando falsos positivos. (Caracteristica modelo LIF)
+- **Precision:** Solo alerta cuando las condiciones realmente se confirmaron, evitando falsos positivos. (Caracteristica modelo LIF)
 - **Bajo costo:** Permite utilizar el modelo y sensores con poco capital.
-- **Solucion de un problema real:** Una necesidad real resuelta a bajo costo con alta presicion.
+- **Solucion de un problema real:** Una necesidad real resuelta a bajo costo con alta precision.
 
 Para su aplicacion utilizaremos la tegnologia bioinspirada llamada LIF. Esta tegnologica consiste en Integracion y disparo con fugas, consiste en un modelo matematico para simular neuronas biologicas en su fucionamiento basico, sin embargo utilizaremos una version simplificada del mismo, donde simularemos una unica neurona con parametros simples para el experimento en cuestion.
 
@@ -1384,7 +1384,7 @@ convierten una simple lluvia en lluvia convectiva intensa. | Radiosondeo, reaná
 | **Reflectividad radar (Z)** | El mejor predictor de lluvia inminente (0-30 min) porque detecta directamente las gotas en formación. | Radares del SMN o de la red INVAP (Argentina) |
 - Como se aclaro anteriormente, en este proyecto solo se utilizaran las variables esenciales, debido a la simplicidad del modelo propuesto.
 
-**¿Con que presicion se predice tormentas segun la interpretacion de estas variables?**
+**¿Con que precision se predice tormentas segun la interpretacion de estas variables?**
 
 La predicción de **ocurrencia de lluvia** (sí/no) a partir de observaciones horarias de presión, temperatura,  humedad y viento ha sido evaluada en múltiples trabajos de nowcasting. La métrica estándar es la **probabilidad de detección (POD)**, la **tasa de falsas alarmas (FAR)** y el **índice de éxito crítico (CSI)**.
 
@@ -1419,17 +1419,17 @@ forzamiento dinámico en altura) escapan a las mediciones puramente superficiale
 
 Las estaciones meteorologias e instituciones externas que preveen el clima, utilizan modelos que resultan precisos a costa de maximizar la infrestructura.
 
-**Datos satelitales:** Gran cobertura geografica brindando alta presicion a costa de un gran gasto en la infrestructura, y delegando la localizacion y prediccion a corto plazo.
+**Datos satelitales:** Gran cobertura geografica brindando alta precision a costa de un gran gasto en la infrestructura, y delegando la localizacion y prediccion a corto plazo.
 
-**Infrestructura terrestre:** Brinda alta presicion y confiabilidad local pero produciendo un costo elevado al construir y mantener la infrestructura.
+**Infrestructura terrestre:** Brinda alta precision y confiabilidad local pero produciendo un costo elevado al construir y mantener la infrestructura.
 
-**Metodos de umbrales fijos:** Simples y baratos de implementar, pero generando una baja presicion aumentando apleamente la tasa de falsas alarmas.
+**Metodos de umbrales fijos:** Simples y baratos de implementar, pero generando una baja precision aumentando apleamente la tasa de falsas alarmas.
 
 #### Propuesta y puntos clave
 
-El modelo LIF adaptado a las tormentas plantea equilibrar alta presicion con el bajo costo de la infrestructura necesaria.
+El modelo LIF adaptado a las tormentas plantea equilibrar alta precision con el bajo costo de la infrestructura necesaria.
 
-Permite en base a sensores de bajo costo (comparado a la infrestructura terrestre u orbital de las estaciones meteorologicas) y un modelo matematico adaptado, poder brindar un modelo simple y barato de implementar con una presicion mayor al umbral fijo.
+Permite en base a sensores de bajo costo (comparado a la infrestructura terrestre u orbital de las estaciones meteorologicas) y un modelo matematico adaptado, poder brindar un modelo simple y barato de implementar con una precision mayor al umbral fijo.
 
 ### Delimitación del Proyecto:
 
@@ -1440,7 +1440,7 @@ Se quiere desarrollar un modelo predictor de eventos de lluvia basado en el mode
 **Se plantean los siguientes requisitos:**
 
 - Origen de los datos.
-- Presicion de los datos / metodos de recoleccion.
+- Precision de los datos / metodos de recoleccion.
 - Ubicaciones a predecir por el modelo.
 - Rango de prediccion.
 - Epoca del año.
@@ -1462,12 +1462,12 @@ Se quiere desarrollar un modelo predictor de eventos de lluvia basado en el mode
 | Evento | Evento de Lluvia | Se buscara predecir unicamente eventos de lluvia que provoquen precipitaciones. |
 | Implementaciontecnica | Accesible y simple | Se eligira un lenguaje y IDE que permita extraer los datos de forma sencilla y eficaz, entrenar el modelo LIF a desarrollar y brindar correctamente los resultados extraidos del modelo. 
 Se buscara algo eficaz y sencillo de trabajar que sea util para la investigacion debido al interes centrado en la comparativa y no en la implementacion eficiente u optimizacion del programa final. |
-| Modelo comparativo | Umbrales fijos | Se utilizara un modelo tradicional basado en umbrales fijos especificado en metodologia para comparar la presicion del modelo LIF simplificado. |
+| Modelo comparativo | Umbrales fijos | Se utilizara un modelo tradicional basado en umbrales fijos especificado en metodologia para comparar la precision del modelo LIF simplificado. |
 | Variables | 6 datos principales | Se extraeran 6 datos fundamentales de los sensores brindados por el proveedor, que permitan entrenar el modelo, estos son: Temperatura, presion, humedad, precipitacion, viento (velocidad|direccion).
 Se utilizara la precipitacion como confirmacion de que ocurrio la lluvia, con el objetivo de utilizarlo como feedback en el entrenamiento del modelo (Metrica de exito). |
 | Modelo a desarrollar | Basico y determinista | El modelo matematico LIF a utilizar representara una red minima de apenas 6 neuronas que representaran individualmente cada sensor especificado (Temperatura, presion, humedad, viento (velocidad|direccion), evento de lluvia (Neurona de alerta)). Se utilizara la ecuacion diferencial ordinaria que representa al comportamiento de una neurona, y se ajustaran los valores de cada una de las 6 neuronas individualmente en el “entrenamiento”.
-Se ajustaran los valores con el entrenamiento que permita maximizar la presicion y simplicidad de ejecucion. |
-| Presicion de los datos | Alta para el entrenamiento. | Debido a las limitantes de acceso confiable a datos historicos disponibles en sensores especificos de bajo costo se decidio:
+Se ajustaran los valores con el entrenamiento que permita maximizar la precision y simplicidad de ejecucion. |
+| Precision de los datos | Alta para el entrenamiento. | Debido a las limitantes de acceso confiable a datos historicos disponibles en sensores especificos de bajo costo se decidio:
   • Utilizar datos de estaciones que forman parte del SMN para la recoleccion de datos gracias a su facil acceso, obtenidos con dispositivos profecionales que cumplen los estandares de la MMO.
   • Posteriormente se añadira ruido a estos datos precisos para simular los datos de un sensor de bajo costo.
   • Se entrenaran 2 instancias del modelo LIF para comprobar su adaptacion a las diferentes precisiones en los datos disponibles.  |
@@ -1679,43 +1679,50 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     - **Método de medición estándar (OMM):** La OMM especifica que la precipitación se mide con un pluviómetro. El tipo más común en estaciones automáticas es el pluviómetro de cubeta basculante (tipping bucket).
     - Este instrumento consiste en un embudo que dirige el agua de lluvia a un pequeño balde o cucharón dividido en dos compartimentos. Cuando el balde se llena con una cantidad fija de agua (por ejemplo, 0.2 mm), se inclina y se vacía, generando un pulso eléctrico (a través de un interruptor de lengüeta) que es contado por el microcontrolador. La precipitación se mide en milímetros (mm), que es la unidad que se utilizara.
     - **Método propuesto (bajo costo):** Se utilizara el mismo pluviómetro de cubeta basculante que viene en kits como el de SparkFun. Este pluviómetro tiene una resolución típica de 0.2 mm por pulso. Cada vez que la cubeta se inclina, el interruptor de lengüeta se cierra y el microcontrolador registra un "pulso" de lluvia. El total de precipitación se calcula multiplicando el número de pulsos por la resolución del pluviómetro.
-- **¿De donde se obtienen los datos? (Ubicacion y sistema)**
+- **¿De donde se obtienen los datos? (Ubicacion y sistema de recoleccion datos)**
     
     **Obtencion:** La recoleccion de datos para el entrenamiento del modelo sera proporcionada por un ente externo, no datos propios.
     
-    **Justificacion y abordaje:** Debido a los limitantes en los datos historicos necesarios para un entrenamiento eficaz, se utilizaran los datos extraidos de las estaciones del servicio meteorologico nacional. 
+    **Justificacion y abordaje:** Debido a los limitantes en los datos historicos necesarios para un entrenamiento eficaz, se utilizaran los datos extraidos de las estaciones validadas por el MWO/OMM, y con una coleccion de datos historicos completos de al menos 5 años continuos. 
     
     - Estas estaciones estan compuestas de dispositivos que recolectan los datos de cada variable de forma mucho mas precisa y confiable que un equipo de bajo costo.
-    - El objetivo de esta fuente es entrenar el modelo LIF de con datos historicos proporcionados por una cierta estacion de la red del SMN. Y posteriormente entrenar otra instancia del modelo pero con los datos indicidos a ruido y variaciones propias de los dispositivos de bajo costo para probar la flexibilidad del modelo independientemente de la calidad de los dispositivos.
-    - Se determinara el porcentaje de presicion que diferencia a ambos tipos de mediciones (profecional y bajo costo).
+    - El objetivo de esta fuente es **entrenar el modelo LIF de con datos historicos** proporcionados por una cierta estacion. Y posteriormente entrenar otra instancia del modelo pero con los datos inducidos a ruido y variaciones propias de los dispositivos de bajo costo para probar la flexibilidad del modelo independientemente de la calidad de los dispositivos.
+    - **Se determinara el porcentaje de precision** que diferencia a ambos tipos de mediciones (profecional y bajo costo).
     - La recoleccion y posterior entrenamiento con datos propios en sensores de bajo costo se delega a una proxima apleacion de la investigacion actual (trabajo futuro).
+        - Si utilizamos una estacion cercana: Si, sino queda la investigacion posterior limitada a la distancia factible de viaje.
     
     **Estacion elegida:** 
     
-    - Se elegira una estacion que contanga un “WMO ID”, esto certifica que la estacion cumple con los estandares impuestos por la Organización Meteorológica Mundial
-    - Se eligio a la estacion “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella” debido a la cercania local, la validacion por parte del SMN y la OMM (MWO) con su WMO ID propio: 87344
+    - Se elegira una estacion que contanga un “WMO ID”, esto certifica que la estacion cumple con los estandares impuestos por la Organización Meteorológica Mundial.
+    - Se consideraron 3 estaciones candidatas para la recoleccion de sus datos historicos debido a:
+        - Su validacion como miembros de la MWO/OMM, validando un equipo de deteccion que cumpla con los estandares internacionales.
+        - Datos completos y fiables ofrecidos por estas estaciones.
+        - Cercania nacional y validacion extra por parte del SMN en el caso de las primeras 2 opciones. Y la tercera opcion como una estacion secundaria en el caso que las primeras 2 no sean viables.
+    - Las estaciones son:
+        - **SAEZ: EZEIZA** (Aeropuerto Internacional Ministro Pistarini), WMO ID: 87576
+        - **SACO: CORDOBA** (Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella), WMO ID: 87344.
+        - **EDDF: Fráncfort del Meno, ALEMANIA:** Frankfurt Airport (Frankfurt am Main), ****WMO ID: 10637
+    
+    Aclaraciones sobre los datos extraidos de la estacion:
+    
+    - La estacion “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella” y “Ezeiza Aero” al ser miembros validados por el SMN, cumplen los estandares de la OMM/WMO para las mediciones con su precision correspondiente, sin embargo los dispositivos utilizados pueden variar de modelo especifico entre estaciones, normalmente estos dispositivos fueron proporcionados por:
+        - **Lufft**
+        - Vaisala
+        - Campbell
+        - OTT
         
-        Aclaraciones sobre los datos extraidos de esta estacion:
-        
-        - La estacion “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella” y “Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella: Ezeiza Aero” al ser miembros validados por el SMN, cumplen los estandares de la OMM para las mediciones con su precision correspondiente, sin embargo los dispositivos utilizados pueden variar de modelo especifico entre estaciones, normalmente estos dispositivos fueron proporcionados por:
-            - **Lufft**
-            - Vaisala
-            - Campbell
-            - OTT
-            
-            | Marca | ¿Hay evidencia pública? | Fuente |
-            | --- | --- | --- |
-            | **Lufft** | **Sí** | Documentación técnica del repositorio oficial del SMN |
-            | **Vaisala** | Sí | Documentación de sistemas aeronáuticos (AWOS/MET) y licitaciones del Estado |
-            | **Campbell Scientific** | Sí | Licitaciones y proyectos meteorológicos nacionales/provinciales |
-            | **OTT** | Sí | Proyectos hidrometeorológicos argentinos y licitaciones |
-            - El SMN utiliza diferentes fabricantes según la estación y la época. La única marca que se puede verificar directamente en documentación técnica oficial del SMN es LUFFT. Para Vaisala, Campbell y OTT existen evidencias de uso en sistemas meteorológicos argentinos o aeronáuticos, pero no una confirmación pública de que formen parte de la red general del SMN.
-            - En los aeropuertos analizados puede coexistir 2 tipos de intrumentalizaciones diferentes.
-                - Instrumentación del **SMN** (climatología y observaciones).
-                - Instrumentación **AWOS** administrada en el entorno aeronáutico (EANA u otros organismos, según la configuración operacional).
-        - Los datos extraidos de esta fuente, pudieron ser corregidos por el SMN debido a su normativa, provocando pequeñas discrepancias a los datos reales de sus sensores. Sin embargo esta correccion permite un analisis mas preciso de los datos (Documento creacion del SMN Artículo 3, inciso a)
-    - Otras opciones:
-        - **Ezeiza Aero**
+        | Marca | ¿Hay evidencia pública? | Fuente |
+        | --- | --- | --- |
+        | **Lufft** | **Sí** | Documentación técnica del repositorio oficial del SMN |
+        | **Vaisala** | Sí | Documentación de sistemas aeronáuticos (AWOS/MET) y licitaciones del Estado |
+        | **Campbell Scientific** | Sí | Licitaciones y proyectos meteorológicos nacionales/provinciales |
+        | **OTT** | Sí | Proyectos hidrometeorológicos argentinos y licitaciones |
+        - El SMN utiliza diferentes fabricantes según la estación y la época. La única marca que se puede verificar directamente en documentación técnica oficial del SMN es LUFFT. Para Vaisala, Campbell y OTT existen evidencias de uso en sistemas meteorológicos argentinos o aeronáuticos, pero no una confirmación pública de que formen parte de la red general del SMN.
+        - En los aeropuertos analizados puede coexistir 2 tipos de intrumentalizaciones diferentes.
+            - Instrumentación del **SMN** (climatología y observaciones).
+            - Instrumentación **AWOS** administrada en el entorno aeronáutico (EANA u otros organismos, según la configuración operacional).
+    - Los datos extraidos de esta fuente, pudieron ser corregidos por el SMN debido a su normativa, provocando pequeñas discrepancias a los datos reales de sus sensores. Sin embargo esta correccion permite un analisis mas preciso de los datos (Documento creacion del SMN Artículo 3, inciso a)
+    - **Otras opciones:**
         - “**Aeropuerto Regional Villa María** (Aeropuerto Regional Presidente Néstor Kirchner)” que permite facilidad logistica para probar este mismo modelo con datos extraidos de sensores a bajo costo en un futuro.
     
     **Fuentes:**
@@ -1728,7 +1735,7 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
     Al no extraer los datos manualmente, utilizaremos un proveedor que nos brinde los datos por un medio confiable y simple de utilizar.
     
-    **Condiciones para la extraccion:**
+    #### **Condiciones para la extraccion:**
     
     Los datos deben simular datos extraidos directamente de dispositivos fisicos, por lo que requieren una serie de condiciones:
     
@@ -1740,20 +1747,27 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
     Se podran utilizar mas de una fuente para la comprobacion y correcta extraccion de los datos.
     
-    - **Series de tiempo (argentina.gob.ar):** Medio oficial para la extraccion de datos, frecuencia diaria.
+    - **Series de tiempo (argentina.gob.ar):** Medio oficial para la extraccion de datos, frecuencia diaria: Descartada
     - **Meteostat:** Plataforma open source diseñada para la extraccion y formateo de datos entregados por las estaciones o las instituciones meteorologicas. Incluye una recopilacion extensa de los datos publicados por el SMN a lo largo de los años. https://dev.meteostat.net/quality.html
         - La API de Meteostat proporciona metadatos de cada estación que incluyen su ID de WMO cuando está disponible.
         - La documentación oficial de Meteostat indica que todas las estaciones listadas en el directorio de Meteostat se adhieren a los estándares internacionales de la WMO cuando esos estándares aplican
         - La mayor parte de los datos de Meteostat proviene de servicios meteorológicos oficiales y puede considerarse fiable para un uso general. Es posible que existan pequeñas inconsistencias, aunque por lo general no afectan a las aplicaciones habituales. Para trabajos científicos de alta precisión, se recomienda realizar comprobaciones de calidad y validaciones adicionales sobre las observaciones en bruto.
         - Debido a esta razon, se utilizaran otras fuentes para respaldar los datos obtenidos por meteostat.
-    - **Visual Crossing:** Plataforma privada que recopila y entrega de forma formateada los datos de instituciones meteorologicas oficiales aprobadas por la OMM/MWO.
+    - **Visual Crossing:** Plataforma privada que recopila y entrega de forma formateada los datos de instituciones meteorologicas oficiales aprobadas por la OMM/MWO: De pago, descartada
+    - **NOAA GHCNh:** Cualquier estacion validada por la MWO, se extraen en crudo y procesan para tener una base de datos directa.
+        - Se pueden utilizar librerias como “**meteora**” que permiten la obtencion de datos de una forma mucho mas sencilla.
     
-    **Dificultades y resolucion:** 
+    #### **Dificultades y resolucion:**
     
     - Para la extraccion de datos de las fuentes y estaciones oficiales se impone una gran dificultad. Los canales de comunicacion de estos datos provienen del sistema meteorologico nacional, los cuales no proveen los datos de forma directa para su extraccion historica en masa, sino que se proveen datos de forma resumida o simplemente visual y actual, sin un historial detallado y simple de recuperar.
-    - Debido a esto, se utilizaran diferentes fuentes que recopilen los datos historicos provistos por el smn y junto a los datos generales y actuales provistos por el smn se podran corroborar y validar.
+    - Debido a esto, se utilizaran diferentes fuentes que recopilen los datos historicos provistos por el SMN o instituciones verificadas y junto a los datos generales y actuales provistos se podran corroborar y validar.
     
-    **Fuentes:**
+    #### **Eleccion:**
+    
+    - Se realizaran estracciones desde meteostat y meteora debido a la simplicidad de extraccion y formato adaptado para una facil manipulacion.
+    - Se decidira posteriormente en la verificacion de datos faltantes el proveedor especifico a utilizar.
+    
+    #### **Fuentes:**
     
     - https://www.sciencedirect.com/science/article/pii/S0022169426001435?fr=RR-2&ref=pdf_download&rr=a16a87397c43acb8
     - https://ams.confex.com/ams/WAFNWPMS/webprogram/Paper425648.html
@@ -1776,7 +1790,7 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
     - SMN → WMO GTS → NOAA ISD → ISD Lite → Meteostat
     - Donde se describe cada parte como:
-        - **Medición en la Estación (ej. SACO, SAEZ):** Los sensores de la estación toman las mediciones de temperatura, presión, viento, etc.
+        - **Medición en la Estación (ej. SACO, SAEZ: ‘Codigo ICAO’):** Los sensores de la estación toman las mediciones de temperatura, presión, viento, etc.
         - **Transmisión al SMN:** Estos datos se envían al Servicio Meteorológico Nacional (SMN) de Argentina.
         - **Inserción en el Sistema Global (WMO GTS):** El SMN (como miembro de la Organización Meteorológica Mundial) envía estos datos al **Sistema Mundial de Telecomunicaciones (GTS)** de la OMM. Esta es la red global que permite a todos los países compartir información meteorológica en tiempo real.
         - **Captura por NOAA:** La **Administración Nacional Oceánica y Atmosférica de EE.UU. (NOAA)**, a través del **Centro Nacional de Información Ambiental (NCEI)**, recibe y archiva estos datos del GTS.
@@ -1791,8 +1805,15 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     **Actualizacion de ISD:**
     
     - El 24 de agosto de 2025 ****NOAA dejo de ofrecer datos actualizados por el servicio de “**ISD-Lite**”, migrando a su nuevo sistema mas complejo “GHCNh”.
-    - Esto provoco que el principal proveedor de meteostat cambiara. **Se debe confirmar si la estructura de meteostat fue modificada al nuevo proveedor o como se recolectaron los datos actuales.**
+    - Esto provoco que el principal proveedor de meteostat cambiara. Actualmente mantenien estos proveedores principales:
+        - **DWD (Deutscher Wetterdienst):** hourly, daily, monthly, MOSMIX, POI
+        - **ECCC (Environment and Climate Change Canada):** hourly, daily, monthly
+        - **METAR:** reportes de aviación
+        - **MET Norway:** pronósticos
+        - **GHCN-Daily:** Nueva base de datos mantenida por la NOAA.
+        - **ISD-Lite:** Base de datos por descontinuar de la NOAA.
     - Todos los datos anteriores a esa fecha son datos confiables recolectados por las estaciones, estandarizados y distribuidos por la WMO y NOAA.
+    - La alternativa es extraer los datos directamente del **GHCNh,** o evaluar alternativas como “OGIMET” para extraer los datos directamente del METAR proporcionado por el SMN.
     
     Debido a esta ruta de estandarizacion, los datos pueden sufrir transformaciones o adaptaciones, desde la estandarizacion ISD-Lite su transformacion es:
     
@@ -1815,38 +1836,916 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     - https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00532/html  https://www.nesdis.noaa.gov/news/service-location-change-integrated-surface-data-global-hourly https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly https://www.ncei.noaa.gov/news/next-generation-climate-dataset-built-seamless-integration
     - https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database
     - https://www.ncei.noaa.gov/ http://ncei.noaa.gov/pub/data/noaa/isd-lite/isd-lite-format.pdf
+    - https://www.ncei.noaa.gov/pub/data/noaa/isd-lite/
     - https://dev.meteostat.net/providers
 - **¿Cuál es el porcentaje de datos faltantes en mi dataset y cuál es su patrón?**
     
-    Descargar tabla de datos del dataset.
+    Se realizaron diferentes script capaces de comincarse a las API’s correspondientes de los proveedores para poder recuperar los datos de las estaciones seleccionadas en rango de fechas y frecuencias adecuados.
     
-    Analizar cuales datos faltan o si meteostat lo suplanta por una aproximacion.
+    El analisis concluyo que los datos seran extraidos de la estacion: **EDDF:** Frankfurt Airport (Frankfurt am Main)
     
-    Redactar porcentaje de estos datosñ
+    Debido a que en las estaciones argentinas analizadas validadas por el SMN y el MWO no proveen el dato clave precipitacion para utilizar como variable de exito.
+    
+    Debido a esto se busco una estacion capaz de contener un periodo de al menos 5 años continuos sin ningun dato faltante.
+    
+    **¿El EDDF interpola sus datos o utiliza metodos matematicos para rellenar datos de sensores o son todos datos propios de sus sensores?**
+    
+    # **Scripts** para la recuperacion de datos.
+    
+    Estan realizados en Python 3.
+    
+    - **Parte 1: extraer datos**
+        - Pide estación (Ezeiza o Córdoba), fechas (dd/mm/aaaa), y si usar modelo
+        - Extrae 6 parámetros: temp, rhum, pres, wdir, wspd, prcp
+        - Frecuencia: 1 hora (la más baja disponible)
+        - Guarda .txt separado por espacios con header
+            - Nombre: Estacion-ICAO-AAAAmmdd_AAAAmmdd-Modelo{Si|No}.txt
+        - Valores faltantes se marcan con .
+    - **Parte 2:** **analizar datos**
+        - Analiza faltantes por variable y total.
+        - Muestra porcentajes en terminal.
+    - **Script ejemplo:** Extrae los datos directamente de los archivos ISD proporcionados por el NOAA.
+        
+        Procesa todos los archivos `.txt` de la carpeta, extrae las 6 variables horarias (temperatura, humedad relativa calculada, presión, dirección y velocidad del viento, y precipitación) y las guarda en un único archivo por estación con el formato solicitado.
+        
+        ### 📁 Script: `extractor_isd.py`
+        
+        ```python
+        import os
+        import re
+        import math
+        from collections import defaultdict
+        
+        # ----------------------------------------------------------------------
+        # 1. Función para calcular la humedad relativa a partir de T y Td
+        #    (Fórmula de Magnus)
+        # ----------------------------------------------------------------------
+        def calcular_rh(temp, dew):
+            """
+            temp: temperatura del aire en °C
+            dew : punto de rocío en °C
+            Retorna: humedad relativa en % (0-100) o None si falta algún dato
+            """
+            if temp is None or dew is None:
+                return None
+            try:
+                t = float(temp)
+                td = float(dew)
+            except (ValueError, TypeError):
+                return None
+        
+            a = 17.625
+            b = 243.04
+        
+            es_t = 6.1094 * math.exp((a * t) / (b + t))
+            es_td = 6.1094 * math.exp((a * td) / (b + td))
+        
+            rh = 100 * es_td / es_t
+            # Acotar por posibles errores numéricos
+            if rh > 100:
+                rh = 100.0
+            if rh < 0:
+                rh = 0.0
+            return rh
+        
+        # ----------------------------------------------------------------------
+        # 2. Parseo de una línea del formato ISD crudo
+        # ----------------------------------------------------------------------
+        def parsear_linea(linea):
+            """
+            Extrae la información relevante de una línea ISD.
+            Retorna un diccionario con:
+              - date   : YYYYMMDD
+              - time   : HHMM
+              - temp   : temperatura (°C)
+              - dew    : punto de rocío (°C)
+              - slp    : presión a nivel del mar (hPa)
+              - wdir   : dirección del viento (grados)
+              - wspd   : velocidad del viento (m/s)
+              - prcp   : precipitación (mm)
+            """
+            if len(linea) < 105:
+                return None
+        
+            datos = {}
+        
+            # --- Fecha y hora (sección de control) ---
+            datos['date'] = linea[15:23]   # YYYYMMDD
+            datos['time'] = linea[23:27]   # HHMM
+        
+            # --- Viento (sección obligatoria) ---
+            # Dirección: pos. 61-63 (0-index: 60-63)
+            wdir_str = linea[60:63]
+            datos['wdir'] = float(wdir_str) if wdir_str != '999' else None
+        
+            # Velocidad: pos. 66-69 (0-index: 65-69) escala 10
+            wspd_str = linea[65:69]
+            if wspd_str != '9999':
+                datos['wspd'] = float(wspd_str) / 10.0
+            else:
+                datos['wspd'] = None
+        
+            # --- Temperatura del aire: pos. 88-92 (0-index: 87-92) escala 10 ---
+            temp_str = linea[87:92]
+            if temp_str[0] == '+':
+                temp_str = temp_str[1:]
+            if temp_str != '9999':
+                datos['temp'] = float(temp_str) / 10.0
+            else:
+                datos['temp'] = None
+        
+            # --- Punto de rocío: pos. 94-98 (0-index: 93-98) escala 10 ---
+            dew_str = linea[93:98]
+            if dew_str[0] == '+':
+                dew_str = dew_str[1:]
+            if dew_str != '9999':
+                datos['dew'] = float(dew_str) / 10.0
+            else:
+                datos['dew'] = None
+        
+            # --- Presión a nivel del mar: pos. 100-104 (0-index: 99-104) escala 10 ---
+            slp_str = linea[99:104]
+            if slp_str != '99999':
+                datos['slp'] = float(slp_str) / 10.0
+            else:
+                datos['slp'] = None
+        
+            # --- Precipitación (sección adicional ADD) ---
+            datos['prcp'] = None
+            idx_add = linea.find('ADD')
+            if idx_add != -1:
+                # Extraer solo la parte ADD (hasta REM o EQD o final)
+                resto = linea[idx_add + 3:]
+                fin = len(resto)
+                idx_rem = resto.find('REM')
+                idx_eqd = resto.find('EQD')
+                if idx_rem != -1:
+                    fin = min(fin, idx_rem)
+                if idx_eqd != -1:
+                    fin = min(fin, idx_eqd)
+                bloque_add = resto[:fin]
+        
+                # Buscar AA1, AA2, AA3, AA4 (precipitación líquida)
+                precip_total = 0.0
+                encontrado = False
+                for i in range(1, 5):
+                    patron = rf'AA{i}(\d{{2}})(\d{{4}})(\d)(\d)'
+                    match = re.search(patron, bloque_add)
+                    if match:
+                        # periodo = int(match.group(1))  # no se usa para el valor horario
+                        profundidad = float(match.group(2)) / 10.0  # mm
+                        # cond = match.group(3)  # 2 = traza, normalmente se trata como 0.0
+                        precip_total += profundidad
+                        encontrado = True
+                if encontrado:
+                    datos['prcp'] = precip_total
+        
+            return datos
+        
+        # ----------------------------------------------------------------------
+        # 3. Función principal
+        # ----------------------------------------------------------------------
+        def main():
+            # Buscar todos los archivos .txt en la misma carpeta del script
+            archivos = [f for f in os.listdir('.') if f.endswith('.txt')]
+        
+            if not archivos:
+                print("No se encontraron archivos .txt en la carpeta actual.")
+                return
+        
+            # Diccionario para acumular datos por estación (ICAO) y por hora (YYYYMMDDHH)
+            # estructura: { ICAO: { YYYYMMDDHH: { 'temp': val, 'dew': val, ... } } }
+            datos_estaciones = defaultdict(lambda: defaultdict(lambda: {
+                'temp': None, 'dew': None, 'slp': None,
+                'wdir': None, 'wspd': None, 'prcp': None
+            }))
+        
+            for archivo in archivos:
+                print(f"Procesando: {archivo}")
+                with open(archivo, 'r', encoding='utf-8', errors='ignore') as f:
+                    for linea in f:
+                        linea = linea.strip()
+                        if not linea:
+                            continue
+        
+                        parsed = parsear_linea(linea)
+                        if not parsed:
+                            continue
+        
+                        # --- Obtener el ICAO desde la sección REM (METAR) ---
+                        icao = None
+                        idx_rem = linea.find('REM')
+                        if idx_rem != -1:
+                            bloque_rem = linea[idx_rem:]
+                            # Busca METAR COR SAEZ o METAR SAEZ
+                            match = re.search(r'METAR (?:COR )?([A-Z]{4})', bloque_rem)
+                            if match:
+                                icao = match.group(1)
+        
+                        if not icao:
+                            # Si no se encuentra ICAO, se omite esta línea
+                            continue
+        
+                        # Clave horaria: YYYYMMDDHH
+                        clave_hora = f"{parsed['date']}{parsed['time'][:2]}"
+        
+                        # --- Mezclar datos de la misma hora (prioridad: no sobreescribir si ya existe) ---
+                        datos_hora = datos_estaciones[icao][clave_hora]
+                        for campo in ['temp', 'dew', 'slp', 'wdir', 'wspd', 'prcp']:
+                            valor = parsed.get(campo)
+                            if valor is not None and datos_hora[campo] is None:
+                                datos_hora[campo] = valor
+        
+            # --- Escribir un archivo de salida por cada estación ---
+            for icao, horas in datos_estaciones.items():
+                if not horas:
+                    continue
+        
+                # Ordenar cronológicamente
+                horas_ordenadas = sorted(horas.keys())
+                fecha_inicio = horas_ordenadas[0][:8]
+                fecha_fin = horas_ordenadas[-1][:8]
+        
+                # Nombre del archivo: Estacion-ICAO-AAAAmmdd_AAAAmmdd-ModeloNo.txt
+                # Usamos el ICAO como nombre de la estación (por no tener otro dato)
+                nombre_archivo = f"{icao}-{icao}-{fecha_inicio}_{fecha_fin}-ModeloNo.txt"
+        
+                with open(nombre_archivo, 'w', encoding='utf-8') as salida:
+                    # Escribir encabezado
+                    salida.write("fecha hora temp rhum pres wdir wspd prcp\n")
+        
+                    for dt in horas_ordenadas:
+                        vals = horas[dt]
+        
+                        # Calcular humedad relativa
+                        rh = calcular_rh(vals['temp'], vals['dew'])
+        
+                        # Formatear fecha y hora
+                        fecha_str = f"{dt[:4]}-{dt[4:6]}-{dt[6:8]}"
+                        hora_str = f"{dt[8:10]}:00"
+        
+                        # Valores o '.' si faltan
+                        temp_s = f"{vals['temp']:.1f}" if vals['temp'] is not None else "."
+                        rh_s = f"{rh:.1f}" if rh is not None else "."
+                        pres_s = f"{vals['slp']:.1f}" if vals['slp'] is not None else "."
+                        wdir_s = f"{vals['wdir']:.0f}" if vals['wdir'] is not None else "."
+                        wspd_s = f"{vals['wspd']:.1f}" if vals['wspd'] is not None else "."
+                        prcp_s = f"{vals['prcp']:.1f}" if vals['prcp'] is not None else "."
+        
+                        salida.write(
+                            f"{fecha_str} {hora_str} {temp_s} {rh_s} {pres_s} {wdir_s} {wspd_s} {prcp_s}\n"
+                        )
+        
+                print(f"✅ Archivo generado: {nombre_archivo}")
+        
+        if __name__ == "__main__":
+            main()
+        ```
+        
+        ---
+        
+        ### ⚙️ ¿Cómo usarlo?
+        
+        1. Coloca el script (`extractor_isd.py`) en la misma carpeta donde están tus archivos `.txt` con datos ISD crudos (los que tienen formato como el que me compartiste).
+        2. Ejecuta el script:
+            
+            ```bash
+            python extractor_isd.py
+            ```
+            
+        3. El script procesará **todos** los `.txt` de la carpeta, fusionará los datos por estación (código ICAO) y creará un archivo de salida por cada estación encontrada.
+        
+        ---
+        
+        ### 📄 Formato del archivo de salida
+        
+        - **Nombre**: `ICAO-ICAO-AAAAmmdd_AAAAmmdd-ModeloNo.txt`
+            
+            (ej. `SAEZ-SAEZ-20230101_20230101-ModeloNo.txt`)
+            
+        - **Contenido** (separado por espacios, con cabecera):
+            
+            ```
+            fecha hora temp rhum pres wdir wspd prcp
+            2023-01-01 00:00 22.7 52.2 1012.5 120 6.2 0.0
+            2023-01-01 01:00 21.9 54.1 1013.1 110 6.3 0.0
+            ...
+            ```
+            
+        - **Valores faltantes**: se reemplazan por un punto (`.`).
+        
+        ---
+        
+        ### 🔍 Detalles del parseo y mezcla
+        
+        | Variable | ¿De dónde se extrae? |
+        | --- | --- |
+        | **temp** | Sección obligatoria, pos. 88–92 (escala 10). |
+        | **rhum** | **No viene directamente**. Se calcula con la temperatura y el punto de rocío usando la fórmula de Magnus. |
+        | **pres (SLP)** | Sección obligatoria, pos. 100–104 (escala 10) – disponible en informes `FM-12`. |
+        | **wdir** | Sección obligatoria, pos. 61–63 (grados). |
+        | **wspd** | Sección obligatoria, pos. 66–69 (escala 10, m/s). |
+        | **prcp** | Sección adicional `ADD`, identificadores `AA1` a `AA4` (precipitación líquida acumulada en el período indicado). |
+        
+        **Nota sobre la frecuencia**:
+        
+        El script agrupa todos los registros de una misma hora (YYYYMMDDHH). Si hay varios informes en esa hora (ej. `FM-12` y `FM-15`), se fusionan tomando el primer valor no faltante de cada variable. Esto garantiza la mejor cobertura posible y una frecuencia horaria.
+        
+        ---
+        
+        ### ⚠️ Consideraciones
+        
+        - La humedad relativa se calcula a partir de la temperatura y el punto de rocío. Si alguno falta, se escribe `.`.
+        - La precipitación se extrae como la **suma** de los campos `AA1`...`AA4`. Si el período indicado (ej. 6 horas) es mayor a 1 hora, el valor escrito corresponde al total de ese período en el momento del informe (no se distribuye horariamente). Esto es coherente con cómo se almacena originalmente.
+        - El script solo procesa archivos con extensión `.txt`. Si tus archivos tienen otro nombre, solo cámbiales la extensión.
+        
+        Si tienes alguna duda o necesitas ajustar algo, ¡avísame!
+        
+    
+    # Datos faltantes: Analisis y procedimiento.
+    
+    Se probaron diferentes proveedores para obtener el que brinde los datos mas completos para el posterior analisis y entrenamientos de los modelos.
+    
+    ## **Analisis de los diferentes proveedores:**
+    
+    Inicialmente se utilizo **metrostat,** resultando en esta cantidad de datos faltantes:
+    
+    - **Pedido realizado:**
+        - **Rango de fechas:** 5 años (01/01/2020 a 01/01/2025).
+        - **Estacion:** SAEZ.
+        - **Proveedores:** metrostat (Sin algoritmos matematicos).
+    - **Resumen datos faltantes:**
+        
+        Temperatura (°C)                         0/43303 (0.0%)
+        Humedad relativa (%)                    21/43303 (0.0%)
+        Presion atmosferica (hPa)              471/43303 (1.1%)
+        Direccion del viento (grados)          335/43303 (0.8%)
+        Velocidad del viento (km/h)              1/43303 (0.0%)
+        Precipitacion (mm)                   43303/43303 (100.0%)
+        **Total** 16.99%
+        
+    - **Analisis:**
+        - Faltan todos los datos de la precipitacion (100% en frecuencia de una hora).
+    - **Conclusion:**
+        - Metrostat no expone datos confiables en la precipitacion.
+            - Leve falta de datos en la presion, validos para aproximarlos.
+        - Los datos dejan de tener el proveedor directo de NOAA apartir del año 2025, asi que limita el analisis a maximo 5 años completos partiendo desde el 2020.
+        - Es necesario encontrar otros proveedores preferentemente mas directos para recolectar los datos directamente de la plataforma del NOAA.
+    
+    ---
+    
+    Posteriormente se utilizo el **ISD** proporcionado por el **NOAA**, descargado manualmente y creando un script capaz de extraer las variables y adaptarlas.
+    
+    Se realizo en un solo año para confirmar la falta de datos proveniente del ISD del NOAA, y descargar posibles problemas relacionados a meteostat.
+    
+    - **Pedido realizado:**
+        - **Rango de fechas:** 1 año (2023), descarga manual.
+        - **Estacion:** SAEZ.
+        - **Proveedores:** ISD (NOAA)
+    - **Resumen datos faltantes:**
+    **Total de registros:** 8697
+        
+        
+        | Variable | Presentes | Faltantes | % Faltante |
+        | --- | --- | --- | --- |
+        | temp | 8697 | 0 | 0.0% |
+        | rhum | 8697 | 0 | 0.0% |
+        | pres | 8556 | 141 | 1.6% |
+        | wdir | 8512 | 185 | 2.1% |
+        | wspd | 8697 | 0 | 0.0% |
+        | prcp | 1195 | 7502 | 86.3% |
+        | **TOTAL** | **44354** | **7828** | 15.0% |
+    - **Analisis:**
+        - Se incluyeron datos como la precipitacion acumulada cada 6 horas, permitiendo obtener un resultado mas completo de esta variable (aprox 13.7%).
+        - Sin embargo el analisis queda limitado hasta mediados de 2025.
+    - **Conclusion:**
+        - Obtuvimos datos mas completos, pero sigue habiendo inconsistencias graves en la variable precipitacion.
+        - De debe encontrar una alternativa para poder abordar la falta de la metrica de exito.
+    
+    ---
+    
+    Luego se utilizo la base de datos del **GHCNh**, para recolectar los datos actuales, completos (muchas variables) y con soporte longevo verificado por la **NOAA**.
+    
+    - Inicialmente se utilizo una **libreria de python llamada “meteora”**, permitiendo extraer los datos de las 6 variables necesarias directamente del GHCN.
+    - **Pedido realizado:**
+        - **Rango de fechas:** 5 años (01/01/2020 a 01/01/2025).
+        - **Estacion:** SAEZ.
+        - **Proveedores: meteora (Programa opensource que extrae los datos directamente del GHCN)**
+    - **Resumen datos faltantes:**
+    **Total registros:** 47,993
+        
+        
+        | **Variable** | **% Datos faltantes** |
+        | --- | --- |
+        | Temperatura (°C) | 0.00% |
+        | Humedad Relativa (%) | 0.01% |
+        | Presión Estación (hPa) | 11.45% |
+        | Precipitación (mm) | 100.00% |
+        | Velocidad Viento (m/s) | 0.04% |
+        | Dirección Viento (°) | 0.04% |
+        | **TOTAL GENERAL** | **18.59%** |
+    - **Analisis:**
+        - Provee un dataset  completo en la mayoria de variables exeptuando la presion y precipitacion donde comienza a fallar notablemente.
+    - **Conclusion:**
+        - Si el dataset no contiene la variable precipitacion en la mayoria de los casos, se debera utilizar otra variable para suplantar la metrica de exito.
+    
+    **Por ultimo se utilizo el dataset directo GHCN de la NOAA.** Para esto se tuvo que crear un script que permitiera descargar, interpretar y organizar los datos para poder recolectar las varaibles necesarias en los periodos indicados.
+    
+    Se realizo para confirmar las metricas obtenidas por la libreria meteora y complementar con variables extras que provee el GHCNh.
+    
+    - **Pedido realizado:**
+        - **Rango de fechas:** 5 años (01/01/2020 a 01/01/2025).
+        - **Estacion:** SAEZ.
+        - **Datos directamente del GHCNh, descargados manualmente.**
+            - **URL (Variar año):** [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2020/psv/GHCNh_ARI0000SAEZ_2020.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2020/psv/GHCNh_ARI0000SAEZ_2020.psv)
+    - **Resumen de los datos:**
+    - 
+    - **Analisis:**
+        - Sufre el mismo problema que meteora, sin embargo ofrece diferentes variables utiles que no se incluyen en meteora, al ofrecerlas en un porcentaje tan reducido, no permite un analisis adecuado.
+    - **Conclusion: El problema esta en los datos que el SMN transmite al MWO, que a su ves es retransmitido por el NOAA.**
+    
+    - **Resumenes de los scripts e investigacion.**
+        - **Investigacion**
+            
+            Extracción de datos meteorológicos horarios del GHCNh de NOAA para estaciones argentinas.
+            **Ubicaciones de archivos:**
+            
+            - Script con meteora (ya creado): /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCN/extraer_ghcn.py
+            - Virtualenv: /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCN/venv/
+            - Nuevo script directo (planificado, NO creado aún): /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCNCRUDO/ (directorio no creado)
+            Lo que ya se hizo
+            1. **Script meteora (extraer_ghcn.py):**
+                - Usa GHCNHourlyClient de meteora con bounding box alrededor de la estación
+                - 6 variables core: temperature, relative_humidity, station_level_pressure, precipitation, wind_speed, wind_direction
+                - Muestra resumen con % de datos faltantes
+                - Guarda CSV con separador ; y formato {SACO|SAEZ}{YYYYMMDD}_{YYYYMMDD}.csv
+                - Probado y funcionando para SAEZ y SECO
+            2. **Estaciones identificadas en GHCNh:**
+                - SAEZ (Ezeiza): ARI0000SAEZ (ICAO-based) o ARU00087576 (WMO-based)
+                - SECO (Córdoba - Ambrosio Taravella): ARI0000SACO (ICAO-based) o ARU00087344 (WMO-based)
+                - Coordenadas confirmadas desde el station list de GHCNh
+            3. **Acceso directo a datos GHCNh (investigado):**
+                - PSV files por estación/año: [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/{year}/psv/GHCNh_{STATION_ID}_{year}.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/%7Byear%7D/psv/GHCNh_%7BSTATION_ID%7D_%7Byear%7D.psv)
+                - PSV files por estación (periodo completo): [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-station/GHCNh_{STATION_ID}_por.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-station/GHCNh_%7BSTATION_ID%7D_por.psv)
+                - Formato: 38 variables, pipe-separated, columnas: STATION, DATE, variable1, variable2, ...
+                Variables del GHCNh (38 variables)
+                Las que existen en el dataset completo incluyen: temperature, dew_point_temperature, wet_bulb_temperature, relative_humidity, station_level_pressure, sea_level_pressure, altimeter, pressure3hr_change, wind_direction, wind_speed, wind_gust, precipitation, visibility, sky_cover1/2/3, sky_cov_baseht1/2/3, pres_wx_AU1/AU2/AU3, pres_wx_AW1/AW2/AW3, pres_wx_MW1/MW2/MW3, snow_depth, precipitation3_hour, Remarks
+                
+                **Reemplazo de precipitación:**
+                Se estaba investigando qué variables pueden indicar si llovió o no cuando precipitation no está disponible:
+                
+                - pres_wx (present weather codes): Códigos WMO que describen el clima actual, incluyendo lluvia, nieve, etc. Los códigos 50-55 (drizzle), 60-65 (rain), 66-67 (freezing rain), 68-69 (rain/snow mix), 70-75 (snow), 80-90 (showers) indican precipitación.
+                - precipitation_3_hour: Precipitación acumulada en 3 horas
+                - snow_depth: Profundidad de nieve.
+            4. **Crear script directo (sin meteora) que:**
+                - Descargue los PSV files directamente de NOAA vía requests
+                - Use las 5 variables core + 1 variable de reemplazo para precipitación (pres_wx o precipitation_3_hour)
+                - Misma funcionalidad: menú estación, rango fechas DD/MM/YYYY, reemplazar NaN por ".", resumen con % faltantes, guardar CSV con ";"
+                - Usar IDs correctos de estación: ARI0000SAEZ y ARI0000SACO
+            5. **Decidir qué variable usar como reemplazo de precipitación (investigar pres_wx codes vs precipitation_3_hour).**
+            
+            **Notas técnicas importantes**
+            
+            - Los datos GHCNh vienen en UTC; convertir a ART (America/Argentina/Buenos_Aires) para output
+            - Formato fecha en output: DD/MM/YYYY HH:MM
+            - Separador CSV: ;
+            - Datos faltantes: reemplazar NaN por "."
+            - El script actual usa venv en /home/ale/.../GHCN/venv/
+            - El nuevo script debería poder funcionar sin meteora (solo requests + pandas)
+            
+            **Project Context 2**
+            Extraer datos meteorológicos horarios del GHCNh (NOAA) para estaciones argentinas (SAEZ/Ezeiza y SACO/Córdoba) sin usar la librería meteora, accediendo directamente a los archivos PSV.
+            Current Task (Your Question)
+            Estabas evaluando si la variable pres_wx_AU1 (present weather) es adecuada como reemplazo de precipitation para detectar lluvia. Preguntaste específicamente si esta variable se determina por modelo numérico/probabilidad o por medición directa, y solicitaste todas las variables que representen de manera DIRECTA y CERTERA la presencia de lluvia.
+            Investigación Realizada
+            Revisé la documentación de NOAA (GHCNh), el ASOS User's Guide, y artículos técnicos sobre el sensor LEDWI (Light Emitting Diode Weather Identifier).
+            Hallazgos Clave
+            
+            Project Context
+            Extraer datos meteorológicos horarios del GHCNh (NOAA) para estaciones argentinas (SAEZ/Ezeiza y SACO/Córdoba) sin usar la librería meteora, accediendo directamente a los archivos PSV.
+            Current Task (Your Question)
+            Estabas evaluando si la variable pres_wx_AU1 (present weather) es adecuada como reemplazo de precipitation para detectar lluvia. Preguntaste específicamente si esta variable se determina por modelo numérico/probabilidad o por medición directa, y solicitaste todas las variables que representen de manera DIRECTA y CERTERA la presencia de lluvia.
+            Investigación Realizada
+            Revisé la documentación de NOAA (GHCNh), el ASOS User's Guide, y artículos técnicos sobre el sensor LEDWI (Light Emitting Diode Weather Identifier).
+            Hallazgos Clave
+            
+            1. Cómo funciona el sensor de clima presente (LEDWI/ASOS)
+            - NO es un modelo numérico ni probabilístico. Es un sensor óptico directo.
+            - Funciona así: emite un haz de luz infrarroja coherente a través de un path de 1 metro hacia un fotodiodo receptor.
+            - Cuando partículas de precipitación (gotas de lluvia, copos de nieve) atraviesan el haz, crean sombras que modulan la luz.
+            - El patrón de centelleo (scintillation) se analiza espectralmente:
+                - Altas frecuencias (1000-4000 Hz): indica lluvia (casi con certeza)
+                - Bajas frecuencias (75-250 Hz): indica nieve
+                - Espectro mezclado: se reporta como "Unknown Precipitation" (UP)
+            - La intensidad se determina por la potencia de la señal usando la distribución empírica Marshall-Palmer:
+                - Light: hasta 0.10 pulg/hora
+                - Moderate: 0.11-0.30 pulg/hora
+                - Heavy: >0.30 pulg/hora
+            1. Limitaciones conocidas
+            - No diferencia bien drizzle (llovizna) de lluvia ligera
+            - Precipitación mixta (lluvia+nieve) → reporta "UP" (Unknown)
+            - Precipitación muy leve cerca del umbral de detección puede no detectarse
+            - No detecta bien ice pellets, snow grains, hail
+            1. Variables disponibles en GHCNh para precipitación
+            - precipitation → Precipitación acumulada horaria (mm, medición directa con balde volcete calefaccionado)
+            - pres_wx_AU1/2/3 → Automated ASOS/AWOS sensors (cualitativo: tipo e intensidad)
+            - pres_wx_AW1/2/3 → Automated sensors worldwide
+            - pres_wx_MW1/2/3 → Manual reports (human observer - muy confiable)
+            - precipitation_3_hour a precipitation_24_hour → Acumulados multi-horarios
+            - snow_depth → Profundidad de nieve
+            1. Confirmación técnica
+            - El archivo PSV para SAEZ 2023 existe (HTTP 200, ~8MB)
+            - Las URLs son:
+                - [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/{YEAR}/psv/GHCNh_{STATION}_{YEAR}.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/%7BYEAR%7D/psv/GHCNh_%7BSTATION%7D_%7BYEAR%7D.psv)
+                - Station IDs: ARI0000SAEZ y ARI0000SACO
+            1. Cómo funciona el sensor de clima presente (LEDWI/ASOS)
+            - NO es un modelo numérico ni probabilístico. Es un sensor óptico directo.
+            - Funciona así: emite un haz de luz infrarroja coherente a través de un path de 1 metro hacia un fotodiodo receptor.
+            - Cuando partículas de precipitación (gotas de lluvia, copos de nieve) atraviesan el haz, crean sombras que modulan la luz.
+            - El patrón de centelleo (scintillation) se analiza espectralmente:
+                - Altas frecuencias (1000-4000 Hz): indica lluvia (casi con certeza)
+                - Bajas frecuencias (75-250 Hz): indica nieve
+                - Espectro mezclado: se reporta como "Unknown Precipitation" (UP)
+            - La intensidad se determina por la potencia de la señal usando la distribución empírica Marshall-Palmer:
+                - Light: hasta 0.10 pulg/hora
+                - Moderate: 0.11-0.30 pulg/hora
+                - Heavy: >0.30 pulg/hora
+            1. Limitaciones conocidas
+            - No diferencia bien drizzle (llovizna) de lluvia ligera
+            - Precipitación mixta (lluvia+nieve) → reporta "UP" (Unknown)
+            - Precipitación muy leve cerca del umbral de detección puede no detectarse
+            - No detecta bien ice pellets, snow grains, hail
+            1. Variables disponibles en GHCNh para precipitación
+            - precipitation → Precipitación acumulada horaria (mm, medición directa con balde volcete calefaccionado)
+            - pres_wx_AU1/2/3 → Automated ASOS/AWOS sensors (cualitativo: tipo e intensidad)
+            - pres_wx_AW1/2/3 → Automated sensors worldwide
+            - pres_wx_MW1/2/3 → Manual reports (human observer - muy confiable)
+            - precipitation_3_hour a precipitation_24_hour → Acumulados multi-horarios
+            - snow_depth → Profundidad de nieve
+            1. Confirmación técnica
+            - El archivo PSV para SAEZ 2023 existe (HTTP 200, ~8MB)
+            - Las URLs son:
+                - [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/{YEAR}/psv/GHCNh_{STATION}_{YEAR}.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/%7BYEAR%7D/psv/GHCNh_%7BSTATION%7D_%7BYEAR%7D.psv)
+                - Station IDs: ARI0000SAEZ y ARI0000SACO
+        - **Creacion**
+            
+            **Summary of Project So Far**
+            Project Goal
+            Extraer datos meteorológicos horarios del GHCNh (Global Historical Climatology Network hourly) de NOAA para estaciones argentinas (SAEZ/Ezeiza y SACO/Córdoba), sin usar la librería meteora, accediendo directamente a los archivos PSV de NOAA.
+            What Has Been Done
+            
+            1. Script existente (con meteora)
+            - Ruta: /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCN/extraer_ghcn.py
+            - Usa GHCNHourlyClient de meteora con bounding box
+            - 6 variables: temperature, relative_humidity, station_level_pressure, precipitation, wind_speed, wind_direction
+            - Guarda CSV con ; como separador
+            - Probado y funciona para SAEZ y SACO
+            1. Estaciones identificadas en GHCNh
+            - SAEZ (Ezeiza): ID ARI0000SAEZ (ICAO-based, FIPS code AR + I + 0000SAEZ)
+            - SACO (Córdoba): ID ARI0000SACO (ICAO-based)
+            - Coordenadas confirmadas desde el station list de GHCNh
+            1. Investigación del formato PSV de GHCNh
+            - URL base: [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/)
+            - Archivos POR (period of record): /by-station/GHCNh_{STATION_ID}_por.psv (238 columnas, gigantes)
+            - Archivos por año: /by-year/{YEAR}/psv/GHCNh_{STATION_ID}_{YEAR}.psv (234 columnas, más manejables)
+            - Formato: pipe-separated (|), con header que nombra cada columna
+            - Columnas: STATION, DATE (ISO), LATITUDE, LONGITUDE, ELEVATION, luego para cada variable: variable, Measurement_Code, Quality_Code, Report_Type, Source_Code, Source_Station_ID
+            - 38 variables disponibles: temperature, dew_point_temperature, wet_bulb_temperature, relative_humidity, station_level_pressure, sea_level_pressure, altimeter, pressure_3hr_change, wind_direction, wind_speed, wind_gust, precipitation, visibility, sky_cover1/2/3, sky_cov_baseht1/2/3, pres_wx_AU1/AU2/AU3, pres_wx_AW1/AW2/AW3, pres_wx_MW1/MW2/MW3, snow_depth, precipitation3_hour, precipitation6_hour..24_hour, remarks
+            1. Investigación de variables para reemplazar precipitación
+            Dos opciones principales:
+            - pres_wx (present weather codes): Variable tipo string que describe el clima actual. Los códigos indican explícitamente si llueve/nieva/graniza. Códigos como RA:02 (rain), SN:03 (snow), DZ:01 (drizzle), SH (showers), TS (thunderstorm), -/+ (light/heavy). Disponible como pres_wx_AU1 (automated ASOS/AWOS - primera opción), pres_wx_AW1 (automated sensors), pres_wx_MW1 (manual reports).
+            - precipitation_3_hour: Precipitación acumulada en 3 horas, da valor numérico pero no es horario.
+            - Decisión: Usar pres_wx_AU1 como variable de reemplazo, ya que indica directamente si hubo precipitación en cada hora.
+            What Was Being Done (INCOMPLETE)
+            Se estaba por crear el script directo (sin meteora) en la ruta:
+            /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCNCRUDO/
+            El script debe:
+            1. Menú para elegir SECO (SACO) o SAEZ
+            2. Pedir rango de fechas en formato DD/MM/YYYY
+            3. Descargar datos horarios vía HTTP directo a los PSV de NOAA
+            4. 5 variables core: temperature, relative_humidity, station_level_pressure, wind_speed, wind_direction
+            5. 6ta variable (reemplazo precipitación): pres_wx_AU1
+            6. Convertir datos de UTC a ART (America/Argentina/Buenos_Aires)
+            7. Reemplazar NaN por "."
+            8. Mostrar resumen: cantidad de registros, % faltantes por variable, % faltantes total
+            9. Guardar CSV con separador ; como {SACO|SAEZ}{YYYYMMDD}_{YYYYMMDD}.csv
+            Next Steps
+            10. Crear directorio: mkdir -p /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCNCRUDO/
+            11. Crear script extraer_ghcn_directo.py que descargue los PSV por año y procese los datos
+            12. Usar librerías: requests, pandas, numpy
+            13. Probar el script con un rango pequeño de fechas
+            14. Verificar que los pres_wx codes efectivamente capturan precipitación
+            Technical Details
+            - IDs estación: ARI0000SAEZ y ARI0000SACO
+            - URL PSV por año: [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/{year}/psv/GHCNh_{station_id}_{year}.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/%7Byear%7D/psv/GHCNh_%7Bstation_id%7D_%7Byear%7D.psv)
+            - Valores faltantes: -9999 en los datos numéricos indican missing
+            - Zona horaria: UTC original, convertir a ART (UTC-3)
+            - Formato fecha output: DD/MM/YYYY HH:MM
+            - Separador CSV: ;
+            - NaN → "." en el CSV final
+            
+            Análisis de los datos disponibles
+            6 archivos PSV de SAEZ (2020-2025), 329 columnas cada uno, ~9,500 registros/año = 57,406 registros totales.
+            Variables con datos completos (~100%)
+            
+            | Variable | Disponibilidad | Descripción |
+            | --- | --- | --- |
+            | temperature | 100% | Temperatura |
+            | relative_humidity | 100% | Humedad relativa |
+            | wind_speed | 100% | Velocidad del viento |
+            | wind_direction | 100% | Dirección del viento |
+            | visibility | 100% | Visibilidad |
+            | dew_point_temperature | 100% | Temperatura de rocío |
+            | Variables con datos parciales |  |  |
+            | Variable | Disponibilidad | Descripción |
+            | ---------- | --------------- | ------------- |
+            | station_level_pressure | 88.9% | Presión a nivel de estación |
+            | sea_level_pressure | 90.2% | Presión a nivel del mar |
+            | wet_bulb_temperature | 88.9% | Temperatura de bulbo húmedo |
+            | sky_condition | 89.0% | Condición del cielo |
+            | ceiling_height | 87.3% | Altura del techo de nubes |
+            | pressure_3hr_change | 83.0% | Cambio de presión 3h |
+            | altimeter | 98.2% | Altimetría |
+            | Variables de precipitación (CRÍTICO) |  |  |
+            | Variable | Disponibilidad | Estado |
+            | ---------- | --------------- | -------- |
+            | precipitation | 0% | Vacía |
+            | pres_wx_AU1 | 0% | Vacía |
+            | pres_wx_AW1 | 0% | Vacía |
+            | pres_wx_MW1 | 29.9% | ✓ Observador humano |
+            | precipitation_6_hour | 7.4% | ✓ Acumulado 6h |
+            | precipitation_24_hour | 1.1% | Muy poco |
+            | Plan propuesto |  |  |
+            | Crear un script combinar_ghcn.py en /home/ale/Files/Proyectos/MYSOFT/InvPAPER/AnalizarDatos/GHCN/ que: |  |  |
+            1. Lea los 6 archivos PSV de la carpeta GHCN
+            2. Extraiga TODAS las variables con datos significativos (las de la tabla anterior)
+            3. Incluya variables de precipitación disponibles: pres_wx_MW1 y precipitation_6_hour (las únicas con datos)
+            4. Convierta UTC → ART (Argentina/Buenos_Aires)
+            5. Guarde un único CSV consolidado con formato ; como separador
+            6. Muestre resumen de calidad de datos por variable y año
+            Variables de salida (13 variables + metadatos)
+            fecha_hora, temperatura, humedad_relativa, presion_estacion,
+            velocidad_viento, direccion_viento, temperatura_rocio,
+            visibilidad, condicion_cielo, techo_nubes, cambio_presion_3h,
+            precipitacion_6h, clima_presente_MW1, metadatos (STATION, lat, lon, elev)
+            Formato de salida
+            - Separador: ;
+            - Fecha: DD/MM/YYYY HH:MM (ART)
+            - NaN: .
+            - Nombre: SAEZ_20200101_20251231.csv
+    
+    ## Conclusiones:
+    
+    Se analizo principalmente la estacion en ezeiza (SAEZ) y de forma secundaria (SACO) en cordoba. Ambas tienen gran falta de datos relacionados a la precipitacion y confirmacion de lluvia.
+    
+    Los demas datos de estas estaciones son completos.
+    
+    Esto no se debe directamente a la estacion, sino a los datos rentramistidos al MWO y posteriormente bolcados en las bases de datos del NOAA.
+    
+    Al NOAA no tener las variable de precipitacion o similar con los datos completos, nos quedan 2 principales alternativas.
+    
+    - Buscar un proveedor alternativo confiable que exponga los datos directos transmitidos desde EZEIZA, SACO (cordoba), o otra estacion meteorologica que permita complementar los datos ya recoelctados, tambien que permita validad y verificar los equipos que utilizan para la extraccion de datos. Y que los datos extraidos sean datos crudos para un analisis coherente, y no datos ajustados por algoritmos matematicos.
+        - Otra estacion Argentina que cumpla con los estandares del MWO o se pueda determinar y validar con total certeza los dispositivos que utiliza, y que las mediciones transmitidas son realmente los datos crudos del sensor (sin alteraciones de algoritmos matematicos).
+        - Obtener el o los datos faltantes (precipitacion/presion atmosferica) desde otro proveedor confiable en frecuencia horaria con un historial de al menos 5 años.
+    - Buscar estacion meteorologica validada por el MWO que transmita una cantidad de datos completa para el correcto analisis del modelo. Independientemente del lugar de origen.
+    
+    ## Investigacion y definicion:
+    
+    Aqui se plasma la investigacion realizada para encontrar la alternativa ideal para cumplir con esta falta de datos.
+    
+    ### Resumen
+    
+    Se investigaron 3 opciones para resolver el problema de datos faltantes de precipitacion en la estacion SAEZ (Ezeiza, Argentina). La **Opcion 3** resulto ser la solucion optima: la estacion **Frankfurt Airport (WMO: 106370 / meteostat ID: 10637)** del Servicio Meteorologico Aleman (DWD) presenta **100% de completitud en todas las variables** (temperatura, humedad, presion, viento y precipitacion) para el periodo 2020-2024, accesible via meteostat.
+    
+    ---
+    
+    ### Opcion 1: Fuentes Alternativas de Precipitacion para SAEZ
+    
+    #### Hipotesis
+    
+    Encontrar una fuente alternativa que provea datos horarios de precipitacion (o variable equivalente que indique lluvia) para la estacion SAEZ (Ezeiza).
+    
+    #### Fuentes investigadas
+    
+    | Fuente | Acceso | Variables | Precipitacion | Estado |
+    | --- | --- | --- | --- | --- |
+    | **SMN Argentina** (Descarga OpenData) | `ssl.smn.gob.ar/dpd/descarga_opendata.php` | TEMP, HUM, PNM, DD, FF | NO disponible | ✅ Funciona |
+    | **IEM METAR** (Iowa Env. Mesonet) | `mesonet.agron.iastate.edu` | tmpf, relh, drct, sknt, mslp, wxcodes | SOLO para EEUU | ⚠️ Sin prcp no-US |
+    | **Meteostat** (Ezeiza 87576) | Libreria Python `meteostat` | temp, rhum, prcp, wdir, wspd, pres, coco | 51.5% prcp / 99.6% coco | ✅ Util como complemento |
+    | **OGIMET** | [ogimet.com](http://ogimet.com/) | METAR historicos | Datos limitados | ❌ Conexion inestable |
+    | **GHCNh RAW (NOAA)** | PSV directo | Todas las variables | **0% para SAEZ** | ❌ Sin datos |
+    
+    #### Resultado Opcion 1
+    
+    - SMN provee datos horarios de temperatura, humedad, presion y viento para toda Argentina, incluyendo Ezeiza ("EZEIZA AERO"). Sin embargo, **no incluye precipitacion** en los archivos horarios de descarga abierta.
+    - Meteostat para Ezeiza (ID: 87576) ofrece **prcp al 51.5%** y **coco (codigo de clima) al 99.6%**. El codigo coco puede usarse como indicador de lluvia (>99% completo), pero su origen podria incluir datos modelados.
+    - **Conclusion**: No es posible obtener una serie completa de precipitacion horaria para SAEZ de forma directa y 100% confiable desde estas fuentes.
+    
+    ---
+    
+    ### Opcion 2: Proveedor Alternativo Argentino al NOAA
+    
+    #### Hipotesis
+    
+    Encontrar un proveedor argentino (preferentemente SMN) que ofrezca las 6 variables con transparencia de equipos.
+    
+    #### Fuentes investigadas
+    
+    | Fuente | Acceso | Variables | Precip | Equipos | Estado |
+    | --- | --- | --- | --- | --- | --- |
+    | **SMN OpenData** | Descarga directa | TEMP, HUM, PNM, DD, FF | ❌ | Estaciones SMN oficiales | ✅ Libre |
+    | **py-smn** (GitHub) | Libreria Python | temp, hum, pressure, wind | ❌ | Misma fuente SMN | ✅ Funciona |
+    | **OpenSMN** (GitHub) | API proxy | Misma data SMN | ❌ | Misma fuente SMN | ✅ Alternativa |
+    | **SMN API** | `ws.smn.gob.ar` | Variables actuales | ❌ | Requiere token | ⚠️ Limitado |
+    | **INA** (Agua) | `alerta.ina.gob.ar` | Datos hidrologicos | ✅ parcial | Red hidrologica | ⚠️ No horario |
+    
+    #### Resultado Opcion 2
+    
+    - SMN ofrece datos horarios abiertos y gratuitos (TEMP, HUM, PNM, DD, FF) para toda su red de estaciones.
+    - Las estaciones del SMN estan georreferenciadas y documentadas oficialmente (IGN/SMN).
+    - **Limitacion**: No incluye precipitacion horaria en los archivos de descarga abierta.
+    - **Limitacion**: Los datos disponibles cubren solo ~2017-presente, insuficiente para los 5 años requeridos de forma consistente para todas las estaciones.
+    - **Conclusion**: SMN es un excelente complemento para variables core, pero no reemplaza completamente al NOAA para precipitacion.
+    
+    ---
+    
+    ### Opcion 3: Estacion WMO Ideal (SOLUCION SELECCIONADA)
+    
+    #### Hipotesis
+    
+    Encontrar una estacion WMO en cualquier parte del mundo con <1% de datos faltantes en las 6 variables, accesible via meteostat o meteora.
+    
+    #### Metodologia
+    
+    Se evaluaron estaciones de EEUU, Europa y Argentina mediante la libreria meteostat (v2.1.4) para el periodo 2020-2024 (5 años, 43848 registros esperados).
+    
+    #### Resultados de Estaciones Evaluadas
+    
+    | Estacion | ID Meteostat | Pais | temp | rhum | prcp | wdir | wspd | pres |
+    | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+    | **Frankfurt Airport** | **10637** | **Alemania** | **100%** | **100%** | **100%** | **100%** | **100%** | **100%** |
+    | London Heathrow | 03772 | Reino Unido | 100% | 100% | **52.0%** | 100% | 100% | 100% |
+    | Amsterdam Schiphol | 06260 | Paises Bajos | 100% | 100% | 99.9% | 100% | 100% | 100% |
+    | Madrid Barajas | 08495 | España | 100% | 100% | **100%** | 100% | 100% | 100% |
+    | Paris CDG | 07145 | Francia | 100% | 100% | 94.1% | 100% | 100% | 100% |
+    | Berlin | 10618 | Alemania | 100% | 100% | 97.1% | 100% | 100% | 100% |
+    | Rome Fiumicino | 16245 | Italia | 100% | 100% | 97.1% | 100% | 100% | 100% |
+    | Miami | 72202 | EEUU | 100% | 100% | 94.8% | 100% | 100% | 100% |
+    | JFK New York | 74486 | EEUU | 100% | 100% | 93.9% | 100% | 100% | 100% |
+    | San Diego | 72293 | EEUU | 100% | 100% | 95.5% | 99.7% | 100% | 99.9% |
+    | Ezeiza (ref) | 87576 | Argentina | 100% | 100% | 51.5% | 100% | 100% | 100% |
+    
+    ### Estacion Seleccionada: Frankfurt Airport (ID: 10637)
+    
+    #### Informacion de la Estacion
+    
+    - **Nombre**: Frankfurt Airport (Frankfurt am Main)
+    - **ID WMO**: 106370 / 103690 (10637)
+    - **ID Meteostat**: 10637
+    - **ID GHCNh**: GM0000010690
+    - **Pais**: Alemania (DE)
+    - **Coordenadas**: 50.05N, 8.60E
+    - **Elevacion**: 100 m
+    - **Operador**: Deutscher Wetterdienst (DWD) - Servicio Meteorologico Aleman
+    - **Red**: DWD synoptic network, miembro de WMO
+    
+    #### Equipamiento (documentado por DWD)
+    
+    DWD utiliza en sus estaciones sinopticas de aeropuerto:
+    
+    - **Termometro**: PT100 de precision, proteccion contra radiacion
+    - **Higrometro**: Capacitivo, en abrigo meteorologico
+    - **Pluviometro**: Pluviometro de pesado (weighing rain gauge) o de balancin, calibrado, con calefaccion antihelada
+    - **Barometro**: Barometro digital de precision
+    - **Anemometro**: Anemometro ultrasonico 2D/3D
+    - **Veleta**: Sensor de direccion de viento ultrasonico
+    - **Calidad de datos**: DWD aplica control de calidad WMO, datos no ajustados por modelos matematicos
+    
+    #### Acceso a Datos
+    
+    - **meteostat** (libreria Python): `ms.Station(id='10637')`
+    - **GHCNh (NOAA)**: ID `GM0000010690`
+    - **DWD OpenData**: `opendata.dwd.de`
+    
+    #### Completitud (2020-2024)
+    
+    | Variable | Completitud | Registros |
+    | --- | --- | --- |
+    | Temperatura (temp) | **100.0%** | 43848/43848 |
+    | Humedad (rhum) | **100.0%** | 43848/43848 |
+    | Precipitacion (prcp) | **100.0%** | 43848/43848 |
+    | Direccion Viento (wdir) | **100.0%** | 43848/43848 |
+    | Velocidad Viento (wspd) | **100.0%** | 43848/43848 |
+    | Presion (pres) | **100.0%** | 43848/43848 |
+    
+    #### Estadisticas de Precipitacion (2020-2024)
+    
+    - Total acumulado: 3246.9 mm
+    - Horas con precipitacion > 0: 4028 (9.2%)
+    - Maxima horaria: 29.60 mm
+    - Promedio cuando llueve: ~0.81 mm/h
+    
+    ---
+    
+    ### Comparativa de Opciones y Decision Final
+    
+    | Criterio | Opcion 1 (SAEZ+MET) | Opcion 2 (SMN) | Opcion 3 (Frankfurt) |
+    | --- | --- | --- | --- |
+    | Completitud temp | 100% | 100% | **100%** |
+    | Completitud hum | 100% | 100% | **100%** |
+    | Completitud prcp | 51.5% / 99.6%coco | 0% | **100%** |
+    | Completitud wind | 100% | 100% | **100%** |
+    | Completitud pres | 100% | 100% | **100%** |
+    | Datos reales (no modelo) | ⚠️ Dudoso coco | ✅ Confirmado | ✅ Confirmado |
+    | Transparencia equipos | ⚠️ Parcial | ✅ SMN/IGN | ✅ DWD documentado |
+    | WMO certified | ✅ SI | ✅ SI | ✅ SI |
+    | Acceso meteostat | ✅ SI (51.5% prcp) | ❌ No | ✅ SI |
+    | Periodo 5 años | ✅ 2020-2024 | ⚠️ Limitado | ✅ 2020-2024 |
+    | Datos crudos | ⚠️ Parcial | ✅ | ✅ |
+    
+    ### **Solucion Final: Opcion 3 - Frankfurt Airport via meteostat**
+    
+    Se complementa con:
+    
+    1. **Script para Ezeiza (SAEZ)** via meteostat para quienes necesiten datos argentinos
+    2. **Script para SMN** para obtener datos de estaciones argentinas (sin precipitacion)
     
 - **¿Qué umbral de tolerancia a datos faltantes voy a aplicar y por qué?**
     
-    Definir a que se refiere con umbral a datos faltantes.
+    En el contexto del preprocesamiento de datos, el **umbral de tolerancia a datos faltantes es el porcentaje máximo de valores ausentes que se permiten en un período de tiempo (por ejemplo, una hora, un día o un mes) para considerar que ese período es válido y puede ser utilizado en el análisis**.
     
-    Definir respuesta.
+    **El umbral de tolerancia cumple 2 funciones principales:**
+    
+    - **Asegurar la calidad de los datos:** Si faltan demasiados datos, cualquier valor que calcules a partir de
+    ese período (por ejemplo, la media horaria de temperatura) será poco
+    fiable y podría sesgar tu modelo.
+    - **Equilibrar la integridad de la serie temporal:** Un umbral demasiado estricto (ej: 0% de tolerancia) haría que descartes muchos períodos, reduciendo drásticamente tu conjunto de datos de
+    entrenamiento. Un umbral demasiado laxo (ej: 50%) permitiría la entrada
+    de datos de baja calidad, comprometiendo la precisión de tu modelo
+        
+        El umbral busca el equilibrio entre calidad y cantidad de datos.
+        
+    
+    **Umbral de tolerancia elegido:**
+    
+    Se decidio tomar como maximo porcentaje de datos faltantes un “20%” total, para lograr un balance que permita un analisis lo mas fiable a la realidad con un dataset incompleto.
+    
+    En el caso de datos faltantes continuos se plantea el siguiente cuadro de intervalos validos.
+    
+    | Variable | Umbral Máximo para Interpolación | Método Recomendado |
+    | --- | --- | --- |
+    | **Temperatura** | Hasta 3-4 horas | Interpolación Lineal o Spline |
+    | **Presión** | Hasta 3-4 horas | Interpolación Lineal o Spline |
+    | **Humedad** | 1-2 horas | Interpolación Lineal |
+    | **Viento (Vel. y Dir.)** | 1-2 horas | Interpolación Lineal |
+    | **Precipitación** | No interpolar - 1 hora | Marcar como dato faltante |
+    
+    Las variables clave son: precipitacion (datos consecutivos y muy variantes) que pueden generar datos erroneos facilmente al no seguir una tendencia bien marcada. Pudiendo ignorar lluvia en momento donde si sucedio o viseversa.
+    
+    La lluvia es un evento discreto y muy localizado que puede comenzar y terminar en cuestión de minutos.
+    
+    Se planteo el umbral maximo recomendado n base al metodo interpolacion lineal y Interpolación Spline (Cúbica), metodos muy simples de implementar y que permiten, en lagunas cortas de datos faltantes, predecir con alta fiabilidad los datos reales.
+    
+    **Fuentes:**
+    
+    https://repositorio.smn.gob.ar/bitstream/handle/20.500.12160/2724/Nota_Tecnica_SMN_2024-167.pdf?sequence=1&isAllowed=y 
+    
+    https://beta.iopscience.iop.org/article/10.1088/1742-6596/3191/1/012078/meta
+    
+    https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/joc.5836
+    
+    https://zgnyqx.ieda.org.cn/EN/Y2018/V39/I03/195
     
 - **¿Qué método usaré para imputar o interpolar los datos faltantes?**
     
-    Ignoro los datos faltantes o los “interpreto”?, utilizo otra fuente para esos datos especificos?
+    Los datos faltantes son un gran problema para el correcto entrenamiento y diseño del modelo propuesto. Debido a ello se utilizara uno/varios metodos para la complementacion del dataset utilizado en caso de que falte informacion.
+    
+    #### Metodos para manejar datos faltantes
+    
+    1. **Interpolación lineal**: Si el período sin datos es corto (algunas horas), es el método estándar y aceptado, asumiendo una variación suave de las variables meteorológicas.
+        1. En un caso extremo se pueden utilizar metodos mas complejos.
+    2. **Eliminación de períodos**: Si la laguna es extensa, lo más riguroso es excluir ese período del análisis.
+    3. **Múltiples estaciones**: Si tienes datos de una estación cercana, se pueden usar para estimar los valores faltantes mediante correlación.
+    
+    Los datos faltantes en periodos cortos y continuos (segun la variable) se abordaran con interpolacion lineal. Buscando tener un set de datos completo y confiable para el entrenamiento del modelo.
+    
+    **Interpolacion Lineal:** Traza una línea recta entre el valor anterior y el siguiente, y coloca los puntos faltantes en esa línea.
+    
+    Humedad, viento y precipitacion (solo en rangos muy cortos).
+    
+    **Interpolación Spline (Cúbica):** Ajusta una curva suave entre los puntos, en lugar de una línea recta.
+    
+    Presion y temperatura.
+    
+    En el caso de lagunas largas (+5h) se buscara rellenar los datos con proveedores alternativos o modelos mas complejos que permitan mantener la confiabilidad de los datos generados en relacion a los datos reales.
+    
+    En el caso de no poder rellenar la laguna de datos de forma confiable (porcentaje de error del ≥ 20%) los datos no se completaran. Quedando vacios ante el analisis.
     
 - **¿Cómo identificaré y trataré los outliers (valores anómalos)?**
     
-    Definir outliners
+    DLos valores outliners son valores anomalos (poco comunes, fuera del promedio) dentro de los datos utilizados. 
     
-    ¿Son negativos realmente?
-    
-    Definir si estos valores benefician al funcionamiento del modelo o lo perjudican.
-    
-- **¿Qué hago con los outliers?: ¿los elimino, los corrijo o los trato como eventos especiales?**
-    
-    Decidir que se realiza con estos datos.
-    
-    Si se deben identificar aparte o solo son parte de la prediccion del modelo y listo.
+    ¿Son negativos para el entrenamiento?: No, el SMN se encarga de abordar estos valores y corregirlos o en el peor de los casos no informalos, permite que los datos utilizados en el dataset sean coeherentes entre si.
     
 - **¿Qué ventana temporal de entrada (lookback window) usaré?**
     
@@ -1868,18 +2767,6 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
 #### Definicion baseline:
 
 #### Protocolo de evaluacion:
-
-Define paso a paso cómo ejecutarás tu experimento:
-
-| Paso | Qué debes definir |
-| --- | --- |
-| **1. Adquisición de datos** | ¿De dónde obtienes los datos? ¿Qué variables usas? ¿Frecuencia de muestreo? |
-| **2. Preprocesamiento** | Normalización, detección de outliers, ventanas temporales |
-| **3. Definición del modelo LIF** | Ecuación de membrana, parámetros, cómo se codifica la entrada a spikes |
-| **4. Definición del baseline** | ¿Qué regla de umbral usarás para comparar? |
-| **5. Protocolo de evaluación** | ¿Cómo medirás éxito? ¿Qué métricas? (precisión, recall, F1, tasa de falsos positivos) |
-
-**Tu tarea:** Escribe un borrador de los 5 pasos anteriores, con el nivel de detalle que te permita empezar a programar.
 
 ### Metodologia Paso a Paso:
 
@@ -2234,8 +3121,8 @@ Define paso a paso cómo ejecutarás tu experimento:
         El modelo LIF funciona mediante una carga, acumulacion, y descarga, donde si la acumulacion supera cierto umbral, pasa ocurrir un spike.
         Se plantea una estructura de 5 neuronas LIF, donde cada sensor tenga una neurona asociada a el, y estas 5 neuronas se asocien a una unica neurona que provoque la alerta. En total utilizariamos 6 neuronas para la prediccion del evento.
         
-        [Sensor V.Direccion] --> (Neurona Vd) -\
-        [Sensor Presión]     --> (Neurona P)  --\
+        [Sensor V.Direccion] --> (Neurona Vd) -
+        [Sensor Presión]     --> (Neurona P)  --
         [Sensor Temperatura] --> (Neurona T)  ---> (Neurona Salida: ALERTA TORMENTA)
         [Sensor Humedad]     --> (Neurona H)  --/
         [Sensor V.Velocidad] --> (Neurona Vv) -/
@@ -2312,13 +3199,13 @@ Redacta un párrafo inicial de prueba. Debe incluir: contexto/problema, enfoque 
 
 ### Resumen (Abstract): (Inicial)
 
-La deteccion temprana de lluvia local sigue siendo un desafio actual en zonas con recursos limitados, requiere sistemas comerciales costosos para una presicion decente, donde las alternativas baratas como los metodos de umbral fijo producen altas tasas de falsas alarmas. Este trabajo propone la ultilizacion del modelo matematico de neurona LIF (Leaky Integrate-and-Fire) simplificado para un sistema de alerta temprana de bajo costo, utilizado como detector de anomalías en series temporales de variables atmosfericas (presión, temperatura, humedad, precipitacion y viento). El modelo LIF acumula pulsos (potencial de membrana), genera decaimiento (fuga de potencial) y emite un disparo al superar el umbral (Spike) permitiendo simularlo con operaciones basicas que producen un computo eficiente en hardware de gama baja. Se utilizaran datos proporcionados por el dataset “open-meteo” y se comparara la tasa de deteccion y falsos positivos contra un modelo baseline de umbrales fijos. Se espera demostrar que el modelo LIF reduce significativamente las falsas alarmas manteniendo una sensibilidad competitiva y validar la viabilidad del sistema propuesto como una herramienta alternativa al modelo de umbrales fijos para la deteccion de lluvia en entornos locales a bajo costo.
+La deteccion temprana de lluvia local sigue siendo un desafio actual en zonas con recursos limitados, requiere sistemas comerciales costosos para una precision decente, donde las alternativas baratas como los metodos de umbral fijo producen altas tasas de falsas alarmas. Este trabajo propone la ultilizacion del modelo matematico de neurona LIF (Leaky Integrate-and-Fire) simplificado para un sistema de alerta temprana de bajo costo, utilizado como detector de anomalías en series temporales de variables atmosfericas (presión, temperatura, humedad, precipitacion y viento). El modelo LIF acumula pulsos (potencial de membrana), genera decaimiento (fuga de potencial) y emite un disparo al superar el umbral (Spike) permitiendo simularlo con operaciones basicas que producen un computo eficiente en hardware de gama baja. Se utilizaran datos proporcionados por el dataset “open-meteo” y se comparara la tasa de deteccion y falsos positivos contra un modelo baseline de umbrales fijos. Se espera demostrar que el modelo LIF reduce significativamente las falsas alarmas manteniendo una sensibilidad competitiva y validar la viabilidad del sistema propuesto como una herramienta alternativa al modelo de umbrales fijos para la deteccion de lluvia en entornos locales a bajo costo.
 
 - **Desarrollo parte por parte:**
     
     **contexto/problema:** 
     
-    La deteccion temprana de lluvia local sigue siendo un desafio que requiere sistemas comerciales costosos para una presicion decente, donde las alternativas baratas como los metodos de umbral simple producen altas tasas de falsas alarmas. 
+    La deteccion temprana de lluvia local sigue siendo un desafio que requiere sistemas comerciales costosos para una precision decente, donde las alternativas baratas como los metodos de umbral simple producen altas tasas de falsas alarmas. 
     
     **enfoque propuesto:** 
     
@@ -2347,15 +3234,15 @@ La deteccion temprana de lluvia local sigue siendo un desafio actual en zonas co
     3. Luego se propuso para abordar estas ambiguedades la comparativa de multiples variables, lo que lleva a una extension del paper y un posible trabajo demaciado abarcativo por “miedo” de no ser lo suficientemente riguroso o detallado.
     4. Las “comparaciones extras” que surgieron en esta especificacion fueron:
         1. **Estacionalidades:** Al tener alta variabilidad para la prediccion de lluvia en diferentes epocas del año, se decidio realizar 5 instancias del modelo diferente, las cuales seran entrenadas cada una en una estacion del año diferente y la quinta sera entrenada con los datos de todos los años en general (sin excluir estaciones).
-        2. **Presicion de los sensores:** Al no tener la disponibilidad de datos historicos para entrenar el modelo con datos de sensores de bajo costo, y existiendo la imposibilidad logistica y de tiempo de viajar a una estacion con los dispositivos pertinentes para adaptar los datos historicos de la estacion meteorologia a las variaciones pertinentes de los dispositivos de bajo costo.
-            1. Se utilizaran los datos de la estacion de alta precision local, como la de villa maria en el Presidente Néstor Kirchner Regional Airport, sin embargo se piensa añadir ruido a las mediciones precisas para entrenar 2 instancias del modelo y comparar su presicion:
-                1. La intancia que se entrena con los datos precisos y la intancia que se entrenara con los datos alterados. Luego se comparara su presicion para determinar el la medida porcentual de aciertos de cada modelo bajo el mismo periodo de tiempo.
+        2. **Precision de los sensores:** Al no tener la disponibilidad de datos historicos para entrenar el modelo con datos de sensores de bajo costo, y existiendo la imposibilidad logistica y de tiempo de viajar a una estacion con los dispositivos pertinentes para adaptar los datos historicos de la estacion meteorologia a las variaciones pertinentes de los dispositivos de bajo costo.
+            1. Se utilizaran los datos de la estacion de alta precision local, como la de villa maria en el Presidente Néstor Kirchner Regional Airport, sin embargo se piensa añadir ruido a las mediciones precisas para entrenar 2 instancias del modelo y comparar su precision:
+                1. La intancia que se entrena con los datos precisos y la intancia que se entrenara con los datos alterados. Luego se comparara su precision para determinar el la medida porcentual de aciertos de cada modelo bajo el mismo periodo de tiempo.
 2. **Datos inconsisos:**
     1. Se plantea la obtencion de datos de la estacion “Aeropuerto Regional Villa María”, sin embargo los datos se extran no de su pagina web oficial sino de un proveedor externo que permite un como uso de la API, el cual es openmeteo.
         1. ¿Esa API realmente muestra los datos oroginales? ¿Que tan seguro y fiable es? ¿Existen alternativas?
         2. ¿La estacion elegida es realmente la ideal, no existen otras estaciones con mayor sustento para la investigacion? ¿Es realmente fiable los datos recolectados de esta esatcion? ¿Se conoce sus dispositivos?
-        3.  Si es fiable a nivel de datos, presicion y dispositivos para esta investigacion, ¿Es justificacion suficiente la eleccion de esta estacion para una proxima ampleacion del paper con datos historicos de la estacion adaptados a dispositivos de bajo costo?. ¿Que beneficios a nivel investigativo me dá elegir esa estación? 
-        4.  Verificar si a lo largo del periodo seleccionado cambiaron su dispositivos de medición. Tomar un periodo donde esos dispositivos no hayan cambiado.
+        3. Si es fiable a nivel de datos, precision y dispositivos para esta investigacion, ¿Es justificacion suficiente la eleccion de esta estacion para una proxima ampleacion del paper con datos historicos de la estacion adaptados a dispositivos de bajo costo?. ¿Que beneficios a nivel investigativo me dá elegir esa estación? 
+        4. Verificar si a lo largo del periodo seleccionado cambiaron su dispositivos de medición. Tomar un periodo donde esos dispositivos no hayan cambiado.
     
     **RESOLUCION:** Se utilizara la plataforma meteostat junto a analisis del SMN para la estacion particular de SECO en cordoba o Ezeiza en Buenos Aires.
     

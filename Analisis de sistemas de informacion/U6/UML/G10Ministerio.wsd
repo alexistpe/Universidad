@@ -1,0 +1,146 @@
+/' Ministerio de salud
+En este caso de estudio se encuentran varias clases candidatas relacionadas a personas y lugares.
+El caso se resumen en un control y revision de las personas que ingresan al ministerio para realizar cierto tramite.
+
+Clases candidatas:
+Visitante
+    La clase del cliente, la cual se necesitan sus datos personales, hora inicio y hora fin.
+    Esta clase esta relacionada con los areas.
+
+Empleado
+    El empleado es una persona que no va a realizar un tramite, sino que va a trabajar.
+    Tiene una credencial unica y se le asigna una unica area.
+
+Area
+    Representa al area donde la persona se dirigira.
+    Contiene principalmente una identificacion y una empleada.
+    Estos tramites se conectan con las areas.
+
+Tramites (Transaccion)
+    Son el detalle de los tramites que realiza el visitante.
+    Sirve de "historial" para determinar las areas y tramites mas frecuentes.
+
+ Conocer los datos de las personas visitantes ingresan cada día.
+ Conocer Cuántas horas promedio permanecen los visitantes en el ministerio.
+ Conocer Cuáles son las áreas más visitadas.
+ Conocer Cuáles son los trámites más requeridos.
+ Que los encargados de área realicen un breve detalle del trámite realizado por cada
+visitante
+
+Relaciones:
+Persona: generalizacion
+    empleado y visitante.
+Visitante: Area
+Area: Tramite
+Empleado: Area
+
+'/
+
+@startuml
+class Persona{
+    nombre
+    apellido
+    dni
+    edad
+    email
+    telefono
+    domicilio
+
+    crear()
+    mostrar()
+}
+
+class Visitante{
+    entradaSalida: Recepcion
+
+    crear()
+    mostrar()
+    conocerRecepcion()
+    promedioVisitante()
+}
+
+class Empleado{
+    nroCredencial
+    profesiones: Profesion
+
+    crear()
+    mostrar()
+    conocerProfesion()
+}
+
+class Profesion{
+    id
+    nombre
+
+    crear()
+    mostrar()
+    tomarid()
+    mostrarid()
+    tomarNombre()
+    mostrarNombre()
+}
+note right : Los metodos de seteo\naplican para todas\nlas demas clases.
+
+'Actua como un historial de horarios realizados.
+class Recepcion{
+    fechaIngreso
+    fechaEgreso
+    horaIngreso
+    horaEgreso
+    tramite: Tramite
+    credencial
+
+    crear()
+    mostrar()
+    conocerTramite()
+    areasMasVisitadas()
+    emitirCredencial()
+    tramitesMasRequeridos()
+}
+
+class Area{
+    nombre
+    descripcion
+    empleados: Empleado
+
+    crear()
+    mostrar()
+    conocerEmpleado()
+}
+
+class Tramite{
+    id
+    fecha
+    hora
+    area: Area
+    visitante: Visitante
+    detalle: DetalleTramite
+
+    crear()
+    mostrar()
+    conocerArea()
+    conocerVisitante()
+    conocerDetalle()
+}
+
+'El empleado se obtiene mediante  tramite-> area-> empleado.
+class DetalleTramite{
+    tipo
+    detalle
+
+    crear()
+    mostrar()
+}
+
+'Relaciones:
+Visitante -|> Persona
+Empleado -|> Persona
+Recepcion --> "1" Tramite
+Visitante --> "1..*" Recepcion
+Tramite --> "1" Area 
+Tramite --> "1" Visitante
+Area --> "1..*" Empleado
+Empleado --> "1" Profesion
+Tramite *-> "1" DetalleTramite
+
+@enduml

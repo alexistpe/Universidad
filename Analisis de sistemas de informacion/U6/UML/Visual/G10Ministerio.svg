@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="1440px" preserveAspectRatio="none" style="width:450px;height:1440px;" version="1.1" viewBox="0 0 450 1440" width="450px" zoomAndPan="magnify"><defs><filter height="300%" id="f14qbo8ek3kn6a" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[8f63dadf5c643e74a34e53c8f0a15d23]
+class Persona--><rect codeLine="1" fill="#FEFECE" filter="url(#f14qbo8ek3kn6a)" height="166.7991" id="Persona" style="stroke:#A80036;stroke-width:1.5;" width="78" x="346" y="1026"/><ellipse cx="361" cy="1042" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M356,1043.1563 C356,1045.6563 358.1406,1047.4688 361.0625,1047.4688 C362.2969,1047.4688 363.4688,1047.1719 364.2188,1046.6563 C364.8281,1046.2344 365.1563,1045.8125 365.1563,1045.4063 C365.1563,1044.9375 364.7344,1044.5313 364.2344,1044.5313 C364,1044.5313 363.7813,1044.6094 363.5781,1044.8125 C363.1406,1045.25 363.1406,1045.25 362.9688,1045.3438 C362.5156,1045.5781 361.875,1045.7188 361.1094,1045.7188 C359.1094,1045.7188 357.8281,1044.7031 357.8281,1043.125 L357.8281,1042.0781 C357.8281,1040.375 359.0469,1039.1719 360.75,1039.1719 C361.3281,1039.1719 361.9063,1039.3125 362.375,1039.5625 C362.8438,1039.8281 363.0156,1040.0156 363.0781,1040.375 C363.2031,1041.0469 363.4531,1041.2969 363.9844,1041.2969 C364.2656,1041.2969 364.5469,1041.1563 364.7344,1040.9375 C364.8594,1040.7656 364.9063,1040.5938 364.9063,1040.1563 L364.9063,1038.7969 C364.9063,1038.375 364.8906,1038.2344 364.7656,1038.0625 C364.5938,1037.8125 364.3125,1037.6563 363.9844,1037.6563 C363.6719,1037.6563 363.4688,1037.7656 363.25,1038.0313 C362.0781,1037.5313 361.6406,1037.4219 360.6875,1037.4219 C358.0156,1037.4219 356,1039.4375 356,1042.0625 L356,1043.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="46" x="375" y="1045.948">Persona</text><line style="stroke:#A80036;stroke-width:1.5;" x1="347" x2="423" y1="1058" y2="1058"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="352" y="1072.2189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="36" x="352" y="1085.4188">apellido</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="14" x="352" y="1098.6187">dni</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="24" x="352" y="1111.8186">edad</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="25" x="352" y="1125.0185">email</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="38" x="352" y="1138.2184">telefono</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="41" x="352" y="1151.4183">domicilio</text><line style="stroke:#A80036;stroke-width:1.5;" x1="347" x2="423" y1="1158.3993" y2="1158.3993"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="352" y="1172.6182">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="352" y="1185.8181">mostrar()</text><!--MD5=[3e22ed3765c6ec7d8aa60d9f0ab1632e]
+class Visitante--><rect codeLine="14" fill="#FEFECE" filter="url(#f14qbo8ek3kn6a)" height="113.9995" id="Visitante" style="stroke:#A80036;stroke-width:1.5;" width="136" x="152" y="7"/><ellipse cx="192.65" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M187.65,24.1563 C187.65,26.6563 189.7906,28.4688 192.7125,28.4688 C193.9469,28.4688 195.1188,28.1719 195.8688,27.6563 C196.4781,27.2344 196.8063,26.8125 196.8063,26.4063 C196.8063,25.9375 196.3844,25.5313 195.8844,25.5313 C195.65,25.5313 195.4313,25.6094 195.2281,25.8125 C194.7906,26.25 194.7906,26.25 194.6188,26.3438 C194.1656,26.5781 193.525,26.7188 192.7594,26.7188 C190.7594,26.7188 189.4781,25.7031 189.4781,24.125 L189.4781,23.0781 C189.4781,21.375 190.6969,20.1719 192.4,20.1719 C192.9781,20.1719 193.5563,20.3125 194.025,20.5625 C194.4938,20.8281 194.6656,21.0156 194.7281,21.375 C194.8531,22.0469 195.1031,22.2969 195.6344,22.2969 C195.9156,22.2969 196.1969,22.1563 196.3844,21.9375 C196.5094,21.7656 196.5563,21.5938 196.5563,21.1563 L196.5563,19.7969 C196.5563,19.375 196.5406,19.2344 196.4156,19.0625 C196.2438,18.8125 195.9625,18.6563 195.6344,18.6563 C195.3219,18.6563 195.1188,18.7656 194.9,19.0313 C193.7281,18.5313 193.2906,18.4219 192.3375,18.4219 C189.6656,18.4219 187.65,20.4375 187.65,23.0625 L187.65,24.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="47" x="212.35" y="26.948">Visitante</text><line style="stroke:#A80036;stroke-width:1.5;" x1="153" x2="287" y1="39" y2="39"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="124" x="158" y="53.2189">entradaSalida: Recepcion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="153" x2="287" y1="60.1999" y2="60.1999"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="158" y="74.4188">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="158" y="87.6187">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="100" x="158" y="100.8186">conocerRecepcion()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="94" x="158" y="114.0185">promedioVisitante()</text><!--MD5=[267282629f1778b9c75091f9d8fe6097]
+class Empleado--><rect codeLine="23" fill="#FEFECE" filter="url(#f14qbo8ek3kn6a)" height="113.9995" id="Empleado" style="stroke:#A80036;stroke-width:1.5;" width="121" x="123.5" y="1052.9"/><ellipse cx="153.35" cy="1068.9" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M148.35,1070.0562 C148.35,1072.5562 150.4906,1074.3687 153.4125,1074.3687 C154.6469,1074.3687 155.8188,1074.0719 156.5688,1073.5562 C157.1781,1073.1344 157.5063,1072.7125 157.5063,1072.3062 C157.5063,1071.8375 157.0844,1071.4312 156.5844,1071.4312 C156.35,1071.4312 156.1313,1071.5094 155.9281,1071.7125 C155.4906,1072.15 155.4906,1072.15 155.3188,1072.2437 C154.8656,1072.4781 154.225,1072.6187 153.4594,1072.6187 C151.4594,1072.6187 150.1781,1071.6031 150.1781,1070.025 L150.1781,1068.9781 C150.1781,1067.275 151.3969,1066.0719 153.1,1066.0719 C153.6781,1066.0719 154.2563,1066.2125 154.725,1066.4625 C155.1938,1066.7281 155.3656,1066.9156 155.4281,1067.275 C155.5531,1067.9469 155.8031,1068.1969 156.3344,1068.1969 C156.6156,1068.1969 156.8969,1068.0562 157.0844,1067.8375 C157.2094,1067.6656 157.2563,1067.4937 157.2563,1067.0562 L157.2563,1065.6969 C157.2563,1065.275 157.2406,1065.1344 157.1156,1064.9625 C156.9438,1064.7125 156.6625,1064.5562 156.3344,1064.5562 C156.0219,1064.5562 155.8188,1064.6656 155.6,1064.9312 C154.4281,1064.4312 153.9906,1064.3219 153.0375,1064.3219 C150.3656,1064.3219 148.35,1066.3375 148.35,1068.9625 L148.35,1070.0562 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="56" x="170.65" y="1072.848">Empleado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="124.5" x2="243.5" y1="1084.9" y2="1084.9"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="68" x="129.5" y="1099.1189">nroCredencial</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="109" x="129.5" y="1112.3188">profesiones: Profesion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="124.5" x2="243.5" y1="1119.2998" y2="1119.2998"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="129.5" y="1133.5187">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="129.5" y="1146.7186">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="94" x="129.5" y="1159.9185">conocerProfesion()</text><!--MD5=[9c7fa3d4c810ffd4f378232b6bbd0388]
+class Profesion--><rect codeLine="32" fill="#FEFECE" filter="url(#f14qbo8ek3kn6a)" height="153.5992" id="Profesion" style="stroke:#A80036;stroke-width:1.5;" width="97" x="135.5" y="1272.8"/><ellipse cx="156.35" cy="1288.8" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M151.35,1289.9563 C151.35,1292.4563 153.4906,1294.2688 156.4125,1294.2688 C157.6469,1294.2688 158.8188,1293.9719 159.5688,1293.4563 C160.1781,1293.0344 160.5063,1292.6125 160.5063,1292.2063 C160.5063,1291.7375 160.0844,1291.3313 159.5844,1291.3313 C159.35,1291.3313 159.1313,1291.4094 158.9281,1291.6125 C158.4906,1292.05 158.4906,1292.05 158.3188,1292.1438 C157.8656,1292.3781 157.225,1292.5188 156.4594,1292.5188 C154.4594,1292.5188 153.1781,1291.5031 153.1781,1289.925 L153.1781,1288.8781 C153.1781,1287.175 154.3969,1285.9719 156.1,1285.9719 C156.6781,1285.9719 157.2563,1286.1125 157.725,1286.3625 C158.1938,1286.6281 158.3656,1286.8156 158.4281,1287.175 C158.5531,1287.8469 158.8031,1288.0969 159.3344,1288.0969 C159.6156,1288.0969 159.8969,1287.9563 160.0844,1287.7375 C160.2094,1287.5656 160.2563,1287.3938 160.2563,1286.9563 L160.2563,1285.5969 C160.2563,1285.175 160.2406,1285.0344 160.1156,1284.8625 C159.9438,1284.6125 159.6625,1284.4563 159.3344,1284.4563 C159.0219,1284.4563 158.8188,1284.5656 158.6,1284.8313 C157.4281,1284.3313 156.9906,1284.2219 156.0375,1284.2219 C153.3656,1284.2219 151.35,1286.2375 151.35,1288.8625 L151.35,1289.9563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="52" x="171.65" y="1292.748">Profesion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="136.5" x2="231.5" y1="1304.8" y2="1304.8"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="141.5" y="1319.0189">id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="141.5" y="1332.2188">nombre</text><line style="stroke:#A80036;stroke-width:1.5;" x1="136.5" x2="231.5" y1="1339.1998" y2="1339.1998"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="141.5" y="1353.4187">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="141.5" y="1366.6186">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="44" x="141.5" y="1379.8185">tomarid()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="54" x="141.5" y="1393.0184">mostrarid()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="75" x="141.5" y="1406.2183">tomarNombre()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="85" x="141.5" y="1419.4182">mostrarNombre()</text><path d="M291,1320.9 L291,1358.25 L232.29,1361.01 L291,1366.25 L291,1377.7 A0,0 0 0 0 291,1377.7 L441,1377.7 A0,0 0 0 0 441,1377.7 L441,1330.9 L431,1320.9 L291,1320.9 A0,0 0 0 0 291,1320.9 " fill="#FBFB77" filter="url(#f14qbo8ek3kn6a)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M431,1320.9 L431,1330.9 L441,1330.9 L431,1320.9 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="129" x="297" y="1337.977">Los metodos de seteo</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="106" x="297" y="1353.577">aplican para todas</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="106" x="297" y="1369.177">las demas clases.</text><!--MD5=[e250781711cf7e50e4679770eb180377]
+class Recepcion--><rect codeLine="46" fill="#FEFECE" filter="url(#f14qbo8ek3kn6a)" height="206.3988" id="Recepcion" style="stroke:#A80036;stroke-width:1.5;" width="136" x="7" y="220"/><ellipse cx="42.25" cy="236" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M37.25,237.1563 C37.25,239.6563 39.3906,241.4688 42.3125,241.4688 C43.5469,241.4688 44.7188,241.1719 45.4688,240.6563 C46.0781,240.2344 46.4063,239.8125 46.4063,239.4063 C46.4063,238.9375 45.9844,238.5313 45.4844,238.5313 C45.25,238.5313 45.0313,238.6094 44.8281,238.8125 C44.3906,239.25 44.3906,239.25 44.2188,239.3438 C43.7656,239.5781 43.125,239.7188 42.3594,239.7188 C40.3594,239.7188 39.0781,238.7031 39.0781,237.125 L39.0781,236.0781 C39.0781,234.375 40.2969,233.1719 42,233.1719 C42.5781,233.1719 43.1563,233.3125 43.625,233.5625 C44.0938,233.8281 44.2656,234.0156 44.3281,234.375 C44.4531,235.0469 44.7031,235.2969 45.2344,235.2969 C45.5156,235.2969 45.7969,235.1563 45.9844,234.9375 C46.1094,234.7656 46.1563,234.5938 46.1563,234.1563 L46.1563,232.7969 C46.1563,232.375 46.1406,232.2344 46.0156,232.0625 C45.8438,231.8125 45.5625,231.6563 45.2344,231.6563 C44.9219,231.6563 44.7188,231.7656 44.5,232.0313 C43.3281,231.5313 42.8906,231.4219 41.9375,231.4219 C39.2656,231.4219 37.25,233.4375 37.25,236.0625 L37.25,237.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="59" x="60.75" y="239.948">Recepcion</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="142" y1="252" y2="252"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="64" x="13" y="266.2189">fechaIngreso</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="62" x="13" y="279.4188">fechaEgreso</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="59" x="13" y="292.6187">horaIngreso</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="57" x="13" y="305.8186">horaEgreso</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="76" x="13" y="319.0185">tramite: Tramite</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="50" x="13" y="332.2184">credencial</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="142" y1="339.1994" y2="339.1994"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="13" y="353.4183">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="13" y="366.6182">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="85" x="13" y="379.8181">conocerTramite()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="101" x="13" y="393.018">areasMasVisitadas()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="86" x="13" y="406.2179">emitirCredencial()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="124" x="13" y="419.4178">tramitesMasRequeridos()</text><!--MD5=[7cfcec95ce8c7b3cc21f2a5540b61e10]
+class Area--><rect codeLine="62" fill="#FEFECE" filter="url(#f14qbo8ek3kn6a)" height="127.1994" id="Area" style="stroke:#A80036;stroke-width:1.5;" width="119" x="37.5" y="819"/><ellipse cx="79.95" cy="835" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M74.95,836.1563 C74.95,838.6563 77.0906,840.4688 80.0125,840.4688 C81.2469,840.4688 82.4188,840.1719 83.1688,839.6563 C83.7781,839.2344 84.1063,838.8125 84.1063,838.4063 C84.1063,837.9375 83.6844,837.5313 83.1844,837.5313 C82.95,837.5313 82.7313,837.6094 82.5281,837.8125 C82.0906,838.25 82.0906,838.25 81.9188,838.3438 C81.4656,838.5781 80.825,838.7188 80.0594,838.7188 C78.0594,838.7188 76.7781,837.7031 76.7781,836.125 L76.7781,835.0781 C76.7781,833.375 77.9969,832.1719 79.7,832.1719 C80.2781,832.1719 80.8563,832.3125 81.325,832.5625 C81.7938,832.8281 81.9656,833.0156 82.0281,833.375 C82.1531,834.0469 82.4031,834.2969 82.9344,834.2969 C83.2156,834.2969 83.4969,834.1563 83.6844,833.9375 C83.8094,833.7656 83.8563,833.5938 83.8563,833.1563 L83.8563,831.7969 C83.8563,831.375 83.8406,831.2344 83.7156,831.0625 C83.5438,830.8125 83.2625,830.6563 82.9344,830.6563 C82.6219,830.6563 82.4188,830.7656 82.2,831.0313 C81.0281,830.5313 80.5906,830.4219 79.6375,830.4219 C76.9656,830.4219 74.95,832.4375 74.95,835.0625 L74.95,836.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="26" x="100.05" y="838.948">Area</text><line style="stroke:#A80036;stroke-width:1.5;" x1="38.5" x2="155.5" y1="851" y2="851"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="37" x="43.5" y="865.2189">nombre</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="56" x="43.5" y="878.4188">descripcion</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="107" x="43.5" y="891.6187">empleados: Empleado</text><line style="stroke:#A80036;stroke-width:1.5;" x1="38.5" x2="155.5" y1="898.5997" y2="898.5997"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="43.5" y="912.8186">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="43.5" y="926.0185">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="96" x="43.5" y="939.2184">conocerEmpleado()</text><!--MD5=[cbde9c0e43361c2907eb13e3e7b767ff]
+class Tramite--><rect codeLine="72" fill="#FEFECE" filter="url(#f14qbo8ek3kn6a)" height="193.1989" id="Tramite" style="stroke:#A80036;stroke-width:1.5;" width="119" x="15.5" y="526"/><ellipse cx="51.2" cy="542" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M46.2,543.1563 C46.2,545.6563 48.3406,547.4688 51.2625,547.4688 C52.4969,547.4688 53.6688,547.1719 54.4188,546.6563 C55.0281,546.2344 55.3563,545.8125 55.3563,545.4063 C55.3563,544.9375 54.9344,544.5313 54.4344,544.5313 C54.2,544.5313 53.9813,544.6094 53.7781,544.8125 C53.3406,545.25 53.3406,545.25 53.1688,545.3438 C52.7156,545.5781 52.075,545.7188 51.3094,545.7188 C49.3094,545.7188 48.0281,544.7031 48.0281,543.125 L48.0281,542.0781 C48.0281,540.375 49.2469,539.1719 50.95,539.1719 C51.5281,539.1719 52.1063,539.3125 52.575,539.5625 C53.0438,539.8281 53.2156,540.0156 53.2781,540.375 C53.4031,541.0469 53.6531,541.2969 54.1844,541.2969 C54.4656,541.2969 54.7469,541.1563 54.9344,540.9375 C55.0594,540.7656 55.1063,540.5938 55.1063,540.1563 L55.1063,538.7969 C55.1063,538.375 55.0906,538.2344 54.9656,538.0625 C54.7938,537.8125 54.5125,537.6563 54.1844,537.6563 C53.8719,537.6563 53.6688,537.7656 53.45,538.0313 C52.2781,537.5313 51.8406,537.4219 50.8875,537.4219 C48.2156,537.4219 46.2,539.4375 46.2,542.0625 L46.2,543.1563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="41" x="69.8" y="545.948">Tramite</text><line style="stroke:#A80036;stroke-width:1.5;" x1="16.5" x2="133.5" y1="558" y2="558"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="8" x="21.5" y="572.2189">id</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="27" x="21.5" y="585.4188">fecha</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22" x="21.5" y="598.6187">hora</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="51" x="21.5" y="611.8186">area: Area</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="87" x="21.5" y="625.0185">visitante: Visitante</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="107" x="21.5" y="638.2184">detalle: DetalleTramite</text><line style="stroke:#A80036;stroke-width:1.5;" x1="16.5" x2="133.5" y1="645.1994" y2="645.1994"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="21.5" y="659.4183">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="21.5" y="672.6182">mostrar()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71" x="21.5" y="685.8181">conocerArea()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="89" x="21.5" y="699.018">conocerVisitante()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="81" x="21.5" y="712.2179">conocerDetalle()</text><!--MD5=[f71c1ba07ef78a546fc32b0f82ea0e47]
+class DetalleTramite--><rect codeLine="88" fill="#FEFECE" filter="url(#f14qbo8ek3kn6a)" height="100.7996" id="DetalleTramite" style="stroke:#A80036;stroke-width:1.5;" width="112" x="218" y="572.5"/><ellipse cx="233" cy="588.5" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M228,589.6563 C228,592.1563 230.1406,593.9688 233.0625,593.9688 C234.2969,593.9688 235.4688,593.6719 236.2188,593.1563 C236.8281,592.7344 237.1563,592.3125 237.1563,591.9063 C237.1563,591.4375 236.7344,591.0313 236.2344,591.0313 C236,591.0313 235.7813,591.1094 235.5781,591.3125 C235.1406,591.75 235.1406,591.75 234.9688,591.8438 C234.5156,592.0781 233.875,592.2188 233.1094,592.2188 C231.1094,592.2188 229.8281,591.2031 229.8281,589.625 L229.8281,588.5781 C229.8281,586.875 231.0469,585.6719 232.75,585.6719 C233.3281,585.6719 233.9063,585.8125 234.375,586.0625 C234.8438,586.3281 235.0156,586.5156 235.0781,586.875 C235.2031,587.5469 235.4531,587.7969 235.9844,587.7969 C236.2656,587.7969 236.5469,587.6563 236.7344,587.4375 C236.8594,587.2656 236.9063,587.0938 236.9063,586.6563 L236.9063,585.2969 C236.9063,584.875 236.8906,584.7344 236.7656,584.5625 C236.5938,584.3125 236.3125,584.1563 235.9844,584.1563 C235.6719,584.1563 235.4688,584.2656 235.25,584.5313 C234.0781,584.0313 233.6406,583.9219 232.6875,583.9219 C230.0156,583.9219 228,585.9375 228,588.5625 L228,589.6563 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="80" x="247" y="592.448">DetalleTramite</text><line style="stroke:#A80036;stroke-width:1.5;" x1="219" x2="329" y1="604.5" y2="604.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="17" x="224" y="618.7189">tipo</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="31" x="224" y="631.9188">detalle</text><line style="stroke:#A80036;stroke-width:1.5;" x1="219" x2="329" y1="638.8998" y2="638.8998"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34" x="224" y="653.1187">crear()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="46" x="224" y="666.3186">mostrar()</text><!--MD5=[08a174ee4a1e0dc482aad995dde03d57]
+link Visitante to Persona--><path codeLine="97" d="M245.31,119.81 C281.45,201.99 346.33,362.15 372,506 C402.82,678.75 398.83,883.75 392.42,1004.57 " fill="none" id="Visitante-to-Persona" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="399.43,1004.68,391.31,1024.25,385.45,1003.89,399.43,1004.68" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[4ea40b37a1ce1764d8cb38142670e8d0]
+link Empleado to Persona--><path codeLine="98" d="M244.44,1121.53 C273.1,1123.03 307.08,1122.83 334.34,1120.94 " fill="none" id="Empleado-to-Persona" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="none" points="323.56,1114.79,344.07,1120.14,324.7,1128.75,323.56,1114.79" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[571be302f2dc987a2703b372f6aed8e5]
+link Recepcion to Tramite--><path codeLine="99" d="M75,425.97 C75,456.27 75,489.47 75,519.76 " fill="none" id="Recepcion-to-Tramite" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="75,524.66,79,515.66,75,519.66,71,515.66,75,524.66" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="67.6992" y="514.3522">1</text><!--MD5=[ba957a595cea75efb7962f7804b55868]
+link Visitante to Recepcion--><path codeLine="100" d="M188.89,119.74 C173.32,147.4 153.91,181.87 135.55,214.47 " fill="none" id="Visitante-to-Recepcion" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="133.12,218.79,141.0251,212.9155,135.5761,214.4348,134.0567,208.9858,133.12,218.79" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="116.1556" y="208.3983">1..*</text><!--MD5=[d4130fda28cecdae14233dc629c6434e]
+link Tramite to Area--><path codeLine="101" d="M83.13,718.84 C85.78,749.93 88.67,783.83 91.12,812.6 " fill="none" id="Tramite-to-Area" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="91.54,817.52,94.7522,808.2097,91.1106,812.5385,86.7818,808.8968,91.54,817.52" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="83.5938" y="807.482">1</text><!--MD5=[bc845ad10ae48113d18956da49848047]
+link Tramite to Visitante--><path codeLine="102" d="M134.36,544.24 C153.81,514.99 173.38,480.41 185,446 C221.53,337.82 224.81,203.17 223,126.2 " fill="none" id="Tramite-to-Visitante" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="222.88,121.36,219.1133,130.4601,223.0089,126.3583,227.1107,130.2539,222.88,121.36" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="215.5183" y="140.644">1</text><!--MD5=[0959be072c5f511ec2024ee7d6a5acf8]
+link Area to Empleado--><path codeLine="103" d="M121.12,945.85 C133.38,977.55 148.22,1015.92 160.41,1047.42 " fill="none" id="Area-to-Empleado" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="162.11,1051.81,162.5964,1041.9732,160.3074,1047.1462,155.1344,1044.8573,162.11,1051.81" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20" x="138.2414" y="1041.3139">1..*</text><!--MD5=[481c4fc1b249aaca3691162a08584e24]
+link Empleado to Profesion--><path codeLine="104" d="M184,1165.88 C184,1195.86 184,1233.46 184,1266.72 " fill="none" id="Empleado-to-Profesion" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="184,1271.37,188,1262.37,184,1266.37,180,1262.37,184,1271.37" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="176.6391" y="1261.3028">1</text><!--MD5=[63b25634d25007e47da9a2d8100b3014]
+link Tramite to DetalleTramite--><path codeLine="105" d="M147.82,622.5 C147.82,622.5 187.24,622.5 206.89,622.5 " fill="none" id="Tramite-DetalleTramite" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="216.7,622.5,207.7,618.5,211.7,622.5,207.7,626.5,216.7,622.5" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="211.7" x2="203.7" y1="622.5" y2="622.5"/><polygon fill="#A80036" points="135.82,622.5,141.82,626.5,147.82,622.5,141.82,618.5,135.82,622.5" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7" x="202.8838" y="618.5083">1</text><!--MD5=[8c754904a99eacd8d10fa2c02d6ac50c]
+@startuml
+class Persona{
+    nombre
+    apellido
+    dni
+    edad
+    email
+    telefono
+    domicilio
+
+    crear()
+    mostrar()
+}
+
+class Visitante{
+    entradaSalida: Recepcion
+
+    crear()
+    mostrar()
+    conocerRecepcion()
+    promedioVisitante()
+}
+
+class Empleado{
+    nroCredencial
+    profesiones: Profesion
+
+    crear()
+    mostrar()
+    conocerProfesion()
+}
+
+class Profesion{
+    id
+    nombre
+
+    crear()
+    mostrar()
+    tomarid()
+    mostrarid()
+    tomarNombre()
+    mostrarNombre()
+}
+note right : Los metodos de seteo\naplican para todas\nlas demas clases.
+
+'Actua como un historial de horarios realizados.
+class Recepcion{
+    fechaIngreso
+    fechaEgreso
+    horaIngreso
+    horaEgreso
+    tramite: Tramite
+    credencial
+
+    crear()
+    mostrar()
+    conocerTramite()
+    areasMasVisitadas()
+    emitirCredencial()
+    tramitesMasRequeridos()
+}
+
+class Area{
+    nombre
+    descripcion
+    empleados: Empleado
+
+    crear()
+    mostrar()
+    conocerEmpleado()
+}
+
+class Tramite{
+    id
+    fecha
+    hora
+    area: Area
+    visitante: Visitante
+    detalle: DetalleTramite
+
+    crear()
+    mostrar()
+    conocerArea()
+    conocerVisitante()
+    conocerDetalle()
+}
+
+'El empleado se obtiene mediante  tramite-> area-> empleado.
+class DetalleTramite{
+    tipo
+    detalle
+
+    crear()
+    mostrar()
+}
+
+'Relaciones:
+Visitante -|> Persona
+Empleado -|> Persona
+Recepcion - -> "1" Tramite
+Visitante - -> "1..*" Recepcion
+Tramite - -> "1" Area 
+Tramite - -> "1" Visitante
+Area - -> "1..*" Empleado
+Empleado - -> "1" Profesion
+Tramite *-> "1" DetalleTramite
+
+@enduml
+
+@startuml
+class Persona{
+    nombre
+    apellido
+    dni
+    edad
+    email
+    telefono
+    domicilio
+
+    crear()
+    mostrar()
+}
+
+class Visitante{
+    entradaSalida: Recepcion
+
+    crear()
+    mostrar()
+    conocerRecepcion()
+    promedioVisitante()
+}
+
+class Empleado{
+    nroCredencial
+    profesiones: Profesion
+
+    crear()
+    mostrar()
+    conocerProfesion()
+}
+
+class Profesion{
+    id
+    nombre
+
+    crear()
+    mostrar()
+    tomarid()
+    mostrarid()
+    tomarNombre()
+    mostrarNombre()
+}
+note right : Los metodos de seteo\naplican para todas\nlas demas clases.
+
+class Recepcion{
+    fechaIngreso
+    fechaEgreso
+    horaIngreso
+    horaEgreso
+    tramite: Tramite
+    credencial
+
+    crear()
+    mostrar()
+    conocerTramite()
+    areasMasVisitadas()
+    emitirCredencial()
+    tramitesMasRequeridos()
+}
+
+class Area{
+    nombre
+    descripcion
+    empleados: Empleado
+
+    crear()
+    mostrar()
+    conocerEmpleado()
+}
+
+class Tramite{
+    id
+    fecha
+    hora
+    area: Area
+    visitante: Visitante
+    detalle: DetalleTramite
+
+    crear()
+    mostrar()
+    conocerArea()
+    conocerVisitante()
+    conocerDetalle()
+}
+
+class DetalleTramite{
+    tipo
+    detalle
+
+    crear()
+    mostrar()
+}
+
+Visitante -|> Persona
+Empleado -|> Persona
+Recepcion - -> "1" Tramite
+Visitante - -> "1..*" Recepcion
+Tramite - -> "1" Area 
+Tramite - -> "1" Visitante
+Area - -> "1..*" Empleado
+Empleado - -> "1" Profesion
+Tramite *-> "1" DetalleTramite
+
+@enduml
+
+PlantUML version 1.2021.00(Sun Jan 10 07:25:05 ART 2021)
+(MIT source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: es
+Country: AR
+--></g></svg>
