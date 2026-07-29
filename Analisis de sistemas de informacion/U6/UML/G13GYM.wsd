@@ -1,0 +1,260 @@
+/' Healthy GYM
+Es un caso de estudio "no organizado", y se debe orgsnizar.
+Este es una organizacion que se encarga de dictar actividades fitness como musculacion y gimnasia
+Cuenta con instructores especializados, administradores y profesores.
+El caso de estudio identifica multiples falencias en el servicio entregado que se pueden solucionar con
+    un software y registros consistentes.
+Se identificaron las clases candidatas para este caso de estudio.
+
+Inscripcion (transaccion)
+    id, datos personales, fecha, hora, además debe indicar cuántos días al mes requiere y calcular el abono de la cuota mensual.
+    Confecciona el carnet, (es un plástico pre-impreso), donde se indican los datos (apellido, nombre y número de socio), el vencimiento del carnet, y el número de días elegidos. El carnet posee
+        además 24 casilleros en blanco para registrar la asistencia diaria.
+    Se debe calcular cuando se vence la cuota.
+    Se debe poder generar una "autoadhesiva" cuando se renueva el carnet.
+    Condiciones: No hay cuota de inscripción, la cuota mensual es sin límite de horarios y depende de la cantidad
+        de días elegidos y vence luego de un mes a partir del día de la inscripción.
+
+Cliente
+    datos personales del cliente
+
+Dias
+    dias, precio, fecha.
+    Precio de los dias del mes.
+
+Ingreso (transaccion)
+    inscripcion: Inscripcion, cliente, fecha.
+    Se registra la fecha en la que ingreso el cliente.
+
+Plan/Ficha (transaccion)
+    id, cliente: Cliente, instructor: Instructor, fecha, ejercicio:  Ejercicio, repeticiones, maquina: Maquina
+    Cuando un cliente le pide al instructor generar un plan de ejercicios.
+    No se relaciona con inscripcion (Volatil) debido a que me interesa el cliente (Longevo), no me importa si se 
+        reinscribe hoy o dentro de 3 meses, el plan debe seguir identificando al mismo cliente.
+
+Ejercicio
+    nombre, descripcion
+
+Maquina
+    id, nombre, descripcion
+
+Instructor
+    datos personales, horaInicio, horaFin
+
+Profesor
+    datos personales
+
+Clase
+    id, nombre, descripcion, horarios: Horario
+
+Horario
+    dia, hora, duracion, profesor: Profesor
+    Debe haber una funcion de actualizar horario.
+    Se puede simplificar esta clase integrandola directamente en Clase, donde cada clase tenga un dia-hora especifico.
+
+
+Relaciones:
+    Inscripcion -> Cliente
+    Inscripcion -> Dias
+    'Generalizacion
+    Cliente -|> Persona
+    Instructor -|> Persona
+    Profesor -|> Persona
+    Ingreso -> Inscripcion
+    Plan -> Ejercicio
+    Plan -> Maquina
+    Plan -> Cliente
+    Plan -> Instructor
+    Clase *-> Horario
+    Horario -> Profesor
+
+Metodos:
+    actualizarDatos()
+    emitirPlan()
+    calcularDiasRestantes()
+    calcularVencimiento()
+    emitirAdhesivo()
+    emitirCarnet()
+'/
+
+@startuml
+class Persona{
+    nombre
+    apellido
+    dni
+    edad
+    sexo
+    email
+    telefono
+
+    crear()
+    mostrar()
+}
+
+class Cliente{
+
+    crear()
+    mostrar()
+}
+
+class Instructor{
+    horaInicio
+    horaFin
+
+    crear()
+    mostrar()
+}
+
+class Profesor{
+    crear()
+    mostrar()
+}
+
+class Inscripcion{
+    id
+    fecha
+    hora
+    datosPersonales: Cliente
+    dias: Dias
+    cuota
+    vencimiento
+
+    crear()
+    mostrar()
+    conocerCliente()
+    conocerDias()
+    calcularCuota()
+    calcularVencimiento()
+}
+
+class Dias{
+    dias
+    monto
+
+    crear()
+    mostrar()
+    tomarDias()
+    mostrarDias()
+    tomarMonto()
+    mostrarMonto()
+}
+note right
+    Los metodos de 
+    seteo de esta clase 
+    aplican para 
+    todas las demas
+end note
+
+'Se identifican las asistencias
+class Ingreso{
+    inscripcion: Inscripcion
+    cliente
+    fecha
+
+    crear()
+    mostrar()
+    calcularDiasRestantes()
+}
+
+'Clase para calcular los dias restantes.
+class Membresia{
+    fechaInicio
+    fechaVencimiento
+    diasComprados
+    diasUsados
+    diasDisponibles
+
+    crear()
+    mostrar()
+    conocerIngreso()
+    calcularVigencia()
+    calcularDiasDisponibles()
+    actualizarDatos()
+}
+
+class Plan{
+    id
+    cliente: Cliente
+    instructor: Instructor
+    fecha
+    detalles: DetallePlan
+
+    crear()
+    mostrar()
+    conocerCliente()
+    conocerInstructor()
+    conocerDetallePlan()
+    emitirPlan()
+}
+
+class DetallePlan{
+    ejercicio:  Ejercicio
+    repeticiones
+    maquina: Maquina
+
+    crear()
+    mostrar()
+    conocerEjericio()
+    conocerMaquina()
+}
+
+'Habla del tipo de ejercicio.
+class Ejercicio{
+    nombre
+    descripcion
+    musculo
+
+    crear()
+    mostrar()
+}
+
+class Maquina{
+    id
+    nombre
+    descripcion
+    
+    crear()
+    mostrar()
+}
+
+class Clase{
+    id
+    nombre
+    descripcion
+    horarios: Horario
+
+    crear()
+    mostrar()
+    conocerHorario()
+}
+
+class Horario{
+    dia
+    hora
+    duracion
+    profesor: Profesor
+
+    crear()
+    mostrar()
+    conocerProfesor()
+    actualizarDatos()
+}
+
+' Relaciones
+    Inscripcion -> "1" Cliente
+    Inscripcion -> "1" Dias
+    'Generalizacion
+    Cliente -|> Persona
+    Instructor -|> Persona
+    Profesor -|> Persona
+    Ingreso -> "1" Inscripcion
+    Membresia -> "1..*" Ingreso
+    Plan *-> "1..*" DetallePlan
+    DetallePlan -> "1" Ejercicio
+    DetallePlan -> "1" Maquina
+    Plan -> "1" Cliente
+    Plan -> "1" Instructor
+    Clase *-> "1..*" Horario
+    Horario -> "1" Profesor
+
+@enduml

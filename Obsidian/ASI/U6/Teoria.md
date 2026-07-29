@@ -240,6 +240,7 @@ Esto incluye lo que el sistema administrara y utilizara.
 	- objeto - objetoEspecifico.
 	- Auto(marca, modelo, precio) - UnidadAuto(patente)
 - **Relaciones:**
+	- El acceso no siempre requiere atributos. Si se tiene que acceder a ciertos datos por ej para calcular, pero no se necesitan como atributos, entonces solo existira una relacion entre clases, no se necesita especificar un atributo que relacione a esa clase.
 	- Las relaciones son "quien conoce a", eso significa que una clase necesita los datos de otra clase para realizar su tarea, de esa forma se asgina la navegabilidad.
 	- Si la clase DEL SISTEMA no pide explicitamente esa relacion, entonces la navegabilidad esta mal. Ej: Cliente no pide alquiler (Su intencion no es parte del sistema), al revez, el alquiler (que es parte del sistema) pide saber quien es el cliente.
 	- Se ve siempre de la mirada del sistema.
@@ -451,3 +452,22 @@ Se detallan los siguientes items:
 ![[Pasted image 20260710153046.png|461]]
 #### Conclusiones:
 La maquinas de estado permiten diagramar diversas situaciones de forma estructurada y clara. Permitiendo una documentacion y planificacion mas precisa para ciertas situaciones que puedan ocurrir en el caso a analizar.
+
+# Preguntas para clase.
+**Parcial/Cursada:**
+- ¿Que parte de la teoria se incluye?
+	- ¿Solo diagrama de clases?
+- ¿Cuando se entrega la segunda carpeta del TPI?
+
+**Diagrama de clases:**
+- ¿Se puede poner el mismo nombre de atributo en clases diferentes, por ejemplo tener dos o mas ID?
+- ¿El cliente debe conocer a su transaccion, aunque no interactue con ella explicitamente?
+	- Ejemplo: Recibo y cliente: Un cliente puede conocer a sus recibos, pero el recibo es el que necesita conocer los datos del cliente.
+- ¿Se debe especificar cada clase relacionada con un atributo? ¿Que clase se tiene que conocer?
+	- Ejemplo: Cliente, Inscripciones, Ingreso: El ingreso debe registrar datos de inscripcion, y a su vez datos del cliente.
+		- La clase ingreso debera especificar el atributo inscripcion y el atributo cliente? o con solo el atributo inscripcion basta?
+		- En caso de especificar ambos atributos, el metodo "conocimiento" puede estar unicamente en el atributo inscripcion, o debe relacionarse con inscripcion y cliente por separado?
+- ¿Si una clase se relaciona con otra, sin contener un atributo explicito, se debe especificar el metodo de conocimiento?
+	- A -> B, los atributos de A no contienen "be: B", se debe utilizar el metodo de conocimiento?
+	- Diferencia entre duplicacion y referencia.
+- 
