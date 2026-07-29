@@ -31,7 +31,7 @@ Para su aplicacion utilizaremos la tegnologia bioinspirada llamada LIF. Esta teg
 
 ---
 
-## Propuesta:
+## Propuesta antigua:
 
 - Sistema de alerta temprana de tormentas locales basado en LIF y sensores de bajo costo. (**Modelo de Alerta de Bajo Costo**).
     - **Estudio comparativo de un algoritmo bioinspirado (LIF) frente a una red densa o un umbral fijo**
@@ -78,7 +78,7 @@ Para su aplicacion utilizaremos la tegnologia bioinspirada llamada LIF. Esta teg
 
 **Funcionamiento:** Las neuronas actúan como un **Filtro Pasa-Bajo** natural. El ruido aleatorio no tiene la coherencia temporal para hacer que la neurona dispare. **Solo las señales reales (coherentes) logran vencer el umbral θ.**
 
-## Desarrollo:
+## Investigacion antigua:
 
 ### Estructura del paper
 
@@ -649,9 +649,9 @@ Para su aplicacion utilizaremos la tegnologia bioinspirada llamada LIF. Esta teg
 
 ---
 
-# Base sobre la que construir
+# Base
 
-- **GUIA**
+- **GUIA DE REFERENCIA.**
     
     # Guía para la Formalización de tu Propuesta de Investigación con SNN LIF para Predicción de Tormentas Locales
     
@@ -1102,7 +1102,7 @@ Para su aplicacion utilizaremos la tegnologia bioinspirada llamada LIF. Esta teg
     **¿Por cuál de estas secciones quieres empezar a trabajar concretamente?** Podemos redactar juntos el título, refinar la pregunta, o definir la metodología paso a paso.
     
 
-Se habla de un trabajo y investigacion.
+Se habla de un trabajo e investigacion.
 
 Para plantear la base debemos responder 3 preguntas fundamentales, que van a ir dando forma al trabajo a realizar:
 
@@ -1562,7 +1562,7 @@ Aqui se expandira los pasos a realizar y la dinamica que tendra esta investigaci
 
 - La capacidad del modelo LIF simplificado para predecir eventos de lluvia en entornos locales en base a la recoleccion de datos con diversos sensores.
 
-### Metodologia inicial (antigua):
+### Metodologia basica (antigua):
 
 - **Recolectar los datos necesarios.**
     - Identificar las variables que el modelo LIF utilizara para la prediccion.
@@ -1771,13 +1771,77 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
     - https://www.sciencedirect.com/science/article/pii/S0022169426001435?fr=RR-2&ref=pdf_download&rr=a16a87397c43acb8
     - https://ams.confex.com/ams/WAFNWPMS/webprogram/Paper425648.html
-- **¿Que frecuencia de muestreo se utilizara?**
+- **¿Que frecuencia de muestreo se utilizara, se promedian los datos?**
     
-    **Frecuencia:** Los datos seran extraidos en rangos de una hora.
+    #### **Frecuencia:**
     
-    **Justificacion:** Es la frecuencia minima que la estacion provee de forma abierta, y esta comprobado que resulta suficiente para una prediccion confiable con el sistema adecuado. No se agruparan los datos en tiempos mas extensos.
+    Los datos seran extraidos en rangos de una hora.
     
-    **Rango de fechas:** Se analizara la estacion meteorologica a recolectar los datos, y se verificara durante que rango de fechas se utilizaron los mismos dispositivos de medicion.
+    #### **Justificacion:**
+    
+    Es la frecuencia minima que la estacion provee de forma abierta, y esta comprobado que resulta suficiente para una prediccion confiable con el sistema adecuado. No se agruparan los datos en tiempos mas extensos.
+    
+    #### **Investigacion de frecuencia para predecir eventos de lluvia:**
+    
+    **¿Una hora es una frecuencia suficiente para una prediccion optima del evento de lluvia?**
+    
+    Si pero con matices: Se puede identificar para la mayoria de lluvias los cambios de las variables precursoras del evento de lluvia.
+    
+    Sin embargo para eventos convectivos rapidos (<30m) estos cambios en las variables suelen ser mas sutiles y mas complejos de identificar con datos de 1h.
+    
+    - **Definicion evento de lluvia:**
+        
+        
+        | Estudio | Definición de evento | Criterio de separación (MIET) |
+        | --- | --- | --- |
+        | Brasil et al. (2022) — Sustainability | Secuencia contigua de precipitación donde la profundidad mínima por tip ≥ 0.2 mm, separada por un período sin lluvia (MIET) | MIET = 6 h óptimo para regiones semiáridas |
+        | Haas et al. (2025) — WCD/EGUsphere | Secuencia de épocas de 5 min donde la precipitación máxima en 5 min > 0.19 mm (≥ 2 tips) o media > 0.0039 mm (≈ 0.05 mm/h) | Períodos contiguos de precipitación |
+    - **Clasificacion de lluvia segun duracion:**
+    Tras analizar 530 eventos con MIET = 6h, se identificaron 3 clases:
+        
+        
+        | Clase | % eventos | Duración media | Rango duración | Intensidad media | Descripción |
+        | --- | --- | --- | --- | --- | --- |
+        | I — Pequeños | 77% | 2.8 h | 0.08 – 11.58 h | 5.6 mm/h | Eventos ligeros a moderados |
+        | II — Alta intensidad | 3% | 0.3 h (18 min) | 0.08 – 0.67 h | 45.9 mm/h | Tormentas convectivas cortas e intensas |
+        | III — Largos / alta profundidad | 20% | 8.1 h | 1.0 – 25.58 h | 9.1 mm/h | Frentes, lluvias estratiformes |
+        1. https://www.mdpi.com/2071-1050/14/3/1721
+    
+    - **Conclusion:**
+        
+        La frecuencia de 1h permite detectar tendencias sinópticas lejanas (2-8h antes).
+        
+        **NO es suficiente para:**
+        
+        1. Capturar la señal de activación (últimos 28-60 min antes del comienzo)
+        2. Resolver eventos convectivos cortos (< 30 min de duración)
+    
+    **Fuentes extra:**
+    
+    https://wcd.copernicus.org/articles/6/949/2025/
+    
+    https://journals.ametsoc.org/view/journals/atsc/63/8/jas3735.1.xml
+    
+    ### ¿Se promedia la hora?
+    
+    DWD (estaciones alemanas, ej. EDDF)
+    Según el CDC Newsletter Nr. 10 y los datasets descriptivos de DWD OpenData:
+    
+    | Variable | Tipo de medición | Detalle |
+    | --- | --- | --- |
+    | Temperatura 2m | Terminwert (instantánea) | Lectura en el horario sinóptico fijo |
+    | Humedad relativa | Terminwert (instantánea) | Lectura en el horario sinóptico |
+    | Velocidad del viento (synop) | Promedio 10 minutos | "10-minütigen Mittelwert, der im Intervall zwischen Minute 40 und 50 vor der vollen Stunde ermittelt wird" — promedio entre min 40 y 50 de cada hora |
+    | Velocidad del viento (horas) | Media horaria | "Stundenmittelwert" — promedio de todos los datos de la hora |
+    | Dirección del viento | Promedio 10 min | Misma ventana que velocidad |
+    | Precipitación | Suma horaria | "Stundensumme" — total acumulado en la hora |
+    | Presión | Terminwert (instantánea) | Lectura en el horario |
+    
+    > "Heute handelt es sich dabei um einen 10-minütigen Mittelwert, der im Intervall zwischen Minute 40 und 50 vor der vollen Stunde ermittelt wird und dem Stundentermin zugeordnet wird."
+    (Hoy en día se trata de un valor medio de 10 minutos, que se determina en el intervalo entre el minuto 40 y 50 antes de la hora completa y se asigna al término horario.)
+    > 
+    
+    En conclusion: Almacena observaciones sinópticas, que son exactamente estos valores puntuales en horarios fijos (0000, 0100, 0200 UTC, etc.).
     
 
 #### Utilizacion y procesamiento de los datos:
@@ -1849,6 +1913,8 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     Debido a esto se busco una estacion capaz de contener un periodo de al menos 5 años continuos sin ningun dato faltante.
     
     **¿El EDDF interpola sus datos o utiliza metodos matematicos para rellenar datos de sensores o son todos datos propios de sus sensores?**
+    
+    Las variables fundamentales (temp, presión, viento, precipitación) son datos crudos de sensores. Solo la humedad relativa implica un cálculo matemático indirecto. La estación no interpola ni rellena datos artificialmente: los datos vienen completos del DWD vía WMO GTS → NOAA ISD.
     
     # **Scripts** para la recuperacion de datos.
     
@@ -2267,24 +2333,13 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     - **Resumenes de los scripts e investigacion.**
         - **Investigacion**
             
-            Extracción de datos meteorológicos horarios del GHCNh de NOAA para estaciones argentinas.
-            **Ubicaciones de archivos:**
+            Extraer datos meteorológicos horarios del GHCNh (NOAA) para estaciones argentinas (SAEZ/Ezeiza y SACO/Córdoba) sin usar la librería meteora, accediendo directamente a los archivos PSV.
             
-            - Script con meteora (ya creado): /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCN/extraer_ghcn.py
-            - Virtualenv: /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCN/venv/
-            - Nuevo script directo (planificado, NO creado aún): /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCNCRUDO/ (directorio no creado)
-            Lo que ya se hizo
-            1. **Script meteora (extraer_ghcn.py):**
-                - Usa GHCNHourlyClient de meteora con bounding box alrededor de la estación
-                - 6 variables core: temperature, relative_humidity, station_level_pressure, precipitation, wind_speed, wind_direction
-                - Muestra resumen con % de datos faltantes
-                - Guarda CSV con separador ; y formato {SACO|SAEZ}{YYYYMMDD}_{YYYYMMDD}.csv
-                - Probado y funcionando para SAEZ y SECO
-            2. **Estaciones identificadas en GHCNh:**
+            1. **Estaciones identificadas en GHCNh:**
                 - SAEZ (Ezeiza): ARI0000SAEZ (ICAO-based) o ARU00087576 (WMO-based)
                 - SECO (Córdoba - Ambrosio Taravella): ARI0000SACO (ICAO-based) o ARU00087344 (WMO-based)
                 - Coordenadas confirmadas desde el station list de GHCNh
-            3. **Acceso directo a datos GHCNh (investigado):**
+            2. **Acceso directo a datos GHCNh (investigado):**
                 - PSV files por estación/año: [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/{year}/psv/GHCNh_{STATION_ID}_{year}.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/%7Byear%7D/psv/GHCNh_%7BSTATION_ID%7D_%7Byear%7D.psv)
                 - PSV files por estación (periodo completo): [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-station/GHCNh_{STATION_ID}_por.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-station/GHCNh_%7BSTATION_ID%7D_por.psv)
                 - Formato: 38 variables, pipe-separated, columnas: STATION, DATE, variable1, variable2, ...
@@ -2297,156 +2352,87 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
                 - pres_wx (present weather codes): Códigos WMO que describen el clima actual, incluyendo lluvia, nieve, etc. Los códigos 50-55 (drizzle), 60-65 (rain), 66-67 (freezing rain), 68-69 (rain/snow mix), 70-75 (snow), 80-90 (showers) indican precipitación.
                 - precipitation_3_hour: Precipitación acumulada en 3 horas
                 - snow_depth: Profundidad de nieve.
-            4. **Crear script directo (sin meteora) que:**
-                - Descargue los PSV files directamente de NOAA vía requests
-                - Use las 5 variables core + 1 variable de reemplazo para precipitación (pres_wx o precipitation_3_hour)
-                - Misma funcionalidad: menú estación, rango fechas DD/MM/YYYY, reemplazar NaN por ".", resumen con % faltantes, guardar CSV con ";"
-                - Usar IDs correctos de estación: ARI0000SAEZ y ARI0000SACO
-            5. **Decidir qué variable usar como reemplazo de precipitación (investigar pres_wx codes vs precipitation_3_hour).**
+                
+                **Investigación Precipitacion:**
+                
+                Para remplazar la medida del exito representada por la precipitacion se reviso alternativas:
+                Documentación de NOAA (GHCNh), el ASOS User's Guide, y artículos técnicos sobre el sensor LEDWI (Light Emitting Diode Weather Identifier).
+                
+                1. **Cómo funciona el sensor de clima presente (LEDWI/ASOS)**
+                    - NO es un modelo numérico ni probabilístico. Es un sensor óptico directo.
+                    - Funciona así: emite un haz de luz infrarroja coherente a través de un path de 1 metro hacia un fotodiodo receptor.
+                    - Cuando partículas de precipitación (gotas de lluvia, copos de nieve) atraviesan el haz, crean sombras que modulan la luz.
+                    - El patrón de centelleo (scintillation) se analiza espectralmente:
+                        - Altas frecuencias (1000-4000 Hz): indica lluvia (casi con certeza)
+                        - Bajas frecuencias (75-250 Hz): indica nieve
+                        - Espectro mezclado: se reporta como "Unknown Precipitation" (UP)
+                    - La intensidad se determina por la potencia de la señal usando la distribución empírica Marshall-Palmer:
+                        - Light: hasta 0.10 pulg/hora
+                        - Moderate: 0.11-0.30 pulg/hora
+                        - Heavy: >0.30 pulg/hora
+                2. **Limitaciones conocidas**
+                    - No diferencia bien drizzle (llovizna) de lluvia ligera
+                    - Precipitación mixta (lluvia+nieve) → reporta "UP" (Unknown)
+                    - Precipitación muy leve cerca del umbral de detección puede no detectarse
+                    - No detecta bien ice pellets, snow grains, hail
+                3. **Variables disponibles en GHCNh para precipitación**
+                    - precipitation → Precipitación acumulada horaria (mm, medición directa con balde volcete calefaccionado)
+                    - pres_wx_AU1/2/3 → Automated ASOS/AWOS sensors (cualitativo: tipo e intensidad)
+                    - pres_wx_AW1/2/3 → Automated sensors worldwide
+                    - pres_wx_MW1/2/3 → Manual reports (human observer - muy confiable)
+                    - precipitation_3_hour a precipitation_24_hour → Acumulados multi-horarios
+                    - snow_depth → Profundidad de nieve
+                4. **Cómo funciona el sensor de clima presente (LEDWI/ASOS)**
+                    - NO es un modelo numérico ni probabilístico. Es un sensor óptico directo.
+                    - Funciona así: emite un haz de luz infrarroja coherente a través de un path de 1 metro hacia un fotodiodo receptor.
+                    - Cuando partículas de precipitación (gotas de lluvia, copos de nieve) atraviesan el haz, crean sombras que modulan la luz.
+                    - El patrón de centelleo (scintillation) se analiza espectralmente:
+                        - Altas frecuencias (1000-4000 Hz): indica lluvia (casi con certeza)
+                        - Bajas frecuencias (75-250 Hz): indica nieve
+                        - Espectro mezclado: se reporta como "Unknown Precipitation" (UP)
+                    - La intensidad se determina por la potencia de la señal usando la distribución empírica Marshall-Palmer:
+                        - Light: hasta 0.10 pulg/hora
+                        - Moderate: 0.11-0.30 pulg/hora
+                        - Heavy: >0.30 pulg/hora
+        - **Diseño Scripts y analisis**
             
-            **Notas técnicas importantes**
-            
-            - Los datos GHCNh vienen en UTC; convertir a ART (America/Argentina/Buenos_Aires) para output
-            - Formato fecha en output: DD/MM/YYYY HH:MM
-            - Separador CSV: ;
-            - Datos faltantes: reemplazar NaN por "."
-            - El script actual usa venv en /home/ale/.../GHCN/venv/
-            - El nuevo script debería poder funcionar sin meteora (solo requests + pandas)
-            
-            **Project Context 2**
-            Extraer datos meteorológicos horarios del GHCNh (NOAA) para estaciones argentinas (SAEZ/Ezeiza y SACO/Córdoba) sin usar la librería meteora, accediendo directamente a los archivos PSV.
-            Current Task (Your Question)
-            Estabas evaluando si la variable pres_wx_AU1 (present weather) es adecuada como reemplazo de precipitation para detectar lluvia. Preguntaste específicamente si esta variable se determina por modelo numérico/probabilidad o por medición directa, y solicitaste todas las variables que representen de manera DIRECTA y CERTERA la presencia de lluvia.
-            Investigación Realizada
-            Revisé la documentación de NOAA (GHCNh), el ASOS User's Guide, y artículos técnicos sobre el sensor LEDWI (Light Emitting Diode Weather Identifier).
-            Hallazgos Clave
-            
-            Project Context
-            Extraer datos meteorológicos horarios del GHCNh (NOAA) para estaciones argentinas (SAEZ/Ezeiza y SACO/Córdoba) sin usar la librería meteora, accediendo directamente a los archivos PSV.
-            Current Task (Your Question)
-            Estabas evaluando si la variable pres_wx_AU1 (present weather) es adecuada como reemplazo de precipitation para detectar lluvia. Preguntaste específicamente si esta variable se determina por modelo numérico/probabilidad o por medición directa, y solicitaste todas las variables que representen de manera DIRECTA y CERTERA la presencia de lluvia.
-            Investigación Realizada
-            Revisé la documentación de NOAA (GHCNh), el ASOS User's Guide, y artículos técnicos sobre el sensor LEDWI (Light Emitting Diode Weather Identifier).
-            Hallazgos Clave
-            
-            1. Cómo funciona el sensor de clima presente (LEDWI/ASOS)
-            - NO es un modelo numérico ni probabilístico. Es un sensor óptico directo.
-            - Funciona así: emite un haz de luz infrarroja coherente a través de un path de 1 metro hacia un fotodiodo receptor.
-            - Cuando partículas de precipitación (gotas de lluvia, copos de nieve) atraviesan el haz, crean sombras que modulan la luz.
-            - El patrón de centelleo (scintillation) se analiza espectralmente:
-                - Altas frecuencias (1000-4000 Hz): indica lluvia (casi con certeza)
-                - Bajas frecuencias (75-250 Hz): indica nieve
-                - Espectro mezclado: se reporta como "Unknown Precipitation" (UP)
-            - La intensidad se determina por la potencia de la señal usando la distribución empírica Marshall-Palmer:
-                - Light: hasta 0.10 pulg/hora
-                - Moderate: 0.11-0.30 pulg/hora
-                - Heavy: >0.30 pulg/hora
-            1. Limitaciones conocidas
-            - No diferencia bien drizzle (llovizna) de lluvia ligera
-            - Precipitación mixta (lluvia+nieve) → reporta "UP" (Unknown)
-            - Precipitación muy leve cerca del umbral de detección puede no detectarse
-            - No detecta bien ice pellets, snow grains, hail
-            1. Variables disponibles en GHCNh para precipitación
-            - precipitation → Precipitación acumulada horaria (mm, medición directa con balde volcete calefaccionado)
-            - pres_wx_AU1/2/3 → Automated ASOS/AWOS sensors (cualitativo: tipo e intensidad)
-            - pres_wx_AW1/2/3 → Automated sensors worldwide
-            - pres_wx_MW1/2/3 → Manual reports (human observer - muy confiable)
-            - precipitation_3_hour a precipitation_24_hour → Acumulados multi-horarios
-            - snow_depth → Profundidad de nieve
-            1. Confirmación técnica
-            - El archivo PSV para SAEZ 2023 existe (HTTP 200, ~8MB)
-            - Las URLs son:
-                - [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/{YEAR}/psv/GHCNh_{STATION}_{YEAR}.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/%7BYEAR%7D/psv/GHCNh_%7BSTATION%7D_%7BYEAR%7D.psv)
-                - Station IDs: ARI0000SAEZ y ARI0000SACO
-            1. Cómo funciona el sensor de clima presente (LEDWI/ASOS)
-            - NO es un modelo numérico ni probabilístico. Es un sensor óptico directo.
-            - Funciona así: emite un haz de luz infrarroja coherente a través de un path de 1 metro hacia un fotodiodo receptor.
-            - Cuando partículas de precipitación (gotas de lluvia, copos de nieve) atraviesan el haz, crean sombras que modulan la luz.
-            - El patrón de centelleo (scintillation) se analiza espectralmente:
-                - Altas frecuencias (1000-4000 Hz): indica lluvia (casi con certeza)
-                - Bajas frecuencias (75-250 Hz): indica nieve
-                - Espectro mezclado: se reporta como "Unknown Precipitation" (UP)
-            - La intensidad se determina por la potencia de la señal usando la distribución empírica Marshall-Palmer:
-                - Light: hasta 0.10 pulg/hora
-                - Moderate: 0.11-0.30 pulg/hora
-                - Heavy: >0.30 pulg/hora
-            1. Limitaciones conocidas
-            - No diferencia bien drizzle (llovizna) de lluvia ligera
-            - Precipitación mixta (lluvia+nieve) → reporta "UP" (Unknown)
-            - Precipitación muy leve cerca del umbral de detección puede no detectarse
-            - No detecta bien ice pellets, snow grains, hail
-            1. Variables disponibles en GHCNh para precipitación
-            - precipitation → Precipitación acumulada horaria (mm, medición directa con balde volcete calefaccionado)
-            - pres_wx_AU1/2/3 → Automated ASOS/AWOS sensors (cualitativo: tipo e intensidad)
-            - pres_wx_AW1/2/3 → Automated sensors worldwide
-            - pres_wx_MW1/2/3 → Manual reports (human observer - muy confiable)
-            - precipitation_3_hour a precipitation_24_hour → Acumulados multi-horarios
-            - snow_depth → Profundidad de nieve
-            1. Confirmación técnica
-            - El archivo PSV para SAEZ 2023 existe (HTTP 200, ~8MB)
-            - Las URLs son:
-                - [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/{YEAR}/psv/GHCNh_{STATION}_{YEAR}.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/%7BYEAR%7D/psv/GHCNh_%7BSTATION%7D_%7BYEAR%7D.psv)
-                - Station IDs: ARI0000SAEZ y ARI0000SACO
-        - **Creacion**
-            
-            **Summary of Project So Far**
-            Project Goal
             Extraer datos meteorológicos horarios del GHCNh (Global Historical Climatology Network hourly) de NOAA para estaciones argentinas (SAEZ/Ezeiza y SACO/Córdoba), sin usar la librería meteora, accediendo directamente a los archivos PSV de NOAA.
-            What Has Been Done
             
-            1. Script existente (con meteora)
-            - Ruta: /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCN/extraer_ghcn.py
-            - Usa GHCNHourlyClient de meteora con bounding box
-            - 6 variables: temperature, relative_humidity, station_level_pressure, precipitation, wind_speed, wind_direction
-            - Guarda CSV con ; como separador
-            - Probado y funciona para SAEZ y SACO
-            1. Estaciones identificadas en GHCNh
-            - SAEZ (Ezeiza): ID ARI0000SAEZ (ICAO-based, FIPS code AR + I + 0000SAEZ)
-            - SACO (Córdoba): ID ARI0000SACO (ICAO-based)
-            - Coordenadas confirmadas desde el station list de GHCNh
-            1. Investigación del formato PSV de GHCNh
-            - URL base: [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/)
-            - Archivos POR (period of record): /by-station/GHCNh_{STATION_ID}_por.psv (238 columnas, gigantes)
-            - Archivos por año: /by-year/{YEAR}/psv/GHCNh_{STATION_ID}_{YEAR}.psv (234 columnas, más manejables)
-            - Formato: pipe-separated (|), con header que nombra cada columna
-            - Columnas: STATION, DATE (ISO), LATITUDE, LONGITUDE, ELEVATION, luego para cada variable: variable, Measurement_Code, Quality_Code, Report_Type, Source_Code, Source_Station_ID
-            - 38 variables disponibles: temperature, dew_point_temperature, wet_bulb_temperature, relative_humidity, station_level_pressure, sea_level_pressure, altimeter, pressure_3hr_change, wind_direction, wind_speed, wind_gust, precipitation, visibility, sky_cover1/2/3, sky_cov_baseht1/2/3, pres_wx_AU1/AU2/AU3, pres_wx_AW1/AW2/AW3, pres_wx_MW1/MW2/MW3, snow_depth, precipitation3_hour, precipitation6_hour..24_hour, remarks
-            1. Investigación de variables para reemplazar precipitación
+            1. **Variables para reemplazar precipitación**
             Dos opciones principales:
-            - pres_wx (present weather codes): Variable tipo string que describe el clima actual. Los códigos indican explícitamente si llueve/nieva/graniza. Códigos como RA:02 (rain), SN:03 (snow), DZ:01 (drizzle), SH (showers), TS (thunderstorm), -/+ (light/heavy). Disponible como pres_wx_AU1 (automated ASOS/AWOS - primera opción), pres_wx_AW1 (automated sensors), pres_wx_MW1 (manual reports).
-            - precipitation_3_hour: Precipitación acumulada en 3 horas, da valor numérico pero no es horario.
-            - Decisión: Usar pres_wx_AU1 como variable de reemplazo, ya que indica directamente si hubo precipitación en cada hora.
-            What Was Being Done (INCOMPLETE)
-            Se estaba por crear el script directo (sin meteora) en la ruta:
-            /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCNCRUDO/
-            El script debe:
-            1. Menú para elegir SECO (SACO) o SAEZ
-            2. Pedir rango de fechas en formato DD/MM/YYYY
-            3. Descargar datos horarios vía HTTP directo a los PSV de NOAA
-            4. 5 variables core: temperature, relative_humidity, station_level_pressure, wind_speed, wind_direction
-            5. 6ta variable (reemplazo precipitación): pres_wx_AU1
+                - pres_wx (present weather codes): Variable tipo string que describe el clima actual. Los códigos indican explícitamente si llueve/nieva/graniza. Códigos como RA:02 (rain), SN:03 (snow), DZ:01 (drizzle), SH (showers), TS (thunderstorm), -/+ (light/heavy). Disponible como pres_wx_AU1 (automated ASOS/AWOS - primera opción), pres_wx_AW1 (automated sensors), pres_wx_MW1 (manual reports).
+                - precipitation_3_hour: Precipitación acumulada en 3 horas, da valor numérico pero no es horario.
+            - **Decisión:** Usar pres_wx_AU1 como variable de reemplazo, ya que indica directamente si hubo precipitación en cada hora.
+            
+            El script contiene:
+            
+            1. Menú para elegir SECO (SACO) o SAEZ.
+            2. Pedir rango de fechas en formato DD/MM/YYYY.
+            3. Descargar datos horarios vía HTTP directo a los PSV de NOAA.
+            4. 5 variables core: temperature, relative_humidity, station_level_pressure, wind_speed, wind_direction.
+            5. 6ta variable (reemplazo precipitación): pres_wx_AU1.
             6. Convertir datos de UTC a ART (America/Argentina/Buenos_Aires)
             7. Reemplazar NaN por "."
-            8. Mostrar resumen: cantidad de registros, % faltantes por variable, % faltantes total
+            8. Mostrar resumen: cantidad de registros, % faltantes por variable, % faltantes total.
             9. Guardar CSV con separador ; como {SACO|SAEZ}{YYYYMMDD}_{YYYYMMDD}.csv
-            Next Steps
-            10. Crear directorio: mkdir -p /home/ale/Files/Proyectos/MYSOFT/InvPAPER/ExtraerDatos/GHCNCRUDO/
-            11. Crear script extraer_ghcn_directo.py que descargue los PSV por año y procese los datos
-            12. Usar librerías: requests, pandas, numpy
-            13. Probar el script con un rango pequeño de fechas
-            14. Verificar que los pres_wx codes efectivamente capturan precipitación
-            Technical Details
-            - IDs estación: ARI0000SAEZ y ARI0000SACO
-            - URL PSV por año: [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/{year}/psv/GHCNh_{station_id}_{year}.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/%7Byear%7D/psv/GHCNh_%7Bstation_id%7D_%7Byear%7D.psv)
-            - Valores faltantes: -9999 en los datos numéricos indican missing
-            - Zona horaria: UTC original, convertir a ART (UTC-3)
-            - Formato fecha output: DD/MM/YYYY HH:MM
-            - Separador CSV: ;
-            - NaN → "." en el CSV final
             
-            Análisis de los datos disponibles
-            6 archivos PSV de SAEZ (2020-2025), 329 columnas cada uno, ~9,500 registros/año = 57,406 registros totales.
-            Variables con datos completos (~100%)
+            **Detalles tecnicos:**
+            
+            1. Usar librerías: requests, pandas, numpy
+            2. Datos tecnicos:
+                - IDs estación: ARI0000SAEZ y ARI0000SACO
+                - URL PSV por año: [https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/{year}/psv/GHCNh_{station_id}_{year}.psv](https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/%7Byear%7D/psv/GHCNh_%7Bstation_id%7D_%7Byear%7D.psv)
+                - Valores faltantes: -9999 en los datos numéricos indican missing
+                - Zona horaria: UTC original, convertir a ART (UTC-3)
+                - Formato fecha output: DD/MM/YYYY HH:MM
+                - Separador CSV: ;
+                - NaN → "." en el CSV final
+            
+            **Análisis de los datos disponibles**
+            
+            Se realizo un script capaz de identificar 19 variables criticas para determinar su porcentaje de disponibilidad en los registros extraidos del GHCNh (NOAA).
+            ****6 archivos PSV de SAEZ (2020-2025), 329 columnas cada uno, ~9,500 registros/año = 57,406 registros totales.
+            **Variables con datos completos (~100%)**
             
             | Variable | Disponibilidad | Descripción |
             | --- | --- | --- |
@@ -2456,9 +2442,11 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
             | wind_direction | 100% | Dirección del viento |
             | visibility | 100% | Visibilidad |
             | dew_point_temperature | 100% | Temperatura de rocío |
-            | Variables con datos parciales |  |  |
-            | Variable | Disponibilidad | Descripción |
-            | ---------- | --------------- | ------------- |
+            
+            **Variables con datos parciales**
+            
+            | **Variable** | **Disponibilidad** | **Descripción** |
+            | --- | --- | --- |
             | station_level_pressure | 88.9% | Presión a nivel de estación |
             | sea_level_pressure | 90.2% | Presión a nivel del mar |
             | wet_bulb_temperature | 88.9% | Temperatura de bulbo húmedo |
@@ -2466,33 +2454,17 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
             | ceiling_height | 87.3% | Altura del techo de nubes |
             | pressure_3hr_change | 83.0% | Cambio de presión 3h |
             | altimeter | 98.2% | Altimetría |
-            | Variables de precipitación (CRÍTICO) |  |  |
-            | Variable | Disponibilidad | Estado |
-            | ---------- | --------------- | -------- |
+            
+            **Variables de precipitación (CRÍTICO)**
+            
+            | **Variable** | **Disponibilidad** | **Estado** |
+            | --- | --- | --- |
             | precipitation | 0% | Vacía |
             | pres_wx_AU1 | 0% | Vacía |
             | pres_wx_AW1 | 0% | Vacía |
             | pres_wx_MW1 | 29.9% | ✓ Observador humano |
             | precipitation_6_hour | 7.4% | ✓ Acumulado 6h |
             | precipitation_24_hour | 1.1% | Muy poco |
-            | Plan propuesto |  |  |
-            | Crear un script combinar_ghcn.py en /home/ale/Files/Proyectos/MYSOFT/InvPAPER/AnalizarDatos/GHCN/ que: |  |  |
-            1. Lea los 6 archivos PSV de la carpeta GHCN
-            2. Extraiga TODAS las variables con datos significativos (las de la tabla anterior)
-            3. Incluya variables de precipitación disponibles: pres_wx_MW1 y precipitation_6_hour (las únicas con datos)
-            4. Convierta UTC → ART (Argentina/Buenos_Aires)
-            5. Guarde un único CSV consolidado con formato ; como separador
-            6. Muestre resumen de calidad de datos por variable y año
-            Variables de salida (13 variables + metadatos)
-            fecha_hora, temperatura, humedad_relativa, presion_estacion,
-            velocidad_viento, direccion_viento, temperatura_rocio,
-            visibilidad, condicion_cielo, techo_nubes, cambio_presion_3h,
-            precipitacion_6h, clima_presente_MW1, metadatos (STATION, lat, lon, elev)
-            Formato de salida
-            - Separador: ;
-            - Fecha: DD/MM/YYYY HH:MM (ART)
-            - NaN: .
-            - Nombre: SAEZ_20200101_20251231.csv
     
     ## Conclusiones:
     
@@ -2749,28 +2721,62 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
 - **¿Qué ventana temporal de entrada (lookback window) usaré?**
     
-    Definir que es una ventana temporal de entrada.
+    **La ventana temporal se define como:** El número de puntos de datos actuales que deben utilizarse para predecir cada cantidad futura.
     
-    Identificar estudios que demuestren una ventana optima.
+    - Referencia al “historial” de datos que el modelo utiliza como entrada para predecir datos futuros.
+    - Es fundamental utilizar una ventana de tiempo suficiente para lograr una prediccion optima del evento climatico.
+    - Las ventanas temporales permiten:
     
-    Elegir “ventana” de tiempo que el modelo utilizara para predecir las lluvias. (Va dew la mano con la memoria del modelo LIF, cuanto recuerda).
+    ### Investigacion de ventanas temporales:
     
-    ¿Se realizara una unica ventana predefinida o se probara independientemente con diferentes ventanas hasta obtener la optima?
+    Se busca identificar la ventana temporal de entrada optima para el modelo a desarrollar.
     
-    ¿El tiempo de entrenamiento lo permite?
+    - El dato fundamental para esta desicion, es la frecuencia en la que se entregan los datos, la cual es “1h”.
+    
+    #### Preguntas de la investigacion:
+    
+    **¿Porque se utilizan ventanas temporales?**
+    
+    1. **Capturar dependencias temporales**: Los fenómenos meteorológicos no son instantáneos; se forman a lo largo de horas. La ventana permite al modelo aprender la evolución de las variables (caída de presión, aumento de humedad, cambio de viento, etc…) que precede a la lluvia.
+    2. **Proporcionar contexto**: Una sola medición horaria (ej. 1012 hPa) no dice nada sobre si la presión está cayendo o subiendo. Con una ventana de varias horas, el modelo puede identificar tendencias y tasas de cambio, que son mucho más informativas que los valores absolutos.
+    3. **Reducir el ruido**: Las mediciones individuales pueden tener ruido o fluctuaciones aleatorias. Una ventana temporal permite al modelo promediar o integrar la información, haciendo la detección más robusta.
+    
+    **¿Que relacion tiene la ventana temporal con el modelo matematico LIF?**
+    
+    - El modelo LIF es una neurona que integra ****corriente de entrada a lo largo del tiempo hasta alcanzar un umbral, momento en el cual "dispara" un spike y reinicia su potencial de membrana. Su dinámica temporal está definida por la **constante de tiempo de membrana** (τ_mem), que determina qué tan rápido se acumula y "fuga" la información.
+    - El rendimiento de una red LIF depende críticamente del tamaño de la ventana espacial (spiking window). Un estudio evaluó ventanas de 10 y 50 pasos de tiempo, encontrando que existe una compensacion entre rendimiento y consumo energético según el tamaño de ventana elegido.
+    
+    **¿Que rango de ventana temporal resulta optimo para idenitificar la tendencia de una lluvia?**
+    
+    - **La ventana óptima escala con el horizonte de predicción**: Para predicciones a corto plazo (1-6 horas), ventanas cortas (3-6 horas) son suficientes.
+    - **Cuadro comparativo de fuentes: Señales precursoras**
+        
+        
+        | Estudio | Señal precursora | ¿Con cuánta antelación? | Detectable a 1h? |
+        | --- | --- | --- | --- |
+        | [Wang & Hocke (2022) — 1199 eventos, Suiza](https://www.mdpi.com/2072-4292/14/12/2938) | IWV aumenta sostenidamente | 6-8 h antes | Sí |
+        |  | Temperatura 2m → máximo | 30-60 min antes | Sí (Limite) |
+        |  | Presión → mínimo | 30-60 min antes | Sí (Limite) |
+        |  | Densidad del aire → disminuye | 2-6 h antes (60% eventos) | Sí |
+        | [Haas et al. (2025) — 94 eventos, Austria](https://wcd.copernicus.org/articles/6/949/2025/) | IWV, CAPE, viento aumentan | 8 h antes | Sí |
+        |  | LWP (agua líquida) → aumento brusco | 1 h antes | Sí |
+        |  | Variabilidad espacial T2m → aumenta | 2 h antes | Sí |
+        | [Li et al. (2023) — HK, 12 años](https://www.mdpi.com/2073-4433/14/3/571) | PWV/ZTD → lead time | ~8 h antes | Sí |
+        |  | Temperatura bulbo húmedo → lead time | 5-8 h antes | Sí |
+        | [Xue et al. (2024)— Tibet](https://www.mdpi.com/2073-4433/15/8/934) | PWV salto abrupto | 8 min antes | No |
     
 
 #### Modelo LIF:
 
-¿Cuanto tiempo llevara el entrenamiento de cada modelo?
+**CONTINUA AQUI**
 
 #### Definicion baseline:
 
 #### Protocolo de evaluacion:
 
-### Metodologia Paso a Paso:
+### GUIA de la Metodologia:
 
-- GUIA METODOLOGIA DEEPSEEK:
+- GUIA METODOLOGIA:
     
     # Metodología de Preprocesamiento de Datos para el Modelo LIF de Predicción de Lluvia
     
