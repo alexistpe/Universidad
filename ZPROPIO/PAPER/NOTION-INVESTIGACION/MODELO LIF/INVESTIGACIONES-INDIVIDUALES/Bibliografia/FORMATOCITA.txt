@@ -1,0 +1,27 @@
+1. Partes de una referencia
+Tomando tu ejemplo:
+> Haas et al. (2025). Observation based precipitation life cycle analysis of heavy rainfall events. Weather and Climate Dynamics, 6, 949-969.
+| Parte | Ejemplo | Qué es |
+|---|---|---|
+| Autor + año | Haas et al. (2025) | Quién escribió el estudio y cuándo se publicó |
+| Título | Observation based precipitation life cycle analysis of heavy rainfall events | El nombre del artículo en sí |
+| Revista | Weather and Climate Dynamics | Dónde se publicó (la "revista"/journal) |
+| Volumen | 6 | Tomo del año de la revista |
+| Páginas | 949-969 | Dónde empieza y termina el artículo dentro del volumen |
+Es el formato autor-título-revista-volumen-páginas. Los detalles exactos pueden variar según el estilo de citación (APA, IEEE, etc.), pero la lógica es la misma: cada campo le permite a alguien encontrar exactamente ese artículo en la biblioteca o en internet.
+Si hay DOI (identificador digital único), se agrega al final: https://doi.org/10.5194/wcd-6-949-2025.
+2. ¿Qué significa "et al."?
+"et al." viene del latín "et alii" = "y otros". Se usa cuando un estudio tiene 3 o más autores para no tener que escribirlos todos cada vez que citas.
+Por ejemplo, el paper de Haas en realidad tiene 7 autores:
+Födisch, Haas, Neumann, Fegerl, ... (más personas)
+Escribir eso completo cada vez que se cita sería pesado y entorpecería la lectura. Entonces la convención es: primer autor + "et al.", que se lee "Haas y colaboradores".
+Haas et al. (2025)  →  "Haas y otros (2025)"
+Regla práctica de cuándo se usa (estilo APA):
+- 1 autor → se cita normal: Bell (2015)
+- 2 autores → se citan ambos: Wang & Hocke (2022)
+- 3 o más → primer autor + "et al.": Haas et al. (2025), Brown et al. (2026)
+Por eso en tu documento encontrarás:
+- Bell (2015) — tesis de un solo autor
+- Wang & Hocke (2022) — dos autores
+- Sgoff et al. (2022), Budiawan et al. (2026) — tres o más autores
+La lista de referencias final (la de "Fuentes principales citadas") sí lista todos los autores para que se pueda identificar al estudio por completo; el "et al." se usa solo en el texto del documento para abreviar.

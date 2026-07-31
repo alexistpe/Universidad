@@ -1,0 +1,7 @@
+1,24000,Transferencia,17:41:38
+2,12000,Tarjeta de Crédito,20:40:08,22/11/2025
+3,12000,Tarjeta de Crédito,20:41:30,22/11/2025
+4,24000,Tarjeta de Crédito,21:43:36,22/11/2025
+5,24000,Tarjeta de Crédito,21:52:17,22/11/2025
+6,12000,Tarjeta de Crédito,22:03:09,22/11/2025
+7,12000,Transferencia,22:02:57,23/11/2025

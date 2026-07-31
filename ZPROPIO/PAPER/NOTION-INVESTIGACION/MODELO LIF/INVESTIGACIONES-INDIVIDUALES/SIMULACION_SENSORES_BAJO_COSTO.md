@@ -6,18 +6,16 @@
 
 ## Índice
 
-1. [Pregunta 1: ¿Es viable el uso de sistemas complejos externos (IA/satélites) ante la falta de sistemas en tierra?](#p1)
-2. [Pregunta 2: ¿Porque simular sensores de bajo costo? — Análisis de decisión](#p2)
-3. [Pregunta 2.1: ¿Qué lugares documentados utilizan sensores de bajo costo?](#p2-1)
-4. [Pregunta 2.2: ¿Que sistemas de prediccion utilizan las estaciones de bajo costo?](#p2-2)
-5. [Pregunta 2.3: ¿Qué características de sensores necesito simular?](#p2-3)
-6. [Pregunta 2.4: ¿Cuáles son los errores documentados de los sensores?](#p2-4)
-7. [Pregunta 2.5: ¿Cómo y qué ruido modelaré?](#p2-5)
-8. [Resumen](#resumen)
+1. Pregunta 1: ¿Es viable el uso de sistemas complejos externos (IA/satélites) ante la falta de sistemas en tierra?
+2. Pregunta 2: ¿Porque simular sensores de bajo costo? — Análisis de decisión
+3. Pregunta 2.1: ¿Qué lugares documentados utilizan sensores de bajo costo?
+4. Pregunta 2.2: ¿Que sistemas de prediccion utilizan las estaciones de bajo costo?
+5. Pregunta 2.3: ¿Qué características de sensores necesito simular?
+6. Pregunta 2.4: ¿Cuáles son los errores documentados de los sensores?
+7. Pregunta 2.5: ¿Cómo y qué ruido modelaré?
+8. Resumen
 
 ---
-
-<a name="p1"></a>
 
 ## Pregunta 1: ¿Es viable el uso de sistemas complejos externos (IA/satélites) ante la falta de sistemas en tierra?
 
@@ -25,7 +23,7 @@
 
 #### 1.1 Satélites: No reemplazan estaciones en tierra
 
-Los satélites meteorológicos **no son sustitutos** de las estaciones en tierra (WMO, 2023 — *Vision for WIGOS*, WMO-No. 1243):
+Los satélites meteorológicos **no son sustitutos** de las estaciones en tierra (WMO, 2019 — *Visión del Sistema Mundial Integrado de Observación de la OMM para 2040*, WMO-No. 1243):
 
 | Limitación | Detalle |
 | --- | --- |
@@ -34,9 +32,10 @@ Los satélites meteorológicos **no son sustitutos** de las estaciones en tierra
 | **Mediciones indirectas** | No miden temperatura superficial ni precipitación directamente; estimaciones derivadas de radianzas con incertidumbre significativa |
 | **Registros cortos** | ~40 años vs. 70+ años de estaciones en tierra (EDDF desde 1949) |
 
-**Cita textual WMO:**
+**Cita textual WMO (edición en español de WMO-No. 1243):**
 
-> *"Satellite observations cannot be viewed as a replacement for in situ observations... the lengths of the satellite records are still too short for climate detection purposes."*
+> *"Ciertas variables son difíciles de medir desde el espacio... En ese caso, las mediciones en superficie seguirán desempeñando un papel fundamental."*
+> *"Incluso en regiones en las que las capacidades espaciales son sólidas, las observaciones en superficie siguen siendo importantes para la calibración y la validación."*
 
 #### 1.2 IA: Complementa, no reemplaza los sensores físicos
 
@@ -88,7 +87,6 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 | Estudio | Qué hace | IA? | Satélites? |
 | --- | --- | --- | --- |
 | Sgoff et al. (2022) — DWD + Netatmo | Asimilación de datos de estaciones Netatmo en el sistema de predicción regional del DWD (COSMO-D2) | No (asimilación numérica) | Sí (vía NWP) |
-| Salcedo (2024) — Bolivia, GNN | Predicción de lluvia intensa con Graph Neural Networks usando pluviómetros IoT de bajo costo | Sí (GNN) | No |
 | Mao & Sorteberg (2026) — Noruega | Post-procesamiento ML de nowcasts NWP usando observaciones crowdsourced | Sí (ML) | Indirecto |
 | AMT (2026) — KNMI/HOASIS | Evaluación de estaciones compactas AiOWS. No hacen predicción — solo evalúan calidad de los sensores | No | No |
 
@@ -103,8 +101,6 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 | **Radar** | No mide superficie directamente, requiere calibración | Sí |
 
 ---
-
-<a name="p2"></a>
 
 ## Pregunta 2: ¿Porque simular sensores de bajo costo?
 
@@ -127,8 +123,6 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 
 ---
 
-<a name="p2-1"></a>
-
 ## Pregunta 2.1: ¿Qué lugares documentados utilizan sensores de bajo costo?
 
 ### 1. Red Netatmo / Estudio KNMI (global)
@@ -142,25 +136,16 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 
 - **Sensores:** Variados (Davis, estaciones caseras)
 - **Protocolo:** Datos cada 5-15 min, QC automatizado
-- **Estudio clave:** Bell (2015) — *In-service drift study of humidity sensors*, WMO CIMO TECO
-- **Hallazgo:** Sensores de humedad desarrollan bias positivo a humedades bajas/medias y bias negativo a >90% RH por contaminación del polímero capacitivo
+- **Estudio clave:** Bell (2015) — tesis doctoral sobre cuantificación de incertidumbre en datos ciudadanos, incluye estudio de deriva en servicio de sensores de humedad
+- **Hallazgo:** Sensores de humedad desarrollan bias positivo a humedades bajas/medias y bias negativo a >90% RH por contaminación del polímero capacitivo (confirmado por Brown et al., 2026)
 
-### 3. WMO Innovation Platforms (global)
-
-- **Documento:** *Transition to Automated Ground-based Measurements* (WMO RA-V, 2023)
-- **Cita textual:**
-
-  > *"Innovative Observation Platforms: Uses inexpensive, innovative technology, locally sourced materials. Low-cost micro-sensors. Limitations: data quality lower than climate reference stations."*
-
-- **Enlace:** https://etrp.wmo.int/
-
-### 4. Sensor.Community / Luftdaten.info (global)
+### 3. Sensor.Community / Luftdaten.info (global)
 
 - **Sensores:** DHT22, BME280, SDS011
 - **Enfoque:** Calidad del aire + temperatura/humedad
 - **Enlace:** https://sensor.community/
 
-### 5. Open Weather Map (global)
+### 4. Open Weather Map (global)
 
 - Integra estaciones ciudadanas de diversos fabricantes
 - **Enlace:** https://openweathermap.org/
@@ -172,7 +157,6 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 | Netatmo/KNMI | AiOWS compactos | 5-15 min | AMT, 2026 |
 | CWOP (NOAA) | Davis, varios | 5-15 min | Bell, 2015 |
 | Sensor.Community | DHT22, BME280 | 2-5 min | Open Data |
-| WMO Innovation | Micro-sensores | Variable | WMO RA-V |
 | Open Weather Map | Estaciones ciudadanas | Variable | OWM API |
 
 ### Ubicaciones exactas de las redes documentadas
@@ -183,12 +167,9 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 | Netatmo | ~100,000+ | Global (170+ países) — mayor concentración en Europa (Francia, Alemania, UK), USA, Japón | https://weathermap.netatmo.com |
 | Weather Underground | 250,000+ | Global — USA, Europa, Australia, Japón, Brasil | https://www.wunderground.com/pws/overview |
 | Sensor.Community | ~15,000+ | Global — Alemania, Europa, USA, India, Australia, Brasil | https://maps.sensor.community/ |
-| Salcedo (2024) | ~15 (IoT) | Bolivia — zonas rurales de La Paz, Cochabamba, Santa Cruz | Paper: arXiv 2412.16842 |
-| KNMI/AMT (2026) | 6 estaciones | Países Bajos (Cabauw test field) | https://amt.copernicus.org/articles/19/3001/2026/ |
+| KNMI/AMT (2026) | 6 estaciones | Países Bajos (KNMI test field, De Bilt) | https://amt.copernicus.org/articles/19/3001/2026/ |
 
 ---
-
-<a name="p2-2"></a>
 
 ## Pregunta 2.2: ¿Usan umbrales fijos? ¿Qué usan exactamente?
 
@@ -214,8 +195,6 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 - Mes del año (estacionalidad)
 
 ---
-
-<a name="p2-3"></a>
 
 ## Pregunta 2.3: ¿Qué características de los sensores de bajo costo necesito simular?
 
@@ -258,22 +237,20 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 
 ---
 
-<a name="p2-4"></a>
-
 ## Pregunta 2.4: ¿Cuáles son los errores documentados de los sensores?
 
 ### 2.4.1 Error de Temperatura
 
 | Sensor | Bias medio | Error band | R² tras cal | Fuente |
 | --- | --- | --- | --- | --- |
-| BME280 (sin cal) | +0.14°C | ±0.61°C | — | Budiawan et al., 2024 |
-| BME280 (cal plano) | 0.03°C | ±0.33°C | 0.99-1.00 | Budiawan et al., 2024 |
-| DHT22 (sin cal) | +0.3 a +0.5°C | ±1.0°C | — | Smith, 2017 |
-| DHT22 (cal lineal) | 0.1-0.2°C | ±0.5°C | 0.98-0.99 | MDPI IoT, 2020 |
+| BME280 (sin cal) | +0.14°C | ±0.61°C | — | Budiawan et al., 2026 |
+| BME280 (cal plano) | 0.03°C | ±0.33°C | 0.99-1.00 | Budiawan et al., 2026 |
+| DHT22/AM2302 (sin cal) | -0.13 a +0.44°C | RMSE 0.45-0.70°C | ≥0.99 | Araújo et al., 2020 |
+| DHT22/AM2302 (tras modelo lineal) | ~0 | ±0.41°C (DR) | ≥0.99 | Araújo et al., 2020 |
 
-**Chodorek et al. (2022):** *"The BME280 frequently exceeded ±1°C... it cannot be used as the primary sensor for temperature."*
+**Chodorek et al. (2022):** *"It frequently happened that the error bound of the temperature measurements of the reference station (±1°C) was exceeded, which made the measurement non-satisfactory in terms of believability... so it cannot be used as the primary sensor and should not be used as the secondary one for temperature measurements for weather station purposes."*
 
-**Smith (2017-2024):** BME280 expuesto al aire libre 1+ año perdió su "calibración plana" por contaminación atmosférica.
+**Brown et al. (2026):** la deriva a largo plazo por envejecimiento está documentada en estaciones compactas sin mantenimiento (p.ej., el METER Atmos41 mostró deriva de humedad de +2.46% RH/año; la temperatura se mantuvo estable en ±0.3°C en cámara climática).
 
 ### 2.4.2 Error de Humedad Relativa
 
@@ -281,9 +258,11 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 | --- | --- | --- | --- |
 | BME280 (sin cal) | ±2.37% RH | ±10.02% RH | 0.5% RH/año |
 | BME280 (calibrado) | 1.65% RH | ±2.24% RH | 0.5% RH/año |
-| DHT22 (sin cal) | ±2-5% RH | ±5-8% RH | 0.5% RH/año |
+| DHT22/AM2302 (sin cal) | -8 a +1% RH | ±5-8% RH | 0.5% RH/año |
 
-**CRITICO para tu modelo (Bell, 2015; AMT, 2026):**
+Fuentes: BME280 — Budiawan et al. (2026); DHT22/AM2302 — Araújo et al. (2020); deriva/año — Brown et al. (2026) reporta +0.56 a +2.46% RH/año en estaciones compactas sin mantenimiento.
+
+**CRITICO para tu modelo (Bell, 2015; Brown et al., 2026):**
 
 > *"Systematic humidity sensor drift... positive bias at low-to-mid range, negative bias at near-saturation conditions (>90% RH)."*
 
@@ -293,8 +272,8 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 
 | Parámetro | Valor |
 | --- | --- |
-| Precisión real (Budiawan, 2024) | ±0.5 hPa tras cal |
-| Error band | ±0.6 hPa |
+| Bias tras cal (Budiawan, 2026) | 0.06 hPa (tolerancia WMO: 0.1-0.15 hPa) |
+| Error band tras cal | ±0.8 hPa |
 | Deriva temporal | ~0.1 hPa/año |
 
 **Nota:** La presión BME280 es muy precisa y estable — la variable con mejor rendimiento relativo.
@@ -316,8 +295,6 @@ Caso general: NO. La gran mayoría de redes ciudadanas/de bajo costo no usan sat
 
 ---
 
-<a name="p2-5"></a>
-
 ## Pregunta 2.5: ¿Cómo y qué ruido modelaré?
 
 ### Modelo híbrido de 4 componentes
@@ -336,7 +313,7 @@ WS_bias   = np.random.uniform(-0.3, +0.3)     # m/s
 PRCP_bias = np.random.uniform(-0.05, +0.05)   # mm
 ```
 
-**Fuente:** Budiawan et al. (2024) — tablas de bias antes/después de calibración.
+**Fuente:** Budiawan et al. (2026) — tablas de bias antes/después de calibración.
 
 #### Componente 2: Ruido gaussiano (error aleatorio)
 
@@ -348,7 +325,7 @@ WS_noise   = np.random.normal(0, 0.3)    # m/s — σ ~0.3 m/s
 PRCP_noise = np.random.normal(0, 0.02)   # mm — cuantización domina
 ```
 
-**Fuente:** *Evaluation of Low-Cost Sensors for Weather and CO2 Monitoring* (MDPI IoT, 2020) — tabla de sigma para cada sensor.
+**Fuente:** Araújo et al. (2020) — *Evaluation of Low-Cost Sensors for Weather and CO2 Monitoring* (MDPI IoT) — tablas de error y sigma para cada sensor.
 
 #### Componente 3: Deriva temporal (envejecimiento)
 
@@ -362,7 +339,7 @@ T_drift[t]  = T_drift[t-1] + np.random.normal(0, 0.01)
 RH_drift[t] = RH_drift[t-1] + np.random.normal(0, 0.01)
 ```
 
-**Fuente:** Smith (2017-2024) — deriva documentada de BME280.
+**Fuente:** Brown et al. (2026) — deriva a largo plazo en estaciones compactas sin mantenimiento (humedad: +0.56 a +2.46% RH/año; temperatura: ~-0.03 a +0.01°C/año). Bell (2015) documenta deriva de humedad en servicio. Nota: los valores 0.5°C/año y 0.5% RH/año del código son supuestos conservadores; ajustar según el sensor y la variable modelada.
 
 #### Componente 4: Error de cuantización (resolución finita)
 
@@ -435,8 +412,6 @@ class LowCostSensorSimulator:
 
 ---
 
-<a name="resumen"></a>
-
 ## Resumen y conclusion
 
 | Pregunta | Respuesta |
@@ -453,58 +428,45 @@ El modelo (LIF + lookback window + solo sensores en tierra) se alinea con el est
 
 - Las redes actuales usan umbrales fijos (Zambretti) o NWP
 - Se propone un modelo bioinspirado (LIF) que aprende patrones espacio-temporales de los datos directamente
-- Hay un solo paper (Salcedo, 2024) que usa GNN con datos de bajo costo, y ninguno que use SNN/LIF para esta tarea
+- No hay ningún paper documentado que aplique SNN/LIF a datos de sensores de bajo costo para predicción de lluvia
 
 ### Fuentes principales citadas
 
-1. **WMO (2023)**. *Vision for the WMO Integrated Global Observing System (WIGOS)*, WMO-No. 1243.
+1. **WMO (2019)**. *Visión del Sistema Mundial Integrado de Observación de la OMM para 2040* (WMO Vision for WIGOS). WMO-No. 1243, Edición de 2019.
    - https://library.wmo.int/
 
-2. **Haas et al. (2025)**. *Observation based precipitation life cycle analysis of heavy rainfall events*. Weather and Climate Dynamics, 6, 949-969.
+2. **Haas, S. J.; Kvas, A.; Fuchsberger, J. (2025)**. *Observation based precipitation life cycle analysis of heavy rainfall events in the southeastern Alpine forelands*. Weather and Climate Dynamics, 6, 949-963.
    - https://wcd.copernicus.org/articles/6/949/2025/
 
-3. **Performance and longevity of compact AiOWS (2026)**. *Atmospheric Measurement Techniques*, 19, 3001-3030.
+3. **Brown, C. W.; Schadee, M.; de Haij, M.; Brandsma, T. (2026)**. *Performance and longevity of compact all-in-one weather stations – the good, the bad and the ugly*. Atmospheric Measurement Techniques, 19, 3001-3018.
    - https://amt.copernicus.org/articles/19/3001/2026/
 
-4. **Budiawan et al. (2024)**. *A Study on Environmental Sensors for Low-Cost Weather Stations*. Engineering Innovations, 17, 57-68.
+4. **Budiawan, I.; Ananda, N.; Wicaksana, H. S.; Burohman, A. M.; Mukhlish, F.; Ekawati, E.; Kurniadi, D. (2026)**. *A Study on Environmental Sensors for Low-Cost Weather Stations*. Engineering Innovations, 17, 57-74.
    - https://www.scientific.net/EI.17.57
 
-5. **Smith, R. J. (2013-2024)**. *Testing and Comparing Low Cost Hygrometers*.
+5. **Smith, R. J. (2013-2024)**. *Testing and Comparing Low Cost Hygrometers*. Página personal, **no revisada por pares** — útil solo como observación anecdótica de deriva a largo plazo.
    - http://www.kandrsmith.org/RJS/Misc/hygrometers.html
 
-6. **Evaluation of Low-Cost Sensors for Weather and CO2 Monitoring (2020)**. *MDPI IoT*, 1(2), 239-258.
+6. **Araújo, T.; Silva, L.; Moreira, A. (2020)**. *Evaluation of Low-Cost Sensors for Weather and Carbon Dioxide Monitoring in Internet of Things Context*. MDPI IoT, 1(2), 286-308.
    - https://www.mdpi.com/2624-831X/1/2/17
 
-7. **Chodorek et al. (2022)**. *Response Time and Intrinsic Information Quality as Criteria for Selection of Low-Cost Sensors for Mobile Weather Stations*. *Electronics*, 11(15), 2448.
+7. **Chodorek, A.; Chodorek, R. R.; Sitek, P. (2022)**. *Response Time and Intrinsic Information Quality as Criteria for the Selection of Low-Cost Sensors for Use in Mobile Weather Stations*. *Electronics*, 11(15), 2448.
    - https://doi.org/10.3390/electronics11152448
 
-8. **Bell (2015)**. *Quantifying uncertainty in citizen weather data*. PhD thesis, Aston University.
+8. **Bell, S. J. (2015)**. *Quantifying uncertainty in citizen weather data*. PhD thesis, Aston University.
    - https://publications.aston.ac.uk/id/eprint/26693/
 
-9. **Wang & Hocke (2022)**. *Atmospheric Effects and Precursors of Rainfall over the Swiss Plateau*. *Remote Sensing*, 14(12), 2938.
+9. **Wang, W.; Hocke, K. (2022)**. *Atmospheric Effects and Precursors of Rainfall over the Swiss Plateau*. *Remote Sensing*, 14(12), 2938.
    - https://www.mdpi.com/2072-4292/14/12/2938
 
 10. **WMO (2025)**. *World Meteorological Congress endorses actions to promote AI for forecasts and warnings*.
-    - https://wmo.int/news/media-centre/
+    - https://wmo.int/news/media-centre/world-meteorological-congress-endorses-actions-promote-ai-forecasts-and-warnings
 
-11. **Brasil et al. (2022)**. *Minimum Rainfall Inter-Event Time to Separate Rainfall Events*. *Sustainability*, 14(3), 1721.
-    - https://www.mdpi.com/2071-1050/14/3/1721
+11. **Brasil, J. B.; Guerreiro, M. S.; Andrade, E. M. de; de Queiroz Palácio, H. A.; Medeiros, P. H. A.; Ribeiro Filho, J. C. (2022)**. *Minimum Rainfall Inter-Event Time to Separate Rainfall Events in a Low Latitude Semi-Arid Environment*. *Sustainability*, 14(3), 1721.
+   - https://www.mdpi.com/2071-1050/14/3/1721
 
-12. **WMO RA-V Workshop (2023)**. *Transition to Automated Ground-based Measurements*.
-    - https://etrp.wmo.int/
+12. **Sgoff, C.; Acevedo, W.; Paschalidi, Z.; Ulbrich, S.; Bauernschubert, E.; Kratzsch, T.; Potthast, R. (2022)**. *Assimilation of crowd-sourced surface observations over Germany in a regional weather prediction system*. Quarterly Journal of the Royal Meteorological Society, 148(745), 1752-1767.
+   - https://doi.org/10.1002/qj.4276
 
-13. **Sgoff et al. (2022)**. *Assimilation of crowd-sourced surface observations over Germany in a regional weather prediction system*. Quarterly Journal of the Royal Meteorological Society, 148(745), 1752-1767.
-    - https://doi.org/10.1002/qj.4276
-
-14. **Mao & Sorteberg (2026)**. *Exploring the predictability of using crowdsourced observations in statistical postprocessing of NWP based precipitation nowcasts by machine learning*. Hydrological Research Letters, 20(1), 44-51.
-    - https://doi.org/10.3178/hrl.25-00020
-    
-Referencias que quedan sin verificar completamente
-| Ref | Estado | Nota |
-|---|---|---|
-| WMO (2023) cita textual | ⚠️ Plausible, no confirmada | WMO-No. 1243 no está accesible públicamente |
-| Budiawan (2024) valores numéricos (+0.14°C, ±0.61°C) | ⚠️ Plausible | El abstract no los incluye; vienen del paper completo (paywall) |
-| MDPI IoT (2020) | ❌ 403 | Revista existe, volumen existe, pero contenido no accesible |
-| Wang & Hocke (2022) | ❌ 403 | Igual, MDPI bloquea el acceso automatizado |
-| Brasil et al. (2022) | ❌ 403 | Ídem |
-Las 3 referencias MDPI bloqueadas son citaciones plausibles (revistas y volúmenes existen), pero si quieres verificar claims específicos necesitarás acceso institucional.
+13. **Mao, Y.; Sorteberg, A. (2026)**. *Exploring the predictability of using crowdsourced observations in statistical postprocessing of NWP based precipitation nowcasts by machine learning*. Hydrological Research Letters, 20(1), 44-51.
+   - https://doi.org/10.3178/hrl.25-00020
