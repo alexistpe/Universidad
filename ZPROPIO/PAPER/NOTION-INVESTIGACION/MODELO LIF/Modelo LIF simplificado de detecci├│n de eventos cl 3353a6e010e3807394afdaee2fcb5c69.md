@@ -3259,9 +3259,104 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
 
 #### Modelo LIF:
 
-**CONTINUA AQUI**
-
+Aqui se especifica el diseño del modelo LIF simplificado.
 El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO.
+
+- **¿La normalizacion de variables es necesaria? ¿Que tecnica de normalizacion se utilizara?**
+    
+    ### ¿Es necesaria?:
+    
+    Se contienen 6 variables meteorologicas fundamentales.
+    Cada variable contiene su propios valores unicos. ¿Es necesario normalizarlas en una unica escala en comun?
+    
+    - **Investigacion Normalizacion:**
+        1. **¿Es la normalización estrictamente necesaria?**
+            1. Respuesta corta: NO es matemáticamente obligatoria, pero SÍ es prácticamente necesaria (y mi caso específico, altamente recomendada).
+                - El mecanismo del LIF que determina esta respuesta
+                - El modelo LIF discretizado (Gerstner, Neuronal Dynamics, EPFL) es:
+                    - V[t+1] = α·V[t] + (1-α)·I[t] donde α = e^(-Δt/τ_m); dispara si V ≥ θ; luego V ← V_reset
+                    - La dinámica es lineal en la corriente de entrada It. Esto tiene dos consecuencias:
+            2. Las escalas relativas se propagan directamente al potencial de membrana. Si la presión (~1000 hPa) entra como corriente 1000 veces mayor que la temperatura (15°C), el potencial de membrana V será dominado por presión y saturará el umbral θ casi siempre, produciendo disparos constantes que contienen poca información discriminativa sobre lluvia 
+                - (Vasilache et al., 2025, arXiv:2504.11026; Guo et al., 2023, ICCV — Membrane Potential Batch Normalization for SNNs).
+            3. Técnicamente, pesos aprendidos pueden compensar la escala (un w_presión ~0.001 vs w_temp ~0.1). Pero esto hace que el espacio de optimización sea mal condicionado (ill-conditioned), lo que degrada convergencia y estabilidad (Herranz-Celotti & Rouat, 2022, arXiv:2202.00282 — Stabilizing Spiking Neuron Training).
+                - Evidencia empírica directa con tus mismas variables (Syaharuddin, Fatmawati & Suprajitno (2022), Int. J. Sustainable Development and Planning (DOI: 10.18280/ijsdp.170707), publicaron un estudio que probó 7 técnicas de normalización en datos de lluvia y humedad del aire (tus variables).
+                - Textual:
+                
+                > "The use of original data (raw data) to train neural networks can lead to convergence problems... This will have implications for a high number of epochs and difficult networks to recognize data patterns. Therefore, the stage of normalization or standardization of data needs to be done before the data is trained."
+                Resultados de su experimento: Z-score fue el mejor para datos de lluvia (MAE 0.051, MSE 0.004), y mean-MAD / Z-score para humedad. Con datos crudos, el modelo no convergía adecuadamente.
+                > 
+        2. **¿Cómo funciona el LIF en relación a la normalización? (el punto clave)**
+            1. El modelo LIF simplificado recibe datos meteorológicos de una de dos formas. La respuesta a "¿necesito normalizar?" cambia según cuál uses:
+            Camino A: Codificación por tasa (rate coding) — la más común para SNN
+            En rate coding, el valor real se convierte en una tasa de disparo de un tren de spikes (típicamente Poisson). La encuesta de la revista Neural Processing Letters (2021, Springer) lo define así:
+                
+                > "Rate codes embed the information in the instantaneous or averaged rate of spike generation... signal amplitudes are directly mapped to spike frequencies."
+                La fórmula típica: λ = v_normalizado × f_max (spikes/segundo).
+                Aquí la normalización es prácticamente OBLIGATORIA, porque la tasa de disparo λ es proporcional al valor de entrada:
+                > 
+            - **Sin normalizar:** presión 1000 hPa → λ ~1000 spikes/s (saturación total), temperatura 15°C → λ ~15 spikes/s (prácticamente silenciosa)
+            - **Normalizado a 0,1:** todas las variables generan λ en el mismo rango 0, f_max, comparables
+            Conclusión: Si tu LIF usa rate coding (la opción estándar en la literatura de SNN aplicadas), la normalización min-max a 0,1 es la práctica necesaria para que el rango de tasas de disparo sea consistente entre variables.
+            Camino B: Inyección directa de corriente (input analógico)
+            Si el valor real entra directamente como corriente It = w·x (sin codificación Poisson), el modelo puede funcionar sin normalización porque los pesos aprendidos absorben la escala. Pero esto:
+            - **Requiere inicialización cuidadosa (Herranz-Celotti & Rouat, 2022)**
+            - **Sufre de convergencia lenta y riesgo de saturación**
+            - **Es menos estándar en la literatura**
+            
+        3. **¿Cómo se realiza la normalización?**
+        (Syaharuddin et al., 2022)
+            
+            
+            | Técnica | Fórmula | Mejor para | Resultado en su estudio |
+            | --- | --- | --- | --- |
+            | Z-score (standardization) | x' = (x − μ)/σ | Lluvia, humedad | Mejor para lluvia (MAE 0.051) |
+            | Min-Max | x' = (x − min)/(max − min) | Rate coding (acota a 0,1) | Bueno, depende del caso |
+            | Mean-MAD | x' = (x − μ)/MAD | Humedad | Recomendado para humedad |
+            | Decimal scaling | x' = x/10^k | Datos de magnitud uniforme | — |
+            | Sigmoid / tanh | — | Datos acotados | — |
+            - Furtado, Molina et al. (2026), arXiv:2508.07062 — "Setting the Standard: Recommended Practices for Data Preprocessing in Data-Driven Climate Prediction", publicado por un equipo que incluye a expertos del sector (el paper de referencia en preprocesamiento climático para ML).
+            - Textual:
+                
+                > "Most climate datasets are inherently spatiotemporal, sparse, and possess spatial and temporal autocorrelations. The data are often nonstationary... Climate variables also have varying distributions, many of which are non-normal (e.g., gamma, bimodal, log-normal, and skew-normal), and exhibit non-linear interactions among themselves."
+                > 
+            
+            **Propuesta:**
+            
+            1. **Crear anomalías estandarizadas** (restar la climatología mensual, luego estandarizar) en lugar de normalizar el valor absoluto. Esto es crítico para presión y temperatura, cuyas señales precursoras de lluvia son pequeñas variaciones (5-10 hPa, 2-3°C) sobre un valor de fondo grande y estacionario.
+            2. **Tratar con cuidado valores extremos (outliers)** — clave en precipitación, cuya distribución es fuertemente no-normal (muchos ceros, cola pesada).
+            3. **No** **mezclar datos de entrenamiento y validación** al calcular μ y σ (data leakage) — usar división temporal estricta.
+            4. **Para presión específicamente:**
+            La presión absoluta (950-1050 hPa) comprimida por min-max a 0,1 enterraría la señal informativa (los cambios de 5-10 hPa que preceden tormentas = solo 1% del rango). Para presión, la literatura sugiere 2 opciones:
+                - Anomalía de presión (desviación de la media estacional)
+                - Tendencia de presión (derivada temporal: ΔP/Δt en las últimas 3h — ya usada por el Zambretti Forecaster)
+                    - Esto es más informativo que el valor absoluto y es directamente compatible con tu lookback window de 6-12h.
+                    
+        4. **Síntesis fundamentada**
+            
+            
+            | **Pregunta** | **Respuesta** | **Fuente** |
+            | --- | --- | --- |
+            | ¿Normalización estrictamente necesaria? | No matemáticamente, pero sí prácticamente para convergencia, estabilidad y comparabilidad entre variables | Syaharuddin et al. (2022); Herranz-Celotti & Rouat (2022) |
+            | ¿Necesaria para rate coding? | Sí, es esencial — la tasa de disparo λ es proporcional al valor normalizado | Vasilache et al. (2025); Neural Processing Letters (2021) |
+            | ¿Cómo normalizar? | Z-score para lluvia/humedad (mejor empíricamente); anomalías estandarizadas para presión/temperatura; min-max 0,1 para rate coding | Syaharuddin et al. (2022); Furtado et al. (2026) |
+            | ¿Por qué presión/temperatura con anomalía? | Su señal predictiva es la desviación (Δ), no el valor absoluto; min-max entierra la señal | Furtado et al. (2026) |
+            | ¿Riesgo sin normalizar? | Convergencia lenta, saturación de tasa de disparo, dominio de variables de mayor magnitud, inestabilidad de gradientes | Syaharuddin et al. (2022); Herranz-Celotti & Rouat (2022) |
+            - **Resumen de propuestas:**
+                1. **Temperatura y humedad** → Z-score estacional (x − μ_mes)/σ_mes
+                2. **Presión** → Anomalía o tendencia ΔP/Δt (3h)
+                3. **Viento** → Z-score o min-max a 0,1 (magnitud comparable)
+                4. **Precipitación** → Tratamiento especial por distribución no-normal: o bien log(1+x) antes de escalar, o umbral binario (0 = seco, 1 = lluvia) si el LIF solo detecta eventos
+                5. **Antes de rate coding** → re-escalar a 0,1 para mapear a λ ∈ 0, f_max
+            - **Esto está respaldado por:** Syaharuddin et al. (2022, IIETA), Furtado et al. (2026, arXiv:2508.07062), Vasilache et al. (2025, arXiv:2504.11026), Herranz-Celotti & Rouat (2022, arXiv:2202.00282), Guo et al. (2023, ICCV), y la encuesta de codificación en SNN (Neural Processing Letters, 2021).
+    - **Conclusion:**
+        
+        Si, la normalizacion es esencial para que el modelo LIF simplificado pueda identificar los patrones correctamente.
+        
+        Con respecto a la normalizacion generalizada o individual: “el objetivo de la normalización no es que todas las variables tengan "la misma técnica", sino que todas terminen en la misma escala (0-1), cada una transformada según su propia distribución.”. Esto permite identificar la tecnica mas adecuada para cada variable y normalizarla individualmente, permitiendo luego una sensibilidad adecuada para el modelo LIF.
+        
+    
+    ### ¿Que tecnica de normalizacion se utilizara?
+    
 
 #### Definicion baseline:
 
