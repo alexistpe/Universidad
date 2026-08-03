@@ -1,4 +1,4 @@
-# Modelo LIF simplificado de detección de eventos climáticos
+# ModeloLIF-DeteccionLluvia
 
 Debilidad: Se debe llamar "modelo LIF simplificado inspirado en neurociencia computacional" y no "red neuronal de picos" ni "SNN”
 
@@ -616,7 +616,7 @@ Para su aplicacion utilizaremos la tegnologia bioinspirada llamada LIF. Esta teg
         - β es tu factor de **leak** (decaimiento).
         - X[t] es la entrada del sensor en ese momento.
         
-        ![image.png](Modelo%20LIF%20simplificado%20de%20detecci%C3%B3n%20de%20eventos%20cl/image.png)
+        ![image.png](ModeloLIF-DeteccionLluvia/image.png)
         
     
     ### **El flujo de trabajo (Pruebas python, implementacion en C++)**
@@ -1112,7 +1112,7 @@ Para plantear la base debemos responder 3 preguntas fundamentales, que van a ir 
 
 # Entrega del PAPER: 28/08/26
 
-[Pendiente](Modelo%20LIF%20simplificado%20de%20detecci%C3%B3n%20de%20eventos%20cl/Pendiente%2038b3a6e010e380cd92c1f7b943230814.csv)
+[Pendiente](ModeloLIF-DeteccionLluvia/Pendiente%2038b3a6e010e380cd92c1f7b943230814.csv)
 
 ## **1) PREGUNTA DE INVESTIGACION**
 
@@ -1256,7 +1256,7 @@ Esta investigacion aporta de las siguietes maneras:
     Si V(t) ≥ V_threshold → emite spike → V(t) := V_reset
 - **Descripcion de los valores:**
     
-    ![image.png](Modelo%20LIF%20simplificado%20de%20detecci%C3%B3n%20de%20eventos%20cl/image%201.png)
+    ![image.png](ModeloLIF-DeteccionLluvia/image%201.png)
     
 - **Período refractario y período de gracia**
     - Tras emitir un spike, la neurona biológica entra en un período refractario durante el cual no puede disparar de nuevo, independientemente de la corriente entrante. El período refractario absoluto (~2ms en neuronas biológicas) previene que una neurona dispare dos spikes tan seguidos que sean indistinguibles. El período refractario relativo (varios ms) aumenta el umbral temporalmente, haciendo más difícil el disparo.
@@ -1274,11 +1274,11 @@ Esta investigacion aporta de las siguietes maneras:
     - Para representar una señal continua (temperatura, presion, etc…) como un “tren” de spikes es el problema fundamental en estos modelos. Por eso se exponen diferentes enfoqus posibles:
     - Tabla:
         
-        ![image.png](Modelo%20LIF%20simplificado%20de%20detecci%C3%B3n%20de%20eventos%20cl/image%202.png)
+        ![image.png](ModeloLIF-DeteccionLluvia/image%202.png)
         
 - Existen otros modelos aparte de LIF, sin embargo este es el que permite representar de forma solida y eficiente las señales necesarias, sin agregar complejidad extra innecesaria al modelo.
     
-    ![image.png](Modelo%20LIF%20simplificado%20de%20detecci%C3%B3n%20de%20eventos%20cl/image%203.png)
+    ![image.png](ModeloLIF-DeteccionLluvia/image%203.png)
     
 - **No necesita entrenamiento exaustivo.**
     - Si bien se necesita una serie de pruebas para determinar el valor ideal para las variables del modelo, no se realizara un entrenamiento exaustivo como el “Surrogate Gradient Learning”, los valores de las variables utilizadas se ajustaran manualmente o por “grid search”, debido a la simplicidad del modelo. El paper de Maass (1997) permite explicar el potencial computacional y capacidad subyacente de este modelo sin necesitar entrenamiento previo.
@@ -1289,7 +1289,7 @@ Esta investigacion aporta de las siguietes maneras:
 La diferencia original del trabajo es el dominio de aplicación (variables climáticas argentinas del SMN) y la comparación directa contra un detector de umbral estático como punto de partida para la evaluacion.
 - **Tabla comparativa:**
 
-![image.png](Modelo%20LIF%20simplificado%20de%20detecci%C3%B3n%20de%20eventos%20cl/image%204.png)
+![image.png](ModeloLIF-DeteccionLluvia/image%204.png)
 
 ---
 
@@ -2715,9 +2715,104 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
 - **¿Cómo identificaré y trataré los outliers (valores anómalos)?**
     
-    DLos valores outliners son valores anomalos (poco comunes, fuera del promedio) dentro de los datos utilizados. 
+    Los outliners son valores anomalos dentro de los datos utilizados.
     
-    ¿Son negativos para el entrenamiento?: No, el SMN se encarga de abordar estos valores y corregirlos o en el peor de los casos no informalos, permite que los datos utilizados en el dataset sean coeherentes entre si.
+    Un valor anomalo es una medida que se diferencia de forma muy marcada del resto de datos, osea del promedio. 
+    
+    - Son datos que rompen el patron del resto de datos.
+    
+    ### Tipos
+    
+    Existen 2 tipos de outliners
+    
+    - Estadisticos: Son valores anomalos reales que salen de forma muy marcada del promedio comun de los datos.
+    - Medicion: Son errores de medicion que resultan en valores fuera del promedio (anomalos).
+    
+    ### Como afectan al modelo
+    
+    **¿Existen errores de medicion en los datos?**: No en su mayoria, el DWD se encarga de abordar estos valores anomalos producidos por errores de medicion y corregirlos o en el peor de los casos no informalos, permite que los datos utilizados en el dataset sean coeherentes entre si.
+    
+    - Tabla de errores groseros/imposibles:
+    - La WMO (1993) define límites explícitos de "suspect" y "erroneous" para cada variable, implementados en el test wmo_gross_errors de dataresqc:
+    
+    | Variable | Límite "suspect" (ej. lat 45±, invierno) | Límite "erroneous" | Fuente |
+    | --- | --- | --- | --- |
+    | Presión (estación) | 300-400 ó 1080-1100 hPa | <300 o >1100 hPa | WMO 1993, VI.7 |
+    | Presión (nivel mar) | 910-940 ó 1080-1100 hPa | <910 o >1100 hPa | WMO 1993 |
+    | Temperatura | −90 a −80°C ó +35 a +40°C | <−90 o >+40°C | WMO 1993 |
+    | Punto de rocío | −99 a −85°C ó +30 a +35°C | <−99 o >+35°C | WMO 1993 |
+    | Viento | 50-125 m/s | >125 m/s | WMO 1993 |
+    | Humedad relativa | — (tiene su propio test de errores en dataresqc, variable acotada 0-100%) | — | dataresqc |
+    - **Nota clave:** existe un test separado específico para Humedad Relativa y Cobertura Nubosa ("Gross Errors Test for Cloud Cover and Relative Humidity"), porque la humedad tiene su propio patrón de error (los sensores capacitivos se saturan/contaminan cerca del 100% — Bell 2015).
+    
+    **¿Que problemas pueden causar los outliners estadisticos?**: El principal problema que existe con este tipo de valores, es que minimizan los valores normales, provocando que los cambios precursores de una tormenta (pequeñas variaciones) pasen desapercibidas para el modelo.
+    
+    ### Como se abordaran
+    
+    **¿Como se deberan tratar los outliners estadisticos?:** Se deberan transformar antes de normalizarlos para su utilizacion en el entrenamiento, permitiendo que el modelo se pueda adaptar de forma adecuada a estos valores anomalos.
+    
+    **¿Que metodos se utilizaran?:**
+    
+    1. Se analizara primero que variable/s son las que provocan valores anomalos mas seguido.
+        - No todas las variables producen valores anomalos con la misma intensidad, eso genera que se clasificen segun la intensidad con la que pueden cambiar.
+        - Esto está directamente documentado en los valores por defecto del test de outliers del paquete dataresqc (herramienta oficial del Copernicus Data Rescue Service, C3S):
+        
+        | Variable | Distribución estadística | ¿Produce outliers (Tipo A)? | Fuente |
+        | --- | --- | --- | --- |
+        | Precipitación | Zero-inflated (muchos ceros) + cola pesada | SÍ, en abundancia — por eso necesita IQR=5 (el más amplio) | dataresqc (C3S); Marra, Amponsah & Papalexiou (2023) |
+        | Velocidad del viento | Weibull, cola larga hacia velocidades altas | Sí, rachas extremas son la cola de la Weibull | Monahan (2006); Rehman et al. (2024); NIST "Peaks Over Threshold" |
+        | Temperatura | ~Normal (gaussiana) | Pocos reales — por eso usa IQR=3 (el más estrecho) | dataresqc (C3S) |
+        | Presión | ~Normal | Muy pocos — rango físico acotado | dataresqc (C3S) |
+        | Humedad relativa | Acotada 0, 100% | Muy pocos reales — acotada físicamente | dataresqc (C3S) |
+        | Direccion del viento | -No se aplican metodos lineales debido a sus datos circulares | - | Fisher, N.I. (1993) |
+        - **Conclusión:** La precipitación es la variable que produce más valores anómalos con diferencia, seguida del viento. Temperatura, presión y humedad tienen distribuciones "bien portadas" y sus extremos reales son raros.
+        - **Casos especiales:**
+            - **Humedad relativa:**
+            - **Direccion del viento:** No se normaliza en grados. Se descompone en componentes u/v (seno/coseno) y esas componentes sí se normalizan con z-score como las demás.
+                - Consiste en descomponer la dirección en componentes cartesianas u/v, que vuelven a ser lineales:
+                    
+                    u = WS · sin(dir)     (componente Este-Oeste)
+                    v = WS · cos(dir)     (componente Norte-Sur)
+                    
+                    Serpa-Usta et al. (2025), Atmosphere 16(11), 1292, DOI: 10.3390/atmos16111292 (https://www.mdpi.com/2073-4433/16/11/1292)
+                    
+    2. Se identificaran las estrategias para preprocesar los valores de esta variable, permitiendo abordar los valores anomalos.
+        - El objetivo es comprimir los valores de gran escala para lograr una coherencia entre datos, y que no se minimicen entre ellos.
+            - Al haber eliminado casi por completo los errores groseros de las variables, se utilizaran metodos para los outliners unicamente en las variables que lo necesiten. (fueron filtradas por QC institucional)
+            - Transformaciones inapropiadas inducen artefactos estadísticos en series climáticas.
+        - Se divide en 2 pasos: PASO 1 (transformación global) → PASO 2 (normalización).
+        - Aqui se detalla el metodo que se utilizara para cada variable:
+    
+    | **Variable** | **Distribución** | **¿Transformar outliers?** | **Método** | **Justificación** |
+    | --- | --- | --- | --- | --- |
+    | **Precipitación** | Zero-inflated + cola pesada (gamma en positivos) | SÍ — prioridad máxima | log(1+x) luego z-score, o binaria 0/1 | Cola pesada documentada (Marra et al., 2023). dataresqc usa IQR=5 (el más amplio) y excluye ceros. Min-max sin transformar aplasta la lluvia normal |
+    | **Velocidad del viento** | Weibull, sesgada a valores altos | SÍ — moderado | Z-score robusto (mediana/MAD) o Winsorización al percentil 99 | Distribución Weibull (Monahan, 2006). dataresqc IQR=4. Las ráfagas son físicamente reales (señal), no deben borrarse — solo evitar que distorsionen σ |
+    | **Dirección del viento** | Circular [0°,360°) | Caso especial (no es outlier lineal) | Descomponer en u/v (seno/coseno) → normalizar esas componentes | No puede tratarse como lineal (Fisher, 1993). Outliers circulares se detectan con distancia circular robusta (Mahmood et al., 2017) |
+    | **Temperatura** | ~Normal, acotada por clima | NO |  |  |
+    | **Presión** | ~Normal, rango estrecho (950–1050 hPa) | NO |  |  |
+    | **Humedad relativa** | Acotada 0,100% | NO |  |  |
+    
+    ---
+    
+    ### Fuentes
+    
+    El Hachem, A., Seidel, J., Imbery, F., Junghänel, T. & Bárdossy, A. (2022) — "Technical Note: Space–time statistical quality control of extreme precipitation observations". HESS, 26, 6137–6146. DOI: 10.5194/hess-26-6137-2022: https://hess.copernicus.org/articles/26/6137/2022/
+    
+    Furtado, Molina et al. (2026) — arXiv (Manejo de distribuciones no-normales y valores extremos en preprocesamiento climático.): https://arxiv.org/abs/2508.07062
+    
+    Brugnara, Y. et al., dataresqc: C3S Quality Control Tools for Historical Climate Data (R package v1.1.1, Apache 2.0). Funciones wmo_gross_errors (presión, temperatura, rocío, viento) y Gross Errors Test for Cloud Cover and Relative Humidity: https://ybrugnara.r-universe.dev/dataresqc/doc/manual.html#help-index
+    
+    OMM-N° 49. Reglamento Técnico, Volumen I — Normas meteorológicas de carácter general y prácticas recomendadas: ****https://library.wmo.int/es/records/item/32655-reglamento-tecnico-volumen-i-normas-meteorologicas-de-caracter-general-y-practicas-recomendadas
+    
+    Monahan, A. H. (2006). The Probability Distribution of Sea Surface Wind Speeds. Part II: Dataset Intercomparison and Seasonal Variability. *Journal of Climate*, *19*(4), 521-534. [https://doi.org/10.1175/JCLI3641.1](https://doi.org/10.1175/JCLI3641.1) https://journals.ametsoc.org/view/journals/clim/19/4/jcli3641.1.xml
+    
+    Fisher, N.I. (1993), Statistical Analysis of Circular Data (Cambridge University Press) — texto de referencia que establece que los datos circulares no pueden tratarse con métodos lineales, sino con distancia circular y estadísticos direccionales. ([https://www.cambridge.org/core/books/statistical-analysis-of-circular-data/324A46F3941A5CD641ED0B0910B2C33F](https://www.cambridge.org/core/books/statistical-analysis-of-circular-data/324A46F3941A5CD641ED0B0910B2C33F))
+    
+    Mahmood et al. (2017) — outliers circulares con distancia robusta. DOI: 10.22237/jmasm/1509495720: https://digitalcommons.wayne.edu/jmasm/vol16/iss2/22/
+    
+    Sippel, et al. (2015), *Quantifying changes in climate variability and extremes: Pitfalls and their overcoming*, *Geophys. Res. Lett.*,  42, doi:[10.1002/2015GL066307](https://doi.org/10.1002/2015GL066307). https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2015GL066307
+    
+    Bell, Simon (2015). Quantifying uncertainty in citizen weather data. PHD thesis, Aston University. https://publications.aston.ac.uk/id/eprint/26693/
     
 - **¿Qué ventana temporal de entrada (lookback window) usaré?**
     
@@ -2934,7 +3029,7 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     
     - **Sensores:** Variados (Davis, estaciones caseras)
     - **Protocolo:** Datos cada 5-15 min, QC automatizado
-    - **Estudio clave:** Bell (2015) — tesis doctoral sobre cuantificación de incertidumbre en datos ciudadanos, incluye estudio de deriva en servicio de sensores de humedad
+    - **Estudio clave:** Bell, Simon (2015). Quantifying uncertainty in citizen weather data. PHD thesis, Aston University. — tesis doctoral sobre cuantificación de incertidumbre en datos ciudadanos, incluye estudio de deriva en servicio de sensores de humedad
     - **Hallazgo:** Sensores de humedad desarrollan bias positivo a humedades bajas/medias y bias negativo a >90% RH por contaminación del polímero capacitivo (confirmado por Brown et al., 2026)
     
     ### 3. Sensor.Community / [Luftdaten.info](http://luftdaten.info/) (global)
@@ -3256,6 +3351,8 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
         - [https://doi.org/10.1002/qj.4276](https://doi.org/10.1002/qj.4276)
     12. **Mao, Y.; Sorteberg, A. (2026)**. *Exploring the predictability of using crowdsourced observations in statistical postprocessing of NWP based precipitation nowcasts by machine learning*. Hydrological Research Letters, 20(1), 44-51.
         - [https://doi.org/10.3178/hrl.25-00020](https://doi.org/10.3178/hrl.25-00020)
+    13. Bell, Simon (2015). Quantifying uncertainty in citizen weather data. PHD thesis, Aston University.
+        - https://publications.aston.ac.uk/id/eprint/26693/
 
 #### Modelo LIF:
 
@@ -3323,7 +3420,7 @@ El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO
             **Propuesta:**
             
             1. **Crear anomalías estandarizadas** (restar la climatología mensual, luego estandarizar) en lugar de normalizar el valor absoluto. Esto es crítico para presión y temperatura, cuyas señales precursoras de lluvia son pequeñas variaciones (5-10 hPa, 2-3°C) sobre un valor de fondo grande y estacionario.
-            2. **Tratar con cuidado valores extremos (outliers)** — clave en precipitación, cuya distribución es fuertemente no-normal (muchos ceros, cola pesada).
+            2. **Tratar con cuidado valores extremos (outliers)** — fundamental en precipitación, cuya distribución es fuertemente no-normal (muchos ceros, cola pesada).
             3. **No** **mezclar datos de entrenamiento y validación** al calcular μ y σ (data leakage) — usar división temporal estricta.
             4. **Para presión específicamente:**
             La presión absoluta (950-1050 hPa) comprimida por min-max a 0,1 enterraría la señal informativa (los cambios de 5-10 hPa que preceden tormentas = solo 1% del rango). Para presión, la literatura sugiere 2 opciones:
@@ -3352,7 +3449,8 @@ El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO
         
         Si, la normalizacion es esencial para que el modelo LIF simplificado pueda identificar los patrones correctamente.
         
-        Con respecto a la normalizacion generalizada o individual: “el objetivo de la normalización no es que todas las variables tengan "la misma técnica", sino que todas terminen en la misma escala (0-1), cada una transformada según su propia distribución.”. Esto permite identificar la tecnica mas adecuada para cada variable y normalizarla individualmente, permitiendo luego una sensibilidad adecuada para el modelo LIF.
+        Con respecto a la normalizacion generalizada o individual: “el objetivo de la normalización no es que todas las variables tengan "la misma técnica", sino que todas terminen en la misma escala (0-1), cada una transformada según su propia distribución.”. 
+        Esto permite identificar la tecnica mas adecuada para cada variable y normalizarla individualmente, permitiendo luego una sensibilidad adecuada para el modelo LIF.
         
     
     ### ¿Que tecnica de normalizacion se utilizara?

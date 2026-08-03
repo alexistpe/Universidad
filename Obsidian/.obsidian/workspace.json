@@ -25,14 +25,12 @@
             "id": "abfb235129f89c58",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "FISICA/TEORiA-U1-FISICA.md",
-                "mode": "source",
-                "source": false
+                "file": "RESOURCES/Pasted image 20260803160529.png"
               },
-              "icon": "lucide-file",
-              "title": "TEORiA-U1-FISICA"
+              "icon": "lucide-image",
+              "title": "Pasted image 20260803160529"
             }
           }
         ],
@@ -98,7 +96,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 300
   },
   "right": {
     "id": "46b862ebe738eaa4",
@@ -200,10 +198,12 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "abfb235129f89c58",
+  "active": "28faff5adb512198",
   "lastOpenFiles": [
-    "ASI/Evaluaciones/PARCIAL2-ASI.md",
     "FISICA/TEORiA-U1-FISICA.md",
+    "RESOURCES/Pasted image 20260803163750.png",
+    "RESOURCES/Pasted image 20260803160529.png",
+    "ASI/Evaluaciones/PARCIAL2-ASI.md",
     "ASI/U6/Teoria.md",
     "FISICA",
     "APROBADO",
