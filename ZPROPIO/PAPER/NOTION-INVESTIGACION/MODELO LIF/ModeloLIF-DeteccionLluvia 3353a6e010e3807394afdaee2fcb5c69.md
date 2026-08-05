@@ -1457,7 +1457,7 @@ Se quiere desarrollar un modelo predictor de eventos de lluvia basado en el mode
 | --- | --- | --- |
 | Geografia | Ubicacion fija. | Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella, Cordoba, Argentina. |
 | Rango | Horizonte a muy corto plazo. | 2h a 5Min. |
-| Estaciones del año | Determinada (Analisis) | Se entrenara en cada estacion en particular y luego se entrenara en base a todas las estaciones, se comparara cada modelo para determinar que estacion tiene mayor tasa de acierto y si el entrenamiento en base a estaciones particulares es superior al entrenamiento en general con todas las estaciones. |
+| Epoca del año | Completa | Se entrenara el modelo para que sea capaz de adaptarse a todo el año, utilizando tecnicas de transformacion y normalizacion de datos, agregando neuronas extras. |
 | Proveedor | Externo | Se utilizara un proveedor que permita acceder a los datos de forma directa y eficaz para el entrenamiento. No seran datos extraidos de forma particular, sino que se utilizaran datos provistos por la institucion dueña de la infrestructura. https://open-meteo.com/ |
 | Evento | Evento de Lluvia | Se buscara predecir unicamente eventos de lluvia que provoquen precipitaciones. |
 | Implementaciontecnica | Accesible y simple | Se eligira un lenguaje y IDE que permita extraer los datos de forma sencilla y eficaz, entrenar el modelo LIF a desarrollar y brindar correctamente los resultados extraidos del modelo. 
@@ -1471,7 +1471,7 @@ Se ajustaran los valores con el entrenamiento que permita maximizar la precision
   • Utilizar datos de estaciones que forman parte del SMN para la recoleccion de datos gracias a su facil acceso, obtenidos con dispositivos profecionales que cumplen los estandares de la MMO.
   • Posteriormente se añadira ruido a estos datos precisos para simular los datos de un sensor de bajo costo.
   • Se entrenaran 2 instancias del modelo LIF para comprobar su adaptacion a las diferentes precisiones en los datos disponibles.  |
-| Ciclo dia y noche | Se analizara las 24h | Las variables de lluvia pueden variar entre las horas diurnas y nocturans, sin embargo el modelo sera entrenado con ambas. ¿Añadir parametro de hora al modelo? |
+| Ciclo dia y noche | Se analizara las 24h | Las variables de lluvia pueden variar entre las horas diurnas y nocturans, sin embargo el modelo sera entrenado con ambas. Contendra ciertas neuronas especializadas en identificar estos cambios horarios para una mayor precision. |
 
 #### Que NO se va a hacer
 
@@ -1482,6 +1482,7 @@ Se detallan las caracteristicas y areas que NO va a abordar esta investigacion:
 - NO se predeciran tormentas. Solo se predeciran eventos de lluvia especificados en la metodologia.
 - NO se utilizaran datos mas complejos a los especificados, como imagenes satelitales. Solo se utilizaran 5 sensores terrestres determinados como:  Temperatura del aire, presion atmosferica, humedad relativa, precipitacion, viento (velocidad|direccion).
 - NO se entrenara un modelo nocturno y otro diurno, solo e entrenara un unico modelo capaz de identificar este evento de lluvia tanto de dia como de noche.
+- NO se entrenaran multiples modelos para cada estacion del año.
 - NO incorporara un sistema de alerta temprana que se comunique con organismos, autoridades, ciudadanos o cualquier infrestructura de alerta compleja . Solo se alertara de forma simbolica en el software desarrollado.
 - NO se utilizaran sensores personales para los datos utilizados en el entrenamiento, analisis u desarrollo. Se utilizaran datos de un proveedor externo debido a las limitaiones tecnicas. Se especifica el modo de analisis en la metodologia.
 - NO se implementara en hardware embebido real. Solo se simulara por software.
@@ -1492,7 +1493,7 @@ Se detallan las caracteristicas y areas que NO va a abordar esta investigacion:
 
 ---
 
-### Investigacion redes SNN (redes neuronales de pico)
+### Investigacion redes SNN (redes neuronales pico)
 
 | **Tema** | **Contexo** | **Autores principales** | **Anexos principales.** |
 | --- | --- | --- | --- |
@@ -3360,12 +3361,6 @@ Aqui se especifica el diseño del modelo LIF simplificado.
 El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO.
 
 - **¿La normalizacion de variables es necesaria? ¿Que tecnica de normalizacion se utilizara?**
-    
-    ### ¿Es necesaria?:
-    
-    Se contienen 6 variables meteorologicas fundamentales.
-    Cada variable contiene su propios valores unicos. ¿Es necesario normalizarlas en una unica escala en comun?
-    
     - **Investigacion Normalizacion:**
         1. **¿Es la normalización estrictamente necesaria?**
             1. Respuesta corta: NO es matemáticamente obligatoria, pero SÍ es prácticamente necesaria (y mi caso específico, altamente recomendada).
@@ -3452,19 +3447,411 @@ El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO
         Con respecto a la normalizacion generalizada o individual: “el objetivo de la normalización no es que todas las variables tengan "la misma técnica", sino que todas terminen en la misma escala (0-1), cada una transformada según su propia distribución.”. 
         Esto permite identificar la tecnica mas adecuada para cada variable y normalizarla individualmente, permitiendo luego una sensibilidad adecuada para el modelo LIF.
         
+
+---
+
+### ¿Que tecnica de normalizacion se utilizara? (Lista por variable)
+
+Las tecnicas de normalizacion utilizadas en cada variable, se determinan con un unico objetivo en comun: “Terminar con una escala final comun de 0 a 1”, permitiendo que ninguna variable domine el potencial de membrana.
+
+#### **Contexto:** **Funcionamiento del modelo.**
+
+En rate coding (la codificación estándar para SNN, snnTorch / Eshraghian et al. 2023, Proc. IEEE 111(9)):
+
+> La información se codifica en la tasa de disparo λ, y λ **es proporcional al valor de entrada normalizado**. El rango final de TODAS las variables debe ser comparable (idealmente 0,1) para que ninguna domine el potencial de membrana del LIF.
+Esto incentiva el uso de una técnica distinta por variable (según distribución), pero escala final común (0,1 o μ=0,σ=1).
+> 
+
+#### **Normalización óptima por variable:**
+
+| **Variable** | **Técnica óptima** | **Por qué (evidencia)** | **Escala final** |
+| --- | --- | --- | --- |
+| **Precipitación** | Binaria (0/1) para la tarea de clasificación o
+log(1+x) → min-max para intensidad | Cola pesada (Marra et al. 2023). dataresqc: IQR=5 (el más amplio), ceros excluidos. log comprime la cola sin borrar extremos reales | 0,1 |
+| **Velocidad viento** | RobustScaler (mediana/MAD) o Winsorización p99 → z-score | Distribución Weibull sesgada (Monahan 2006). σ clásico se infla con ráfagas extremas; MAD es insensible (NIST/robust stats) | μ=0,σ=1 → re-escalar a 0,1 |
+| **Dirección viento** | NO se normaliza en grados. Descomponer en u = WS·sin(θ), v = WS·cos(θ) → z-score de u y v | Variable circular (Fisher 1993). Sin descomposición, min-max/z-score producen saltos falsos en 0°/360° | μ=0,σ=1 |
+| **Temperatura** | Anomalía estacional (opcional) → z-score | ~Normal (dataresqc IQR=3 = menos outliers). La señal precursora es la desviación (ΔT), no el absoluto (Furtado et al. 2026) | μ=0,σ=1 |
+| **Presión** | Tendencia ΔP/Δt (3h) o anomalía (opcional) → z-score | ~Normal, rango estrecho. El min-max del valor absoluto (950-1050 hPa) aplasta la señal de ±5 hPa que precede tormentas | μ=0,σ=1 |
+| **Humedad relativa** | Clip 0,100 (opcional) → z-score | Acotada físicamente, sin cola pesada. Riesgo real: saturación del sensor >90-100% (Bell 2015), se vigila no se transforma | μ=0,σ=1 |
+
+**Aclaracion:** La precipitacion, velocidad viento y direccion viento son variables que se deben transformar y luego normalizar para un correcta interpretacion del modelo.
+
+Sin embargo, las variables temperatura, presion y humedad realtiva no es necesaria la transformacion para la posterior normalizacion, sin embargo es recomendable para mayor precision.
+
+- Se realizara una version del modelo con la normalizacion directa de estas ultimas 3 variables, y posteriormente se realizara en cuyo caso lo permita, una version con las variables transformadas y luego normalizadas.
+- La transformacion inicial puede ser util para un entrenamiento del modelo que abarque el año completo y no solo epocas.
+
+---
+
+### ¿Como se adaptaran los valores para el entrenamiento? (Descripcion de tecnicas)
+
+Para entregar los datos adecuados al modelo, se deberan transformar y normalizar segun corresponda cada variable segun un cierto metodo, permitiendo dejar un dataset listo para el entrenamiento del modelo.
+
+#### **Procedimiento que experimentan los datos del dataset.**
+
+Valor crudo → [PASO A: transformación] → [PASO B: normalización] → [PASO C: re-escalado a 0-1] → rate coding
+Ej: 18.4°C      opcional según variable       z-score/min-max          valor ∈ [0,1]          λ = valor × f_max
+
+#### Explicacion de Tecnicas:
+
+- **Min-Max (re-escalado a 0-1)**
+    - **Qué es:**
+        - Re-escala linealmente al rango 0,1.
+    - **Fórmula:**
+        - x' = (x − min) / (max − min)
+    - **Valores que se calculan:**
+        - min y max observados en el set de entrenamiento.
+    - **Ejemplo:**
+        - (velocidad de viento, min=0, max=12 m/s):
+        | Crudo (m/s) | Cálculo | x' |
+        |-------------|---------|-----|
+        | 0.0 | (0−0)/12 | 0.00 |
+        | 3.0 | (3−0)/12 | 0.25 |
+        | 9.0 | (9−0)/12 | 0.75 |
+        | 12.0 | (12−0)/12 | 1.00 |
+    - **Por qué se usa:**
+        - Es el escalado final obligatorio para rate coding del LIF — la tasa de disparo λ = valor × f_max solo tiene sentido si el valor ∈ 0,1 (un valor 1 dispara a máxima frecuencia, un 0 no dispara).
+        - Riesgo minimizado: Un outlier extremo infla max y aplasta todo lo demás. Por eso min-max se aplica DESPUÉS de las transformaciones que comprimen colas (log, robusto), no antes.
+    - **Orden correcto:**
+        - **transformar → z-score → min-max. El min-max es siempre el último paso de escalado.**
+- **Binaria (umbral de lluvia)**
+    - **Qué es:**
+        - Convierte un valor continuo en 0 o 1 según supere un umbral.
+    - **Fórmula:**
+        - x' = 1  si x ≥ UMBRAL
+        - x' = 0  si x < UMBRAL
+    - **Cómo se define el umbral**: El criterio estándar en meteorología es:
+        
+        
+        | **Referencia** | **Umbral de "evento de lluvia"** |
+        | --- | --- |
+        | **WMO (2017)** | Precipitación mensurable que alcanza el suelo: ≥ 0.1 mm en el periodo |
+        | **Convención ISD-Lite/NOAA** | Precipitación horaria ≥ 0.1 mm (la resolución mínima reportada) |
+        | **Criterio conservador** | ≥ 0.2 mm/h (evita falsos positivos por rocío/resolución del pluviómetro) |
+        - Para este caso **se eligio utilizar: 0.2 mm/h.**
+        - **Justificación:** El modelo debera estar adaptado a pluviómetros de cangilón (0.2 mm por vuelco) — un valor de 0.1 mm en ISD-Lite puede ser ruido de redondeo o rocío. Con 0.2 mm aseguras que al menos un vuelco real del cangilón ocurrió.
+    - **Ejemplo (precipitación horaria):**
+        
+        
+        | **Hora** | **Crudo (mm)** |
+        | --- | --- |
+        | 06:00 | 0.0 |
+        | 07:00 | 0.1 |
+        | 08:00 | 0.6 |
+        | 09:00 | 2.3 |
+        | 10:00 | 0.0 |
+    - **Por qué se usa:** El objetivo del modelo es la clasificación binaria (¿lloverá en la próxima hora?).
+        - La precipitación es la única variable con cero-inflación masiva y cola pesada — convertirla a binaria elimina TODO el problema de escala de golpe. El dato ya queda en {0,1}, que es exactamente el rango del rate coding.
+- **Z-score (estandarización)**
+    1. **Qué es:**
+        - Convierte el dato en "cuántas desviaciones estándar se aleja de la media".
+        - Utilizamos este metodo para convertir todas las unidades metorologias a una unica unidad universal: las desviaciones estandar con respecto a la media.
+        - De esa forma un cambio de 5 hPa en la presion vale equivalente que un cambio en 1°C de temperatura.
+            - Gracias a esto el LIF puede comparar y ponderar variables por su señal relativa, no por su magnitud bruta.
+    2. **Fórmula:**
+        - z = (x − μ) / σ
+    3. **Valores que se calculan:**
+        - μ = media aritmética de la variable (en el set de entrenamiento)
+        - σ = desviación estándar de la variable
+    4.  **Cómo se calculan:**
+        - μ = (1/N) · Σ xᵢ
+        - σ = √[ (1/N) · Σ (xᵢ − μ)² ]
+        - Al ser una simple transformacion lineal para adaptar el valor, no aplicamos la convencion probabilistica de numeros continuos o discretos (integral o sumatoria).
+            - No nos interesa convertir “z” en probabilidad, solo la utilizamos para compatibilizar las escalas.
+    5. **Ejemplo concreto (temperatura horaria, un día de Frankfurt):**
+        
+        | Hora | Crudo (°C) | Cálculo | z |
+        |------|-----------|---------|---|
+        | 06:00 | 14.0 | (14.0 − 18.4)/3.1 | −1.42 |
+        | 12:00 | 19.5 | (19.5 − 18.4)/3.1 | +0.35 |
+        | 18:00 | 21.8 | (21.8 − 18.4)/3.1 | +1.10 |
+        | 21:00 | 18.4 | (18.4 − 18.4)/3.1 | 0.00 |
+        
+        - Aquí μ=18.4°C, σ=3.1°C (calculados sobre todo el set de entrenamiento).
+    6. **Por qué se usa:** 
+        - Produce distribución con μ=0, σ=1, comparable entre variables. Mantiene los valores negativos y positivos (la media queda en 0). No acota — los z pueden exceder ±3 en extremos.
+        - Resultado típico: z ∈ −3, +3 aproximadamente.
+        - Permite obtener valores equivalentes entre variables, permitiendo posteriormente adaptarlos a una escala de (0,1) mediante min-max.
+    7. **Problema que resuelve:** 
+        - Que presión (~1000) no domine a temperatura (~18) en el potencial de membrana del LIF.
+
+- **log(1+x) (Transformacion)**
+    - **Qué es:**
+        - Transformación logarítmica con desplazamiento +1 para comprimir la cola pesada sin perder los ceros.
+    - **Fórmula:**
+        - x' = log(1 + x)
+    - **Por qué +1:**
+        - log(0) = −∞. Con +1, un valor crudo de 0 queda log(1) = 0 (se conserva el "no llovió").
+        - Es la transformación estándar para datos positivos sesgados (documentada en Best practice in statistics: The use of log transformation, PMC9036143).
+    - **Ejemplo (precipitación horaria, log natural):**
+        
+        
+        | Crudo (mm) | Cálculo | log(1+x) |
+        | --- | --- | --- |
+        | 0.0 | log(1+0) = log(1) | 0.00 |
+        | 0.2 | log(1.2) | 0.18 |
+        | 1.0 | log(2.0) | 0.69 |
+        | 3.0 | log(4.0) | 1.39 |
+        | 30.0 | log(31) | 3.43 |
+    - **Cómo comprime:** El salto de 3→30 mm (×10 en crudo) se convierte en 1.39→3.43 (+2 en escala log). El salto de 0.2→1.0 (que te importa para detectar lluvia normal) pasa de 0.18→0.69 — proporcionalmente más visible que en la escala cruda.
+        - Después del log se aplica min-max o z-score para llegar al rango final.
+    - **Por qué se usa (alternativa a binaria):**
+        - Si se quiere conservar la intensidad de lluvia (no solo presencia), log(1+x) permite que el LIF distinga "llovizna" de "Chubasco o torrencial" sin que esta ultima aplaste la escala.
+        
+- **Anomalía estacional (Transformacion)**
+    - **Qué es:**
+        - Resta el valor esperado para ese momento del año (climatología), dejando solo la desviación.
+    - **Fórmula:**
+        - x_anomalía = x − climatología(mes, hora)
+    - **Valores que se calculan:**
+        - La climatología = media histórica de la variable para cada combinación (mes, hora). Con 5+ años de datos EDDF se tiene ~12 meses × 24 horas = 288 promedios.
+    - **Ejemplo (temperatura de Frankfurt, julio 14:00):**
+        
+        
+        | **Dato** | **Valor** |
+        | --- | --- |
+        | Temperatura observada (14:00, 15-jul) | 24.5°C |
+        | Climatología julio-14:00 (media 2000-2025) | 22.0°C |
+        | Anomalía | +2.5°C |
+    - **Por qué se usa:**
+        - Elimina la estacionalidad (verano ≠ invierno, día ≠ noche). Así el LIF interpreta "+2.5°C" como "más caliente de lo normal para julio" en vez de "24.5°C = verano".
+        - La señal precursora de tormenta (calor anómalo) queda aislada del ruido estacional.
+        - Después de la anomalía se aplica z-score (normalizando la anomalía, no el absoluto)
+        
+- **Tendencia ΔP/Δt (Transformacion)**
+    - **Qué es:**
+        - La variación de presión en una ventana temporal (p. ej. 3 horas) — captura "la presión está cayendo".
+    - **Fórmula:**
+        - ΔP/Δt = (P[t] − P[t−3h]) / 3h (tendencia en hPa/h)
+    - **Valores que se calculan:**
+        - Ninguno estadístico — es una resta directa de la serie. Solo se define la ventana Δt (recomendada: 3h, coincidiendo con el Zambretti).
+    - **Ejemplo:**
+        
+        
+        | **Hora** | **P (hPa)** | **ΔP/Δt (vs 3h antes)** |
+        | --- | --- | --- |
+        | 09:00 | 1013.2 | — |
+        | 10:00 | 1012.1 | — |
+        | 11:00 | 1010.8 | — |
+        | 12:00 | 1009.0 | (1009.0−1013.2)/3 = −1.40 hPa/h |
+        | 13:00 | 1007.5 | (1007.5−1012.1)/3 = −1.53 hPa/h |
+    - Una caída sostenida de −1.4 a −1.5 hPa/h es la firma típica de aproximación de un frente (base del Zambretti, que predice "lluvia" cuando ΔP < −1.6 hPa/h).
+    - **Por qué se usa:** El valor absoluto de presión (1013 hPa) dice poco; la tendencia dice "se acerca algo". Es más informativo y elimina la estacionalidad y altitud de un golpe.
+        - Después se aplica z-score sobre la tendencia.
+        
+- **u = WS·sin(θ), v = WS·cos(θ) (descomposición del viento) (Transformacion)**
+    - **Qué es:**
+        - Convierte la dirección (circular) en dos componentes cartesianas lineales.
+    - **Fórmula (convención meteorológica):**
+        - u = −WS · sin(θ)     → componente Este-Oeste
+        - v = −WS · cos(θ)     → componente Norte-Sur
+        - (El signo negativo es convención: u>0 = viento del Oeste, v>0 = del Sur.
+        - Se puede usar la convención matemática sin signos.)
+    - **Ejemplo concreto:**
+        
+        
+        | **WS (m/s)** | **θ (°)** | **u = −WS·sin(θ)** | **v = −WS·cos(θ)** |
+        | --- | --- | --- | --- |
+        | 4.0 | 90 (del Este) | −4.0·1.0 = −4.0 | −4.0·0.0 = 0.0 |
+        | 4.0 | 270 (del Oeste) | −4.0·(−1.0) = +4.0 | −4.0·0.0 = 0.0 |
+        | 4.0 | 0 (del Norte) | −4.0·0 = 0.0 | −4.0·1.0 = −4.0 |
+        | 4.0 | 350 | −4.0·(−0.174) = +0.69 | −4.0·0.985 = −3.94 |
+        | 4.0 | 10 | −4.0·(0.174) = −0.69 | −4.0·0.985 = −3.94 |
+    - **Punto clave:**
+        - 350° y 10° (que en grados crudos están separados por 340°) producen u/v casi idénticos (+0.69/−3.94 vs −0.69/−3.94) — correcto, porque son casi la misma dirección (Norte). El wrap-around del círculo queda resuelto.
+    - **Por qué se usa:**
+        - La dirección es circular; el z-score/min-max en grados produciría saltos falsos en 0°/360°. Con u/v, la variable vuelve a ser lineal y normalizable. Además u y v incorporan la magnitud del viento (WS), así que si se usa u/v se puede incluso prescindir de WS como variable separada.
+        - Esto genera 2 variables del viento, provocando que tengan sus propias estandarizaciones.
+    - Se aplica z-score (o RobustScaler) a u y v independientemente.
+        - **Consecuencia numerica:** El modelo contaba "6 neuronas" (5 sensores + alerta), con la descomposicion u/v el viento aporta 2 neuronas, quedando: T, P, HR, u, v, PRECIP (6 sensores) + alerta. Revisar la cuenta de neuronas en la metodologia final del paper.
+
+- **RobustScaler (mediana/MAD)**
+    - **Qué es:**
+        - Igual que z-score pero usando estimadores robustos (insensibles a outliers).
+        - Utiliza la mediana en vez de desviaciones, permitiendo mayor inmunidad a outliners.
+    - **Fórmula:**
+        - z_robusto = (x − mediana) / MAD; donde MAD = 1.4826 · mediana( |xᵢ − mediana(x)| )
+    - **Valores que se calculan:**
+        - mediana = valor central (el 50% está arriba, 50% abajo) — no se infla con extremos
+        - MAD = mediana de las desviaciones absolutas respecto a la mediana
+        - 1.4826 = factor de consistencia para que MAD estime σ en datos normales (si usaras z-score equivalente)
+    - **Ejemplo (viento con una ráfaga extrema):**
+        - Series = 2, 3, 2, 4, 3, 15, 2, 3
+        
+        | Parámetro | Valor |
+        | --- | --- |
+        | mediana | 3.0 |
+        | |x−mediana| | 1,0,1,1,0,12,1,0 |
+        | mediana de esos | 1.0 |
+        | MAD | 1.4826 × 1.0 = 1.48 |
+        | z_robusto de la ráfaga de 15 | (15−3)/1.48 = +8.1 |
+        | z_robusto del 4 | (4−3)/1.48 = +0.67 |
+    - **Comparación con z-score clásico:**
+        - σ clásico = 4.4 (inflado por el 15) → el 4 daría z = 0.23 (aplastado).
+        - Con MAD, el 4 da +0.67 — los valores normales quedan mejor separados porque la ráfaga extrema no infló la escala.
+        - La dispersión de los datos normales se preserva fielmente.
+    - **Por qué se usa (viento):**
+        - La distribución Weibull del viento tiene rachas extremas reales. El RobustScaler las "tolera" sin dejar que distorsionen la separación de los valores normales.
+        - Permite mantener una media y varianza adecuada a los valores, permitiendo evitar que un unico valor anomalo mueva estas variables hacia un extremo.
+            - Ejemplo anexo con Z clasico:
+            - μ = (2+3+2+4+3+15+2+3)/8 = 4.25 ← el 15 corrió la media hacia arriba
+            - σ = √(Σ(x−μ)²/n) = √(135.5/8) = 4.12 ← el 15 infló la varianza
+                
+                
+                | Dato | z CLÁSICO (σ=4.12) | z ROBUSTO (MAD=1.48) |
+                | --- | --- | --- |
+                | 2 | −0.55 | −0.67 |
+                | 3 | −0.30 | 0.00 |
+                | 3 | −0.30 | 0.00 |
+                | 4 | −0.06 | +0.67 |
+                | 15 | +2.61 | +8.09 |
     
-    ### ¿Que tecnica de normalizacion se utilizara?
+- **Winsorización al percentil 99 (P99)**
+    - **Qué es:**
+        - Recorta los valores extremos al percentil 99 — los mayores quedan "clavados" en el valor del percentil 99 (no se eliminan, se acotan).
+    - **Fórmula:**
+        - x' = P99   si  x > P99
+        - x' = P1    si  x < P1  (simétrico, opcional)
+        - x' = x     en otro caso
+        - Valores que se calculan: P99 = el valor bajo el cual está el 99% de los datos (y P1 si recortas también los bajos).
+        - Osea el percentil 99 se refiere al valor que esta por encima del 99% de los datos.
+        - Se ordenan los datos, se toma el valor en la posición 99%.
+    - **Ejemplo (viento, si P99 = 14 m/s):**
+        
+        
+        | **Crudo (m/s)** | **Tras Winsorizar** |
+        | --- | --- |
+        | 5.0 | 5.0 (no se toca) |
+        | 13.0 | 13.0 (no se toca) |
+        | 14.2 | 14.0 (clavado en P99) |
+        | 22.0 | 14.0 (clavado en P99) |
+- Diferencia con "eliminar" outliers: El valor 22 no se borra ni se modifica a un "valor inventado" — simplemente se limita al máximo razonable (P99). El LIF sigue viendo "ráfaga fuerte" (14), pero el σ/min-max no se distorsiona con el 22.
+- **Por qué se usa:**
+    - Es una alternativa a RobustScaler. A veces se aplica antes del RobustScaler para doble protección. En este caso, con datos ya QC'd por DWD, **es un refinamiento opcional.**
+    - **Las ráfagas extremas reales rara vez superarán umbrales físicos.**
+
+### ¿Se entrenara el modelo por temporadas o por todo el año?
+
+#### B.1. Dos decisiones distintas que conviene separar
+
+Hay dos preguntas que a menudo se mezclan y que conviene separar:
+
+1. **Normalizacion**: ¿con que estadisticos (μ, σ) se estandariza cada variable?
+    - Ya decidido en el doc principal (seccion 6.2): **por estacion**, usando anomalias estacionales. La señal predictiva de presion/temperatura es la **desviacion** respecto a la climatologia del mes, no el valor absoluto.
+2. **Entrenamiento**: ¿se ajusta **un** modelo sobre los 12 meses, o **4 modelos** (uno por estacion)?
+
+#### B.2. Literatura de nowcasting
+
+**TA-SmaAt-UNet** (van Nieuwkoop & Mehrkanoon, 2026, arXiv:2606.09959):
+
+> "TA-SmaAt-UNet improves upon the core SmaAt-UNet in every season, indicating that the benefit of temporal context is not restricted to a single part of the year. The improvement is particularly relevant in summer, which is also the most difficult season in terms of CSI. This is consistent with previous nowcasting evidence that models often struggle more with convective summer precipitation than with more persistent winter rainfall."
+> 
+
+Informacion clave:
+
+- **El patron de la literatura** no es entrenar modelos separados por estacion, sino **entrenar un unico modelo** y darle **contexto estacional** (codificacion ciclica del momento del año: sin/cos del dia del año y de la hora).
+- **El contexto estacional** es mas beneficioso cuanto mas **raro e intenso** es el evento (mejoras mayores en umbrales de 10 y 20 mm/h que en 0.5 mm/h). La estacionalidad importa especialmente para los eventos que mas importan en un sistema de alerta.
+- **El verano es la estacion mas dificil** (conveccion), y el contexto estacional es justamente donde mas ayuda.
+
+**Implicacion directa:** la estrategia respaldada es **un solo modelo + informacion estacional como entrada o como normalizacion**, NO fragmentar el entrenamiento en modelos por estacion.
+
+#### B.3. Argumentos practicos para entrenar con el ano completo
+
+| Criterio | Entrenar 1 modelo anual | Entrenar 4 modelos estacionales |
+| --- | --- | --- |
+| **Volumen de datos** | EDDF 2020-2024: ~43,800 h → ~43,800 muestras | ~10,950 h/estacion → 4x menos datos por modelo |
+| **Eventos de lluvia** | Todos los regmenes (convectivo de verano, estratiforme de invierno) | Cada modelo ve solo su regimen; los eventos raros se fragmentan |
+| **Robustez** | Umbrales y pesos estimados con mas evidencia | Mas varianza, mayor riesgo de overfitting |
+| **Despliegue bajo costo** | 1 modelo, 1 umbral, 1 τ_m desplegable | 4 configuraciones + logica de seleccion de estacion |
+| **Transferencia de patrones** | Los precursores comunes (caida de presion, alza de humedad) se aprenden una vez | Cada modelo los reaprende por separado |
+
+Para un LIF simplificado de pocas neuronas y pocos parametros, el dato adicional del ano completo es directamente aprovechable: **mas datos = umbrales y pesos mas estables**.
+
+#### B.4. Como evaluar la estacionalidad (sin sesgar)
+
+La literatura de evaluacion de nowcasting da 3 reglas claras:
+
+1. **El test set debe cubrir al menos un ciclo estacional completo.** En series temporales con estacionalidad, el periodo de prueba debe abarcar el ciclo completo para poder evaluar la captura de la estacionalidad (practica estandar en division temporal; los papers de nowcasting dividen por **años completos consecutivos**, p.ej. entrenar 2008-2020, validar 2006 o 2020, testear 2021).
+2. **Reportar metricas por estacion.** Se reporta CSI/POD/FAR en los papers de nowcasting para desglosados por estacion buscando exponer la dificultad de cada una.
+3. **Test sesgados.** Un año de prueba con eventos extremos concentrados en pocos meses infla o desinfla las metricas. El estudio del DGMR (AMS, AIES 2023) lo maneja explicitamente separando "Test—Heavy" (meses con eventos intensos) de "Test—Light" para no atribuir a la maquina lo que es sesgo del periodo de prueba.
+
+#### B.5. ¿Como se implementa la informacion extra de la estacionalidad?
+
+- La Estandarizacion (A), y la Contexto estacional (B) son dos mecanismos distintos.
     
+    
+    |  | **A. Estandarización estacional** | **B. Contexto estacional cíclico** |
+    | --- | --- | --- |
+    | **Qué es** | Un preprocesamiento de cada valor | Features de entrada adicionales |
+    | **Qué hace** | Quita la climatología (el ciclo medio del año) → el dato queda como anomalía | Le dice al modelo "en qué época del año estamos" para que adapte su regla |
+    | **Dónde vive** | Antes del rate coding, transformando T, P, HR, viento | En la neurona de alerta (como neuronas extra) |
+    | **Pregunta que responde** | "¿Este valor es anómalo para esta época del año?" | "¿Como varian los patrones segun la epoca?" |
+    
+    Hacen cosas distintas y se combinan. La normalización (A) es la esencial; el contexto (B) es el refinamiento.
+    
+- **Mecanismo A: Estandarización estacional (anomalías)**
+    - **El problema que resuelve**
+        - **En Frankfurt**, la temperatura media pasa de ~1°C en enero a ~19°C en julio.
+        - **Si estandarizas con μ, σ globales del año entero**, un día normal de enero (1°C) da z = (1 − 10)/7 ≈ −1.3 → parece una anomalía térmica enorme, cuando en realidad es simplemente invierno. Resultado: la neurona dispara por "estar en enero" en lugar de por "el clima está anómalo", que es la señal de lluvia.
+        - **La estandarización estacional elimina el ciclo primero:**
+            - z = (x − μ(t)) / σ(t)
+            - donde μ(t) y σ(t) son la media y desviación de la variable en esa época del año.
+            - Ahora z=0 significa "típico para esta época" y z=+2 significa "anómalamente alto para esta época"; Eso sí es señal predictiva.
+    - **Tres formas de definir μ(t), σ(t)**
+        1. **Por mes (12 grupos):** μ_m, σ_m por mes calendario, calculados solo sobre el train. Simple, pero tiene saltos artificiales el 31 de julio→1 de agosto.
+        2. **Por estación (4 grupos):** Aún más simple, pero saltos aún más gruesos (marzo→abril, etc.).
+            - Es conceptualmente simple pero introduce discontinuidades que el LIF (sensible a saltos) no necesita.
+        3. **Climatología diaria suavizada (recomendada):** μ(doy) = media móvil centrada ±15 días sobre el day-of-year, con manejo circular del 31 dic↔1 ene. Continua, sin saltos, y es lo estándar en ciencias climáticas.
+    
+    Qué variable se adapta cómo al año entero
+    
+- **Mecanismo B: Contexto estacional cíclico (sin/cos)**
+    - **Por qué el "momento del año" crudo no sirve:**
+        - Si se diera al modelo day-of-year = 200 (julio) como número crudo:
+        - **Es circular:** el día 365 y el día 1 son vecinos, pero numéricamente están a 364 de distancia. Es el mismo problema de discontinuidad que la dirección del viento.
+        - **La neurona de alerta del LIF es lineal:**
+            - Un input crudo con una frontera en 0°/365° obligaría al modelo a "saltar".
+    - **La solución estándar: codificar el tiempo como par sin/cos**
+    doy_sin = sin(2π·doy / 365.25)
+    doy_cos = cos(2π·doy / 365.25)
+    hod_sin = sin(2π·hora / 24)
+    hod_cos = cos(2π·hora / 24)
+        - Son continuas, acotadas en -1,1 y periódicas. Como la neurona de alerta es lineal, el modelo puede combinar doy_sin y doy_cos con pesos aprendidos para representar cualquier fase del año: un peso grande en doy_sin hace que la alerta responda más en verano (sin positivo) y menos en invierno.
+    - **Implementación:**
+    df['doy_sin'] = np.sin(2*np.pi*df['doy']/365.25)
+    df['doy_cos'] = np.cos(2*np.pi*df['doy']/365.25)
+    df['hod_sin'] = np.sin(2*np.pi*df['hour']/24)
+    df['hod_cos'] = np.cos(2*np.pi*df['hour']/24)
+    ****
+    - Estos 4 valores entran como columnas extra en la neurona de alerta (la regresión logística / la búsqueda sobre w), con su propio peso aprendido. Como están acotados, no necesitan normalización (si pasaran por rate coding, re-escalarías a 0,1).
+- **¿Por qué B es necesario si ya implemente A?**
+La normalización (A) quita la media climatológica, pero no el hecho de que la relación anomalía→lluvia cambia con la estación:
+    - Un mismo aumento de humedad predice lluvia más fiablemente en verano que en invierno. El contexto (B) le da al modelo la información para modular su regla según la época.
+    - Es exactamente lo que demostró TA-SmaAt-UNet (mejora todas las estaciones, sobre todo la convección de verano).
+
+#### B.6.
+
+**Conclusion:** La estacionalidad fragmenta los datos y los patrones generales sin necesidad. Se necesita un modelo robusto que permita identificar los cambios producidos durante todo el año.
+
+### Fuentes:
+
+1. scikit-learn — StandardScaler (z-score) y su documentación sobre por qué se estandariza antes del modelado.
+2. Herranz-Celotti & Rouat (2022) — arXiv:2202.00282 — estabilidad del entrenamiento de LIF y su relación con la escala de entradas.
+3. Eshraghian et al. (2023) — Proc. IEEE 111(9) (snnTorch) — rate coding: λ proporcional al valor normalizado; el rango 0,1 como paso previo a la codificación.
+
+---
 
 #### Definicion baseline:
 
 #### Protocolo de evaluacion:
 
+Si los calculas con todo el dataset, inflas artificialmente el rendimiento reportado
+
 ### GUIA de la Metodologia:
 
 - GUIA METODOLOGIA:
     
-    # Metodología de Preprocesamiento de Datos para el Modelo LIF de Predicción de Lluvia
+    ### Metodología de Preprocesamiento de Datos para el Modelo LIF de Predicción de Lluvia
     
     El preprocesamiento es la etapa más crítica de tu investigación, ya que determina la calidad de los datos que alimentarán tu modelo LIF. Una metodología deficiente en esta fase puede invalidar todo el trabajo posterior, incluso si el modelo es excelente. Por eso, es fundamental abordarla con el máximo rigor.
     
@@ -3475,7 +3862,7 @@ El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO
     
     ---
     
-    ## Parte 1: Preguntas Fundamentales para el Preprocesamiento
+    ### Parte 1: Preguntas Fundamentales para el Preprocesamiento
     
     Estas preguntas son el esqueleto de tu metodología. Responderlas te obligará a definir cada aspecto con claridad y a justificar tus elecciones.
     
@@ -3546,9 +3933,17 @@ El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO
     | 7.3 | **¿Dejaré un "período de calentamiento" (warm-up) antes de la prueba?** | Para que el modelo LIF pueda estabilizar su estado de membrana. |
     | 7.4 | **¿Cómo aseguraré que los eventos de lluvia estén representados en todas las particiones?** | Usar validación cruzada con bloques temporales o asegurar una distribución balanceada. |
     
+    ### 8: REVISIONES
+    
+    - Revisar investigacion y escribir todo en neutro.
+    - Revisar fuentes correctas con respecto a la informacion.
+    - Realizar resumen consiso (conclusion) del modelo a crear, como, porque y para que.
+    
+    Por ultimo empezar a redactar el paper sobre el diseño del modelo y la investigacion realizada.
+    
     ---
     
-    ## Parte 2: Metodología de Preprocesamiento Paso a Paso
+    ### Parte 2: Metodología de Preprocesamiento Paso a Paso
     
     A continuación, presento el procedimiento concreto que deberías seguir. Lo he estructurado en pasos lógicos y justificados, basados en la literatura científica y en los estándares de la OMM.
     
@@ -3698,7 +4093,7 @@ El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO
     
     Esta base te permitirá enfocarte en el desarrollo y la evaluación del modelo LIF, sabiendo que tus datos han sido procesados con el máximo rigor científico y alineados con los objetivos de tu proyecto para el CNEISI.
     
-- Limitaciones de la adquisicion de datos:
+- **Limitaciones de la adquisicion de datos:**
     - Analisis open-meteo:
         
         ### 🔍 Open-Meteo: Análisis de su Procesamiento y Limitaciones

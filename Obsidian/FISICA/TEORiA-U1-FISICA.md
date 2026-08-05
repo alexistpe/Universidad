@@ -108,5 +108,37 @@ Mecanismo:
 Depende de la carga del inductor, el soporte contendra una amyor cantidad de electrones o una menor cantidad.
 
 ##### Pendulo electrico:
+Funcionaba como un pendulo con una pequeña bola colgando de la punta, que al acercar un elemento con carga electrica, provocaba que la bola sea atraida hacia el.
+![[Pasted image 20260804112029.png]]
 
 #### Carga electrica.
+El concepto de la carga electrica parte de las partes del atomo.
+Un atomo esta compuesto de:
+- Protones: Carga positiva, en el centro.
+- Neutrones: Sin carga, en el centro.
+- Electrones: Carga negativa, en la orbita (corteza).
+
+Las cargas de los protones y electrones son equivalentes en cantidad pero no en signo.
+- Cantidad de carga (Proton y Electron): 1.6 x 10⁻¹⁹ C
+- Masa Proton: 1,6725 x 10⁻²⁷ kg
+- Masa neutron: 1,6750 x 10⁻²⁷ kg
+- Masa electron: 9,1091 x 10⁻³¹ kg
+
+#### Ley de Coulomb:
+Charles Coulomb fue la primera persona en realizar una investigacion cuantitativa y proponer formalmente la ley que rige las fuerzas electroestaticas.
+Su experimento fue realizado en base a la balanza de torsion.
+
+Se demostro que:
+- La fuerza de interaccion (atraccion o repulsion) entre 2 cuerpos cargados es directamente proporcional al producto de sus cargas.
+- E inversamente proporcional al cuadrado de la distancia que los separa.
+- **Formula:** ![[Pasted image 20260804114000.png]]
+	- Donde "K" es la constante de proporcionalidad que posee un valor en el vacio de: K = 9 x 10⁹ Nm² / C²
+
+**Unidades utilizadas:**
+- Fuerza F (N).
+- Carga de Coulomb (c).
+- Distancia (m).
+
+#### Jaula de faraday:
+Es un objeto realizado en 1836 por michael faraday, consiste en una estructura metalica que protege y aisla 2 campos electricos.
+Permite proteger el interior de la estructura de descargas electricas, provocando que al recibir una descarga electrica en la estructura metalica, esta se redistribuya por toda la estructura para luego salir de esta.
