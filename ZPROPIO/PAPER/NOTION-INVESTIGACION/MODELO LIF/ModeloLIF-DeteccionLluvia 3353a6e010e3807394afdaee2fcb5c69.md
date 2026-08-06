@@ -1456,7 +1456,7 @@ Se quiere desarrollar un modelo predictor de eventos de lluvia basado en el mode
 | **Dimension** | **Atributo** | **Dato** |
 | --- | --- | --- |
 | Geografia | Ubicacion fija. | Aeropuerto Internacional Ingeniero Aeronáutico Ambrosio Taravella, Cordoba, Argentina. |
-| Rango | Horizonte a muy corto plazo. | 2h a 5Min. |
+| Rango | Horizonte a muy corto plazo. | 1h antes del evento de lluvia. |
 | Epoca del año | Completa | Se entrenara el modelo para que sea capaz de adaptarse a todo el año, utilizando tecnicas de transformacion y normalizacion de datos, agregando neuronas extras. |
 | Proveedor | Externo | Se utilizara un proveedor que permita acceder a los datos de forma directa y eficaz para el entrenamiento. No seran datos extraidos de forma particular, sino que se utilizaran datos provistos por la institucion dueña de la infrestructura. https://open-meteo.com/ |
 | Evento | Evento de Lluvia | Se buscara predecir unicamente eventos de lluvia que provoquen precipitaciones. |
@@ -1478,7 +1478,7 @@ Se ajustaran los valores con el entrenamiento que permita maximizar la precision
 Se detallan las caracteristicas y areas que NO va a abordar esta investigacion:
 
 - NO se entrenara un mismo modelo para multiples ubicaciones diferentes.
-- NO se desarrollara para rangos de predicion de mas de dos horas. Aunque pueda lograr una prediccion de ese rango.
+- NO se desarrollara para rangos de predicion de mas de una hora antes del evento de lluvia. Aunque pueda lograr una prediccion de un rango mayor.
 - NO se predeciran tormentas. Solo se predeciran eventos de lluvia especificados en la metodologia.
 - NO se utilizaran datos mas complejos a los especificados, como imagenes satelitales. Solo se utilizaran 5 sensores terrestres determinados como:  Temperatura del aire, presion atmosferica, humedad relativa, precipitacion, viento (velocidad|direccion).
 - NO se entrenara un modelo nocturno y otro diurno, solo e entrenara un unico modelo capaz de identificar este evento de lluvia tanto de dia como de noche.
@@ -3360,6 +3360,8 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
 Aqui se especifica el diseño del modelo LIF simplificado.
 El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO.
 
+### Normalizacion de los datos.
+
 - **¿La normalizacion de variables es necesaria? ¿Que tecnica de normalizacion se utilizara?**
     - **Investigacion Normalizacion:**
         1. **¿Es la normalización estrictamente necesaria?**
@@ -3841,9 +3843,238 @@ La normalización (A) quita la media climatológica, pero no el hecho de que la 
 
 ---
 
-#### Definicion baseline:
+### Codificacion y diseño del modelo LIF.
 
-#### Protocolo de evaluacion:
+Aqui se planteara el modelo LIF simplificado a desarrollar.
+
+El objetivo de esta seccion es poder especificar a nivel tecnico que componetes y que diseño tendra el modelo LIF, permitiendo ser de guia para su posterior codificacion.
+
+Una vez planteada la base se exponen los conceptos fundamentales para definir la “estructura” del modelo LIF, y cada una de sus caracteristicas principales a revisar y decidir.
+
+#### Conceptos fundamentales.
+
+**Que es un LIF simplificado y que permite hacer:**
+
+El modelo **Leaky Integrate-and-Fire** (LIF) es la neurona artificial mas simple con memoria temporal (Gerstner et al., 2014; Burkitt, 2006). Se comporta como un circuito RC: acumula corriente de entrada en el potencial de membrana V, lo deja **filtrarse** (leak) exponencialmente, y cuando v supera un umbral θ **dispara** un spike y se reinicia.
+
+"Simplificado" significa aqui que se usara la version discreta y de un solo compartimiento: sin dendritas, sin canales ionicos, sin plasticidad biologica. Solo tres operaciones por paso: una multiplicacion (fuga), una suma (integracion) y una comparacion (umbral). Eso es lo que la hace desplegable en hardware de gama baja.
+
+**Como se relaciona con este proyecto:**
+
+| **Capacidad objetivo** | **Que aporta el modelo** |
+| --- | --- |
+| **Deteccion de anomalias por variable** | Cada neurona sensor integra su variable y dispara si esta "anomalamente alta/persistente" para la epoca del año |
+| **Prediccion binaria de lluvia (proxima hora)** | La neurona de alerta combina las anomalias ponderadas y dispara si la combinacion supera su umbral |
+| **Explicabilidad** | Los pesos de la alerta indican que variable contribuye y con que signo a cada prediccion |
+| **Robustez al ruido de sensores baratos** | La integracion con fuga es un promedio exponencial: suaviza el ruido de BME280/DHT22/pluviometro |
+| **Un solo modelo para todo el año** | Gracias a la normalizacion estacional (anomalias) + features de contexto temporal |
+| **Hardware de bajo costo** | Solo sumas, productos y comparaciones: implementable en MicroPython/C |
+
+**Analogia:** cada neurona sensor es un **filtro IIR de primer orden** (Utiliza el valor actual de la entrada y un valor de salida anterior para calcular la nueva salida) sobre la anomalia de su variable. El modelo completo es un **banco de filtros fijos + regresion logistica** en la alerta. Esta es la manera tecnica de explicar "como funciona" sin perderse en biologia.
+
+#### **Ecuaciones y variables fundamentales.**
+
+**La ecuacion diferencial del LIF es:**
+
+- **τ_m · dV/dt = −(V − V_rest) + R_m · I(t)**
+- **Basado en la forma continua (la definicion canonica)**
+
+| **Simbolo** | **Significado** | **Unidad** | **Representa en el modelo** |
+| --- | --- | --- | --- |
+| `V(t)` | Potencial de membrana | mV (relativo) | actividad de la variable (adimensional) |
+| `V_rest` | Potencial de reposo | mV | 0 (escala normalizada) |
+| `τ_m` | Constante de tiempo de membrana | s (u horas) | 2-4 h por variable (escala de precursores) |
+| `R_m` | Resistencia de membrana | Ω | se absorbe en los pesos aprendidos |
+| `I(t)` | Corriente de entrada | mA | proporcional a la variable normalizada |
+
+La solucion dice lo esencial: `V` **tiende** a `V_rest + R_m·I` con constante `τ_m`. Si la entrada se mantiene, `V` sube asintoticamente hacia ella; si la entrada se corta, `V` decae exponencialmente con `τ_m`.
+
+**Disparo, reset y refractariedad**
+
+- **Condicional:**
+    
+    if V(t) >= θ: #emitir spike (s=1)
+       V(t) <- V_reset #(reset, tipicamente V_rest)
+       #no recibir entrada durante t_ref (periodo refractario)
+    
+
+**Forma discreta (la que se codifica)**
+
+Con paso temporal Δt y **Euler implicito/explicito** (equivalentes si Δt << τ_m):
+
+- α = e^(−Δt/τ_m) (factor de fuga exacto)
+V[t] = α·V[t-1] + (1−α)·(V_rest + R_m·I[t])
+
+Con V_rest = 0 y absorbiendo la escala en la corriente:
+
+- **V[t] = α·V[t-1] + (1−α)·I[t]**
+- Esta es la ecuacion que se implementa. α juega el papel de "cuanta memoria conserva el paso anterior".
+
+**Interpretacion clave: promedio movil exponencial (EMA)**
+
+Reordenando la ecuacion se ve que el LIF subumbral **es** un promedio movil exponencial:
+
+- **V[t] = (1−α)·I[t] + (1−α)·α·I[t-1] + (1−α)·α²·I[t-2] + …**
+
+Es decir: la actividad de la neurona sensor en el instante t resume **toda la historia** de la variable, con pesos que decaen exponencialmente. La constante τ_m controla cuanta historia: con τ_m = 3 h, la contribucion de hace 3 h pesa e^(−1) ≈ 37%; hace 6 h, e^(−2) ≈ 14%. Esto es exactamente lo que se quiere para capturar la evolucion de precursores (caida de presion, subida de humedad) en ventanas de 6-12 h.
+
+**Valores de α segun τ_m (paso horario)**
+
+| **τ_m** | **1 h** | **2 h** | **3 h** | **4 h** | **6 h** | **12 h** |
+| --- | --- | --- | --- | --- | --- | --- |
+| α = e^(−1/τ_m) | 0.37 | 0.61 | 0.72 | 0.78 | 0.85 | 0.92 |
+
+#### Componentes y parametros
+
+**Neuronas y parametros del modelo se definen como:**
+
+- 6 neuronas sensor (una por variable normalizada):
+    - T, P (o ΔP), HR, u, v, PRECIPITACION
+    - 4 features de contexto temporal (sin/cos de doy y hora) ← **NO son LIF, entran al readout**
+    - 1 neurona de alerta (readout)
+    - En total son: 7 Neuronas (6 sensores y 1 alerta) y 4 parametros (temporada y horario)
+
+**Parametros: fijos vs aprendidos**
+
+| **Parametro** | **Simbolo** | **Valor/regla** | **Quien lo decide** |
+| --- | --- | --- | --- |
+| **Constante de tiempo** | `τ_m,i` | 2-4 h por variable (T y HR mas lentas, P y PRECIP. mas rapidas) | Fijado (literatura de precursores) |
+| **Umbral de disparo sensor** | `θ_i` | Percentil de la actividad (p.ej. disparar ~5-10% del tiempo) o libre | Fijado o aprendido |
+| **Potencial de reposo** | `V_rest` | 0 | Fijado |
+| **Reset** | `V_reset` | 0 (reset total) | Fijado |
+| **Tasa maxima** | `f_max` | 200 spikes/s | Fijado |
+| **Pesos sensor→alerta** | `w_i` | m + 4 valores | **Aprendido** |
+| **Umbral de la alerta** | `θ_A` | 1 valor | **Aprendido** |
+
+**Regla del diseno:** lo que tiene interpretacion fisica se fija; lo que solo se puede aprender de los datos se aprende. Esto mantiene el modelo con ~11-15 parametros libres (m + 1 + 4), entrenable con busqueda o regresion logistica sin GPU.
+
+#### Arquitectura: Sensores hacia la neurona de alerta
+
+**Flujo de datos**
+
+- **Variable cruda**
+- **→ transformacion** (z-score estacional / ΔP / u/v / binaria)
+- → x̂ ∈ [0,1]  **(tras clip y min-max)**
+- → I[t] = x̂[t] · f_max        **(rate coding)**   O   I[t] = x̂[t]   **(directo)**
+- **→ neurona sensor i:** V_i[t] = α_i·V_i[t-1] + (1−α_i)·I_i[t]
+- **→ actividad** a_i[t] = V_i[t]  (+ spike si V_i >= θ_i)
+- **→ sinapsis:** I_A[t] = Σ_i w_i · a_i[t]  (+ Σ_j v_j · tiempo_j[t])
+- **→ alerta:**   V_A[t] = α_A·V_A[t-1] + (1−α_A)·I_A[t]
+- **→ decision:** si V_A[t_final] >= θ_A → lluvia la proxima hora.
+
+**Explicacion: La conexion sensor → alerta (las sinapsis)**
+
+- Cada neurona sensor i se conecta a la alerta a traves de **una sinapsis con peso w_i** (excitatoria si w_i > 0, inhibitoria si w_i < 0). La alerta recibe la **suma ponderada** de las actividades:
+- I_A[t] = w_1·a_1[t] + w_2·a_2[t] + ... + w_6·a_6[t] + v_1·doy_sin + v_2·doy_cos + v_3·hod_sin + v_4·hod_cos
+- En forma matricial: I_A[t] = W^T · x[t], donde W = [w_1..w_6, v_1..v_4] y x[t] es el vector de caracteristicas (features) en t.
+- **Interpretacion meteorologica (Signo y magnitud):** un w_HR grande y positivo significa "humedad anomala empuja a llover"; un w_P negativo (sobre la anomalia de presion) significa "presion subiendo empuja a no llover" (la lluvia suele venir con presion en caida, que es anomalia negativa). **El signo y magnitud de cada peso es interpretable.**
+
+**La neurona de alerta como LIF**
+
+Para ser coherentes con "6 neuronas LIF", la alerta tambien integra (con su propio `τ_A`, corto, 1-2 h) y dispara al superar `θ_A`. Pero como las features ya llevan memoria, la alerta puede **decidir al final de la ventana**:
+
+- **Version binaria (hardware):** predice lluvia si `V_A[t_final] >= θ_A`.
+- **Version probabilistico (calibracion):** `P(lluvia) = σ(V_A[t_final] − θ_A)` con la sigmoide `σ(x) = 1/(1+e^(−x))`. La sigmoide es la version suave del umbral: el umbral es `P ≥ 0.5`. Esto permite calibrar el umbral en validacion (seccion 6.3).
+
+**Rate coding (Poisson) vs inyeccion directa: puente teorico**
+
+Hay dos formas de alimentar las neuronas:
+
+- **Camino A (rate coding):** cada paso genera un tren de spikes de Poisson con tasa `λ = x̂·f_max`.
+- **Camino B (inyeccion directa):** se inyecta directamente `I = x̂·f_max`.
+
+La **equivalencia teorica**: como el LIF es lineal (subumbral), el valor esperado de la membrana bajo Poisson **es** la membrana con inyeccion directa (la media del Poisson es `λ`). Es decir:
+
+- E[ V_A con rate coding ] = V_A con inyeccion directa
+
+Por eso en la implementacion de referencia se usa la forma directa (determinista, reproducible, entrenable con regresion logistica), y el rate coding de Poisson queda como la **version de hardware** del mismo modelo.
+
+- Esto se puede citar con Herranz-Celotti & Rouat (2022) y la equivalencia promedio/EMD.
+
+**Consecuencia practica importante:** las constantes de escala (`f_max`, `R_m`) son factores constantes de un modelo lineal → **se absorben en los pesos aprendidos `w`**. No hay que "sintonizarlas" a mano para que las tasas sean comparables; la regresion logistica las acomoda sola. (Si se mantiene la version Poisson, si hay que fijar `f_max` igual en todas las variables, como ya esta decidido.)
+
+#### Definicion de codificacion.
+
+En un SNN, la informacion externa (los valores normalizados de las variables) debe convertirse en **trenes de spikes**. A esa conversion se la llama **codificacion neuronal**. La referencia se resume asi:
+
+> "Rate codes embed the information in the instantaneous or averaged rate of spike generation... signal amplitudes are directly mapped to spike frequencies." (Neural Processing Letters, 2021)
+> 
+
+La clasificacion central divide la codificacion en **rate coding** (codificacion por tasa) y **temporal coding** (codificacion temporal), dependiendo de si la informacion vive en el *numero* de spikes o en el *momento exacto* en que ocurren (Neural Processing Letters, 2021).
+
+#### **Formas de codificacion:**
+
+**1. Rate coding (codificacion por tasa) — Adrian & Zotterman (1926)**
+
+- **Como funciona:** el valor de la variable se mapea a la **frecuencia de disparo**. Con codificacion de Poisson: `λ = x̂ · f_max`, donde `λ` es la tasa (spikes/segundo), `x̂` el valor normalizado y `f_max` la tasa maxima.
+- **Formula del codificador del modelo:** `f = ((x_norm - min)/(max - min)) · f_max` (doc principal, seccion 7.3), con `f_max = 200` spikes/s.
+- **Ventajas:** simple de implementar, robusto al ruido (promedia informacion sobre muchos spikes; spikes individuales perdidos o desplazados no cambian la tasa), equivalente a la activacion de una neurona artificial ordinaria, entrenable con los metodos estandar (BPTT / gradiente sustituto).
+- **Desventajas:** requiere ventanas largas para estimar la tasa con precision (lento), baja densidad de informacion, mayor numero de spikes y mayor consumo energetico.
+
+**2. Temporal coding (codificacion temporal)**
+
+La informacion vive en el **momento exacto** de los spikes. Subcategorias:
+
+| Tecnica | Que codifica | Referencia clave |
+| --- | --- | --- |
+| **TTFS / latency** | El tiempo hasta el primer spike (Δt ∝ 1/amplitud; mayor amplitud → spike mas temprano). Un spike por ventana. | Gollisch & Meister (2008), *Science* 319 |
+| **Rank-order (ROC)** | El **orden** de los primeros spikes de una poblacion de neuronas, no los tiempos exactos. | Thorpe & Gautrais (1998) |
+| **ISI** | Los intervalos entre spikes consecutivos (mayor capacidad de datos; 2+ spikes/ventana). | Pyramidal cells (biologia) |
+| **Phase** | La fase de los spikes respecto a una oscilacion interna de fondo. | Hipocampo, sistema olfativo (O'Keefe & Recce, 1993) |
+| **Burst** | Racha de spikes (bursts); alta confiabilidad y eficiencia energetica. | Talamo, corteza auditiva |
+| **Temporal contrast** | La **derivada** de la senal (sensores event-driven tipo DVS). | Event-based vision |
+
+**Comparativa de las formas de codificacion**
+
+Guo et al. (2021, *Frontiers in Neuroscience* 15:638474) compararon rate, TTFS, phase y burst en MNIST/Fashion-MNIST con SNN entrenado con STDP, evaluando exactitud, latencia, operaciones sinapticas (SOPs), robustez y tolerancia a fallos:
+
+| Esquema | Exactitud | Latencia de inferencia | SOPs (Operaciones sinapticas) | Robustez |
+| --- | --- | --- | --- | --- |
+| **TTFS** | Mejor | 4x / 7.5x menor que rate (entrenamiento/inferencia) | 3.5x / 6.5x menos que rate | Sensible a variaciones en el tiempo (jitter temporal) |
+| **Rate** | Menor | Lenta (larga latencia para converger) | Alta | Mas robusto y simple |
+| **Phase** | Intermedia | Rapida | Muy alta | La mas resiliente al ruido de entrada |
+| **Burst** | Buena | Rapida | Alta | Mejor compression y tolerancia a fallos |
+
+La encuesta de Springer (2021) agrega una advertencia clave para la decision de arquitectura:
+
+> "Rate-based schemes... convince through their robustness against fluctuations and noise as well as their simplicity... Temporal encoding schemes on the other hand rely on the precise timing of every single spike and can thus achieve higher information densities and efficiencies. However they involve more complex architectures and lacking training methods."
+> 
+
+**Esquema elegido para el modelo LIF: rate coding**
+
+| **Criterio del proyecto** | **Como lo satisface rate coding** |
+| --- | --- |
+| **Filosofia bajo costo / hardware simple** | El codificador por tasa es el circuito mas simple (un integrador con capacitor); TTFS/ISI requieren circuitos mas complejos (Liu et al., *Neural Encoding Strategies for Neuromorphic Computing*). |
+| **Sensores de bajo costo = ruidosos** | Rate coding es uno de los esquemas **mas robustos al ruido** (promedia informacion sobre muchos spikes). Es exactamente la tolerancia que necesitan datos de BME280/DHT22/pluviometro de cangilon. |
+| **Entrenamiento maduro** | Rate coding se entrena con BPTT/gradiente sustituto; las tecnicas temporales "lacking training methods" (Springer 2021). |
+| **Escala temporal horaria** | La desventaja de rate coding (lentitud) es irrelevante: el modelo decide en escala de horas (τ_m 2-4 h, lookback 6-12 h), no de milisegundos. |
+| **Consistencia entre variables** | Todas las variables usan la misma f_max=200 y el mismo mapeo λ = x̂·f_max, garantizando tasas comparables. |
+| **Simplicidad de interpretacion** | La tasa de disparo de una neurona sensor equivale a "cuanto de anomala esta esa variable", que es exactamente el rol de detector de anomalias del modelo. |
+
+**Limitacion a reconocer:** rate coding tiene menor densidad de informacion y mayor gasto energetico por spike que TTFS (Codificacion temporal). Para un LIF de 11 neuronas esto es aceptable, La comparativa de Guo et al. (2021) da los numeros de referencia para esa discusion.
+
+### Desiciones a tomar.
+
+1. **Feature de la alerta:** ¿actividad continua (membrana, recomendada) o spike binario del sensor (alarma por variable)? O ambas (actividad + tasa de spikes).
+2. **La alerta integra o decide:** ¿`V_A` se evalúa al final de la ventana (recomendado) o se requiere un disparo en cualquier paso dentro de la ventana?
+3. **τ_m por variable:** ¿se fijan individualmente (recomendado) o uno global con sensibilidad?
+4. **Reset:** ¿`V_reset = 0` (recomendado) o `V_reset = θ − Δ` (reset parcial, mas biológico)?
+5. **Umbrales θ_i:** ¿percentiles fijos (90-95) o libres en la busqueda?
+6. **Feature de la ventana:** ¿actividad del ultimo paso, promedio de los ultimos k pasos, o maximo de la ventana?
+7. **Version del codigo:** ¿forma directa determinista (base) + Poisson como ablation/hardware, o solo Poisson?
+8. **f_max y micro-pasos:** si se usa Poisson, definir `dt_sim` y cuantos micro-pasos por hora (τ_m >> dt_sim).
+
+### Fuentes
+
+#### Definicion baseline y variable objetivo:
+
+**PASOS A SEGUIR:**
+
+- ACLARAR CONCEPTOS TECNICOS DEL MODELO LIF.
+- DEFINIR VARIABLE OBJETIVO.
+- DEFINIR TEORICAMENTE Y TECNICAMENTE EL BASELINE A DISEÑAR.
+
+#### Protocolo de entrenamiento y evaluacion:
 
 Si los calculas con todo el dataset, inflas artificialmente el rendimiento reportado
 
@@ -3915,7 +4146,7 @@ Si los calculas con todo el dataset, inflas artificialmente el rendimiento repor
     | 5.3 | **¿Normalizaré las variables antes de la codificación para que los rangos sean comparables?** | Sí, es fundamental. |
     | 5.4 | **¿Cómo manejaré las variables con diferentes rangos y unidades?** | Asegurar que todas contribuyan equitativamente a la membrana de la neurona LIF. |
     
-    ### 6. Creación de la Variable Objetivo (Etiqueta)
+    ### 6. Creación de la Variable Objetivo (Etiqueta) y baseline
     
     | # | Pregunta | ¿Qué implica? |
     | --- | --- | --- |
@@ -3923,6 +4154,7 @@ Si los calculas con todo el dataset, inflas artificialmente el rendimiento repor
     | 6.2 | **¿Con qué horizonte temporal definiré el evento?** | ¿Predecir si lloverá en los próximos 30 minutos? ¿1 hora? |
     | 6.3 | **¿Crearé una etiqueta binaria (llueve/no llueve) o continua (intensidad esperada)?** | Para una alerta temprana, lo más útil es la etiqueta binaria. |
     | 6.4 | **¿Cómo manejaré los eventos de lluvia de baja intensidad (trazas)?** | ¿Los consideraré como lluvia o los ignoraré? Definir un umbral mínimo. |
+    | 6.5 | ¿Como definire y diseñare el baseline para la comparacion? | Definir teoricamente el baseline y posteriormente describir su funcionamiento tecnico. (Umbrales fijos). |
     
     ### 7. Separación de Datos para Entrenamiento y Prueba
     
@@ -3932,6 +4164,7 @@ Si los calculas con todo el dataset, inflas artificialmente el rendimiento repor
     | 7.2 | **¿Mantendré el orden temporal o haré una división aleatoria?** | Para series temporales, **nunca** se usa división aleatoria. Se respeta el orden cronológico. |
     | 7.3 | **¿Dejaré un "período de calentamiento" (warm-up) antes de la prueba?** | Para que el modelo LIF pueda estabilizar su estado de membrana. |
     | 7.4 | **¿Cómo aseguraré que los eventos de lluvia estén representados en todas las particiones?** | Usar validación cruzada con bloques temporales o asegurar una distribución balanceada. |
+    | 7.5 | ¿Que tipo de entrenamiento utilizare? ¿Porque? ¿Como definire las variables fijas y aprendidas? | Definir una buena estructura para el entrenamiento y evaluacion del modelo. |
     
     ### 8: REVISIONES
     
