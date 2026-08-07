@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "6229a107f5e33e8f",
+        "id": "56c6f4f5498b4cb9",
         "type": "tabs",
         "children": [
           {
-            "id": "6adaf42efa77d586",
+            "id": "4379f36f17f69410",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -185,11 +185,11 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "6adaf42efa77d586",
+  "active": "4379f36f17f69410",
   "lastOpenFiles": [
+    "ASI/Evaluaciones/PARCIAL2-ASI.md",
     "ASI/Evaluaciones/Repaso Parcial 1.md",
     "RESOURCES/Pasted image 20260804112029.png",
-    "ASI/Evaluaciones/PARCIAL2-ASI.md",
     "FISICA/TEORiA-U1-FISICA.md",
     "RESOURCES/Pasted image 20260804114000.png",
     "ASI/U6/Teoria.md",

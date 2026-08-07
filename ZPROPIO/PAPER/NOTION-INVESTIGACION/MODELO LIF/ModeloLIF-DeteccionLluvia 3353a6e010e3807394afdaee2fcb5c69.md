@@ -1601,7 +1601,7 @@ Aqui se expandira los pasos a realizar y la dinamica que tendra esta investigaci
 
 Se define el paso a paso de como se desarrollara y evaluara el proyecto:
 
-#### Adquisicion de datos:
+#### 1. Adquisicion de datos:
 
 Se explica cuales, porque y de que forma se obtendran los datos necesarios para el proyecto.
 
@@ -1642,6 +1642,56 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     | **Presión Atmosférica** | Fuerza por unidad de área ejercida por el peso de la columna de aire. | hPa / mb | Su caída es un indicador de mal tiempo y tormentas. Es la base de la dinámica atmosférica. |
     | **Viento (Vel/Dir)** | Movimiento horizontal del aire. Dirección: de dónde viene. Velocidad: rapidez del desplazamiento. | m/s, km/h, kn / ° | Transporta humedad y sistemas frontales. Clave en tormentas severas. |
     | **Precipitación** | Producto líquido o sólido de la condensación del vapor de agua que cae de las nubes. | mm | Variable objetivo. Es el resultado del proceso que tu modelo busca predecir. |
+- **Definicion “bajo costo”**
+    
+    ### Existen 2 tipos de bajo costo:
+    
+    **Costo del hardware/estación:** Qué cuesta la estación que genera los datos.
+    **Costo computacional del modelo:** Dónde y con qué recursos corre la inferencia.
+    
+    La linea de “bajo costo” propuesta, se centra en el despliegue del modelo, no en su entrenamiento en este caso.
+    Si bien se entrena con datos de una estacion de primer nivel, la simulacion y adaptacion de estos datos permiten preparar el modelo para un despliege en este tipo de estaciones.
+    
+    ### Definicion de la estacion a “bajo costo”:
+    
+    - WMO categoríza oficialmente a una estacion de bajo costo como: "AWS-LC" (Automatic Weather Station – Low Cost): bajo costo de compra y uso, bajo consumo de energía, tamaño compacto, transmisión en tiempo real, no estandarizada (MDPI Information 2021).
+    
+    ### Costo de las estaciones:
+    
+    - (METER Group, 2023):
+        - Estación WMO-clase (red nacional): USD 20.000–50.000 + mantenimiento anual significativo
+        - All-in-one compacta (AiOWS): USD 1.000–5.000
+        - Estación ICOS nivel 1: ~EUR 10.000; los sensores solos 4× más caros que un AiOWS (METER ATMOS41: EUR 1.750)
+        - DIY Arduino/Raspberry Pi + BME280/DHT22: cientos de euros (MDPI Sensors 2021)
+        - Estacion objetiva: ESP32 + BME280 + DHT22 + pluviómetro de cangilón: ~USD 50–150
+    - **Clases de precisión WMO (A–D):** los sensores de bajo costo arrancan en Clase B (T y viento) y degradan a C/D (HR y precipitación en 3–5 años; precipitación "cualitativa" — AMT 2026). La estación profesional es Clase A.
+    
+    ### Caracteristicas fundamentales de la estacion de bajo costo:
+    
+    A. Costo económico (CAPEX) — línea: < ~USD 500 por estación completa desplegable. 
+    
+    - Es un orden de magnitud 100× menor que una estación profesional (USD 20–50k) y 10× menor que una AiOWS comercial (USD 1–5k). Con tu stack (ESP32 + BME280 + DHT22 + pluviómetro) estás en USD 50–150, cómodamente por debajo.
+    
+    B. Costo operativo (OPEX) — sin personal técnico ni trazabilidad metrológica obligatoria: 
+    
+    - Componentes baratos y reemplazables en campo, recalibración opcional cada 2 años, tolerancia a deriva (0.5 °C/año, 0.5 % RH/año; deriva de humedad hacia 100% RH que es justo el rango crítico para lluvia).
+    
+    C. Calidad del sensor (precisión) — clases WMO B→D con degradación; la precipitación es cualitativa. 
+    
+    - El modelo debe funcionar con estos errores (bias ±0.5 °C, ±3 % RH, subcaptura de lluvia −13 a −97 %).
+    
+    D. Requisitos computacionales del modelo (inferencia):
+    
+    - Solo sumas, productos y comparaciones (LIF = filtro IIR + readout lineal + sigmoide; ~11–15 pesos, estado de 6–7 flotantes → KB de RAM, cabe en ESP32 con 320 KB). Inferencia en mW, en local, en tiempo real, sin cloud. El f_max y los τ_m son constantes fijas; no hay backprop en despliegue.
+    
+    E. Independencia de infraestructura — sin depender de NWP, satélites, radar ni servidores centrales.
+    
+    - El valor que aporta este modelo LIF aprendido es que reemplaza el umbral fijo, utilizando el mismo perfil de hardware.
+    
+    ### Conclusion:
+    
+    Se define 'bajo costo' como (1) estación con hardware < USD 500, (2) sensores de precisión WMO Clase B–D (BME280, DHT22, pluviómetro de cangilón), (3) sin mantenimiento especializado, (4) con inferencia del modelo en un microcontrolador de gama baja (ESP32-class, <1 MFLOP/hora, KB de RAM, ~mW) y (5) sin dependencia de servicios externos. El costo alto de referencia es una estación WMO/Baseline (tipo EDDF-DWD, USD 20–50k, Clase A, con calibración y trazabilidad). El modelo LIF está destinado al primer grupo: su entrenamiento offline usa datos profesionales, pero su arquitectura (operaciones elementales + pesos fijos) y su robustez al ruido documentado la hacen desplegable en el segundo.
+    
 - **¿De que forma se miden los datos? Metodos**
     
     Los datos se utilizaran convertidos a las variables correspondientes. No se utilizaran datos crudos (Ej: Resistencia eléctrica) para el analisis y utilizacion de los datos. Esto permite utilizar variables proporcionadas por estaciones confiables y universales de forma practica para la investigacion.
@@ -1845,7 +1895,7 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     En conclusion: Almacena observaciones sinópticas, que son exactamente estos valores puntuales en horarios fijos (0000, 0100, 0200 UTC, etc.).
     
 
-#### Utilizacion y procesamiento de los datos:
+#### 2. Utilizacion y procesamiento de los datos:
 
 - **¿Que cambios o transformacions sufren los datos originales?**
     
@@ -3355,12 +3405,12 @@ Se explica cuales, porque y de que forma se obtendran los datos necesarios para 
     13. Bell, Simon (2015). Quantifying uncertainty in citizen weather data. PHD thesis, Aston University.
         - https://publications.aston.ac.uk/id/eprint/26693/
 
-#### Modelo LIF:
+#### 3. Modelo LIF:
 
 Aqui se especifica el diseño del modelo LIF simplificado.
 El modelo tecnico lo necesito diseñar y saber explicar yo, ES MI PROPIO DISEÑO.
 
-### Normalizacion de los datos.
+### Normalizacion de los datos. (Analizar/descartar debido al uso de SPIKES).
 
 - **¿La normalizacion de variables es necesaria? ¿Que tecnica de normalizacion se utilizara?**
     - **Investigacion Normalizacion:**
@@ -3732,32 +3782,26 @@ Ej: 18.4°C      opcional según variable       z-score/min-max          valor �
     - Es una alternativa a RobustScaler. A veces se aplica antes del RobustScaler para doble protección. En este caso, con datos ya QC'd por DWD, **es un refinamiento opcional.**
     - **Las ráfagas extremas reales rara vez superarán umbrales físicos.**
 
+---
+
 ### ¿Se entrenara el modelo por temporadas o por todo el año?
 
-#### B.1. Dos decisiones distintas que conviene separar
-
-Hay dos preguntas que a menudo se mezclan y que conviene separar:
-
-1. **Normalizacion**: ¿con que estadisticos (μ, σ) se estandariza cada variable?
-    - Ya decidido en el doc principal (seccion 6.2): **por estacion**, usando anomalias estacionales. La señal predictiva de presion/temperatura es la **desviacion** respecto a la climatologia del mes, no el valor absoluto.
-2. **Entrenamiento**: ¿se ajusta **un** modelo sobre los 12 meses, o **4 modelos** (uno por estacion)?
-
-#### B.2. Literatura de nowcasting
+#### Literatura de nowcasting
 
 **TA-SmaAt-UNet** (van Nieuwkoop & Mehrkanoon, 2026, arXiv:2606.09959):
 
 > "TA-SmaAt-UNet improves upon the core SmaAt-UNet in every season, indicating that the benefit of temporal context is not restricted to a single part of the year. The improvement is particularly relevant in summer, which is also the most difficult season in terms of CSI. This is consistent with previous nowcasting evidence that models often struggle more with convective summer precipitation than with more persistent winter rainfall."
 > 
 
-Informacion clave:
+**Informacion clave:**
 
-- **El patron de la literatura** no es entrenar modelos separados por estacion, sino **entrenar un unico modelo** y darle **contexto estacional** (codificacion ciclica del momento del año: sin/cos del dia del año y de la hora).
+- **El patron** de la literatura no es entrenar modelos separados por estacion, sino entrenar un unico modelo y darle contexto estacional (codificacion ciclica del momento del año: sin/cos del dia del año y de la hora).
 - **El contexto estacional** es mas beneficioso cuanto mas **raro e intenso** es el evento (mejoras mayores en umbrales de 10 y 20 mm/h que en 0.5 mm/h). La estacionalidad importa especialmente para los eventos que mas importan en un sistema de alerta.
 - **El verano es la estacion mas dificil** (conveccion), y el contexto estacional es justamente donde mas ayuda.
 
 **Implicacion directa:** la estrategia respaldada es **un solo modelo + informacion estacional como entrada o como normalizacion**, NO fragmentar el entrenamiento en modelos por estacion.
 
-#### B.3. Argumentos practicos para entrenar con el ano completo
+#### Comparacion estacional vs año completo:
 
 | Criterio | Entrenar 1 modelo anual | Entrenar 4 modelos estacionales |
 | --- | --- | --- |
@@ -3767,17 +3811,17 @@ Informacion clave:
 | **Despliegue bajo costo** | 1 modelo, 1 umbral, 1 τ_m desplegable | 4 configuraciones + logica de seleccion de estacion |
 | **Transferencia de patrones** | Los precursores comunes (caida de presion, alza de humedad) se aprenden una vez | Cada modelo los reaprende por separado |
 
-Para un LIF simplificado de pocas neuronas y pocos parametros, el dato adicional del ano completo es directamente aprovechable: **mas datos = umbrales y pesos mas estables**.
+Para un LIF simplificado de pocas neuronas y pocos parametros, el dato adicional del año completo es directamente aprovechable: **mas datos = umbrales y pesos mas estables**.
 
-#### B.4. Como evaluar la estacionalidad (sin sesgar)
+#### Como evaluar la estacionalidad (sin sesgar) (Fuentes)
 
 La literatura de evaluacion de nowcasting da 3 reglas claras:
 
-1. **El test set debe cubrir al menos un ciclo estacional completo.** En series temporales con estacionalidad, el periodo de prueba debe abarcar el ciclo completo para poder evaluar la captura de la estacionalidad (practica estandar en division temporal; los papers de nowcasting dividen por **años completos consecutivos**, p.ej. entrenar 2008-2020, validar 2006 o 2020, testear 2021).
+1. **El test set debe cubrir al menos un ciclo estacional completo.** En series temporales con estacionalidad, el periodo de prueba debe abarcar el ciclo completo para poder evaluar la captura de la estacionalidad.
 2. **Reportar metricas por estacion.** Se reporta CSI/POD/FAR en los papers de nowcasting para desglosados por estacion buscando exponer la dificultad de cada una.
 3. **Test sesgados.** Un año de prueba con eventos extremos concentrados en pocos meses infla o desinfla las metricas. El estudio del DGMR (AMS, AIES 2023) lo maneja explicitamente separando "Test—Heavy" (meses con eventos intensos) de "Test—Light" para no atribuir a la maquina lo que es sesgo del periodo de prueba.
 
-#### B.5. ¿Como se implementa la informacion extra de la estacionalidad?
+#### ¿Como se implementa la informacion extra de la estacionalidad?
 
 - La Estandarizacion (A), y la Contexto estacional (B) son dos mecanismos distintos.
     
@@ -3831,9 +3875,9 @@ La normalización (A) quita la media climatológica, pero no el hecho de que la 
     - Un mismo aumento de humedad predice lluvia más fiablemente en verano que en invierno. El contexto (B) le da al modelo la información para modular su regla según la época.
     - Es exactamente lo que demostró TA-SmaAt-UNet (mejora todas las estaciones, sobre todo la convección de verano).
 
-#### B.6.
+#### **Conclusion:**
 
-**Conclusion:** La estacionalidad fragmenta los datos y los patrones generales sin necesidad. Se necesita un modelo robusto que permita identificar los cambios producidos durante todo el año.
+La estacionalidad fragmenta los datos y los patrones generales sin necesidad. Se necesita un modelo robusto que permita identificar los cambios producidos durante todo el año.
 
 ### Fuentes:
 
@@ -3845,13 +3889,18 @@ La normalización (A) quita la media climatológica, pero no el hecho de que la 
 
 ### Codificacion y diseño del modelo LIF.
 
+- Se planificara la estructura fundamental del modelo LIF a crear en busca de definir toda la estructura fundamental sin entrar en entrenamiento.
+    - Se definiran las categorias fundamentales a expandir.
+    - Se amplearan los conceptos de cada una de forma personal, para poder crear una estructura adecuada a mis intereses sin depender de una mala gestion de la IA.
+    - Se explicara cada seccion del modelo con mis palabras y aclarando cada desicion tomada en busca de crear un modelo consistente y con justificacion.
+
 Aqui se planteara el modelo LIF simplificado a desarrollar.
 
 El objetivo de esta seccion es poder especificar a nivel tecnico que componetes y que diseño tendra el modelo LIF, permitiendo ser de guia para su posterior codificacion.
 
 Una vez planteada la base se exponen los conceptos fundamentales para definir la “estructura” del modelo LIF, y cada una de sus caracteristicas principales a revisar y decidir.
 
-#### Conceptos fundamentales.
+### Conceptos fundamentales.
 
 **Que es un LIF simplificado y que permite hacer:**
 
@@ -3872,12 +3921,57 @@ El modelo **Leaky Integrate-and-Fire** (LIF) es la neurona artificial mas simple
 
 **Analogia:** cada neurona sensor es un **filtro IIR de primer orden** (Utiliza el valor actual de la entrada y un valor de salida anterior para calcular la nueva salida) sobre la anomalia de su variable. El modelo completo es un **banco de filtros fijos + regresion logistica** en la alerta. Esta es la manera tecnica de explicar "como funciona" sin perderse en biologia.
 
-#### **Ecuaciones y variables fundamentales.**
+### Estructura conceptual del modelo.
 
-**La ecuacion diferencial del LIF es:**
+El modelo consistira en 6 neuronas LIF individuales conectadas a los valores de los sensores, 4 datos serviran de contexto (2 datos para el dia del año; 2 datos para la hora del dia), y por ultimo una neurona LIF de “Alerta” que obtendra los “spikes” lanzados por estas neuronas junto a los valores de contexto.
+
+- Esta estructura permitira ponderar y validar los valores obtenidos, permitiendo identificar cuando la suma de estos valores (potencial de membrana) predice un evento de lluvia en la proxima hora.
+
+**Resumen de la estructura:**
+
+- 6 neuronas LIF conectadas a una variable metorologia provista por el sensor particular.
+- 1 neurona LIF alerta, que recibe como “potencial de membrana” a los spikes producidos por las 6 neuronas de sensores.
+    - Ademas se integraran 4 variables nuevas (no neuronas) en la entrada del potencial de membrana, en busca de poder asignarle los datos correspondiente del dia del año y la hora del dia.
+    - La transformacion de estas variables se lograran meditante manipular el dato (dia u hora) por sen/cos, dando como resultado 4 variables y evitando los saltos bruzcos, ej: del dia 31 al 1, o de 23h a 0h.
+
+**Flujo de transformacion/normalizacion:**
+
+Para cada neurona LIF es necesario transformar y normalizar las entradas y salidas de cada una de las neuronas. En busca de mantener las entradas en las misma unidades segun corresponda y poder intepretar correctamente los spikes generados.
+
+#### Intepretacion de los “spikes”
+
+Cuando una neurona LIF de sensores “lanza” un spike al superar el umbral, este es intepretado de por la neurona LIF de alerta, el cual pondera, suma a su acumulado y los unifica con los demas parametros para obtener el potencial de membrana.
+
+Los “spikes” producidos por las neuronas de los sensores no entran como 1 o 0. Entran como “E_i[t]”, que es el valor envejecido/integrado del spike (un número entre 0 y 1). 
+El spike bruto es binario (1.0 o 0.0) en el instante en que se emite: lo que la alerta multiplica es su valor integrado.
+
+Cada neurona LIF sensor, contiene una salida (canal) especifico donde los spikes/datos se ponderan y, en el caso de las neuronas, se les suma la “memoria” del spike anterior.
+
+- Las neuronas LIF contienen memoria, la cual van disminuyendo multiplicativamente el “valor” del spike, provocando que si no vuelven a emitirse nuevos spikes en los proximos datos, el “valor” de memoria decaiga a cero.
+
+Los parametros ingresados al potencial de membrana de las neuronas se daran en rangos de 1h, (cuando el dato esta disponible). Eso provoca que la ventana temporal de la neurona (cantidad de informacion que retiene) se debe adaptar al tiempo que dura la tendencia del fenomeno meteorologico a predecir. Y ese “tiempo” medido en horas determinara cuantos datos individuales recibe el modelo antes de olvidarlos por completo. (Especificado en la seccion 3 de la metodologia).
+
+### Limitaciones del modelo.
+
+Se definen las limitaciones del modelo para la identificacion de eventos de lluvia como:
+
+- **Rangos de 1h:** El modelo predecira lluvia con 1h de antelacion.
+- **Momento de suspensión:** El modelo dejara de predecir si ocurrira lluvia la proxima hora si en esa hora esta lloviendo (cumplio su funcion).
+    - Esto se decide debido a que en rangos de 1h no se permite identificar si la lluvia continuara o finalizara rapidamente.
+    - Se puede realizara una comparacion extra donde se vean los porcentajes de exito sin esta limitacion y con esta limitacion.
+- 
+
+### Variales fundamentales.
+
+Aqui se especifica las variables fundamentales del modelo y como interactuan entre si para poder realizar la logia perteneciente a la neurona LIF.
+
+#### Ecuacion fundamental del modelo LIF:
 
 - **τ_m · dV/dt = −(V − V_rest) + R_m · I(t)**
-- **Basado en la forma continua (la definicion canonica)**
+- Basado en la forma continua (la definicion canonica)
+- Es una EDO lineal de primer orden no homogénea.
+
+#### Definicion de cada variable (Canonica):
 
 | **Simbolo** | **Significado** | **Unidad** | **Representa en el modelo** |
 | --- | --- | --- | --- |
@@ -3887,103 +3981,202 @@ El modelo **Leaky Integrate-and-Fire** (LIF) es la neurona artificial mas simple
 | `R_m` | Resistencia de membrana | Ω | se absorbe en los pesos aprendidos |
 | `I(t)` | Corriente de entrada | mA | proporcional a la variable normalizada |
 
-La solucion dice lo esencial: `V` **tiende** a `V_rest + R_m·I` con constante `τ_m`. Si la entrada se mantiene, `V` sube asintoticamente hacia ella; si la entrada se corta, `V` decae exponencialmente con `τ_m`.
+#### Solucion general de la EDO de la neurona LIF:
 
-**Disparo, reset y refractariedad**
+Partimos de “τ dV/dt = −(V − V_rest) + R_m·I(t)”.
 
-- **Condicional:**
-    
-    if V(t) >= θ: #emitir spike (s=1)
-       V(t) <- V_reset #(reset, tipicamente V_rest)
-       #no recibir entrada durante t_ref (periodo refractario)
-    
+- Con u(t) = R_m·I(t) y W = V − V_rest: dW/dt + W/τ = u(t)/τ
 
-**Forma discreta (la que se codifica)**
+**Es una EDO lineal de primer orden**, se resuelve con el factor integrante e^{t/τ}:
+V(t) = V_rest  +  (V(t₀) − V_rest)·e^{−(t−t₀)/τ}  +  (1/τ)·∫ₜ₀ᵗ e^{−(t−s)/τ}·R_m·I(s) ds
 
-Con paso temporal Δt y **Euler implicito/explicito** (equivalentes si Δt << τ_m):
+**Significado de los terminos:**
 
-- α = e^(−Δt/τ_m) (factor de fuga exacto)
-V[t] = α·V[t-1] + (1−α)·(V_rest + R_m·I[t])
+1. **V_rest**: el punto de equilibrio (sin entrada).
+2. **(V(t₀)−V_rest)·e^{−Δt/τ}**: memoria de la condición inicial, decae exponencialmente con τ.
+3. **(1/τ)∫ e^{−(t−s)/τ}·R_m·I(s) ds**: convolución de la entrada con el kernel exponencial (1/τ)e^{−Δt/τ}. 
+    - Esta integral es la "integración con fuga": las entradas pasadas contribuyen, pero con olvido exponencial de escala τ. De ahí viene el nombre leaky integrate-and-fire.
 
-Con V_rest = 0 y absorbiendo la escala en la corriente:
+**Cómo se llega a la ecuación final (Utilizada en el codigo):**
+La "ecuación final" es la solución general muestreada con paso Δt = 1h. 
 
-- **V[t] = α·V[t-1] + (1−α)·I[t]**
-- Esta es la ecuacion que se implementa. α juega el papel de "cuanta memoria conserva el paso anterior".
+Si asumimos que la entrada es constante durante el paso (zero-order hold, la opción estándar en implementación digital) y aplicamos la solución general sobre el intervalo [t−1, t]:
 
-**Interpretacion clave: promedio movil exponencial (EMA)**
+- **V[t]** = e^{−Δt/τ}·V[t−1] + (1 − e^{−Δt/τ})·x̂[t] = **α·V[t−1] + (1−α)·x̂[t]**
 
-Reordenando la ecuacion se ve que el LIF subumbral **es** un promedio movil exponencial:
+**Caracteristicas:**
 
-- **V[t] = (1−α)·I[t] + (1−α)·α·I[t-1] + (1−α)·α²·I[t-2] + …**
+- V_rest=0 y x̂ en el papel de R_m·I.
+- Esa es exactamente la **recurrencia del código**: la EMA no es un promedio móvil arbitrario, es el solucionador exacto de la EDO del LIF bajo zero-order hold.
+- **Con Euler hacia adelante** saldría V[t]=(1−Δt/τ)V[t−1]+(Δt/τ)x̂[t], menos exacta e inestable si Δt/τ>1; el código usa la forma exacta e^{−1/τ}.
+- **Interpretación de α:** con τ=1 h, α=0.368 → retiene el 37% de la membrana anterior y toma el 63% del dato nuevo (memoria corta, sigue a la señal); con τ=3 h, α≈0.72; con τ=24 h, α≈0.96 (memoria larga, respuesta lenta).
 
-Es decir: la actividad de la neurona sensor en el instante t resume **toda la historia** de la variable, con pesos que decaen exponencialmente. La constante τ_m controla cuanta historia: con τ_m = 3 h, la contribucion de hace 3 h pesa e^(−1) ≈ 37%; hace 6 h, e^(−2) ≈ 14%. Esto es exactamente lo que se quiere para capturar la evolucion de precursores (caida de presion, subida de humedad) en ventanas de 6-12 h.
+**Definicion de la ecuacion resultante:**
 
-**Valores de α segun τ_m (paso horario)**
+- La versión discreta del LIF se obtiene como la discretización exacta (zero-order hold) de la ecuación de membrana, que corresponde a un filtro IIR de primer orden (pasa-bajos de un polo), equivalente al suavizado exponencial (EMA).
 
-| **τ_m** | **1 h** | **2 h** | **3 h** | **4 h** | **6 h** | **12 h** |
-| --- | --- | --- | --- | --- | --- | --- |
-| α = e^(−1/τ_m) | 0.37 | 0.61 | 0.72 | 0.78 | 0.85 | 0.92 |
+#### Ecuaciones de la neuronas:
 
-#### Componentes y parametros
+**Neurona sensor (capa 6 sensores):**
 
-**Neuronas y parametros del modelo se definen como:**
+- **V_i[t] = α_i·V_i[t−1] + (1−α_i)·x̂_i[t]**
+    - **EDO resuelta (membrana)**, α_i = e^{−1/τ_i}.
+- **S_i[t] = 1  si V_i[t] ≥ θ_i ;  V_i[t] ← 0**
+    - **Regla de disparo** (threshold + reset).
 
-- 6 neuronas sensor (una por variable normalizada):
-    - T, P (o ΔP), HR, u, v, PRECIPITACION
-    - 4 features de contexto temporal (sin/cos de doy y hora) ← **NO son LIF, entran al readout**
-    - 1 neurona de alerta (readout)
-    - En total son: 7 Neuronas (6 sensores y 1 alerta) y 4 parametros (temporada y horario)
+**Contexto:**
 
-**Parametros: fijos vs aprendidos**
+- La membrana integra su variable física normalizada con su propia τ_i (T=3, HR=3, P=2, u/v=1, PRECIP=1 h).
+- **El spike y el reset NO están en la EDO:** son el evento no-suave añadido ("fire") que se dispara al cruzar el umbral propio θ_i y reinicia la membrana a 0. La EDO gobierna la dinámica subumbral; el disparo es la parte de integrate-and-FIRE.
 
-| **Parametro** | **Simbolo** | **Valor/regla** | **Quien lo decide** |
-| --- | --- | --- | --- |
-| **Constante de tiempo** | `τ_m,i` | 2-4 h por variable (T y HR mas lentas, P y PRECIP. mas rapidas) | Fijado (literatura de precursores) |
-| **Umbral de disparo sensor** | `θ_i` | Percentil de la actividad (p.ej. disparar ~5-10% del tiempo) o libre | Fijado o aprendido |
-| **Potencial de reposo** | `V_rest` | 0 | Fijado |
-| **Reset** | `V_reset` | 0 (reset total) | Fijado |
-| **Tasa maxima** | `f_max` | 200 spikes/s | Fijado |
-| **Pesos sensor→alerta** | `w_i` | m + 4 valores | **Aprendido** |
-| **Umbral de la alerta** | `θ_A` | 1 valor | **Aprendido** |
+**Neurona de alerta:**
 
-**Regla del diseno:** lo que tiene interpretacion fisica se fija; lo que solo se puede aprender de los datos se aprende. Esto mantiene el modelo con ~11-15 parametros libres (m + 1 + 4), entrenable con busqueda o regresion logistica sin GPU.
+- **E_i[t] = α_A·E_i[t−1] + (1−α_A)·S_i[t]**
+    - MISMA EDO, pero entrada = spikes, τ_A=1 h
+- **I_A[t] = Σ_i w_i·E_i[t] + Σ_j v_j·ctx_j[t]**
+    - Combinación ponderada (+ contexto temporal)
+- P = σ(I_A − θ_A)
+    - Decisión (logística + umbral θ_A)
+    - **Version completa (Con sesgo):** I_A[t] = Σ_i w_i·E_i[t] + Σ_j v_j·ctx_j[t] + b
+    P = σ(I_A[t])          con  σ(x) = 1/(1+e^{−x})
+    decidir lluvia si P ≥ θ_A
+        - La activación σ y el umbral θ_A son parte de la neurona, no de I_A. I_A sola es el potencial; la decisión es σ + θ_A.
 
-#### Arquitectura: Sensores hacia la neurona de alerta
+**Contexto:**
 
-**Flujo de datos**
+- La alerta es la misma ecuación de membrana, pero su entrada son los spikes binarios de los sensores (no valores físicos): integra el tren de disparos con su propia constante τ_A.
+- La suma ponderada es el "potencial de membrana" de la alerta, y como la integración y la suma ponderada conmutan (ambas lineales), integrar por canal y luego pesar equivale a que la alerta integrara Σ w_i·S_i[t] directamente.
+- La diferencia con el sensor: la alerta no emite spike; decide con σ y θ_A (versión suave del "fire"), y el contexto entra instantáneo, sin integrarse.
 
-- **Variable cruda**
-- **→ transformacion** (z-score estacional / ΔP / u/v / binaria)
-- → x̂ ∈ [0,1]  **(tras clip y min-max)**
-- → I[t] = x̂[t] · f_max        **(rate coding)**   O   I[t] = x̂[t]   **(directo)**
-- **→ neurona sensor i:** V_i[t] = α_i·V_i[t-1] + (1−α_i)·I_i[t]
-- **→ actividad** a_i[t] = V_i[t]  (+ spike si V_i >= θ_i)
-- **→ sinapsis:** I_A[t] = Σ_i w_i · a_i[t]  (+ Σ_j v_j · tiempo_j[t])
-- **→ alerta:**   V_A[t] = α_A·V_A[t-1] + (1−α_A)·I_A[t]
-- **→ decision:** si V_A[t_final] >= θ_A → lluvia la proxima hora.
+**Resumen comparativo:**
 
-**Explicacion: La conexion sensor → alerta (las sinapsis)**
+|  | Neurona sensor (6) | Neurona alerta (1) |
+| --- | --- | --- |
+| **EDO** | τ_i·dV/dt = −V + x̂_i(t) | τ_A·dE/dt = −E + S(t) |
+| **Entrada** | medición normalizada x̂_i | spikes binarios S_i (o su suma ponderada) |
+| **τ** | 3,3,2,1,1,1 h | 1 h |
+| **Salida** | spike S_i[t] = 1 si V≥θ_i (+ reset) | P = σ(I_A − θ_A) |
+| **V_rest / R_m·I** | 0 / absorbido en x̂ | 0 / absorbido en S |
 
-- Cada neurona sensor i se conecta a la alerta a traves de **una sinapsis con peso w_i** (excitatoria si w_i > 0, inhibitoria si w_i < 0). La alerta recibe la **suma ponderada** de las actividades:
-- I_A[t] = w_1·a_1[t] + w_2·a_2[t] + ... + w_6·a_6[t] + v_1·doy_sin + v_2·doy_cos + v_3·hod_sin + v_4·hod_cos
-- En forma matricial: I_A[t] = W^T · x[t], donde W = [w_1..w_6, v_1..v_4] y x[t] es el vector de caracteristicas (features) en t.
-- **Interpretacion meteorologica (Signo y magnitud):** un w_HR grande y positivo significa "humedad anomala empuja a llover"; un w_P negativo (sobre la anomalia de presion) significa "presion subiendo empuja a no llover" (la lluvia suele venir con presion en caida, que es anomalia negativa). **El signo y magnitud de cada peso es interpretable.**
+#### Definicion de cada variable (Ecuacion de membrana final):
 
-**La neurona de alerta como LIF**
+Se determina el rol de cada variable a nivel practico y si se fija o aprende.
 
-Para ser coherentes con "6 neuronas LIF", la alerta tambien integra (con su propio `τ_A`, corto, 1-2 h) y dispara al superar `θ_A`. Pero como las features ya llevan memoria, la alerta puede **decidir al final de la ventana**:
+- **V_i[t] = α_i·V_i[t−1] + (1−α_i)·x̂_i[t]**
+- Convención: lo que tiene interpretacion fisica se fija (τ, V_rest, θ_i); lo que solo se puede aprender de los datos se aprende (w, θ_A).
 
-- **Version binaria (hardware):** predice lluvia si `V_A[t_final] >= θ_A`.
-- **Version probabilistico (calibracion):** `P(lluvia) = σ(V_A[t_final] − θ_A)` con la sigmoide `σ(x) = 1/(1+e^(−x))`. La sigmoide es la version suave del umbral: el umbral es `P ≥ 0.5`. Esto permite calibrar el umbral en validacion (seccion 6.3).
+**Variables de la ecuación del sensor V_i[t] = α_i·V_i[t−1] + (1−α_i)·x̂_i[t]**
+
+| **Símbolo** | **Definición formal** | **Rango** | **Rol** | **¿Se aprende?** | **Interpretación** |
+| --- | --- | --- | --- | --- | --- |
+| **V_i[t]** | Estado (potencial de membrana) del sensor i en la hora t | 0,1 | Integra con fuga la anomalía; lleva la memoria | — (estado) | "Nivel de anomalía persistente" de la variable: si x̂ sube varias horas, V se acerca a x̂; si cae, V decae con τ_i. Es lo que se compara contra θ_i |
+| **x̂_i[t]** | Entrada normalizada = anomalía estacional de la variable en t | 0,1 | Juega el papel de R_m·I(t) | — (preproceso) | Cuánto se desvía la medición de lo típico del día. |
+| **α_i** | Factor de fuga = e^{−Δt/τ_i} | (0,1) | Fracción de membrana retenida por hora; (1−α_i) es la ganancia del dato nuevo | No (se deriva de τ_i, fija) | Es el peso del kernel exponencial discreto: α alto = memoria larga (lento), α bajo = memoria corta (sigue a la señal) |
+| **τ_i** | Constante de tiempo del sensor | horas | Ventana de memoria / velocidad de respuesta | Fijo (física) | T/HR lentas (3 h), P/viento/lluvia rápidas (1–2 h) |
+| **Δt** | Paso temporal | 1 h | Discretización | — | Un paso = una hora (datos horarios) |
+| **S_i[t]** | Spike binario: 1 si V_i[t] ≥ θ_i, luego V_i ← 0 | {0,1} | Salida del sensor; entrada de la alerta | — (evento) | "La variable entró en su rango de alarma" |
+| **θ_i** | Umbral de disparo del sensor i. | 0,1 | Convierte el continuo en evento; define la sensibilidad por variable | Sí (percentil del ajuste; o búsqueda) | Cuánta anomalía integrada necesita la variable para alarmar. Marca el umbral para contabilizar el spike. |
+
+**Variables de la ecuación de la alerta I_A[t] = Σ_i w_i·E_i[t] + Σ_j v_j·ctx_j[t]**
+
+| **Símbolo** | **Definición formal** | **Rango** | **Rol** | **¿Se aprende?** | **Interpretación** |
+| --- | --- | --- | --- | --- | --- |
+| **S_i[t]** | Spike del sensor (de la capa anterior) | {0,1} | Entrada de la alerta | — | El "corriente de entrada" de la alerta |
+| **E_i[t]** | Integral con fuga del spike train: E_i = α_A·E_i[t−1] + (1−α_A)·S_i[t] | 0,1 | Memoria por canal de la alerta; evidencia reciente de disparos | — (estado, con τ_A) | "Cuánto ha disparado el sensor recientemente" (~últimas 1–3 h). La memoria temporal de la alerta vive aquí |
+| **τ_A** | Constante de tiempo de la alerta | h | Ventana de memoria de la alerta | Sí (búsqueda, max CSI) | Sin ella, el spike binario pierde utilidad |
+| **α_A** | Factor de fuga de la alerta = e^{−1/τ_A} | (0,1) | Retención por hora de la evidencia | No (deriva de τ_A) | Con τ_A=1 h, el spike pesa ~% en el primer paso y decae rápido |
+| **w_i** | Peso sináptico sensor→alerta | ℝ | Importancia relativa y signo | Sí (logística) | Signo: + empuja a lluvia (excitatorio), − frena (inhibitorio). |
+| **ctx_j[t]** | 4 features de contexto: sin/cos(doy), sin/cos(hora) | −1,1 | Codificación circular instantánea del calendario (sin memoria) | — (preproceso) | Época del año y hora del día sin saltos dic–ene / 23–0 h |
+| **v_j** | Pesos del contexto | ℝ | Amplitud y fase de la modulación estacional/diurna | Sí | La pareja (v_sin, v_cos) define R=√(v_sin²+v_cos²) (cuánto modula) y φ=atan2(v_cos, v_sin). |
+| **I_A[t]** | Pre-activación / evidencia combinada de la alerta en t | ℝ | Potencial de membrana de la alerta antes de σ | — | Un escalar homogéneo: la suma ponderada de los E_i (que ya llevan memoria) + contexto + sesgo |
+| **b** | Sesgo del readout | ℝ | Offset de la probabilidad base | Sí | En la formulación sin bias se cumple b = −θ_A |
+| **σ** | Sigmoide 1/(1+e^{−x}) | (0,1) | Convierte la pre-activación en probabilidad | — | Versión suave del umbral ("fire" de la alerta) |
+| **θ_A** | Umbral de decisión sobre P | (0,1) | Punto de operación | Sí (calibración, max CSI) | Único parámetro que se ajusta en el despliegue para elegir trade-off POD/FAR. Equivale a umbralizar I_A en σ⁻¹(θ_A) |
+| **R_m** | Resistencia de membrana | Ω | Escala corriente→voltaje de la EDO canónica | No — absorbida | Por linealidad (subumbral) se absorbe en w; x̂ juega su papel. No se sintoniza |
+| **f_max** | Tasa máxima de disparo | 200 sp/s | Escala del rate coding (versión Poisson) | No — absorbida (versión directa) | En la versión directa implementada es una constante lineal → absorbida en w; solo debe ser igual entre variables si se usa Poisson |
+
+#### Como se calculan las variables:
+
+Varias variables utilizadas en la ecuacion provienen de calculos con subvariables que no se ven implicitamente en ella.
+
+Se expande como se calculan las variables de las ecuaciones de membrana final y como la modificacion de estas altera la precision del modelo:
+
+**Ecuacion sensores:**
+
+- **V_i[t]:** α_i·V_i[t−1] + (1−α_i)·x̂_i[t]
+    - Potencial de memebrana final, se obtiene con los datos de todas las demas variables.
+    - Este valor es comparado con la variable umbral “**θ_i”.**
+- **α_i:** e^{−Δt/τ_i}
+    - Proviene de una formula llamada “kernel exponencial discreto”, permite caluclar la “fuga” de memoria en el modelo, provoca decaimiento exponencial de potencial: cuanto tiempo se preserva un dato.
+- **x̂_i[t]:** R_m·I(t)
+    - Es un valor transformado y normalizado anteriormente por los metodos vistos en la seccion “normalizacion” del modelo LIF. Permite una entrada homogenia entre si.
+
+**Ecuacion alerta:**
+
+- **S_i** (de V_i, θ_i)
+    - Spikes de las anteriores neuronas LIF (sensores).
+- **α_A** (de τ_A)
+    - e^{−1/τ_A}
+- **E_i** (de α_A, S_i)
+    - E_i = α_A·E_i[t−1] + (1−α_A)·S_i[t]
+- **I_A** (de w, E, v, ctx, b)
+    - **Σ_i w_i·E_i[t] + Σ_j v_j·ctx_j[t]**
+- **P** (de I_A, σ).
+    - Se refiere a la proabilidad final.
+    - P = σ(I_A[t]) = 1/(1 + e^(−I_A[t]))
+- **σ:** Sigmoide
+    - 1/(1+e^{−x})
+- **ctx_j[t]**
+    - sin/cos(doy), sin/cos(hora)
+
+**Efecto de modificar cada base sobre el rendimiento:**
+
+| **Base** | **Efecto de alterarla** |
+| --- | --- |
+| **x_i** | ruido del sensor → el EMA lo suaviza; no se altera en despliegue |
+| **Esquema de normalización** | sin efecto en CSI. El modelo es robusto de por si. |
+| **τ_i** | memoria del precursor: τ→0 ⇒ V≈x̂, spikes ruidosos; τ grande ⇒ no responde, pierde eventos cortos |
+| **θ_i** | tasa de disparo, precocidad (antelación), balance entre variables, saturación de E_i |
+| **τ_A** | τ_A=0 colapsa CSI (No puede detectar correctamente los eventos); óptimo 1 h; muy grande ⇒ evidencia obsoleta |
+| **w_i, v_j, b** | no se tocan a mano: modificarlos = re-entrenar; aportan interpretabilidad |
+| **ctx_j** | Se refiere al contexto temporal y resultan despreciable a 0.25 mm/h. (Baja ponderacion final). |
+| **θ_A** | único parámetro de despliegue: subirlo ⇒ menos FAR/menos POD; bajarlo ⇒ lo contrario |
+| **Δt** | fijo 1 h; la discretización exacta vale para cualquier Δt, pero cambiar exige re-ajustar τ y θ_i |
+| **R_m, f_max** | cero efecto en la versión directa (linealidad: se absorben en w) |
+
+### Entrada y ponderacion de variables.
+
+Especificar el resumen de la normalizacion, como se ponderan las variables del las neuronas y como se acumula el potencial de membrana hasta el spike.
+
+### Definicion codificacion y forma utilizada.
+
+Definir si la codificacion sigue siendo relevante, y si es asi:
+
+- Cuales son las principales (resumen):
+- Que ventajas nos da la que elegimos.
+- Y SOBRETODO, COMO SE IMPLEMENTA E INTERACTUA CON LAS VARIABLES.
+    - Llevarlo a la practica, no teoria suelta.
+
+#### Preguntas/aclaraciones sueltas:
+
+Aca se define el diseño, no el metodo de entrenamiento ni los “valores” definitivos, es la estructura conceptual. En el entrenamiento se validaran los valores crudos.
+
+¿Que es poisson y como afecta al modelo?
+
+¿Se involucra el f_max, como?
+
+¿Que otras cosas faltan de definir en el modelo? ¿La estructura ya esta planteada para pasar al entrenamiento o faltan decisiones clave?
+
+#### Definicion de codificacion.
 
 **Rate coding (Poisson) vs inyeccion directa: puente teorico**
 
 Hay dos formas de alimentar las neuronas:
 
-- **Camino A (rate coding):** cada paso genera un tren de spikes de Poisson con tasa `λ = x̂·f_max`.
-- **Camino B (inyeccion directa):** se inyecta directamente `I = x̂·f_max`.
+- **Camino A (rate coding):** cada paso genera un tren de spikes de Poisson con tasa λ = x̂·f_max.
+- **Camino B (inyeccion directa):** se inyecta directamente I = x̂·f_max.
 
-La **equivalencia teorica**: como el LIF es lineal (subumbral), el valor esperado de la membrana bajo Poisson **es** la membrana con inyeccion directa (la media del Poisson es `λ`). Es decir:
+La **equivalencia teorica**: como el LIF es lineal (subumbral), el valor esperado de la membrana bajo Poisson **es** la membrana con inyeccion directa (la media del Poisson es λ). Es decir:
 
 - E[ V_A con rate coding ] = V_A con inyeccion directa
 
@@ -3991,9 +4184,9 @@ Por eso en la implementacion de referencia se usa la forma directa (determinista
 
 - Esto se puede citar con Herranz-Celotti & Rouat (2022) y la equivalencia promedio/EMD.
 
-**Consecuencia practica importante:** las constantes de escala (`f_max`, `R_m`) son factores constantes de un modelo lineal → **se absorben en los pesos aprendidos `w`**. No hay que "sintonizarlas" a mano para que las tasas sean comparables; la regresion logistica las acomoda sola. (Si se mantiene la version Poisson, si hay que fijar `f_max` igual en todas las variables, como ya esta decidido.)
+**Consecuencia practica importante:** las constantes de escala (f_max, R_m) son factores constantes de un modelo lineal → **se absorben en los pesos aprendidos w**. No hay que "sintonizarlas" a mano para que las tasas sean comparables; la regresion logistica las acomoda sola. (Si se mantiene la version Poisson, si hay que fijar f_max igual en todas las variables, como ya esta decidido.)
 
-#### Definicion de codificacion.
+---
 
 En un SNN, la informacion externa (los valores normalizados de las variables) debe convertirse en **trenes de spikes**. A esa conversion se la llama **codificacion neuronal**. La referencia se resume asi:
 
@@ -4053,7 +4246,7 @@ La encuesta de Springer (2021) agrega una advertencia clave para la decision de 
 
 **Limitacion a reconocer:** rate coding tiene menor densidad de informacion y mayor gasto energetico por spike que TTFS (Codificacion temporal). Para un LIF de 11 neuronas esto es aceptable, La comparativa de Guo et al. (2021) da los numeros de referencia para esa discusion.
 
-### Desiciones a tomar.
+### Decisiones a tomar.
 
 1. **Feature de la alerta:** ¿actividad continua (membrana, recomendada) o spike binario del sensor (alarma por variable)? O ambas (actividad + tasa de spikes).
 2. **La alerta integra o decide:** ¿`V_A` se evalúa al final de la ventana (recomendado) o se requiere un disparo en cualquier paso dentro de la ventana?
@@ -4071,8 +4264,42 @@ La encuesta de Springer (2021) agrega una advertencia clave para la decision de 
 **PASOS A SEGUIR:**
 
 - ACLARAR CONCEPTOS TECNICOS DEL MODELO LIF.
-- DEFINIR VARIABLE OBJETIVO.
+    - HACER LA ESTRUCTURA COMPLETA DE FORMA ESPECIFICA Y VERIFICADA POR MI.
+    - TERMINAR “SUB-SECCIONES” PENDIENTES DEL MODELO LIF.
+    - DETERMINAR QUE ES LA “regresion logistica”, como interactua con las variables, y si aplica a mi modelo actual o se descarta.
 - DEFINIR TEORICAMENTE Y TECNICAMENTE EL BASELINE A DISEÑAR.
+
+### Variable objetivo:
+
+#### Que es una variable objetivo:
+
+Consiste en la variable que utilizare como “meta” o “validador” para determinar si el modelo LIF predijo correctamente el evento de lluvia.
+
+#### Variable objetivo elegida:
+
+La variable objetivo elegida fue la precipitacion, debido a que es la medida mas directa para determinar si llovio o no, para poder determinar este evento se fijo un “rango minimo” considerado para considerar a ese evento como “Lluvia”.
+
+#### **Rango de la precipitacion:**
+
+Se identifica el rango/umbral optimo para la deteccion de lluvia, y se presenta el metodo para determinar el evento “binario” de lluvia para responder la pregunta ¿Llovio?: SI o NO
+
+- **Fórmula:**
+    - x' = 1  si x ≥ UMBRAL
+    - x' = 0  si x < UMBRAL
+- **Criterio estándar en meteorología:**
+    
+    
+    | **Referencia** | **Umbral de "evento de lluvia"** |
+    | --- | --- |
+    | **WMO (2017)** | Precipitación mensurable que alcanza el suelo: ≥ 0.1 mm en el periodo |
+    | **Convención ISD-Lite/NOAA** | Precipitación horaria ≥ 0.1 mm (la resolución mínima reportada) |
+    | **Criterio conservador** | ≥ 0.2 mm/h (evita falsos positivos por rocío/resolución del pluviómetro) |
+    - Para este caso **se eligio utilizar: 0.2 mm/h.**
+    - **Justificación:** El modelo debera estar adaptado a pluviómetros de cangilón (0.2 mm por vuelco) — un valor de 0.1 mm en ISD-Lite puede ser ruido de redondeo o rocío. Con 0.2 mm se asegura que al menos un vuelco real del cangilón ocurrió.
+
+**CONTINUAR**
+
+### Definicion y diseño del baseline
 
 #### Protocolo de entrenamiento y evaluacion:
 

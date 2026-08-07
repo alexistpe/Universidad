@@ -54,45 +54,61 @@ La ecuacion diferencial del LIF es:
 
 | Simbolo | Significado | Unidad | En este modelo |
 | --- | --- | --- | --- |
-| `V(t)` | Potencial de membrana | mV (relativo) | actividad de la variable (adimensional) |
-| `V_rest` | Potencial de reposo | mV | 0 (escala normalizada) |
-| `τ_m` | Constante de tiempo de membrana | s (u horas) | 2-4 h por variable (escala de precursores) |
-| `R_m` | Resistencia de membrana | Ω | se absorbe en los pesos aprendidos |
-| `I(t)` | Corriente de entrada | mA | proporcional a la variable normalizada |
+| `V(t)` | Potencial de membrana (estado de la neurona) | mV (relativo) | actividad adimensional en [0,1]: `a_i[t]` en el sensor, `E_i[t]` en la alerta |
+| `V_rest` | Potencial de reposo (atractor sin entrada) | mV | 0 (escala normalizada) |
+| `τ_m` | Constante de tiempo de membrana = `R_m·C_m` | h | memoria: `τ_i = [3, 3, 2, 1, 1, 1]` h en sensores; `τ_A = 1` h en la alerta |
+| `R_m` | Resistencia de membrana (escala corriente→voltaje) | Ω | se absorbe en la entrada normalizada `x̂` (juega el papel de `R_m·I`) |
+| `I(t)` | Corriente de entrada | mA | sensor: medicion normalizada `x̂_i(t)`; alerta: spikes `S_i(t)` |
 
-La solucion dice lo esencial: `V` **tiende** a `V_rest + R_m·I` con constante `τ_m`. Si la entrada se mantiene, `V` sube asintoticamente hacia ella; si la entrada se corta, `V` decae exponencialmente con `τ_m`.
+**Lectura fisica:** la membrana es un circuito RC. Con entrada constante, `V` sube **asintoticamente** hacia `V_rest + R_m·I` con velocidad dada por `τ_m`; si la entrada se corta, `V` decae exponencialmente hacia `V_rest`. `τ_m` no es "cuanto tarda en llegar al valor final", sino **cuanto recuerda el pasado**: define la ventana de memoria de la neurona.
 
-### 2.2. Disparo, reset y refractariedad
+### 2.2. Como se resuelve la EDO: la solucion general
 
-```
-if V(t) >= θ:    emitir spike (s=1)
-                 V(t) <- V_reset          (reset, tipicamente V_rest)
-                 no recibir entrada durante t_ref   (periodo refractario)
-```
-
-### 2.3. Forma discreta (la que se codifica)
-
-Con paso temporal `Δt` y **Euler implicito/explicito** (equivalentes si `Δt << τ_m`):
+`τ_m·dV/dt = −(V − V_rest) + R_m·I(t)` es una **EDO lineal de primer orden** no homogenea. Se resuelve con el metodo del **factor integrante**. Llamando `u(t) = R_m·I(t)` y `W = V − V_rest`, queda:
 
 ```
-α = e^(−Δt/τ_m)                      (factor de fuga exacto)
-V[t] = α·V[t-1] + (1−α)·(V_rest + R_m·I[t])
+dW/dt + W/τ_m = u(t)/τ_m
 ```
 
-Con `V_rest = 0` y absorbiendo la escala en la corriente:
+Multiplicando por el factor integrante `e^(t/τ_m)` se obtiene `d/dt[e^(t/τ_m)·W] = e^(t/τ_m)·u(t)/τ_m`, e integrando de `t0` a `t`:
 
 ```
-V[t] = α·V[t-1] + (1−α)·I[t]
+V(t) = V_rest  +  (V(t0) − V_rest)·e^(−(t−t0)/τ_m)  +  (1/τ_m)·∫_{t0}^{t} e^(−(t−s)/τ_m)·R_m·I(s) ds
 ```
 
-Esta es la ecuacion que se implementa. `α` juega el papel de "cuanta memoria conserva el paso anterior".
+La solucion general tiene **tres terminos con significado propio**:
+
+1. `V_rest`: el punto de equilibrio al que la neurona tiende sin entrada.
+2. `(V(t0) − V_rest)·e^(−Δt/τ_m)`: la **memoria de la condicion inicial**, que decae exponencialmente con `τ_m`.
+3. `(1/τ_m)∫ e^(−(t−s)/τ_m)·R_m·I(s) ds`: la **convolucion de la entrada con el kernel exponencial** `(1/τ_m)·e^(−Δt/τ_m)`. Es la "integracion con fuga": cada entrada pasada contribuye, pero pesa tanto menos cuanto mas lejos en el pasado. **De este termino viene el nombre *leaky* integrate-and-fire.**
+
+Entonces: el "significado de la variable" `V(t)` es la solucion de la EDO (el estado integrado con olvido), y la "ecuacion final" del modelo se obtiene resolviendo la EDO — no se postula un filtro aparte.
+
+### 2.3. De la solucion general a la ecuacion final: discretizacion exacta
+
+Para implementar la neurona en un sistema digital (paso horario `Δt = 1 h`), se **muestrea la solucion general** sobre un intervalo `[t−1, t]` asumiendo que la entrada es constante durante el paso (zero-order hold). Sustituyendo en la solucion general:
+
+```
+V[t] = e^(−Δt/τ_m)·V[t−1] + (1 − e^(−Δt/τ_m))·x̂[t]
+     = α·V[t−1] + (1−α)·x̂[t]                    con  α = e^(−Δt/τ_m)
+```
+
+(con `V_rest = 0` y `x̂` en el papel de `R_m·I`). **Esta es exactamente la recurrencia que implementa el codigo** (`prototipos/prototipo_eddf_real.py:100-107` y `prototipo_lif.py:54-61`):
+
+```python
+V = alphas * V + (1.0 - alphas) * X[t]
+```
+
+Nota metodologica: la forma exponencial `e^(−1/τ)` es el **solucionador exacto** de la EDO bajo zero-order hold, no una aproximacion. Un Euler hacia adelante daria `V[t] = (1−Δt/τ)·V[t−1] + (Δt/τ)·x̂[t]`, que solo es valido si `Δt << τ` y se vuelve inestable si `Δt/τ > 1`. Por eso el codigo usa el factor exacto `α = e^(−Δt/τ)`.
+
+**Nomenclatura de la recurrencia:** en la literatura esta ecuacion recibe varios nombres equivalentes segun la disciplina: **ecuacion en diferencias lineal de primer orden** (matematicas), **filtro IIR de primer orden / pasa-bajos de un polo** (procesamiento de senales, version discreta del filtro RC), **suavizado exponencial / EMA** (estadistica) y **discretizacion exacta zero-order hold de la ecuacion de membrana del LIF** (neurociencia/control). Todos describen lo mismo: es la solucion general de la EDO evaluada paso a paso sin guardar el historial completo.
 
 ### 2.4. Interpretacion clave: promedio movil exponencial (EMA)
 
 Reordenando la ecuacion se ve que el LIF subumbral **es** un promedio movil exponencial:
 
 ```
-V[t] = (1−α)·I[t] + (1−α)·α·I[t-1] + (1−α)·α²·I[t-2] + ...
+V[t] = (1−α)·x̂[t] + (1−α)·α·x̂[t-1] + (1−α)·α²·x̂[t-2] + ...
 ```
 
 Es decir: la actividad de la neurona sensor en el instante `t` resume **toda la historia** de la variable, con pesos que decaen exponencialmente. La constante `τ_m` controla cuanta historia: con `τ_m = 3 h`, la contribucion de hace 3 h pesa `e^(−1) ≈ 37%`; hace 6 h, `e^(−2) ≈ 14%`. Esto es exactamente lo que se quiere para capturar la evolucion de precursores (caida de presion, subida de humedad) en ventanas de 6-12 h.
@@ -102,6 +118,150 @@ Es decir: la actividad de la neurona sensor en el instante `t` resume **toda la 
 | τ_m | 1 h | 2 h | 3 h | 4 h | 6 h | 12 h |
 | --- | --- | --- | --- | --- | --- | --- |
 | α = e^(−1/τ_m) | 0.37 | 0.61 | 0.72 | 0.78 | 0.85 | 0.92 |
+
+### 2.6. La misma EDO en dos roles: neurona sensor y neurona de alerta
+
+Tanto la capa de sensores como la alerta resuelven **la misma EDO** (2.1)-(2.3); lo que cambia es la **entrada** y la **salida**.
+
+**Neurona sensor (6, una por variable normalizada):** su entrada es la medicion `x̂_i`, integra con su propia `τ_i`, y al superar su umbral `θ_i` **dispara un spike y se reinicia** (integrate-and-FIRE):
+
+```
+V_i[t] = α_i·V_i[t−1] + (1−α_i)·x̂_i[t]      α_i = e^(−1/τ_i),  τ_i = [3, 3, 2, 1, 1, 1] h
+S_i[t] = 1  si  V_i[t] ≥ θ_i ;  V_i[t] ← 0    (threshold + reset total)
+```
+
+El disparo y el reset **NO estan en la EDO**: son el evento no-suave anadido al final de cada paso. La EDO gobierna la dinamica subumbral; la regla de umbral es la parte "fire". (No se usa periodo refractario: con `Δt = 1 h` es irrelevante frente a las decenas de milisegundos biologicos.)
+
+**Neurona de alerta (1):** su entrada son los **spikes** `S_i` de los sensores (no las mediciones); los integra con su propia memoria `τ_A` y decide con una version suave del umbral (sigmoide + `θ_A`), sin disparar spikes:
+
+```
+E_i[t] = α_A·E_i[t−1] + (1−α_A)·S_i[t]        α_A = e^(−1/τ_A),  τ_A = 1 h   (por canal)
+I_A[t] = Σ_i w_i·E_i[t] + Σ_j v_j·ctx_j[t] + b    (pre-activacion: evidencia combinada)
+P = σ(I_A[t])                                 con  σ(x) = 1/(1+e^(−x))
+decidir lluvia si  P ≥ θ_A                    (punto de operacion)
+```
+
+`I_A[t]` es el **potencial de membrana de la alerta antes de la activacion** (pre-activacion); `b` es el sesgo aprendido (en la formulacion sin bias se cumple `b = −θ_A`); `σ` es la version suave del umbral (el "fire" de la alerta); `θ_A` es el punto de operacion. Como la integracion y la suma ponderada conmutan (ambas lineales), integrar cada spike por canal y luego ponderar es **equivalente** a que la alerta integrara la suma ponderada `Σ w_i·S_i` directamente: `Σ w_i·E_i` es la parte de memoria del potencial de la alerta (`prototipos/prototipo_lif_spikes.py:49-63`). El contexto `ctx_j` (sin/cos de dia y hora) entra **sin integrarse** (instantaneo); solo los spikes llevan memoria. En el codigo las features se **estandarizan (z-score) antes del readout**, por lo que los pesos `w_i, v_j` se reportan en unidades estandarizadas.
+
+| | Neurona sensor (6) | Neurona alerta (1) |
+| --- | --- | --- |
+| EDO | `τ_i·dV/dt = −V + x̂_i(t)` | `τ_A·dE/dt = −E + S(t)` |
+| Entrada | medicion normalizada `x̂_i` | spikes binarios `S_i` |
+| τ | 3, 3, 2, 1, 1, 1 h | 1 h |
+| Salida | spike `S_i[t]` binario + reset | probabilidad `P = σ(I_A + b)` con umbral `θ_A` |
+
+### 2.7. Glosario completo de variables
+
+A continuacion se describen TODOS los simbolos de las dos ecuaciones del modelo: la del sensor `V_i[t] = α_i·V_i[t−1] + (1−α_i)·x̂_i[t]` y la de la alerta `I_A[t] = Σ_i w_i·E_i[t] + Σ_j v_j·ctx_j[t] + b`. "Se aprende" indica si el valor es un parametro libre del entrenamiento o si se fija por criterio fisico/estadistico.
+
+#### 2.7.1. Variables de la ecuacion del sensor
+
+| Simbolo | Definicion formal | Rango | Rol en el modelo | Se aprende | Valor en EDDF | Interpretacion |
+| --- | --- | --- | --- | --- | --- | --- |
+| `V_i[t]` | Estado (membrana) del sensor `i` en `t`: `α_i·V_i[t−1] + (1−α_i)·x̂_i[t]` | [0,1] | Integra con fuga la anomalia; lleva la memoria; se compara contra `θ_i` | No (estado) | — | "Nivel de anomalia persistente": sube mientras `x̂` sube y decae con `τ_i` cuando `x̂` cae |
+| `x̂_i[t]` | Entrada normalizada (anomalia estacional) | [0,1] | Juega el papel de `R_m·I(t)` | No (preproceso) | — | Desvio de la medicion respecto de la climatologia del dia: `z` clip `[−3,3]` → `0.5 + z/6`; PRECIP = `min(prcp/1, 1)` |
+| `α_i` | Factor de fuga = `e^(−Δt/τ_i)` | (0,1) | Fraccion de memoria retenida por hora; `(1−α_i)` = ganancia del dato nuevo | No (deriva de `τ_i`, fija) | τ=1→0.37, τ=2→0.61, τ=3→0.72 | Peso del kernel exponencial discreto: α alto = memoria larga (lento); α bajo = sigue a la senal |
+| `τ_i` | Constante de tiempo del sensor | h | Ventana de memoria / velocidad de respuesta | **Fijo (fisica)** | T=3, HR=3, P=2, u=1, v=1, PRECIP=1 | T/HR lentas (3 h); P/viento/lluvia rapidas (1–2 h) |
+| `S_i[t]` | Spike binario: `1` si `V_i[t] ≥ θ_i`; luego `V_i[t] ← 0` | {0,1} | Salida del sensor; entrada de la alerta | No (evento) | tasa 2–7% | "La variable entro en su rango de alarma" |
+| `θ_i` | Umbral de disparo = percentil 90 de `V_i` (EMA sin reset) en el ajuste | [0,1] | Convierte el continuo en **evento**; fija la sensibilidad por variable | **Si** (percentil/busqueda) | `[0.717, 0.695, 0.734, 0.70, 0.723, 0.089]` | Cuanta anomalia integrada necesita la variable para alarmar. Ver nota detallada mas abajo |
+
+**Nota sobre `θ_i`: como funciona y que afecta modificarlo.** `θ_i` NO esta en la EDO de la membrana: es el nivel de referencia del comparador que produce el spike. Cada hora se evalua `S_i[t] = 1` si `V_i[t] ≥ θ_i`; si dispara, `V_i` se reinicia a 0 (y ese reset si condiciona la evolucion futura de la membrana). Por eso `θ_i` controla:
+1. **Tasa de disparo:** `θ_i` alto → la membrana cruza menos veces el umbral → pocos spikes; `θ_i` bajo → muchos spikes. Al fijar `θ_i` = percentil 90 de la membrana en el ajuste, cada sensor dispara una fraccion objetivo de horas (en EDDF 2–7%), independiente de la escala de la variable.
+2. **Precocidad:** `θ_i` bajo dispara ANTES (cuando la anomalia aun es pequena) → mas antelacion pero mas ruido; `θ_i` alto dispara solo con anomalia fuerte/persistente → menos falsas alarmas pero con menos antelacion.
+3. **Balance entre variables:** un `θ_i` propio por sensor permite que PRECIP sea "gatillo facil" (0.089, dispara 6.9%) y P un "filtro estricto" (0.73, dispara 1.9%).
+4. **Efecto indirecto en la alerta:** el tren de spikes alimenta `E_i` (con `τ_A`). Si `θ_i` es demasiado alto la variable nunca dispara (la alerta pierde esa senal); si es demasiado bajo dispara casi siempre y `E_i` se satura cerca de 1 (pierde poder discriminativo).
+
+#### 2.7.2. Variables de la ecuacion de la alerta
+
+| Simbolo | Definicion formal | Rango | Rol en el modelo | Se aprende | Valor en EDDF | Interpretacion |
+| --- | --- | --- | --- | --- | --- | --- |
+| `S_i[t]` | Spike del sensor `i` (salida de la capa anterior) | {0,1} | Corriente de entrada de la alerta | No (evento) | — | El mismo `S_i` de la capa sensor |
+| `E_i[t]` | Integral con fuga del spike train: `E_i[t] = α_A·E_i[t−1] + (1−α_A)·S_i[t]` | [0,1] | **Memoria por canal de la alerta**; evidencia reciente de disparos | No (estado, con `τ_A`) | tras spike: 0.63→0.23→0.09→0.03 | "Cuantos disparos recientes"; la memoria temporal de la alerta vive aqui |
+| `τ_A` | Constante de tiempo de la alerta | h | Ventana de memoria de la alerta | **Si** (busqueda, max CSI) | **1 h** (B/C) | Sin ella el spike binario pierde utilidad (ablation §9.1) |
+| `α_A` | Factor de fuga de la alerta = `e^(−1/τ_A)` | (0,1) | Retencion por hora de la evidencia | No (deriva de `τ_A`) | 0.37 | Con τ_A=1 h el spike pesa ~63% el primer paso y decae rapido |
+| `w_i` | Peso sinaptico sensor→alerta | ℝ | Importancia relativa y signo | **Si** (logistica) | B: `[−0.014, 0.015, −0.241, −0.03, −0.1, 0.987]` | `+` excita (empuja a lluvia); `−` inhibe (frena). PRECIP domina (0.987); P y v inhibitorios |
+| `ctx_j[t]` | Contexto: `sin/cos(doy)`, `sin/cos(hora)` | [−1,1] | Codificacion circular instantanea del calendario (sin memoria) | No (preproceso) | — | Epoca del ano y hora del dia sin saltos dic–ene / 23–0 h |
+| `v_j` | Pesos del contexto | ℝ | Amplitud y fase de la modulacion estacional/diurna | **Si** | A: `[−0.054, 0.178, −0.05, −0.021]` | La pareja `(v_sin, v_cos)` define `R = √(v_sin² + v_cos²)` (cuanto modula) y `φ = atan2(v_cos, v_sin)` (en que epoca el pico); dominante `cos(doy)` |
+| `I_A[t]` | Pre-activacion = `Σ w_i·E_i[t] + Σ v_j·ctx_j[t] + b` | ℝ | **Potencial de membrana de la alerta antes de `σ`** | No (estado) | — | Escalar homogeneo (la memoria ya esta dentro de los `E_i`) |
+| `b` | Sesgo del readout | ℝ | Offset de probabilidad base | **Si** | `w[-1]` | En la formulacion sin bias: `b = −θ_A` |
+| `σ` | Sigmoide `1/(1+e^(−x))` | (0,1) | Convierte la pre-activacion en probabilidad | No | — | Version suave del umbral ("fire" de la alerta) |
+| `θ_A` | Umbral de decision sobre `P` | (0,1) | Punto de operacion | **Si** (calibracion, max CSI) | B=0.21, C=0.10 | Unico parametro ajustado en el despliegue para elegir POD/FAR; equivale a umbralizar `I_A` en `σ⁻¹(θ_A)` |
+| `R_m` | Resistencia de membrana (EDO canonica) | Ω | Escala corriente→voltaje | No — **absorbida** | — | Por linealidad (subumbral) se absorbe en `w`; `x̂` juega su papel. No se sintoniza |
+| `f_max` | Tasa maxima de disparo | 200 sp/s | Escala del rate coding (version Poisson) | No — **absorbida** (version directa) | 200 | En la version directa es constante lineal → absorbida en `w`; solo debe ser igual entre variables si se usa Poisson |
+
+#### 2.7.3. Resumen practico y regla de oro
+
+| Grupo | Simbolos | Como se obtienen | Utilidad |
+| --- | --- | --- | --- |
+| Preproceso | `x̂_i`, `ctx_j` | transformacion (anomalia estacional, sin/cos) | misma escala y mismo modelo para todo el ano |
+| Estado con memoria | `V_i`, `E_i` | EMA (IIR de primer orden) | suaviza el ruido de BME280/DHT22/pluviometro (pasa-bajos) |
+| Fijados por fisica | `τ_i`, `τ_A`, `α_i`, `α_A`, `V_rest` | criterio fisico/estadistico | ventana de memoria de precursores (6–12 h) |
+| Aprendidos | `w_i`, `v_j`, `b`, `θ_A`, `θ_i` | regresion logistica + calibracion | interpretabilidad y punto de operacion |
+
+Regla de oro: **lo que tiene interpretacion fisica se fija (τ, V_rest, θ_i); lo que solo se puede aprender de los datos se aprende (w, v, b, θ_A).** El resultado es un modelo con ~11-15 parametros libres, entrenable con regresion logistica (sin GPU) y desplegable en bajo costo (solo sumas, productos y comparaciones).
+
+### 2.8. Variables base vs derivadas y sensibilidad
+
+Las variables del modelo (§2.7) se dividen en dos grupos:
+- **Derivadas:** se calculan con una ecuacion a partir de otras variables; su origen esta totalmente determinado dentro del modelo.
+- **Base (raices):** no se calculan de otras variables dentro del modelo; son las entradas y parametros del diseno. Alterarlas cambia todo lo que hay "rio abajo".
+
+#### 2.8.1. Variables derivadas: de donde provienen
+
+Cada variable derivada tiene su ecuacion de origen y las variables que la condicionan:
+
+| Variable derivada | Ecuacion de origen | Variables que la condicionan |
+| --- | --- | --- |
+| `α_i` (fuga del sensor) | `α_i = e^(−Δt/τ_i)` | `τ_i`, `Δt` |
+| `α_A` (fuga de la alerta) | `α_A = e^(−1/τ_A)` | `τ_A` |
+| `V_i[t]` (membrana del sensor) | `V_i[t] = α_i·V_i[t−1] + (1−α_i)·x̂_i[t]` | `α_i`, `V_i[t−1]`, `x̂_i[t]` |
+| `S_i[t]` (spike del sensor) | `S_i[t] = 1` si `V_i[t] ≥ θ_i` (luego `V_i[t] ← 0`) | `V_i[t]`, `θ_i` |
+| `E_i[t]` (memoria de la alerta) | `E_i[t] = α_A·E_i[t−1] + (1−α_A)·S_i[t]` | `α_A`, `E_i[t−1]`, `S_i[t]` |
+| `I_A[t]` (pre-activacion) | `I_A[t] = Σ_i w_i·E_i[t] + Σ_j v_j·ctx_j[t] + b` | `w_i`, `E_i[t]`, `v_j`, `ctx_j[t]`, `b` |
+| `P` (probabilidad) | `P = σ(I_A[t]) = 1/(1 + e^(−I_A[t]))` | `I_A[t]` |
+
+`x̂_i[t]` es **semi-derivada**: proviene de la medicion cruda `x_i[t]` y de la climatologia del dia calculada en el ajuste (`μ_doy`, `σ_doy`): `x̂_i = 0.5 + clip((x_i − μ_doy)/σ_doy, −3, 3)/6`; PRECIP usa `min(prcp/1, 1)`.
+
+#### 2.8.2. Variables base (raices)
+
+| # | Base | De donde sale | Condiciona |
+| --- | --- | --- | --- |
+| 1 | `x_i` (6 mediciones) | sensor fisico (T, HR, P, u, v, prcp) | `x̂_i` y todo lo de rio abajo |
+| 2 | `τ_i` (6) | fisica (fija) | `α_i` → `V_i` → `S_i` |
+| 3 | `θ_i` (6) | percentil de `V_i` en el ajuste | `S_i` |
+| 4 | `τ_A` (1) | busqueda (max CSI en calibracion) | `α_A` → `E_i` |
+| 5 | `ctx_j` (4) | calendario (timestamp: doy y hora) | `I_A` |
+| 6 | `w_i`, `v_j`, `b` | entrenamiento (regresion logistica) | `I_A` |
+| 7 | `θ_A` (1) | calibracion (max CSI en validacion) | decision final |
+| 8 | `Δt`, `V_rest` | diseno (fijas) | `α_i`, `α_A`, membrana |
+| 9 | `R_m`, `f_max` | diseno — **absorbidas** | **ninguna** (version directa) |
+
+#### 2.8.3. Efecto de modificar cada variable sobre el rendimiento
+
+| Variable | Efecto de alterarla | Evidencia |
+| --- | --- | --- |
+| `x_i` | ruido del sensor; el EMA lo suaviza; no se altera en despliegue | — |
+| Esquema de normalizacion de `x̂_i` | **sin efecto** en CSI (0.342 vs 0.344 vs 0.344) | experimento §2.8.4 |
+| `τ_i` | memoria del precursor: τ→0 ⇒ `V_i ≈ x̂_i`, spikes ruidosos sin suavizar; τ grande ⇒ no responde y pierde eventos cortos; optimo alineado con la ventana de precursores (6-12 h) | pendiente barrer en reales (§9) |
+| `θ_i` | tasa de disparo, precocidad (antelacion), balance entre variables y saturacion de `E_i` | nota §2.7.1 |
+| `τ_A` | τ_A→0 (= B2) colapsa CSI a 0.069 (sinteticos); optimo 1 h en reales; muy grande ⇒ evidencia obsoleta | ablation §9.1 |
+| `w_i`, `v_j`, `b` | no se tocan a mano: modificarlos = re-entrenar; aportan interpretabilidad (signo y magnitud) | — |
+| `ctx_j` | quitarlos ⇒ −0.004 CSI (despreciable a 0.25 mm/h; el ciclo ya esta en la normalizacion estacional) | `Ablacion_Contexto.md` |
+| `θ_A` | unico parametro de despliegue: subirlo ⇒ menos FAR y menos POD; bajarlo ⇒ lo contrario | calibracion §6.3 |
+| `Δt` | fijo en 1 h; la discretizacion exacta vale para cualquier `Δt`, pero cambiar exige re-ajustar `τ` y `θ_i` | §2.3 |
+| `R_m`, `f_max` | **cero efecto** en la version directa (linealidad: se absorben en `w`) | §4.4 |
+
+#### 2.8.4. Robustez a la normalizacion de la entrada (evidencia experimental)
+
+Se ejecuto el Modelo B (θ_i = percentil 90, τ_A = 1 h, readout estandarizado) variando SOLO el preprocesado de la entrada `X`, sobre los mismos datos y el mismo protocolo de `Definicion_Lluvia_y_Resultados_EDDF.md` (`prototipos/experimento_normalizacion.py`):
+
+| Entrada | CSI | POD | FAR | theta_A | theta_i (ejemplo) |
+| --- | --- | --- | --- | --- | --- |
+| estacional-z (actual) | 0.342 | 0.565 | 0.536 | 0.21 | [0.72, 0.70, 0.73, 0.70, 0.72, 0.09] |
+| min-max global por variable | 0.344 | 0.567 | 0.534 | 0.14 | [0.68, 0.92, 0.72, 0.67, 0.70, 0.00] |
+| crudo (sin normalizar) | 0.344 | 0.567 | 0.534 | 0.17 | [22.1, 93.1, 1028, 8.1, 10.6, 0.1] (unidades fisicas) |
+
+Conclusion: la arquitectura **LIF + readout logistico es invariante a la escala de entrada**, porque absorbe la escala en dos puntos: `θ_i` por percentil (el disparo es invariante a transformaciones monotonas por variable) y el readout z-score (features estandarizadas). Por eso la normalizacion estacional NO es necesaria para la precision; se mantiene por interpretabilidad (significado de "anomalia-precursor"), por el acotamiento numerico a [0,1] y por permitir un solo modelo para todo el ano.
 
 ---
 
@@ -387,7 +547,7 @@ Con `θ_A` calibrado en 0.25, este caso apenas cruza el umbral: humedad alta (pe
 
 A confirmar antes de codificar el modelo final:
 
-1. **Feature de la alerta:** ¿actividad continua (membrana, recomendada) o spike binario del sensor (alarma por variable)? O ambas (actividad + tasa de spikes).
+1. **Feature de la alerta:** ~~¿actividad continua (membrana, recomendada) o spike binario del sensor (alarma por variable)?~~ **RESUELTA por la ablation (§9.1):** actividad continua como principal; spikes como variante V1 opcional equivalente.
 2. **La alerta integra o decide:** ¿`V_A` se evalúa al final de la ventana (recomendado) o se requiere un disparo en cualquier paso dentro de la ventana?
 3. **τ_m por variable:** ¿se fijan individualmente (recomendado) o uno global con sensibilidad?
 4. **Reset:** ¿`V_reset = 0` (recomendado) o `V_reset = θ − Δ` (reset parcial, mas biológico)?
@@ -411,6 +571,22 @@ Lecciones para los datos reales de EDDF:
 1. **Estandarizar features antes del readout** es necesario para que el GD converja (sin normalizar el readout se colapsaba a "predecir siempre lluvia").
 2. **`τ_m` debe alinearse con la ventana de la etiqueta** (aqui 6 h); taus de 1-2 h dejaban la etiqueta casi sin señal. En datos reales se debe barrer `τ_m` y reportar sensibilidad de CSI.
 3. Con una etiqueta desbalanceada, **calibrar `θ_A` en validacion** (no en train) y evaluar CSI/POD/FAR, no accuracy.
+
+### 9.1 Ablation: spikes por variable vs actividad continua
+
+`prototipos/prototipo_lif_spikes.py` compara sobre los MISMOS datos el diseno actual (A, actividad continua + readout), la variante V1 de `Decision_Arquitectura_Neuronas_Sensor.md` (B, sensores LIF que disparan spikes con `θ_i` aprendidos por busqueda de percentil en validacion, alerta integra spikes con `τ_A` tambien calibrado en validacion) y la version sin integracion (B2):
+
+| Modelo | CSI | POD | FAR | θ_A | τ_A [h] |
+| --- | --- | --- | --- | --- | --- |
+| A (continuo + pesos) | **0.163** | 0.255 | **0.688** | 0.20 | — |
+| B (spikes integrados) | 0.166 | **0.332** | 0.752 | 0.15 | 12.0 |
+| B2 (spikes instantaneos) | 0.069 | 0.123 | 0.862 | 0.10 | — |
+| Base (umbral fijo X0) | 0.123 | 0.313 | 0.832 | (X0=0.70) | — |
+
+Conclusiones de la ablation:
+1. **V1 es equivalente al diseno actual en CSI** (0.166 vs 0.163) pero con otro punto de operacion: detecta mas lluvia (POD +30%) a cambio de mas falsas alarmas (FAR +0.06). No hay ganancia de CSI atribuible a los spikes por variable.
+2. **La integracion `τ_A` de la alerta es lo que hace viable a los spikes**, no los spikes en si: sin ella (B2) el CSI cae a 0.069, por debajo del baseline. El spike binario pierde la magnitud; la memoria de la alerta acumula evidencia. El barrido en validacion puso `τ_A = 12 h` (el valor heuristico de 1.5-2 h era demasiado corto para la version spike).
+3. **Decision de diseno resuelta (era la pregunta abierta nº1):** se mantiene la **actividad continua** como feature principal (mejor CSI por menor complejidad, sin τ_A que calibrar), y los spikes quedan como variante V1 opcional — equivalente y mas interpretable por variable ("el sensor dispara solo en su rango de alarma"), util si el paper quiere reportar SNN con spikes. Ver `Decision_Arquitectura_Neuronas_Sensor.md` §7 para el detalle completo.
 
 ## 10. Referencias
 
@@ -486,5 +662,3 @@ Sí: el paso de tiempo base es 1 hora (Δt = 1 h), en el prototipo y en el dise�
 - Contexto temporal: doy (ciclo anual) y hora (ciclo diario) como features sin/cos — el tiempo entra como variables, no como red recurrente.
 - Micro-pasos (solo versión Poisson): si se genera el tren de spikes, se simula con dt_sim << τ_m dentro de cada hora (decisión abierta nº 8 del doc). En la versión directa del prototipo no hace falta.
 Resumen del modelo temporal: un reloj horario discreto, donde cada paso = 1 hora, las neuronas tienen memoria exponencial medida en horas, y el calendario (día del año / hora del día) entra por features cíclicas.
----
-Esto es solo explicación — no modifiqué nada. Si querés, puedo planificar agregar esta sección de "preguntas frecuentes / glosario" al final de Diseno_Modelo_LIF.md (y unificar el ciclo de doy a 365.25 en el prototipo). ¿Lo hago?
