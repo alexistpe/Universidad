@@ -1164,7 +1164,7 @@ Se divide en 2 frentes diferentes:
         - **Otras propuestas candidatas:**
             - ¿Puede un modelo LIF (Leaky Integrate-and-Fire) simplificado lograr una tasa de falsos positivos menor que un sistema de umbrales fijos, sin sacrificar sensibilidad en la deteccion de eventos de lluvia locales con al menos 30 minutos de anticipacion?
             - Comparacion modelo LIF (Leaky Integrate-and-Fire) simplificado con un modelo tradicional de umbrales fijos para la dereccion de eventos de lluvia locales.
-            - Modelo matematico LIF (Leaky Integrate-and-Fire) para la prediccion de eventos de lluvia locales.
+            - **Modelo matematico LIF (Leaky Integrate-and-Fire) para la prediccion de eventos de lluvia locales.**
         
         | Frase | Aporte |
         | --- | --- |
@@ -3921,6 +3921,54 @@ El modelo **Leaky Integrate-and-Fire** (LIF) es la neurona artificial mas simple
 
 **Analogia:** cada neurona sensor es un **filtro IIR de primer orden** (Utiliza el valor actual de la entrada y un valor de salida anterior para calcular la nueva salida) sobre la anomalia de su variable. El modelo completo es un **banco de filtros fijos + regresion logistica** en la alerta. Esta es la manera tecnica de explicar "como funciona" sin perderse en biologia.
 
+#### Conceptos tecnicos:
+
+**1.1. "Lineal" y "lineal subumbral":**
+Lineal significa que si duplicas la entrada, duplicas la salida; y si metes dos entradas juntas, la salida es la suma de las dos por separado. Dos propiedades:
+
+- Proporcionalidad: F(2·x) = 2·F(x)
+- Superposición: F(x + y) = F(x) + F(y)
+- La ecuación del LIF es lineal (en el régimen subumbral): τ·dV/dt = −V + I. La salida V es una combinación lineal del historial de entradas I. Por eso su solución discreta es una EMA, y un EMA es un filtro lineal: la salida de hoy = fracción de ayer + fracción del dato nuevo, todo proporcional.
+- "Subumbral" = por debajo del umbral. El LIF solo tiene dos cosas no lineales: el comparador (V ≥ θ → dispara) y el reset (V ← 0). Si la neurona casi nunca dispara (se queda por debajo de θ), entonces todo lo que hace es el filtro lineal, sin esos "saltos" no lineales. Operar la neurona así se llama modo subumbral y es lo que hace capa_ema: una neurona que solo suaviza, sin disparar.
+
+> Por qué importa: si todo el camino sensor→alerta es lineal, entonces el orden de las operaciones da igual (las operaciones "conmutan"), las constantes se absorben en los pesos, y el entrenamiento es trivial. Es
+> 
+
+**1.2. "Readout" (leer la salida):**
+El readout es la última etapa: la que convierte las señales ya procesadas en la predicción final. Es la "persona que decide" al final de una cadena de "analistas" (las neuronas).
+SENSORES (analistas que filtran cada variable) → READOUT (juez que pesa la evidencia) → P(lluvia)
+En el modelo, las neuronas sensor son los analistas: producen "qué tan anómala es la humedad", "qué tan anómala es la presión", etc. El readout es la regresión logística: recibe esas señales ya procesadas (E_i y contexto), les asigna un peso a cada una, y dice "con toda esta evidencia, P(lluvia la próxima hora) = X%".
+
+**1.3. "Regresión logística":**
+Es un método para aprender qué tanto pesa cada pieza de evidencia y devolver una probabilidad.
+Pasos:
+
+1. Se calcula una suma ponderada: s = w₁·E₁ + w₂·E₂ + ... + w₆·E₆ + v·ctx + b. Es "evidencia combinada".
+2. Se pasa por la sigmoide σ(s) = 1/(1+e^(−s)), que aplasta cualquier número real a un valor entre 0 y 1. Eso se interpreta como probabilidad.
+3. Entrenar = ajustar los w y b para que cuando llueva la probabilidad sea alta y cuando no, baja. El método hace esto repitiendo: calcula el error entre lo que predijo y lo que pasó, y mueve los pesos un poquito en la dirección que reduce el error (descenso de gradiente).
+
+**1.4. Feature:**
+
+- Cada variable que el modelo usa como entrada. Las features son columnas: E_T, E_HR, E_P, E_u, E_v, E_precip, ctx....
+- **Feature derivada:** Una que no se mide directamente, sino que se calcula a partir de otra. Ejemplos:
+    - u y v se calculan a partir de wdir y wspd → derivadas.
+    - x̂ (anomalía normalizada) se calcula a partir de HR cruda → derivada.
+    - El spike S_i se calcula a partir de la membrana V_i (con el umbral) → es una feature derivada.
+    - E_i (spike integrado) se calcula a partir de S_i → derivada al cuadrado.
+    Por qué se menciona: en nuestro modelo el spike es una feature derivada, un "evento de alarma" que calculamos desde la membrana y luego le damos al readout como entrada adicional. No es la señal cruda.
+
+**1.5. "Micro-pasos"**
+Cuando se simulan spikes reales (rate coding Poisson), los spikes pasan muchas veces por hora (hasta f_max = 200 por segundo). Una hora de datos hay que subdividirla en miles de pasitos finos para poder representar "en qué instante exacto ocurrió cada spike". Esos pasitos finos son los micro-pasos.
+
+- El paso normal del modelo: dt = 1 hora (un dato por fila).
+- Con Poisson: dt = 0.0001 h (o menos), y en cada micro-paso decides por sorteo si hay spike o no.
+
+**1.6. "End-to-end" (entrenamiento de punta a punta)**
+End-to-end: entrenar toda la red como una sola unidad: el error se propaga desde la salida hasta la primera capa, y todas las conexiones (incluidas las neuronas sensor) se ajustan con el gradiente.
+
+- SNN end-to-end real: los sensores LIF también aprenden sus pesos con gradiente sustituto, porque el spike es el único canal de comunicación y hay que entrenarlo.
+- El modelo LIF desarrollado NO es end-to-end: la capa sensor es fija (τ y θ_i se ponen a mano o por percentil, no se entrenan); solo el readout aprende (la logística). Es un enfoque "en dos etapas": primero se fijan los filtros, luego entrenas solo al juez.
+
 ### Estructura conceptual del modelo.
 
 El modelo consistira en 6 neuronas LIF individuales conectadas a los valores de los sensores, 4 datos serviran de contexto (2 datos para el dia del año; 2 datos para la hora del dia), y por ultimo una neurona LIF de “Alerta” que obtendra los “spikes” lanzados por estas neuronas junto a los valores de contexto.
@@ -4041,6 +4089,11 @@ Si asumimos que la entrada es constante durante el paso (zero-order hold, la opc
     P = σ(I_A[t])          con  σ(x) = 1/(1+e^{−x})
     decidir lluvia si P ≥ θ_A
         - La activación σ y el umbral θ_A son parte de la neurona, no de I_A. I_A sola es el potencial; la decisión es σ + θ_A.
+        - El sesgo b es una constante que ajusta el potencial “I_A” ante una incertidumbre de evidencia.
+            - Es la tendencia de fondo de lluvia cuando NO hay ninguna evidencia (todos los E_i = 0 y el contexto vale 0).
+            con b:   I_A = 0 + 0 + b = b        →   P = σ(b)
+            sin b:   I_A = 0 + 0 = 0            →   P = σ(0) = 0.50
+            - Se agrega por la rareza del evento. En un año promedio llueve solo el ~4.9% de las horas. Si no hubiera sesgo, con evidencia nula el modelo daría P = 0.50 — es decir, estaría a medias entre "llueve/no llueve" sin datos, lo que obligaría a un FAR altísimo o a un θ_A calibrado que compense fuera del modelo. El sesgo fija ese punto de partida en el nivel correcto:
 
 **Contexto:**
 
@@ -4069,7 +4122,7 @@ Se determina el rol de cada variable a nivel practico y si se fija o aprende.
 
 | **Símbolo** | **Definición formal** | **Rango** | **Rol** | **¿Se aprende?** | **Interpretación** |
 | --- | --- | --- | --- | --- | --- |
-| **V_i[t]** | Estado (potencial de membrana) del sensor i en la hora t | 0,1 | Integra con fuga la anomalía; lleva la memoria | — (estado) | "Nivel de anomalía persistente" de la variable: si x̂ sube varias horas, V se acerca a x̂; si cae, V decae con τ_i. Es lo que se compara contra θ_i |
+| **V_i[t]** | Estado (potencial de membrana) del sensor i en la hora t; Intencidad de variable. | 0,1 | Integra con fuga la anomalía; lleva la memoria | — (estado) | "Nivel de anomalía persistente" de la variable: si x̂ sube varias horas, V se acerca a x̂; si cae, V decae con τ_i. Es lo que se compara contra θ_i |
 | **x̂_i[t]** | Entrada normalizada = anomalía estacional de la variable en t | 0,1 | Juega el papel de R_m·I(t) | — (preproceso) | Cuánto se desvía la medición de lo típico del día. |
 | **α_i** | Factor de fuga = e^{−Δt/τ_i} | (0,1) | Fracción de membrana retenida por hora; (1−α_i) es la ganancia del dato nuevo | No (se deriva de τ_i, fija) | Es el peso del kernel exponencial discreto: α alto = memoria larga (lento), α bajo = memoria corta (sigue a la señal) |
 | **τ_i** | Constante de tiempo del sensor | horas | Ventana de memoria / velocidad de respuesta | Fijo (física) | T/HR lentas (3 h), P/viento/lluvia rápidas (1–2 h) |
@@ -4082,18 +4135,34 @@ Se determina el rol de cada variable a nivel practico y si se fija o aprende.
 | **Símbolo** | **Definición formal** | **Rango** | **Rol** | **¿Se aprende?** | **Interpretación** |
 | --- | --- | --- | --- | --- | --- |
 | **S_i[t]** | Spike del sensor (de la capa anterior) | {0,1} | Entrada de la alerta | — | El "corriente de entrada" de la alerta |
-| **E_i[t]** | Integral con fuga del spike train: E_i = α_A·E_i[t−1] + (1−α_A)·S_i[t] | 0,1 | Memoria por canal de la alerta; evidencia reciente de disparos | — (estado, con τ_A) | "Cuánto ha disparado el sensor recientemente" (~últimas 1–3 h). La memoria temporal de la alerta vive aquí |
+| **E_i[t]** | Integral con fuga del spike train: E_i = α_A·E_i[t−1] + (1−α_A)·S_i[t]; Acumulador por canal. | 0,1 | Memoria por canal de la alerta; evidencia reciente de disparos | — (estado, con τ_A) | "Cuánto ha disparado el sensor recientemente" (~últimas 1–3 h). La memoria temporal de la alerta vive aquí |
 | **τ_A** | Constante de tiempo de la alerta | h | Ventana de memoria de la alerta | Sí (búsqueda, max CSI) | Sin ella, el spike binario pierde utilidad |
 | **α_A** | Factor de fuga de la alerta = e^{−1/τ_A} | (0,1) | Retención por hora de la evidencia | No (deriva de τ_A) | Con τ_A=1 h, el spike pesa ~% en el primer paso y decae rápido |
 | **w_i** | Peso sináptico sensor→alerta | ℝ | Importancia relativa y signo | Sí (logística) | Signo: + empuja a lluvia (excitatorio), − frena (inhibitorio). |
 | **ctx_j[t]** | 4 features de contexto: sin/cos(doy), sin/cos(hora) | −1,1 | Codificación circular instantánea del calendario (sin memoria) | — (preproceso) | Época del año y hora del día sin saltos dic–ene / 23–0 h |
 | **v_j** | Pesos del contexto | ℝ | Amplitud y fase de la modulación estacional/diurna | Sí | La pareja (v_sin, v_cos) define R=√(v_sin²+v_cos²) (cuánto modula) y φ=atan2(v_cos, v_sin). |
-| **I_A[t]** | Pre-activación / evidencia combinada de la alerta en t | ℝ | Potencial de membrana de la alerta antes de σ | — | Un escalar homogéneo: la suma ponderada de los E_i (que ya llevan memoria) + contexto + sesgo |
+| **I_A[t]** | Pre-activación / evidencia combinada de la alerta en t; Potencial de alerta | ℝ | Potencial de membrana de la alerta antes de σ | — | Un escalar homogéneo: la suma ponderada de los E_i (que ya llevan memoria) + contexto + sesgo |
 | **b** | Sesgo del readout | ℝ | Offset de la probabilidad base | Sí | En la formulación sin bias se cumple b = −θ_A |
 | **σ** | Sigmoide 1/(1+e^{−x}) | (0,1) | Convierte la pre-activación en probabilidad | — | Versión suave del umbral ("fire" de la alerta) |
 | **θ_A** | Umbral de decisión sobre P | (0,1) | Punto de operación | Sí (calibración, max CSI) | Único parámetro que se ajusta en el despliegue para elegir trade-off POD/FAR. Equivale a umbralizar I_A en σ⁻¹(θ_A) |
 | **R_m** | Resistencia de membrana | Ω | Escala corriente→voltaje de la EDO canónica | No — absorbida | Por linealidad (subumbral) se absorbe en w; x̂ juega su papel. No se sintoniza |
 | **f_max** | Tasa máxima de disparo | 200 sp/s | Escala del rate coding (versión Poisson) | No — absorbida (versión directa) | En la versión directa implementada es una constante lineal → absorbida en w; solo debe ser igual entre variables si se usa Poisson |
+- Que representa cada variable dentro del modelo (Cuadro resumen)
+    
+    
+    | **Simbolo** | **Que representa** | **Significado meteorologico / de diseno** |
+    | --- | --- | --- |
+    | `x̂_i` | anomalia normalizada de la variable | "cuanto se desvia de lo tipico del dia" — define el concepto de precursor |
+    | `V_i` | membrana del sensor (estado con memoria) | nivel de anomalia persistente; suaviza el ruido del sensor |
+    | `S_i` | spike del sensor (evento binario) | "la variable entro en su rango de alarma" |
+    | `E_i` | memoria de la alerta por canal | "cuanto ha disparado el sensor recientemente" (ultimas ~1-3 h) |
+    | `ctx_j` | sin/cos de dia y hora | epoca del ano y hora del dia, sin saltos de calendario |
+    | `I_A` | pre-activacion de la alerta | evidencia combinada (spikes integrados + contexto + sesgo) |
+    | `P` | probabilidad de lluvia la proxima hora | salida calibrable del modelo |
+    | `w_i` | peso sensor→alerta | que variable empuja (+) o frena (−) la lluvia |
+    | `v_j` | peso del contexto | amplitud y fase de la modulacion estacional/diurna |
+    | `θ_i` | umbral del sensor | sensibilidad de la variable (disparo facil o estricto) |
+    | `τ_i`, `τ_A` | memorias del sensor y de la alerta | cuanta historia recuerda cada neurona |
 
 #### Como se calculan las variables:
 
@@ -4144,82 +4213,82 @@ Se expande como se calculan las variables de las ecuaciones de membrana final y 
 | **Δt** | fijo 1 h; la discretización exacta vale para cualquier Δt, pero cambiar exige re-ajustar τ y θ_i |
 | **R_m, f_max** | cero efecto en la versión directa (linealidad: se absorben en w) |
 
-### Entrada y ponderacion de variables.
+### Entrada y procedimiento de la neurona LIF.
 
-Especificar el resumen de la normalizacion, como se ponderan las variables del las neuronas y como se acumula el potencial de membrana hasta el spike.
+Se describe el recorrido desde la variable cruda hasta el potencial de membrana de la neurona de alerta: (1) transformacion y normalizacion de cada variable, (2) como entra a su neurona sensor como membrana, (3) como se interpreta el spike y se integra por canal, (4) como se combina todo (spikes + contexto) en la neurona de alerta, y (5) que representa cada variable en el modelo.
 
-### Definicion codificacion y forma utilizada.
+#### Ingreso de variable meteorologia (dato) en la neurona sensor:
 
-Definir si la codificacion sigue siendo relevante, y si es asi:
+Se describe el recorrido desde la variable cruda obtenida del dataset hasta su integracion y significado en su neurona LIF.
 
-- Cuales son las principales (resumen):
-- Que ventajas nos da la que elegimos.
-- Y SOBRETODO, COMO SE IMPLEMENTA E INTERACTUA CON LAS VARIABLES.
-    - Llevarlo a la practica, no teoria suelta.
+| **Variable cruda** | **Unidad** | **Transformacion** | **Normalizacion → `x̂_i` (entrada)** | **`τ_i` (memoria)** | **Que representa en el modelo** |
+| --- | --- | --- | --- | --- | --- |
+| `temp` (T) | °C | — | anomalia estacional z → [0,1] | 3 h | anomalia termica persistente. |
+| `rhum` (HR) | % | — | anomalia estacional z → [0,1] | 3 h | anomalia de humedad (precursor; peso +) |
+| `pres` (P) | hPa | — | anomalia estacional z → [0,1] | 2 h | anomalia de presion (baja presion → lluvia; peso −) |
+| `wdir`+`wspd` (Viento) | °, m/s | descomposicion en `u = wspd·sin(wdir)`, `v = wspd·cos(wdir)` | anomalia estacional z → [0,1] para u y v | 1 h | direccion e intensidad del viento en componentes continuas |
+| `prcp` | mm/h | — | `min(prcp/1 mm/h, 1)` → [0,1] | 1 h | intensidad de lluvia actual (la mas rapida) |
+| `doy`, `hora` | — | `sin/cos(2π·doy/365.25)`, `sin/cos(2π·hora/24)` | — (quedan en [−1,1]) | — | contexto temporal INSTANTANEO (no es neurona, no tiene memoria) |
 
-#### Preguntas/aclaraciones sueltas:
+**Procedimiento de calculo:**
 
-Aca se define el diseño, no el metodo de entrenamiento ni los “valores” definitivos, es la estructura conceptual. En el entrenamiento se validaran los valores crudos.
+**Entrada:** x̂_i[t] ∈ [0,1]
+**Ecuacion:** V_i[t] = α_i·V_i[t−1] + (1−α_i)·x̂_i[t]; Con α_i = e^(−1/τ_i).
 
-¿Que es poisson y como afecta al modelo?
+**Explicacion:** La entrada normalizada (x̂_i[t]) se multiplica con el decaimiento (α_i), y ese resultado se suma con el potencial de membrana del dato anterior con decaimiento (α_i·V_i[t−1]), esto da como resultado el actual potencial de membrana (V_i[t]).
 
-¿Se involucra el f_max, como?
+- Esta ecuacion permite ver el funcionamiento conceptual de la neurona LIF, utilizando resultados de datos anteriormente calculados y aplicar estrategicamente el decaimiento (olvido de potencial) en el calculo actual para lograr una estructura solida, que resulta reciliente al ruido ocacional.
+- Cuando V_i[t] supera el umbral propuesto, sucede un reinicio de membrana (V_i[t] = 0), resultando en la unica forma de que la memoria se reinicie por completo.
 
-¿Que otras cosas faltan de definir en el modelo? ¿La estructura ya esta planteada para pasar al entrenamiento o faltan decisiones clave?
+#### Ingreso a la neurona de alerta:
 
-#### Definicion de codificacion.
+La memoria NO se comparte entre neuronas sensores en la capa sensor (cada variable tiene su neurona). **En la alerta**, la integracion E_i se hace **por canal** (integra cada columna S_i de forma independiente con la misma τ_A): hay tantos acumuladores como sensores, cada uno recuerda "cuanto disparo SU sensor recientemente". 
 
-**Rate coding (Poisson) vs inyeccion directa: puente teorico**
+Solo en la suma ponderada I_A se mezclan los canales. 
 
-Hay dos formas de alimentar las neuronas:
+Como la integracion y la suma ponderada conmutan (ambas lineales), integrar por canal y luego ponderar es EQUIVALENTE a que la neurona de alerta integrara la suma ponderada de spikes directamente.
 
-- **Camino A (rate coding):** cada paso genera un tren de spikes de Poisson con tasa λ = x̂·f_max.
-- **Camino B (inyeccion directa):** se inyecta directamente I = x̂·f_max.
+- **Integracion se refiere a:** Integración temporal con olvido exponencial. En otras palabras, realizar el calculo de la ecuacion de membrana para obtener “V_i[t]” en el caso de la neurona sensor, o “I_A[t]” en el caso de la neurona alerta.
+- Por eso se dice en el caso de la neurona de alerta que la integracion por canal y la integracion de la suma ponderada son equivalentes, el potencial de membrana se puede calcular por cada neurona individual y luego ponderarse con un cierto peso “w_i”, o se puede sumar cada entrada ponderada (con su cierto peso “w_i”) y posteriormente integrar ese resultado como entrada unica (Obtener “I_A[t]”), ambas son lineales.
 
-La **equivalencia teorica**: como el LIF es lineal (subumbral), el valor esperado de la membrana bajo Poisson **es** la membrana con inyeccion directa (la media del Poisson es λ). Es decir:
+**Procedimiento:**
 
-- E[ V_A con rate coding ] = V_A con inyeccion directa
+- **La neurona sensor genera un evento binario:** (sensor): V_i[t] ≥ θ_i → S_i[t] = 1  (y V_i ← 0)
+- **La neurona de alerta integra cada tren de spikes por canal “i”:**
+    - I_A[t] = Σ_i w_i·E_i[t] + Σ_j v_j·ctx_j[t] + b (Cada integracion de la neurona recibe un cierto peso “w_i”, y estos se suman).
+        - E_i[t] = α_A·E_i[t−1] + (1−α_A)·S_i[t] | τ_A = 1 h → α_A = 0.37 (Se calcula para cada neurona sensor individual).
+        - ctx_j[t] = sin/cos(doy), sin/cos(hora) [−1,1] (El contexto entra directamente (NO tiene memoria)
+- **Se calcula la probabilidad y se evalua con el umbral.**
+    - P = σ(I_A[t]) = 1/(1 + e^(−I_A[t]))
+    - lluvia la proxima hora si  P ≥ θ_A
 
-Por eso en la implementacion de referencia se usa la forma directa (determinista, reproducible, entrenable con regresion logistica), y el rate coding de Poisson queda como la **version de hardware** del mismo modelo.
+**Aclaraciones:**
 
-- Esto se puede citar con Herranz-Celotti & Rouat (2022) y la equivalencia promedio/EMD.
+- **E_i** ya lleva la memoria (spikes integrados por canal).
+- **Los pesos w_i, v_j, b** se aprenden mediante metodos que estandarizan las diferentes unidades. -Especificado en el “Entrenamiento”-
+- **I_A** es un unico valor homogeneo: hace referencia al potencial de membrana de la alerta antes de la operacion sigmoide para convertirlo a probabilidad. La decision de θ_A (calibrado en validacion) fija cuanto evidencia (I_A) se necesita para superar el umbral y emitir la alerta.
 
-**Consecuencia practica importante:** las constantes de escala (f_max, R_m) son factores constantes de un modelo lineal → **se absorben en los pesos aprendidos w**. No hay que "sintonizarlas" a mano para que las tasas sean comparables; la regresion logistica las acomoda sola. (Si se mantiene la version Poisson, si hay que fijar f_max igual en todas las variables, como ya esta decidido.)
+### Definicion codificacion (encoding) y metodo utilizado.
 
----
+#### **¿Que es es la codificacion y para que sirve?**
 
-En un SNN, la informacion externa (los valores normalizados de las variables) debe convertirse en **trenes de spikes**. A esa conversion se la llama **codificacion neuronal**. La referencia se resume asi:
+La codificacion se refiere a como los valores son procesados para que el modelo LIF (Ecuaciones) puedan interpretarlos adecuadamente y con ello producir un resultado (evento) coherente.
 
-> "Rate codes embed the information in the instantaneous or averaged rate of spike generation... signal amplitudes are directly mapped to spike frequencies." (Neural Processing Letters, 2021)
-> 
+El readout (Neurona de alerta) solo conoce los números que se entregan como columnas. Si se le da E_i (spikes integrados), solo ve eso. Si se le diera las actividades continuas A_i, solo vería eso. Si se le diera los spikes crudos S_i, vería binarios 0/1.
 
-La clasificacion central divide la codificacion en **rate coding** (codificacion por tasa) y **temporal coding** (codificacion temporal), dependiendo de si la informacion vive en el *numero* de spikes o en el *momento exacto* en que ocurren (Neural Processing Letters, 2021).
+La codificación decide exactamente qué columnas ve el readout — y por eso la codificación importa aunque las ecuaciones no cambien.
 
-#### **Formas de codificacion:**
+Solo modifica el dato de entrada (ej: 0.4) para convertirlo en un formato interpretable para el hardware en cuestion.
 
-**1. Rate coding (codificacion por tasa) — Adrian & Zotterman (1926)**
+**Tipos de codificacion principales:**
 
-- **Como funciona:** el valor de la variable se mapea a la **frecuencia de disparo**. Con codificacion de Poisson: `λ = x̂ · f_max`, donde `λ` es la tasa (spikes/segundo), `x̂` el valor normalizado y `f_max` la tasa maxima.
-- **Formula del codificador del modelo:** `f = ((x_norm - min)/(max - min)) · f_max` (doc principal, seccion 7.3), con `f_max = 200` spikes/s.
-- **Ventajas:** simple de implementar, robusto al ruido (promedia informacion sobre muchos spikes; spikes individuales perdidos o desplazados no cambian la tasa), equivalente a la activacion de una neurona artificial ordinaria, entrenable con los metodos estandar (BPTT / gradiente sustituto).
-- **Desventajas:** requiere ventanas largas para estimar la tasa con precision (lento), baja densidad de informacion, mayor numero de spikes y mayor consumo energetico.
+| Metodo | Regla | La informacion viaja en... | Se usa cuando... |
+| --- | --- | --- | --- |
+| **Inyeccion directa (analogica)** | Se inyecta directamente `I[t] = x̂[t]` como corriente continua. | el **nivel** de la corriente (un potenciometro). | Datos horarios, determinismo, readout lineal, interpretabilidad. No sirve para hardware neuromorfico |
+| **Rate coding (Poisson)** | `λ = x̂·f_max` spikes/s; en cada micro-paso se dispara con probabilidad `p = λ·Δt`. | la **frecuencia** de spikes (cuantos eventos por segundo). | Hardware neuromorfico, SNN end-to-end, plausibilidad biologica, eficiencia energetica. |
+| **Codificaciontemporal** | El spike llega tanto antes cuanto mayor es la senal (time-to-first-spike, phase coding). | el **instante** del spike. | Cuando importa el timing sub-segundo; no aplica a prediccion horaria. |
 
-**2. Temporal coding (codificacion temporal)**
-
-La informacion vive en el **momento exacto** de los spikes. Subcategorias:
-
-| Tecnica | Que codifica | Referencia clave |
-| --- | --- | --- |
-| **TTFS / latency** | El tiempo hasta el primer spike (Δt ∝ 1/amplitud; mayor amplitud → spike mas temprano). Un spike por ventana. | Gollisch & Meister (2008), *Science* 319 |
-| **Rank-order (ROC)** | El **orden** de los primeros spikes de una poblacion de neuronas, no los tiempos exactos. | Thorpe & Gautrais (1998) |
-| **ISI** | Los intervalos entre spikes consecutivos (mayor capacidad de datos; 2+ spikes/ventana). | Pyramidal cells (biologia) |
-| **Phase** | La fase de los spikes respecto a una oscilacion interna de fondo. | Hipocampo, sistema olfativo (O'Keefe & Recce, 1993) |
-| **Burst** | Racha de spikes (bursts); alta confiabilidad y eficiencia energetica. | Talamo, corteza auditiva |
-| **Temporal contrast** | La **derivada** de la senal (sensores event-driven tipo DVS). | Event-based vision |
-
-**Comparativa de las formas de codificacion**
-
-Guo et al. (2021, *Frontiers in Neuroscience* 15:638474) compararon rate, TTFS, phase y burst en MNIST/Fashion-MNIST con SNN entrenado con STDP, evaluando exactitud, latencia, operaciones sinapticas (SOPs), robustez y tolerancia a fallos:
+**Comparativa practica:**
 
 | Esquema | Exactitud | Latencia de inferencia | SOPs (Operaciones sinapticas) | Robustez |
 | --- | --- | --- | --- | --- |
@@ -4228,46 +4297,96 @@ Guo et al. (2021, *Frontiers in Neuroscience* 15:638474) compararon rate, TTFS, 
 | **Phase** | Intermedia | Rapida | Muy alta | La mas resiliente al ruido de entrada |
 | **Burst** | Buena | Rapida | Alta | Mejor compression y tolerancia a fallos |
 
-La encuesta de Springer (2021) agrega una advertencia clave para la decision de arquitectura:
+Guo et al. (2021, *Frontiers in Neuroscience*) compararon rate, TTFS, phase y burst en MNIST/Fashion-MNIST con SNN entrenado con STDP, evaluando exactitud, latencia, operaciones sinapticas (SOPs), robustez y tolerancia a fallos.
+
+Springer (2021) agrega una advertencia clave para la decision de arquitectura:
 
 > "Rate-based schemes... convince through their robustness against fluctuations and noise as well as their simplicity... Temporal encoding schemes on the other hand rely on the precise timing of every single spike and can thus achieve higher information densities and efficiencies. However they involve more complex architectures and lacking training methods."
 > 
 
-**Esquema elegido para el modelo LIF: rate coding**
+#### ¿Que codificacion utiliza cada neurona?
 
-| **Criterio del proyecto** | **Como lo satisface rate coding** |
-| --- | --- |
-| **Filosofia bajo costo / hardware simple** | El codificador por tasa es el circuito mas simple (un integrador con capacitor); TTFS/ISI requieren circuitos mas complejos (Liu et al., *Neural Encoding Strategies for Neuromorphic Computing*). |
-| **Sensores de bajo costo = ruidosos** | Rate coding es uno de los esquemas **mas robustos al ruido** (promedia informacion sobre muchos spikes). Es exactamente la tolerancia que necesitan datos de BME280/DHT22/pluviometro de cangilon. |
-| **Entrenamiento maduro** | Rate coding se entrena con BPTT/gradiente sustituto; las tecnicas temporales "lacking training methods" (Springer 2021). |
-| **Escala temporal horaria** | La desventaja de rate coding (lentitud) es irrelevante: el modelo decide en escala de horas (τ_m 2-4 h, lookback 6-12 h), no de milisegundos. |
-| **Consistencia entre variables** | Todas las variables usan la misma f_max=200 y el mismo mapeo λ = x̂·f_max, garantizando tasas comparables. |
-| **Simplicidad de interpretacion** | La tasa de disparo de una neurona sensor equivale a "cuanto de anomala esta esa variable", que es exactamente el rol de detector de anomalias del modelo. |
+**El modelo codificara mediante:** **Inyección directa (Sin codificacion)**
 
-**Limitacion a reconocer:** rate coding tiene menor densidad de informacion y mayor gasto energetico por spike que TTFS (Codificacion temporal). Para un LIF de 11 neuronas esto es aceptable, La comparativa de Guo et al. (2021) da los numeros de referencia para esa discusion.
+- **Neurona sensor:** Se identifica como el dato transformado/normalizado.
+- **Neurona alerta:** Se codificaran como spikes integrados por canal (E_i) + contexto.
+- En este caso parece irrelevante codificar la entrada, pero en el hardware neuromorfico, es esencial codificar un valor crudo (ej: 0.3) a una serie de spikes, debido a que el hardware neurologico unicamente funciona comunicandose con eventos binarios, no con datos continuos.
 
-### Decisiones a tomar.
+**Inyección directa: Razones concretas:**
 
-1. **Feature de la alerta:** ¿actividad continua (membrana, recomendada) o spike binario del sensor (alarma por variable)? O ambas (actividad + tasa de spikes).
-2. **La alerta integra o decide:** ¿`V_A` se evalúa al final de la ventana (recomendado) o se requiere un disparo en cualquier paso dentro de la ventana?
-3. **τ_m por variable:** ¿se fijan individualmente (recomendado) o uno global con sensibilidad?
-4. **Reset:** ¿`V_reset = 0` (recomendado) o `V_reset = θ − Δ` (reset parcial, mas biológico)?
-5. **Umbrales θ_i:** ¿percentiles fijos (90-95) o libres en la busqueda?
-6. **Feature de la ventana:** ¿actividad del ultimo paso, promedio de los ultimos k pasos, o maximo de la ventana?
-7. **Version del codigo:** ¿forma directa determinista (base) + Poisson como ablation/hardware, o solo Poisson?
-8. **f_max y micro-pasos:** si se usa Poisson, definir `dt_sim` y cuantos micro-pasos por hora (τ_m >> dt_sim).
+1. **Los datos son horarios.** No hay información sub-horaria real: simular micro-pasos de Poisson inventaría estructura temporal que no existe en los datos. La inyección directa respeta el muestreo real.
+2. **Determinismo y reproducibilidad.** Sin muestreo aleatorio → features idénticas en cada corrida → entrenamiento con regresión logística limpio y comparable.
+3. **Entrenabilidad.** Subumbral lineal + readout lineal = regresión logística exacta. El gradiente sustituto solo haría falta si el spike fuera el único canal de comunicación.
+4. **Interpretabilidad.** Membrana = "nivel de anomalía persistente" (EMA). Los spikes en el modelo entran como feature (evento de alarma) derivada sobre una base continua, no como reemplazo de la señal.
+El modelo LIF es en realidad un híbrido: el sensor emite spikes (frontera de salida en modo evento), pero la neurona de alerta los re-integra por canal con τ_A (features_alerta) antes del readout lineal. Es decir: se usa el spike como evento de alarma interpretable, pero no se paga el costo de entrenar un SNN puro.
+
+#### Detalles de diferencias.
+
+En esta seccion se busca comparar de forma detallada las diferencias entre modelos y justificar a nivel practico porque el metodo de inyección directa elegido es el ideal para el modelo LIF.
+
+**Definicion de rate coding mediante poisson:**
+
+Que es exactamente λ = x̂·f_max y como se convierte en spikes:
+
+- **λ (lambda) es la TASA:** "cuantos spikes por segundo, en promedio". Es un numero real (con coma). Ejemplo: x̂ = 0.4, f_max = 100 → λ = 40 spikes/s. No es un conteo; es una velocidad promedio.
+- Para convertir esa tasa en eventos reales se usa la distribucion de Poisson: en un micro-paso de duracion Δt, la probabilidad de que ocurra un spike es p = λ·Δt. Con λ = 40 y Δt = 1 ms, p = 0.04 (4 % de probabilidad por milisegundo).
+    - Esta probabilidad es utilizada por el software conectado al hardware neuromorfico para determinar cuando y con que probabilidad se generan los spikes que recibira el hardware neuromorfico.
+- **El resultado:** en 1 s se esperan 40 spikes, pero no exactamente 40 — pueden ser 37, 43, 41... El numero de spikes es un entero aleatorio con media λ·T. Esa fluctuacion alrededor del promedio es el ruido de disparo (shot noise): la aleatoriedad de la moneda, no un error del modelo.
+- **Que hace el modelo con ese promedio:** la neurona sensor integra los pulsos con su τ_m; la membrana resultante oscila alrededor del valor que daria la inyeccion continua. El "promedio" es exactamente lo que se lee: la tasa media de disparo es la que el readout lineal interpreta como el nivel de la variable.
+- Comparacion variable de “energia” entre inyeccion y rate coding:
+    - La EDO del LIF es τ·dV/dt = −V + I: la corriente de entrada I es lo que se inyecta.
+    - **Inyección directa:**
+    I[t] = x̂_i[t] (el valor normalizado, directo)
+        - La corriente es literalmente el dato normalizado (0 a 1).
+    - **Rate coding (Poisson):**
+        
+        I[micro-paso] = 1  si hay spike, 0 si no
+        
+        - (eventos binarios generados con probabilidad p = x̂·f_max·dt)
+        - Aquí la corriente NO es x̂ y NO es "una probabilidad": es un tren de spikes binarios. x̂ entra a través de la probabilidad p (vía la tasa λ), pero lo que la neurona recibe físicamente es una secuencia de 0/1.
+
+**Razonamiento de la decision:**
+
+1. El LIF es **lineal subumbral**: E[V] con una corriente aleatoria depende de la corriente a traves de su media.
+2. La **media del proceso de “Poisson” es λ** por definicion.
+3. Por tanto la membrana esperada bajo rate coding es identica a la membrana con inyeccion directa: E[V_poisson] = V_directa.
+4. Como el **readout es lineal** (regresion logistica), todo lo que necesita es el valor esperado. La inyeccion directa lo da sin ruido; “Poisson” lo da igual en promedio pero con fluctuaciones aleatorias en cada corrida.
+
+**Conclusion practica:** en este modelo “Poisson” aporta puro ruido sin beneficio. La inyeccion directa es determinista, reproducible y se entrena con regresion logistica exacta. Usar Poisson seria lanzar una moneda para decidir algo que ya se sabe con exactitud.
+
+#### **Justificacion matematica E[V_poisson] = V_directa:**
+
+**Paso 1: la membrana es una transformación lineal de la corriente**
+
+- La solución discreta exacta de la EDO del LIF es:
+V[t] = α·V[t−1] + (1−α)·I[t], con α = e^(−1/τ)
+- Expandiendo la recurrencia (partiendo de V=0):
+V[t] = (1−α)·I[t] + (1−α)·α·I[t−1] + (1−α)·α²·I[t−2] + ...
+= (1−α) · Σ_{k=0}^{∞} α^k · I[t−k]
+- Esto es un operador lineal sobre la secuencia de corrientes I: la salida es una combinación lineal ponderada de las entradas pasadas. Llamémoslo L(I).
+- Lineal significa: L(a·A + b·B) = a·L(A) + b·L(B). Si duplicas la corriente, se duplica la membrana; si incluis dos corrientes, se suman sus efectos.
+
+**Paso 2: la esperanza (promedio) también es lineal**
+
+- La operación "promedio estadístico" E[·] es lineal: E[a·X + b·Y] = a·E[X] + b·E[Y].
+- Como V = L(I) y L es lineal (paso 1), y E es lineal (paso 2), las dos conmutan:
+E[ V ] = E[ L(I) ] = L( E[I] )
+- En palabras: la membrana esperada bajo una corriente aleatoria es la membrana que produciría la corriente promedio. Esto es una propiedad exclusiva de los sistemas lineales; no se cumple si hay no linealidades en el camino (por eso decimos "subumbral": el umbral y el reset son no linealidades que quedan fuera).
+
+**Paso 3: comparar las dos entradas**
+
+|  | **Inyección directa** | **Rate coding (Poisson)** |
+| --- | --- | --- |
+| **La corriente I[t]** | determinista: I = x̂·f_max | aleatoria: un tren de spikes 0/1 |
+| **Su promedio** | E[I] = x̂·f_max (es constante) | E[I] = λ = x̂·f_max (por definición de Poisson, la media ES λ) |
+| **Membrana** | V_directa = L(x̂·f_max) | E[V_poisson] = L(E[I]) = L(x̂·f_max) |
+- Ambos promedios de corriente son el mismo x̂·f_max.
+- Aplicando el mismo operador lineal L, las membranas coinciden:
+E[ V_poisson ] = L( x̂·f_max ) = V_directa
 
 ### Fuentes
 
 #### Definicion baseline y variable objetivo:
-
-**PASOS A SEGUIR:**
-
-- ACLARAR CONCEPTOS TECNICOS DEL MODELO LIF.
-    - HACER LA ESTRUCTURA COMPLETA DE FORMA ESPECIFICA Y VERIFICADA POR MI.
-    - TERMINAR “SUB-SECCIONES” PENDIENTES DEL MODELO LIF.
-    - DETERMINAR QUE ES LA “regresion logistica”, como interactua con las variables, y si aplica a mi modelo actual o se descarta.
-- DEFINIR TEORICAMENTE Y TECNICAMENTE EL BASELINE A DISEÑAR.
 
 ### Variable objetivo:
 
@@ -4301,9 +4420,34 @@ Se identifica el rango/umbral optimo para la deteccion de lluvia, y se presenta 
 
 ### Definicion y diseño del baseline
 
+El baseline sera un modelo deterministico de umbrales fijos que se utilizara como “base” para comparar la efectividad con el modelo LIF a diseñar.
+
+Este diseño esta basado en la informacion recolectada sobre la zona del estado de Hesse, Alemania.
+
+- Determinar que tipos de umbrales fijos existen y cual es su propocito (que sirvan para eventos de lluvia)
+- Determinas cual/es son las variables que se utilizan para la prediccion.
+- Determinar el valor “umbral” de cada variable.
+- Especificar en una serie de instrucciones precisas la logica del baseline.
+- Especificar las fuentes utilizadas para este diseño.
+
 #### Protocolo de entrenamiento y evaluacion:
 
+Estructurar protocolo de entrenamiento, justificando las variables, metodos y procedimiento utilizado para “enseñar” al modelo LIF a identificar “lluvia”.
+
 Si los calculas con todo el dataset, inflas artificialmente el rendimiento reportado
+
+- Definir Cual es el objetivo del entrenamiento.
+- Definir que se va a entrenar.
+- Definir que se fija y que se entrena y porque.
+- Definir el objetivo/prioridad del modelo, que se maximiza y que se minimiza.
+- Definir el/los metodos a utilizar. Explicarlos.
+- Definir dataset a utilizar.
+- Definir etapas de entrenamiento. justificar.
+    - Dividir segun etapas identificadas (entrenamiento, validacion, evaluacion, etc…)
+- Definir formato de documentacion/registro los estadisticas.
+- Definir hipotesis y conclusiones.
+
+### LUEGO DE LA INVESTIGACION, REALIZAR PEQUEÑO RESUMEN DE ESTA, CON LOS DATOS Y EVALUACIONES REALIZADAS. (DOMINGO-LUNES).
 
 ### GUIA de la Metodologia:
 

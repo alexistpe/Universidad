@@ -12,6 +12,11 @@
 2. Ecuaciones fundamentales y variables del modelo
 3. Componentes y parametros
 4. Arquitectura: de los sensores a la neurona de alerta
+   - 4.1 Flujo de datos
+   - 4.2 La conexion sensor → alerta (las sinapsis)
+   - 4.3 La neurona de alerta como LIF
+   - 4.4 Rate coding (Poisson) vs inyeccion directa: puente teorico
+   - 4.5 Codificacion: que es, que metodos hay, cual usamos y por que (glosario de frontera)
 5. Implementacion en codigo
 6. Entrenamiento y obtencion de valores por neurona
 7. Ejemplo numerico completo
@@ -242,7 +247,7 @@ Cada variable derivada tiene su ecuacion de origen y las variables que la condic
 | --- | --- | --- |
 | `x_i` | ruido del sensor; el EMA lo suaviza; no se altera en despliegue | — |
 | Esquema de normalizacion de `x̂_i` | **sin efecto** en CSI (0.342 vs 0.344 vs 0.344) | experimento §2.8.4 |
-| `τ_i` | memoria del precursor: τ→0 ⇒ `V_i ≈ x̂_i`, spikes ruidosos sin suavizar; τ grande ⇒ no responde y pierde eventos cortos; optimo alineado con la ventana de precursores (6-12 h) | pendiente barrer en reales (§9) |
+| `τ_i` | memoria del precursor: τ→0 ⇒ `V_i ≈ x̂_i`, spikes ruidosos sin suavizar; τ grande ⇒ no responde y pierde eventos cortos; **en reales el CSI es muy insensible (0.321–0.343, ver §2.8.5)** | barrido §2.8.5 |
 | `θ_i` | tasa de disparo, precocidad (antelacion), balance entre variables y saturacion de `E_i` | nota §2.7.1 |
 | `τ_A` | τ_A→0 (= B2) colapsa CSI a 0.069 (sinteticos); optimo 1 h en reales; muy grande ⇒ evidencia obsoleta | ablation §9.1 |
 | `w_i`, `v_j`, `b` | no se tocan a mano: modificarlos = re-entrenar; aportan interpretabilidad (signo y magnitud) | — |
@@ -262,6 +267,22 @@ Se ejecuto el Modelo B (θ_i = percentil 90, τ_A = 1 h, readout estandarizado) 
 | crudo (sin normalizar) | 0.344 | 0.567 | 0.534 | 0.17 | [22.1, 93.1, 1028, 8.1, 10.6, 0.1] (unidades fisicas) |
 
 Conclusion: la arquitectura **LIF + readout logistico es invariante a la escala de entrada**, porque absorbe la escala en dos puntos: `θ_i` por percentil (el disparo es invariante a transformaciones monotonas por variable) y el readout z-score (features estandarizadas). Por eso la normalizacion estacional NO es necesaria para la precision; se mantiene por interpretabilidad (significado de "anomalia-precursor"), por el acotamiento numerico a [0,1] y por permitir un solo modelo para todo el ano.
+
+#### 2.8.5. Sensibilidad a la memoria de los sensores τ_i (evidencia experimental)
+
+Se barrio el multiplicador de los `τ_i` base (T=3, HR=3, P=2, u=1, v=1, PRECIP=1 h) sobre los datos reales EDDF con la metodologia completa del Modelo B (θ_i y τ_A re-elegidos por validacion en CADA punto; `prototipos/barrido_tau_m.py`):
+
+| mult | τ_i resultante (h) | CSI | POD | FAR | θ_i (percentil) | τ_A |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0.25 | [0.75 0.75 0.5 0.25 0.25 0.25] | 0.321 | 0.624 | 0.602 | 85 | 1 h |
+| 0.50 | [1.5 1.5 1.0 0.5 0.5 0.5] | 0.322 | 0.629 | 0.603 | 85 | 1 h |
+| 0.75 | [2.25 2.25 1.5 0.75 0.75 0.75] | 0.339 | 0.574 | 0.547 | 90 | 1 h |
+| **1.00** | **[3 3 2 1 1 1] (base)** | **0.342** | 0.565 | 0.536 | 90 | 1 h |
+| 1.50 | [4.5 4.5 3.0 1.5 1.5 1.5] | 0.340 | 0.519 | 0.504 | 90 | 1 h |
+| 2.00 | [6 6 4 2 2 2] | 0.343 | 0.574 | 0.540 | 85 | 1 h |
+| 4.00 | [12 12 8 4 4 4] | 0.342 | 0.565 | 0.536 | 80 | 1 h |
+
+Conclusion: **τ_i NO es un hiperparametro sensible** en este rango (CSI entre 0.321 y 0.343, ±0.01 alrededor del optimo de la linea base). El modelo roba la memoria que necesita via el readout: suavizar mas (τ grande) o menos (τ chico) apenas cambia la informacion disponible, porque el logit decide cuanto peso dar a cada canal. La linea base (τ_i = ventana de precursores 1-3 h) queda validada: es interior a la meseta plana y no hay pico pronunciado que buscar. Solo τ→0 extremo pierde algo (0.321) por spikes ruidosos sin suavizar, como predecia la tabla §2.8.3.
 
 ---
 
@@ -341,9 +362,106 @@ La **equivalencia teorica** es lo que hace el diseno limpio: como el LIF es line
 E[ V_A con rate coding ] = V_A con inyeccion directa
 ```
 
-Por eso en la implementacion de referencia se usa la forma directa (determinista, reproducible, entrenable con regresion logistica), y el rate coding de Poisson queda como la **version de hardware** (o de ablation) del mismo modelo. Esto se puede citar con Herranz-Celotti & Rouat (2022) y la equivalencia promedio/EMD que ya se uso en `Normalizacion.md`.
+Por eso en la implementacion de referencia se usa la forma directa (determinista, reproducible, entrenable con regresion logistica), y el rate coding de Poisson queda como la **version de hardware** (o de ablation) del mismo modelo. Esto se puede citar con Herranz-Celotti & Rouat (2022) y la equivalencia promedio/EMD que ya se uso en `Normalizacion.md`. **La seccion §4.5 desarrolla que es la codificacion, que metodos existen, por que se descarta Poisson y como se aplicaria si hiciera falta (glosario de frontera y guia de implementacion).**
 
 **Consecuencia practica importante:** las constantes de escala (`f_max`, `R_m`) son factores constantes de un modelo lineal → **se absorben en los pesos aprendidos `w`**. No hay que "sintonizarlas" a mano para que las tasas sean comparables; la regresion logistica las acomoda sola. (Si se mantiene la version Poisson, si hay que fijar `f_max` igual en todas las variables, como ya esta decidido.)
+
+### 4.5. Codificacion: que es, que metodos hay, cual usamos y por que (glosario de frontera)
+
+#### 4.5.1. Que es la codificacion y para que sirve si ya tengo las ecuaciones
+
+Las ecuaciones del LIF describen **que pasa dentro de la neurona una vez que ya recibe algo**: integra corriente, alcanza un umbral, dispara, resetea. Pero **no dicen que es ese algo**. La codificacion es la **interfaz de frontera**: la regla que convierte un valor real del mundo (HR = 72 %, prcp = 0.3 mm/h) en la senal que la neurona procesa, y que convierte la actividad de la neurona en lo que ve la siguiente etapa.
+
+```
+valor real → [CODIFICACION de entrada: valor → I(t) o tren de spikes]
+          → neurona (ecuaciones: integra, compara, resetea)
+          → [DECODIFICACION de salida: actividad → feature/evento]
+```
+
+- Las **ecuaciones son el motor**: el interior de la neurona, siempre igual.
+- La **codificacion es la frontera**: como se habla con el motor y como se lee lo que produce.
+
+Una vez entendida la matematica, la codificacion puede parecer superflua. En este modelo **es correcto que lo parezca**: el diseno hace que la eleccion de codificacion sea **matematicamente neutral** para el resultado (ver §4.5.4). El concepto sigue siendo necesario para (a) posicionar el trabajo en la literatura SNN, (b) justificar la simplificacion, (c) la version de hardware neuromorfico, y (d) explicar las diferencias entre los modelos A, B y C, que son codificaciones distintas de la misma ecuacion.
+
+#### 4.5.2. Glosario de la frontera (terminos en lenguaje no tecnico)
+
+| Termino | Significado tecnico | En lenguaje llano | Donde esta |
+| --- | --- | --- | --- |
+| **Lineal** | La salida es proporcional a la entrada y la respuesta a varias entradas es la suma de las respuestas por separado: `F(a·x + b·y) = a·F(x) + b·F(y)`. | "Si duplicas lo que entra, se duplica lo que sale; si entran dos cosas, se suman sus efectos." La regla km→millas (`millas = 0.62·km`) es lineal. | §4.4 |
+| **Lineal subumbral** | La neurona opera en la zona donde nunca (o casi nunca) dispara: se queda por debajo de `θ`. Alli la dinamica es SOLO el filtro `V = αV + (1−α)I`, sin el comparador ni el reset (las unicas partes no lineales del LIF). | "El analista filtra sin saltar al arma." No hay evento binario, solo una curva suave. | `capa_ema` |
+| **Readout** | La ultima etapa que convierte las features ya procesadas en la prediccion final. | "El juez que pesa la evidencia y dicta veredicto" (a diferencia de los sensores, que son los analistas). | §1.2/§4.2 |
+| **Feature (caracteristica)** | Cada numero que el modelo usa como entrada (una columna de la matriz de features). | "Cada pista numerica que recibe el juez." | §5.3 |
+| **Feature derivada** | Una feature que NO se mide directamente sino que se calcula a partir de otra: `u,v` (de `wdir,wspd`), `x̂` (anomalia de `HR`), el spike `S_i` (de la membrana `V_i`), `E_i` (del spike). | "Pista que se obtiene procesando otra pista, no del sensor." | §1, §2.8.1 |
+| **Regresion logistica** | Modelo lineal que devuelve una probabilidad: `P = σ(w·x + b)`, con `σ(s) = 1/(1+e^(−s))`. Se entrena minimizando la binary cross-entropy. | "Metodo que aprende cuanto pesar cada pista y da una probabilidad." | §6.3 |
+| **End-to-end** | Entrenar TODA la red como una sola unidad: el gradiente se propaga desde la salida hasta la primera capa y se ajustan TODAS las conexiones. | "Entrenar a todos los empleados a la vez con el mismo objetivo." | §6.4 |
+| **Entrenamiento en dos etapas** (nuestro modelo) | La capa sensor se fija a mano/por percentil (NO se entrena); solo el readout (logistica) aprende. | "Los analistas estan programados fijos; solo el gerente aprende a interpretarlos." | §6 |
+| **Micro-pasos** | Subdivisiones finas del paso de tiempo necesarias para simular spikes individuales (un spike por hora no alcanza: hasta `f_max`=200 spikes/s). | "Un zoom temporal: si antes cada fila era 1 hora, ahora cada fila es una fraccion de segundo." | §5.1-5.2 |
+| **"Features que ve el readout"** | El readout solo conoce las columnas que se le entregan; la codificacion decide exactamente cuales son. | "El juez solo sabe lo que le pones sobre la mesa." | §5.3, A/B/C |
+
+#### 4.5.3. Metodos de codificacion: cuales existen y como funcionan
+
+| Metodo | Regla | La informacion viaja en... | Se usa cuando... |
+| --- | --- | --- | --- |
+| **Inyeccion directa (analogica)** | Se inyecta directamente `I[t] = x̂[t]` como corriente continua. | el **nivel** de la corriente (un potenciometro). | Datos horarios, determinismo, readout lineal, interpretabilidad. **ES EL QUE USAMOS.** |
+| **Rate coding (Poisson)** | `λ = x̂·f_max` spikes/s; en cada micro-paso se dispara con probabilidad `p = λ·Δt`. | la **frecuencia** de spikes (cuantos eventos por segundo). | Hardware neuromorfico, SNN end-to-end, plausibilidad biologica, eficiencia energetica. **NO lo usamos.** |
+| **Codificacion temporal** | El spike llega tanto antes cuanto mayor es la senal (time-to-first-spike, phase coding). | el **instante** del spike. | Cuando importa el timing sub-segundo; no aplica a prediccion horaria. **NO lo usamos.** |
+
+#### 4.5.4. Por que NO usamos rate coding (Poisson): la decision, explicada
+
+**Que es exactamente λ = x̂·f_max y como se convierte en spikes:**
+
+- `λ` (lambda) es la **TASA**: "cuantos spikes por segundo, en promedio". Es un numero real (con coma). Ejemplo: `x̂ = 0.4`, `f_max = 100` → `λ = 40` spikes/s. No es un conteo; es una velocidad promedio.
+- Para convertir esa tasa en eventos reales se usa la **distribucion de Poisson**: en un micro-paso de duracion `Δt`, la probabilidad de que ocurra un spike es `p = λ·Δt`. Con `λ = 40` y `Δt = 1 ms`, `p = 0.04` (4 % de probabilidad por milisegundo).
+- El resultado: en 1 s se esperan 40 spikes, pero **no exactamente** 40 — pueden ser 37, 43, 41... **El numero de spikes es un entero aleatorio** con media `λ·T`. Esa fluctuacion alrededor del promedio es el **ruido de disparo (shot noise)**: la aleatoriedad de la moneda, no un error del modelo.
+- Que hace el modelo con ese promedio: la neurona sensor integra los pulsos con su `τ_m`; la membrana resultante oscila alrededor del valor que daria la inyeccion continua. El "promedio" es exactamente lo que se lee: la tasa media de disparo es la que el readout lineal interpreta como el nivel de la variable.
+
+**La cadena logica de la decision:**
+
+1. El LIF es **lineal subumbral** (§4.5.2): `E[V]` con una corriente aleatoria depende de la corriente a traves de su media.
+2. La **media del proceso de Poisson es `λ`** por definicion.
+3. Por tanto **la membrana esperada bajo rate coding es identica a la membrana con inyeccion directa**: `E[V_poisson] = V_directa`.
+4. Como el **readout es lineal** (regresion logistica), todo lo que necesita es el valor esperado. La inyeccion directa lo da **sin ruido**; Poisson lo da igual en promedio pero con fluctuaciones aleatorias en cada corrida.
+
+**Conclusion practica:** en este modelo Poisson aporta **puro ruido sin beneficio**. La inyeccion directa es determinista, reproducible y se entrena con regresion logistica exacta. Usar Poisson seria lanzar una moneda para decidir algo que ya se sabe con exactitud.
+
+**Respuesta preparada a la pregunta tipica "¿por que no usaste rate coding?":**
+
+> Porque el LIF es lineal subumbral y el readout es lineal. En ese caso la membrana esperada con rate coding Poisson es matematicamente identica a la inyeccion directa (la media del Poisson es su tasa λ). La inyeccion directa entrega ese mismo valor esperado sin el ruido de disparo, es determinista, reproducible y permite entrenar el readout con regresion logistica exacta. El rate coding queda como la version teorica/hardware del mismo modelo: la que usaria un chip neuromorfico que solo puede comunicarse por spikes. (§4.4, §4.5.4)
+
+#### 4.5.5. Como se aplicaria el rate coding a este modelo (para cuando lo pidan)
+
+Si se pidiera la variante Poisson, los cambios al pipeline serian exactamente estos (todo lo demas igual):
+
+```
+ACTUAL (inyeccion directa)                          VARIANTE RATE CODING (Poisson)
+─────────────────────────────                       ─────────────────────────────────
+x̂[t]  ∈ [0,1]   (1 valor/hora)                     λ = x̂[t]·f_max        (1 tasa/hora, real)
+dt = 1 hora                                         dt_sim = Δt (micro-pasos, p.ej. 1 ms)
+I[t] = x̂[t]                                        I[micro-paso] = spike con prob. p = λ·Δt
+V[t] = α·V[t-1] + (1−α)·x̂[t]                       V integra el tren 0/1 con el MISMO α (mismo τ_m)
+actividad a_i[t] = V_i[t]                          actividad a_i[t] = tasa de disparo ≈ x̂·f_max
+```
+
+Pasos concretos para implementarla (codigo ya esbozado en §5.2):
+
+1. **Elegir `f_max`** igual para todas las variables (ya decidido: 200 spikes/s en §6.1) y `Δt` tal que `p = x̂·f_max·Δt < 1` siempre (`Δt < 1/f_max`, p.ej. 1 ms con f_max = 200 → `p_max = 0.2`).
+2. **Simular micro-pasos**: cada hora de datos se divide en `1/Δt` micro-pasos; en cada uno se genera un spike 0/1 con probabilidad `p = x̂·f_max·Δt` (muestreo de Bernoulli, `rate_a_poisson` en §5.2).
+3. **Alimentar el LIF**: la neurona sensor integra ese tren binario con su `τ_m` normal (el mismo α). La membrana ahora oscila (cada spike la empuja y la fuga la relaja) en vez de ser una curva suave.
+4. **Leer la salida**: despues de la ventana, la actividad de la neurona es su tasa de disparo (spikes/segundo), proporcional a `x̂`. Ese es el valor que alimenta al readout lineal.
+5. **Readout**: el readout recibe las tasas (o la membrana integrada) en lugar de las membranas continuas; se entrena igual (logistica) y el resultado esperado es el mismo CSI que con inyeccion directa, salvo ruido de muestreo.
+6. **Consideracion de hardware neuromorfico**: si el destino es un chip que solo recibe spikes, el modelo se despliega con (a) codificacion Poisson a la entrada, (b) spikes como unica comunicacion entre neuronas, (c) el readout decidido por conteo de spikes en la neurona de alerta (o acumulador). El resto del diseno (τ, θ, pesos) no cambia: son los mismos parametros fijos y aprendidos.
+
+#### 4.5.6. A/B/C como ablacion de codificacion
+
+Los tres modelos con datos reales son **codificaciones distintas de la misma ecuacion** (mismos sensores, mismo entrenamiento): la diferencia es que feature ve el readout.
+
+| Modelo | Codificacion de salida del sensor | Que ve el readout | CSI (val) |
+| --- | --- | --- | --- |
+| A | continua (subumbral, sin spikes) | membranas `V_i` | 0.314 |
+| B | binaria (spike si `V ≥ θ_i`) + re-integracion por canal (`E_i`, τ_A=1 h) | `E_i` + contexto | 0.342 |
+| C | binaria + **graduada** en PRECIP (nivel de membrana `x̂_prcp`) | `E_i` + `x̂_prcp` + contexto | 0.344 |
+
+Leccion para el paper: **la codificacion decide que features ve el readout; no cambia las ecuaciones**. La mejora de A→B→C viene de que el readout ve mejor representada la informacion (evento de alarma + nivel graduado), no de alterar la dinamica del LIF.
 
 ---
 
